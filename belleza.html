@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belleza | Devon</title>
+    <!-- Ícono de la pestaña (Favicon) -->
+    <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Jost', 'sans-serif'],
+                        serif: ['"Bodoni Moda"', 'serif'],
+                    },
+                    colors: {
+                        brandPink: '#E8A5D6',
+                        brandDark: '#0B1320',
+                        brandGray: '#F2F2F2',
+                        vanCleefBg: '#E5F0E6'
+                    },
+                    letterSpacing: {
+                        widest: '.2em',
+                        wider: '.1em'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* --- Sincronización Animaciones (Letra O principal) --- */
+        @keyframes slashAnim {
+            0%, 20% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
+            30%, 70% { width: 140%; opacity: 1; transform: rotate(-45deg) scaleX(1); }
+            80%, 100% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
+        }
+        
+        .animated-slash {
+            position: absolute;
+            height: 3px;
+            background-color: black;
+            border-radius: 2px;
+            transform-origin: center;
+            animation: slashAnim 4s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* --- Utilidades Extras (Sidebar) --- */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar nav a {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .sidebar.open nav a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .sidebar.open nav a:nth-child(1) { transition-delay: 0.10s; }
+        .sidebar.open nav a:nth-child(2) { transition-delay: 0.15s; }
+        .sidebar.open nav a:nth-child(3) { transition-delay: 0.20s; }
+        .sidebar.open nav a:nth-child(4) { transition-delay: 0.25s; }
+        .sidebar.open nav a:nth-child(5) { transition-delay: 0.30s; }
+        .sidebar.open nav a:nth-child(6) { transition-delay: 0.35s; }
+        .sidebar.open nav a:nth-child(7) { transition-delay: 0.40s; }
+        .sidebar.open nav a:nth-child(8) { transition-delay: 0.45s; }
+        .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
+        .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
+    </style>
+</head>
+<body class="bg-white text-black font-sans flex flex-col min-h-screen">
+
+    <!-- Overlay y Sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
+    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-2xl flex flex-col">
+        <div class="p-5 flex justify-between items-center border-b border-gray-100">
+            <h2 class="text-xl font-bold tracking-widest">MENÚ</h2>
+            <button onclick="toggleMenu()" class="text-gray-500 hover:text-black p-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-600 uppercase overflow-y-auto no-scrollbar pb-20">
+            <a href="suscripcion.html" class="text-black hover:bg-gray-50 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Espacio Devon</a>
+        </nav>
+    </aside>
+
+    <!-- Barra de Navegación Principal -->
+    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-100 md:border-none">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
+            <button onclick="toggleMenu()" class="text-black z-20 hover:scale-110 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                    <line x1="3" y1="16" x2="21" y2="16"></line>
+                </svg>
+            </button>
+            
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center z-10">
+                <!-- Envolvemos el texto DEVON en un enlace -->
+                <a href="index.html" class="flex items-center group/logo hover:opacity-80 transition-opacity">
+                    <h1 id="devon-text" class="text-4xl md:text-5xl font-bold tracking-widest text-black mt-1 flex items-center font-serif uppercase">
+                        DEV
+                        <span class="relative inline-flex items-center justify-center group">
+                            O
+                            <span class="animated-slash group-hover:bg-brandPink group-hover:shadow-[0_0_8px_#E8A5D6] transition-colors duration-300"></span>
+                        </span>
+                        N
+                    </h1>
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-4 z-20">
+                <!-- Botón SUSCRIPCIÓN -->
+                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1 md:mr-0" style="font-family: 'Jost', sans-serif;">
+                    SUSCRIPCIÓN
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Top Bar -->
+    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
+        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+        <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors border-b border-black pb-0.5">BELLEZA</a> <!-- Resaltado en Belleza -->
+        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+        <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+        <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+        <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+        <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
+    </div>
+
+    <!-- Pestañas Superiores (Solo Móvil) -->
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
+        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
+            LO ÚLTIMO
+        </a>
+        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-[#f0f0f0] border-l border-gray-200 hover:bg-gray-200 transition-colors cursor-pointer">
+            TENDENCIAS
+        </a>
+    </div>
+
+    <!-- BANNER PUBLICIDAD: Van Cleef & Arpels -->
+    <section class="w-full relative flex items-center justify-center overflow-hidden border-b border-gray-200 min-h-[220px] md:min-h-[280px]">
+        <img 
+            src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
+            alt="Fondo Van Cleef" 
+            class="absolute inset-0 w-full h-full object-cover object-center z-0"
+        />
+        <div class="max-w-7xl w-full flex flex-col items-center md:items-start text-center md:text-left z-10 px-6 md:px-12 py-8 md:py-10 relative">
+            <h2 class="text-2xl md:text-4xl text-black mb-2" style="font-family: 'Georgia', 'Times New Roman', serif;">Van Cleef & Arpels</h2>
+            <p class="text-[10px] md:text-xs text-gray-800 mb-4" style="font-family: 'Georgia', 'Times New Roman', serif;">Haute Joaillerie, place Vendôme desde 1906</p>
+            
+            <div class="mb-4 text-black opacity-90 flex items-center justify-center md:justify-start">
+                <svg width="30" height="20" viewBox="0 0 36 24">
+                    <polygon points="18,1 35,12 18,23 1,12" fill="none" stroke="currentColor" stroke-width="1.2"></polygon>
+                    <text x="18" y="15" font-size="7" font-family="serif" text-anchor="middle" fill="currentColor">VCA</text>
+                </svg>
+            </div>
+            
+            <a href="coleccionlucky.html" class="text-[9px] md:text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:text-gray-600 transition-colors">
+                DESCUBRE LA COLECCIÓN LUCKY SPRING
+            </a>
+        </div>
+    </section>
+
+    <!-- Contenedor Principal -->
+    <main class="w-full flex-1 pb-20">
+        
+        <!-- Encabezado de Sección: Belleza -->
+        <section class="max-w-5xl mx-auto px-6 pt-16 md:pt-20 flex flex-col items-center text-center">
+            <h1 class="text-5xl md:text-7xl text-black mb-6 font-serif">Belleza</h1>
+            
+            <p class="text-[15px] md:text-[17px] leading-relaxed text-black max-w-[850px] mb-16 font-serif">
+                Rutinas de belleza, tendencias de maquillaje, corte de pelo de temporada. Desde consejos de bienestar, peinados hasta cómo cuidar tu piel.
+            </p>
+        </section>
+
+        <!-- Cuadrícula de Artículos (Los 3 Chicos) -->
+        <section class="max-w-[1200px] mx-auto px-6 mb-24">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                
+                <!-- Artículo 1 -->
+                <a href="#" class="flex flex-col group cursor-pointer h-full">
+                    <div class="w-full aspect-square overflow-hidden mb-5 bg-gray-100 relative">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop" alt="Chico 1" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out">
+                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-black mb-3 font-sans">BELLEZA</span>
+                    <h3 class="text-base md:text-[17px] font-medium text-black leading-snug mb-5 font-sans group-hover:text-gray-600 transition-colors">
+                        Los peinados de moda para Primavera-Verano 2026: Los expertos los llevan así
+                    </h3>
+                    <div class="mt-auto flex flex-col pt-2">
+                        <span class="text-[9px] font-bold tracking-[0.15em] uppercase text-black mb-1.5 font-sans">POR ALONSO ALVAREZ</span>
+                        <span class="text-[11px] text-gray-600 font-sans">2 de abril de 2026</span>
+                    </div>
+                </a>
+
+                <!-- Artículo 2 -->
+                <a href="#" class="flex flex-col group cursor-pointer h-full">
+                    <div class="w-full aspect-square overflow-hidden mb-5 bg-gray-100 relative">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" alt="Chico 2" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out">
+                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-black mb-3 font-sans">BELLEZA</span>
+                    <h3 class="text-base md:text-[17px] font-medium text-black leading-snug mb-5 font-sans group-hover:text-gray-600 transition-colors">
+                        Si tienes el pelo fino, estos son los 5 primeros signos de que tu cabello se está debilitando
+                    </h3>
+                    <div class="mt-auto flex flex-col pt-2">
+                        <span class="text-[9px] font-bold tracking-[0.15em] uppercase text-black mb-1.5 font-sans">POR ALONSO ALVAREZ</span>
+                        <span class="text-[11px] text-gray-600 font-sans">2 de abril de 2026</span>
+                    </div>
+                </a>
+
+                <!-- Artículo 3 -->
+                <a href="#" class="flex flex-col group cursor-pointer h-full">
+                    <div class="w-full aspect-square overflow-hidden mb-5 bg-gray-100 relative">
+                        <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=800&auto=format&fit=crop" alt="Chico 3" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out">
+                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-black mb-3 font-sans">BELLEZA</span>
+                    <h3 class="text-base md:text-[17px] font-medium text-black leading-snug mb-5 font-sans group-hover:text-gray-600 transition-colors">
+                        Auriculoterapia con semillas en las orejas, cómo funciona y cómo resetear el sistema nervioso
+                    </h3>
+                    <div class="mt-auto flex flex-col pt-2">
+                        <span class="text-[9px] font-bold tracking-[0.15em] uppercase text-black mb-1.5 font-sans">POR ALONSO ALVAREZ</span>
+                        <span class="text-[11px] text-gray-600 font-sans">2 de abril de 2026</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER: Diseño estilo Vogue -->
+    <footer class="bg-black text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+            
+            <!-- Columna Izquierda: Logo y Redes -->
+            <div class="md:col-span-4 flex flex-col items-start">
+                <a href="index.html" class="hover:opacity-80 transition-opacity">
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-widest mb-8 font-serif uppercase">DEVON</h2>
+                </a>
+                
+                <div class="flex gap-3">
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.04-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7.5v4H10v9.5h4v-9.5z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.872.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-3.957 1.406-3.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345l-.288 1.183c-.053.189-.168.223-.332.149-1.229-.556-1.996-2.311-1.996-3.719 0-3.037 2.203-5.834 6.368-5.834 3.346 0 5.952 2.385 5.952 5.568 0 3.325-2.096 6.002-5.008 6.002-1.024 0-1.99-.533-2.321-1.164l-.634 2.417c-.229.873-.853 1.96-1.272 2.624 1.139.317 2.339.489 3.585.489 6.621 0 11.988-5.367 11.988-11.987C24.005 5.367 18.638 0 12.017 0z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.525.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.63-.52 3.26-1.5 4.54-1.15 1.5-2.9 2.45-4.81 2.76-1.89.31-3.88.08-5.59-.83-1.69-.9-2.99-2.43-3.6-4.18-.62-1.78-.6-3.72.07-5.48.68-1.79 2.08-3.25 3.8-4.05 1.7-.8 3.65-1.05 5.5-.72v4.06c-.85-.11-1.74-.03-2.52.33-.78.36-1.42 1-1.8 1.75-.38.75-.46 1.64-.22 2.42.24.78.78 1.45 1.49 1.83.71.39 1.57.48 2.35.26.78-.22 1.44-.75 1.84-1.47.4-.73.53-1.6.36-2.42v-14z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Columna Central: MÁS EN DEVON -->
+            <div class="md:col-span-4 md:pl-8">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">MÁS EN DEVON</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
+                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
+                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
+                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
+                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna Derecha: CONDÉ NAST MÉXICO -->
+            <div class="md:col-span-4">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">CONDÉ NAST MÉXICO</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
+                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
+                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
+                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
+                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Línea separadora inferior y Links Legales -->
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
+            
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-400 uppercase">
+                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
+                <span class="text-gray-700">|</span>
+                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                <span class="text-gray-700">|</span>
+                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
+                <span class="text-gray-700">|</span>
+                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
+                <span class="text-gray-700">|</span>
+                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
+                <span class="text-gray-700">|</span>
+                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
+                <span class="text-gray-700">|</span>
+                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
+            </div>
+
+            <!-- Botón México -->
+            <button class="flex items-center gap-2 border border-gray-700 px-4 py-2 text-xs font-normal hover:border-gray-400 transition-colors text-white tracking-wide shrink-0">
+                México
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+        </div>
+    </footer>
+
+    <!-- SCIPT DE INTERACCIONES GLOBALES -->
+    <script>
+        // --- 1. Funciones Globales (Menú Hamburguesa) ---
+        const overlay = document.getElementById('overlay');
+        const sidebar = document.getElementById('sidebarMenu');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('open');
+            if (sidebar.classList.contains('open')) {
+                showOverlay();
+            } else {
+                hideOverlay();
+            }
+        }
+
+        function closeMenu() { sidebar.classList.remove('open'); }
+        
+        function showOverlay() {
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+        }
+        function hideOverlay() {
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+            closeMenu();
+        }
+        function closeAll() { hideOverlay(); }
+    </script>
+</body>
+</html>
