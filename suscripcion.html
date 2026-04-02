@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suscripción | Devon</title>
+    <!-- Ícono de la pestaña (Favicon) -->
+    <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Jost', 'sans-serif'],
+                        serif: ['"Bodoni Moda"', 'serif'],
+                    },
+                    colors: {
+                        brandPink: '#E8A5D6',
+                        brandDark: '#0B1320',
+                        brandGray: '#F2F2F2',
+                        vanCleefBg: '#E5F0E6'
+                    },
+                    letterSpacing: {
+                        widest: '.2em',
+                        wider: '.1em'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* --- Sincronización Animaciones (Letra O principal) --- */
+        @keyframes slashAnim {
+            0%, 20% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
+            30%, 70% { width: 140%; opacity: 1; transform: rotate(-45deg) scaleX(1); }
+            80%, 100% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
+        }
+        
+        .animated-slash {
+            position: absolute;
+            height: 3px;
+            background-color: black;
+            border-radius: 2px;
+            transform-origin: center;
+            animation: slashAnim 4s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* --- Utilidades Extras (Sidebar) --- */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar nav a {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .sidebar.open nav a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .sidebar.open nav a:nth-child(1) { transition-delay: 0.10s; }
+        .sidebar.open nav a:nth-child(2) { transition-delay: 0.15s; }
+        .sidebar.open nav a:nth-child(3) { transition-delay: 0.20s; }
+        .sidebar.open nav a:nth-child(4) { transition-delay: 0.25s; }
+        .sidebar.open nav a:nth-child(5) { transition-delay: 0.30s; }
+        .sidebar.open nav a:nth-child(6) { transition-delay: 0.35s; }
+        .sidebar.open nav a:nth-child(7) { transition-delay: 0.40s; }
+        .sidebar.open nav a:nth-child(8) { transition-delay: 0.45s; }
+        .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
+        .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
+
+        /* --- Animación de Línea para los Enlaces --- */
+        .link-underline {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1.5px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease-in-out;
+        }
+        .link-underline:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white text-black font-sans flex flex-col min-h-screen">
+
+    <!-- Overlay y Sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
+    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-2xl flex flex-col">
+        <div class="p-5 flex justify-between items-center border-b border-gray-100">
+            <h2 class="text-xl font-bold tracking-widest">MENÚ</h2>
+            <button onclick="toggleMenu()" class="text-gray-500 hover:text-black p-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-600 uppercase overflow-y-auto no-scrollbar pb-20">
+            <a href="suscripcion.html" class="text-black bg-gray-50 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Espacio Devon</a>
+        </nav>
+    </aside>
+
+    <!-- Barra de Navegación Principal -->
+    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-100 md:border-none">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
+            <button onclick="toggleMenu()" class="text-black z-20 hover:scale-110 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                    <line x1="3" y1="16" x2="21" y2="16"></line>
+                </svg>
+            </button>
+            
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center z-10">
+                <a href="index.html" class="flex items-center group/logo hover:opacity-80 transition-opacity">
+                    <h1 id="devon-text" class="text-4xl md:text-5xl font-bold tracking-widest text-black mt-1 flex items-center font-serif uppercase">
+                        DEV
+                        <span class="relative inline-flex items-center justify-center group">
+                            O
+                            <span class="animated-slash group-hover:bg-brandPink group-hover:shadow-[0_0_8px_#E8A5D6] transition-colors duration-300"></span>
+                        </span>
+                        N
+                    </h1>
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-4 z-20">
+                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black border-b border-black pb-1 mr-1 md:mr-0 transition-colors" style="font-family: 'Jost', sans-serif;">
+                    SUSCRIPCIÓN
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Top Bar (Textos Categorías) -->
+    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
+        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+        <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+        <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+        <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+        <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+        <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
+    </div>
+
+    <!-- Pestañas Superiores (Solo Móvil) -->
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase border-b border-gray-200">
+        <a href="suscripcion.html" class="w-full py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
+            SUSCRIBIRSE
+        </a>
+    </div>
+
+    <!-- BANNER: Van Cleef & Arpels (Hasta arriba) -->
+    <section class="w-full relative flex items-center justify-center overflow-hidden border-b border-gray-200 min-h-[220px] md:min-h-[280px]">
+        <img 
+            src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
+            alt="Fondo Van Cleef" 
+            class="absolute inset-0 w-full h-full object-cover object-center z-0"
+        />
+        <div class="max-w-7xl w-full flex flex-col items-center md:items-start text-center md:text-left z-10 px-6 md:px-12 py-8 md:py-10 relative">
+            <h2 class="text-2xl md:text-4xl text-black mb-2" style="font-family: 'Georgia', 'Times New Roman', serif;">Van Cleef & Arpels</h2>
+            <p class="text-[10px] md:text-xs text-gray-800 mb-4" style="font-family: 'Georgia', 'Times New Roman', serif;">Haute Joaillerie, place Vendôme desde 1906</p>
+            
+            <div class="mb-4 text-black opacity-90 flex items-center justify-center md:justify-start">
+                <svg width="30" height="20" viewBox="0 0 36 24">
+                    <polygon points="18,1 35,12 18,23 1,12" fill="none" stroke="currentColor" stroke-width="1.2"></polygon>
+                    <text x="18" y="15" font-size="7" font-family="serif" text-anchor="middle" fill="currentColor">VCA</text>
+                </svg>
+            </div>
+            
+            <a href="coleccionlucky.html" class="text-[9px] md:text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:text-gray-600 transition-colors">
+                DESCUBRE LA COLECCIÓN LUCKY SPRING
+            </a>
+        </div>
+    </section>
+
+    <!-- Contenedor Principal: Opciones de Compra -->
+    <main class="w-full flex-1 bg-white pt-12 md:pt-16">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+            
+            <!-- Columna Izquierda: Imagen Portada -->
+            <div class="lg:col-span-5 relative group">
+                <img 
+                    src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1775165438/ChatGPT_Image_2_abr_2026_03_30_21_p.m._oacvxt.png" 
+                    alt="Devon México Cover" 
+                    class="w-full h-auto object-cover shadow-sm transition-transform duration-700 hover:scale-[1.02]"
+                />
+            </div>
+
+            <!-- Columna Derecha: Detalles del Producto -->
+            <div class="lg:col-span-7 flex flex-col justify-start">
+                
+                <!-- Breadcrumb -->
+                <div class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-4 font-sans">
+                    <a href="index.html" class="hover:text-black transition-colors">Inicio</a> <span class="mx-1">/</span> <span class="text-black">Devon México</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl font-serif text-black mb-3">Devon México</h1>
+                <p class="text-2xl text-black font-sans mb-8 font-medium">$412.00 MXN</p>
+                
+                <!-- Opciones de Suscripción -->
+                <div class="space-y-6 mb-10 font-sans">
+                    
+                    <!-- Fila 1: Suscripción -->
+                    <div>
+                        <h3 class="text-[11px] font-bold tracking-widest uppercase text-black mb-3">Suscripción</h3>
+                        <div class="flex gap-3 md:gap-4">
+                            <button class="flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
+                                Semestral
+                            </button>
+                            <button class="flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
+                                Anual
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Fila 2: Tipo -->
+                    <div>
+                        <h3 class="text-[11px] font-bold tracking-widest uppercase text-black mb-3">Tipo</h3>
+                        <div class="flex gap-3 md:gap-4">
+                            <button class="flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
+                                Digital
+                            </button>
+                            <button class="flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
+                                Print
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Fila 3: Origen -->
+                    <div>
+                        <h3 class="text-[11px] font-bold tracking-widest uppercase text-black mb-3">Origen de Suscriptor</h3>
+                        <div class="relative w-full md:max-w-[300px]">
+                            <select class="w-full border border-gray-300 p-3 text-xs text-black font-medium tracking-wide uppercase bg-white focus:outline-none focus:border-black appearance-none cursor-pointer">
+                                <option value="mexico">México</option>
+                                <option value="puerto-rico">Puerto Rico</option>
+                                <option value="argentina">Argentina</option>
+                                <option value="chile">Chile</option>
+                                <option value="colombia">Colombia</option>
+                                <option value="panama">Panamá</option>
+                                <option value="us">US</option>
+                                <option value="peru">Perú</option>
+                                <option value="dominicana">Dominicana</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-black">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen de Compra -->
+                <div class="bg-gray-50 p-6 md:p-8 border border-gray-100 mb-8 font-sans transition-all duration-500" id="purchaseBox">
+                    <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-black mb-2">Opciones de compra</h3>
+                    
+                    <div class="border-b border-gray-200 py-4 mb-5">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-1 gap-2">
+                            <span class="font-bold text-base text-black">Suscripción Semestral</span>
+                            <span class="font-bold text-base text-black">$412.00 MXN</span>
+                        </div>
+                        <p class="text-sm text-gray-500 font-medium">6 meses | Suscripción</p>
+                    </div>
+                    
+                    <p class="text-sm text-gray-600 mb-6 leading-relaxed">
+                        El cobro de la suscripción se hará en un pago único cada seis (6) meses. Recibirás hasta 6 ediciones al semestre.
+                    </p>
+                    
+                    <button id="btnSubscribeNow" class="w-full bg-black text-white py-4 text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-gray-800 transition-colors flex items-center justify-center">
+                        <span id="btnText">SUSCRIBIRME AHORA</span>
+                        <svg id="btnIcon" class="w-4 h-4 ml-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Detalles y Viñetas -->
+                <div class="font-sans text-[15px] text-gray-700 leading-relaxed space-y-4 mb-10">
+                    <p>Suscríbete y recibe las ediciones de la Biblia de la Moda.</p>
+                    <p class="font-medium">Suscripción Anual: <span class="font-normal">hasta 10 ejemplares al año</span></p>
+                    <p class="font-medium">Suscripción Semestral: <span class="font-normal">hasta 6 ejemplares al semestre</span></p>
+                    <p class="text-[13px] text-gray-500 mt-4">*Al suscribirte a Devon Anual Print o Sin Papel, eres elegible para participar en el Club del Libro de Devon, con previo registro.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Textos Inferiores: Políticas e Info Extra -->
+        <div class="max-w-6xl mx-auto px-6 mt-10 pt-16 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 font-sans">
+            
+            <!-- Columna Izquierda: Políticas y Envío -->
+            <div class="pr-0 md:pr-4">
+                
+                <h3 class="text-[15px] font-medium text-black mb-3">Origen de suscriptor</h3>
+                <p class="text-[14px] text-gray-600 leading-relaxed mb-8">
+                    Independientemente del país señalado como "Origen de suscriptor", esta suscripción únicamente corresponde a nuestras revistas versión México o Latinoamérica, según haya sido seleccionado por el usuario. No existen otras versiones disponibles a través de este Sitio.
+                </p>
+
+                <h3 class="text-[15px] font-medium text-black mb-3">Renovación automática y cancelación</h3>
+                <p class="text-[14px] text-gray-600 leading-relaxed mb-8">
+                    Después del primer año, tu suscripción se renovará automáticamente al precio actual, notificando antes de cada renovación. Si no cancelas, se realizará el cobro con la forma de pago que hayas seleccionado. Puedes cancelar en cualquier momento a través de nuestro call center ó mandando un correo a <a href="mailto:suscripciones@devon.mx" class="text-black hover:underline transition-colors">suscripciones@devon.mx</a>
+                </p>
+
+                <!-- Beneficios Extras / Iconos Envío -->
+                <div class="flex items-center gap-3 mb-4 text-[14px] text-gray-800">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    <span>Envío a todo México</span>
+                </div>
+                <div class="flex items-center gap-3 text-[14px] text-gray-800">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span>El pago final se realizará en pesos mexicanos.</span>
+                </div>
+
+            </div>
+
+            <!-- Columna Derecha: ¿Por qué Devon? -->
+            <div class="pl-0 md:pl-4">
+                <h3 class="text-3xl md:text-4xl font-serif text-black mb-10 leading-tight text-center md:text-left">¿Por qué suscribirte a Devon México y Latinoamérica?</h3>
+                
+                <h4 class="text-[12px] font-bold tracking-[0.2em] uppercase text-black mb-5 text-center md:text-left">SUSCRIBIRTE A DEVON ES:</h4>
+                <ul class="space-y-4 mb-12 text-[14px] text-gray-600">
+                    <li class="flex items-start">
+                        <span class="mr-3 text-black text-[10px] mt-1.5">●</span> 
+                        <span>Lo ultimo en moda, belleza, cultura y estilo de vida</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-3 text-black text-[10px] mt-1.5">●</span> 
+                        <span>Guía e inspiración del mundo exclusivo de lujo y moda</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-3 text-black text-[10px] mt-1.5">●</span> 
+                        <span>Sé el primero en conocer las tendencias globales</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-3 text-black text-[10px] mt-1.5">●</span> 
+                        <span>Únete a una comunidad de expertos en moda como tú</span>
+                    </li>
+                </ul>
+
+                <h4 class="text-[12px] font-bold tracking-[0.2em] uppercase text-black mb-5 text-center md:text-left">EN DEVON ENCONTRARÁS EL MEJOR CONTENIDO EN:</h4>
+                <ul class="space-y-3 text-[14px] text-gray-600">
+                    <li class="flex items-center"><span class="mr-3 text-black text-[10px]">●</span> Moda</li>
+                    <li class="flex items-center"><span class="mr-3 text-black text-[10px]">●</span> Belleza</li>
+                    <li class="flex items-center"><span class="mr-3 text-black text-[10px]">●</span> Lujo</li>
+                    <li class="flex items-center"><span class="mr-3 text-black text-[10px]">●</span> Cultura</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- DEVON 2026: EDICIONES DEL AÑO -->
+        <div class="max-w-6xl mx-auto px-6 mt-20 text-center font-sans">
+            <h2 class="text-xl md:text-2xl font-serif tracking-[0.15em] text-black uppercase mb-12">DEVON 2026: EDICIONES DEL AÑO</h2>
+        </div>
+
+        <!-- Bloque Final: Paquetes y Biblia de la Moda -->
+        <div class="w-full border-t border-gray-200 mt-16 py-20 font-sans bg-[#fafafa]">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                
+                <h2 class="text-2xl md:text-3xl font-serif text-black mb-3">¿Quieres acceder a más contenido de Devon?</h2>
+                <p class="text-lg md:text-xl text-gray-700 font-serif mb-8">Conoce nuestros paquetes exclusivos</p>
+                
+                <a href="#" class="inline-block bg-[#1a1a1a] text-white px-8 py-4 text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-black transition-colors mb-24">
+                    ¡HAZ CLIC PARA SABER MÁS!
+                </a>
+
+                <div class="w-full border-t border-gray-300 pt-16">
+                    <h2 class="text-4xl md:text-5xl font-serif text-black mb-6">La Biblia de la Moda</h2>
+                    <p class="text-lg md:text-xl text-gray-800 font-sans mb-3">Antes de estar de moda, está en Devon</p>
+                    <a href="https://bit.ly/devonrevist" target="_blank" class="text-lg md:text-xl font-bold text-black hover:underline">bit.ly/devonrevist</a>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER: Diseño estilo Devon -->
+    <footer class="bg-black text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+            
+            <!-- Columna Izquierda: Logo y Redes -->
+            <div class="md:col-span-4 flex flex-col items-start">
+                <a href="index.html" class="hover:opacity-80 transition-opacity">
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-widest mb-8 font-serif uppercase">DEVON</h2>
+                </a>
+                
+                <div class="flex gap-3">
+                    <!-- FB -->
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.04-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7.5v4H10v9.5h4v-9.5z"/></svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <!-- X -->
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.872.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Columna Central: MÁS EN DEVON -->
+            <div class="md:col-span-4 md:pl-8">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">MÁS EN DEVON</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna Derecha: Contacto (Editado sin correos de Condé Nast) -->
+            <div class="md:col-span-4">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">CONTACTO / SUSCRIPCIONES</h4>
+                <ul class="text-[11px] font-normal tracking-wide text-gray-300 space-y-4 font-sans">
+                    <li>
+                        <span class="block text-gray-500 mb-1 text-[10px] uppercase font-bold tracking-widest">Línea de atención:</span>
+                        +52 55 5062-3746
+                    </li>
+                    <li>
+                        <span class="block text-gray-500 mb-1 text-[10px] uppercase font-bold tracking-widest">Horarios:</span>
+                        Lunes a Viernes de 8:00 a 19:00 hrs<br>
+                        Sábados de 9:00 a 17:00 hrs
+                    </li>
+                    <li>
+                        <span class="block text-gray-500 mb-1 text-[10px] uppercase font-bold tracking-widest">Correo electrónico:</span>
+                        <a href="mailto:suscripciones@devon.mx" class="hover:text-white transition-colors">suscripciones@devon.mx</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Línea separadora inferior y Links Legales -->
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
+            
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-400 uppercase">
+                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
+                <span class="text-gray-700">|</span>
+                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                <span class="text-gray-700">|</span>
+                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
+                <span class="text-gray-700">|</span>
+                <a href="suscripcion.html" class="hover:text-white transition-colors text-white border-b border-white pb-0.5">Suscripción</a>
+            </div>
+
+            <!-- Botón México -->
+            <button class="flex items-center gap-2 border border-gray-700 px-4 py-2 text-xs font-normal hover:border-gray-400 transition-colors text-white tracking-wide shrink-0">
+                México
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+        </div>
+    </footer>
+
+    <!-- SCIPT DE INTERACCIONES GLOBALES -->
+    <script>
+        const overlay = document.getElementById('overlay');
+        const sidebar = document.getElementById('sidebarMenu');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('open');
+            if (sidebar.classList.contains('open')) {
+                showOverlay();
+            } else {
+                hideOverlay();
+            }
+        }
+
+        function closeMenu() { sidebar.classList.remove('open'); }
+        
+        function showOverlay() {
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+        }
+        function hideOverlay() {
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+            closeMenu();
+        }
+        function closeAll() { hideOverlay(); }
+
+        // --- Simulación de Compra de Suscripción con Memoria ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const btnSubscribeNow = document.getElementById("btnSubscribeNow");
+            const btnText = document.getElementById("btnText");
+            const btnIcon = document.getElementById("btnIcon");
+
+            // Comprobar si ya compró (para cambiar el estado del botón al cargar)
+            if (localStorage.getItem("devonSubscribed") === "true") {
+                setSubscribedState();
+            }
+
+            if (btnSubscribeNow) {
+                btnSubscribeNow.addEventListener("click", () => {
+                    // Si ya está suscrito, no hace nada
+                    if (localStorage.getItem("devonSubscribed") === "true") return;
+
+                    // Cambiar a estado de carga
+                    btnText.innerText = "PROCESANDO...";
+                    btnSubscribeNow.classList.add("opacity-80", "cursor-wait");
+
+                    // Simular retraso de compra
+                    setTimeout(() => {
+                        localStorage.setItem("devonSubscribed", "true");
+                        setSubscribedState();
+                    }, 1200);
+                });
+            }
+
+            function setSubscribedState() {
+                btnSubscribeNow.classList.remove("bg-black", "hover:bg-gray-800", "cursor-wait", "opacity-80");
+                btnSubscribeNow.classList.add("bg-[#E5F0E6]", "text-black", "border", "border-[#b6cfb8]", "cursor-default");
+                btnText.innerText = "¡GRACIAS POR SUSCRIBIRTE!";
+                btnText.classList.add("text-black");
+                btnIcon.classList.remove("hidden");
+                btnIcon.classList.add("text-black");
+            }
+        });
+    </script>
+</body>
+</html>
