@@ -136,6 +136,8 @@
         .sidebar.open nav a:nth-child(6) { transition-delay: 0.35s; }
         .sidebar.open nav a:nth-child(7) { transition-delay: 0.40s; }
         .sidebar.open nav a:nth-child(8) { transition-delay: 0.45s; }
+        .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
+        .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
 
         /* --- Animación de Línea para los Enlaces --- */
         .link-underline {
@@ -202,15 +204,16 @@
             </button>
         </div>
         <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-600 uppercase overflow-y-auto no-scrollbar pb-20">
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Inicio</a>
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Moda</a>
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Belleza</a>
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Estilo de Vida</a>
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Compras</a>
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">(Re)Devon</a>
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Hollywood</a>
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Podcast</a>
-            <a href="#" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Espacio Devon</a>
+            <a href="suscripcion.html" class="text-black hover:bg-gray-50 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Espacio Devon</a>
         </nav>
     </aside>
 
@@ -244,7 +247,7 @@
             
             <div class="flex items-center gap-4 z-20">
                 <!-- Botón SUSCRIPCIÓN agregado -->
-                <a href="#" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1" style="font-family: 'Jost', sans-serif;">
+                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1" style="font-family: 'Jost', sans-serif;">
                     SUSCRIPCIÓN
                 </a>
                 
@@ -261,24 +264,24 @@
 
     <!-- Top Bar (Textos Modas/Belleza con tipografía editorial) -->
     <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
-        <span class="cursor-pointer hover:text-gray-500 transition-colors" data-target-slide="1">MODA</span>
-        <span class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</span>
-        <span class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</span>
-        <span class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</span>
-        <span class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</span>
-        <span class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</span>
-        <span class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</span>
-        <span class="cursor-pointer hover:text-gray-500 transition-colors" data-target-slide="2">ESPACIO DEVON</span>
+        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+        <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+        <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+        <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+        <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+        <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
     </div>
 
     <!-- Pestañas Superiores (Solo Móvil) -->
     <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
-        <button class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
+        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
             LO ÚLTIMO
-        </button>
-        <button class="w-1/2 py-4 flex items-center justify-center bg-[#f0f0f0] border-l border-gray-200 hover:bg-gray-200 transition-colors cursor-pointer">
+        </a>
+        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-[#f0f0f0] border-l border-gray-200 hover:bg-gray-200 transition-colors cursor-pointer">
             TENDENCIAS
-        </button>
+        </a>
     </div>
 
     <!-- BANNER NUEVO: Van Cleef & Arpels (Altura recortada) -->
@@ -299,7 +302,7 @@
                 </svg>
             </div>
             
-            <a href="#" class="text-[9px] md:text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:text-gray-600 transition-colors">
+            <a href="coleccionlucky.html" class="text-[9px] md:text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:text-gray-600 transition-colors">
                 DESCUBRE LA COLECCIÓN LUCKY SPRING
             </a>
         </div>
@@ -455,16 +458,16 @@
             <div class="md:col-span-4 md:pl-8">
                 <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">MÁS EN DEVON</h4>
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="#" class="hover:text-white transition-colors">Moda</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Belleza</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Estilo de Vida</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Compras</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">(Re)Devon</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Red Carpet</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Pasarelas</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Videos</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Espacio Devon</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">PhotoDevon</a></li>
+                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
+                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
+                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
+                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
+                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
                 </ul>
             </div>
 
@@ -472,11 +475,11 @@
             <div class="md:col-span-4">
                 <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">CONDÉ NAST MÉXICO</h4>
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="#" class="hover:text-white transition-colors">AD</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Glamour</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Devon</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">GQ</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Wired</a></li>
+                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
+                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
+                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
+                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
+                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
                 </ul>
             </div>
         </div>
@@ -485,19 +488,19 @@
         <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
             
             <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-400 uppercase">
-                <a href="#" class="hover:text-white transition-colors">Convenio del Usuario</a>
+                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-white transition-colors">Quiénes Somos</a>
+                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-white transition-colors">Media Kit</a>
+                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-white transition-colors">Newsletter</a>
+                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-white transition-colors">Suscripción</a>
+                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-white transition-colors">Site Map</a>
+                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
             </div>
 
             <!-- Botón México -->
@@ -800,28 +803,6 @@
                         slideInterval = setInterval(nextSlide, 4500);
                     });
                 });
-
-                // --- Navegación de botones temporales (Moda, Espacio Devon) al carrusel ---
-                const slideLinks = document.querySelectorAll('[data-target-slide]');
-                slideLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetSlide = parseInt(link.getAttribute('data-target-slide'));
-                        
-                        // Scroll suave hacia el carrusel
-                        const heroSection = document.getElementById('hero-anim-container');
-                        if(heroSection) {
-                            const yOffset = -120; // Ajuste para que la barra de navegación no tape la imagen
-                            const y = heroSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                            window.scrollTo({top: y, behavior: 'smooth'});
-                        }
-
-                        // Cambiar la diapositiva del carrusel inmediatamente
-                        clearInterval(slideInterval);
-                        showSlide(targetSlide);
-                        slideInterval = setInterval(nextSlide, 4500);
-                    });
-                });
             }
 
             // --- 4. Lógica de Scroll ---
@@ -837,8 +818,8 @@
             });
 
             // --- 5. Interacción de Elementos "No Disponibles" ---
-            // Modificamos el selector para ignorar los botones que ahora sí tienen función (data-target-slide)
-            const unavailableElements = document.querySelectorAll('a[href="#"], div.hidden.md\\:flex span:not([data-target-slide]), div.flex.md\\:hidden button');
+            // Solo los enlaces con href="#" (como las redes sociales en el footer) activarán la Isla Dinámica de "No Disponible"
+            const unavailableElements = document.querySelectorAll('a[href="#"]');
             unavailableElements.forEach(el => {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
