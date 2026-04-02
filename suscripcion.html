@@ -285,6 +285,31 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Fila 4: Cupón -->
+                    <div class="pt-2">
+                        <button type="button" id="toggleCouponBtn" class="flex items-center text-[11px] font-bold tracking-widest uppercase text-black hover:text-gray-500 transition-colors outline-none group">
+                            AGREGAR CUPÓN
+                            <svg id="couponIcon" class="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div id="couponArea" class="max-h-0 overflow-hidden transition-all duration-500 opacity-0">
+                            <div class="pt-4 pb-1">
+                                <div class="flex gap-2 mb-3">
+                                    <input type="text" id="couponInput" placeholder="Ingresa tu cupón" class="flex-1 border border-gray-300 p-3 text-xs text-black font-bold tracking-widest uppercase bg-white focus:outline-none focus:border-black placeholder-gray-400">
+                                    <button type="button" id="applyCouponBtn" class="bg-black text-white px-5 text-[11px] font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors">Aplicar</button>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-2">
+                                    <button type="button" class="coupon-tag border border-gray-200 px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-black hover:text-black transition-colors" data-code="PROMO10">PROMO10</button>
+                                    <button type="button" class="coupon-tag border border-gray-200 px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-black hover:text-black transition-colors" data-code="DEVON20">DEVON20</button>
+                                    <button type="button" class="coupon-tag border border-gray-200 px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-black hover:text-black transition-colors" data-code="FASHION30">FASHION30</button>
+                                </div>
+                                <div class="h-4">
+                                    <p id="couponMsg" class="text-xs font-bold tracking-wide transition-opacity duration-300 opacity-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- Resumen de Compra -->
@@ -540,8 +565,19 @@
             const summaryDesc = document.getElementById("summaryDesc");
             const summaryLongDesc = document.getElementById("summaryLongDesc");
 
+            // Elementos del cupón
+            const toggleCouponBtn = document.getElementById("toggleCouponBtn");
+            const couponArea = document.getElementById("couponArea");
+            const couponIcon = document.getElementById("couponIcon");
+            const couponInput = document.getElementById("couponInput");
+            const applyCouponBtn = document.getElementById("applyCouponBtn");
+            const couponTags = document.querySelectorAll(".coupon-tag");
+            const couponMsg = document.getElementById("couponMsg");
+
             let currentPlan = "semestral";
             let currentOrigin = "mexico";
+            let isInfinite = false;
+            let currentDiscount = 0; // Porcentaje de descuento
 
             // Datos de precios simulados por región
             const pricingData = {
@@ -558,8 +594,24 @@
 
             function updateUI() {
                 const data = pricingData[currentOrigin];
-                const priceStr = currentPlan === "semestral" ? data.semestral : data.anual;
-                const fullPrice = `$${priceStr} ${data.currency}`;
+                let priceStr = currentPlan === "semestral" ? data.semestral : data.anual;
+                
+                // Calcular descuento y precio
+                let priceNum = parseFloat(priceStr.replace(/,/g, ''));
+                let finalPriceNum = priceNum * (1 - (currentDiscount / 100));
+                
+                if (isInfinite || currentDiscount === 100) {
+                    finalPriceNum = 0;
+                    isInfinite = true;
+                }
+
+                // Formato de Moneda
+                let finalPriceStr = finalPriceNum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                const fullPrice = `$${finalPriceStr} ${data.currency}`;
+
+                // Determinar duración
+                let duracionText = currentPlan === "semestral" ? "6 meses" : "12 meses";
+                if (isInfinite) duracionText = "Infinito";
 
                 // Animación suave de cambio de precio
                 mainPrice.classList.add("opacity-0", "scale-95");
@@ -572,18 +624,22 @@
 
                     if (currentPlan === "semestral") {
                         summaryTitle.innerText = "Suscripción Semestral";
-                        summaryDesc.innerText = "6 meses | Suscripción";
-                        summaryLongDesc.innerText = "El cobro de la suscripción se hará en un pago único cada seis (6) meses. Recibirás hasta 6 ediciones al semestre.";
-                        
                         btnSemestral.className = "flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors";
                         btnAnual.className = "flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors";
                     } else {
                         summaryTitle.innerText = "Suscripción Anual";
-                        summaryDesc.innerText = "12 meses | Suscripción";
-                        summaryLongDesc.innerText = "El cobro de la suscripción se hará en un pago único cada doce (12) meses. Recibirás hasta 10 ediciones al año.";
-                        
                         btnAnual.className = "flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors";
                         btnSemestral.className = "flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors";
+                    }
+                    
+                    summaryDesc.innerText = `${duracionText} | Suscripción`;
+
+                    if (isInfinite) {
+                        summaryLongDesc.innerText = "Suscripción VIP con acceso infinito. No habrá cobros futuros por renovación. Acceso ilimitado a todas las ediciones de Devon.";
+                    } else {
+                        let textMeses = currentPlan === "semestral" ? "seis (6) meses" : "doce (12) meses";
+                        let textEds = currentPlan === "semestral" ? "6 ediciones al semestre" : "10 ediciones al año";
+                        summaryLongDesc.innerText = `El cobro de la suscripción se hará en un pago único cada ${textMeses}. Recibirás hasta ${textEds}.`;
                     }
 
                     mainPrice.classList.remove("opacity-0", "scale-95");
@@ -591,6 +647,67 @@
                     summaryLongDesc.classList.remove("opacity-0");
                 }, 200);
             }
+
+            // --- Lógica del Cupón ---
+            if (toggleCouponBtn) {
+                toggleCouponBtn.addEventListener("click", () => {
+                    if (couponArea.classList.contains("max-h-0")) {
+                        couponArea.classList.remove("max-h-0", "opacity-0");
+                        couponArea.classList.add("max-h-40", "opacity-100", "mt-3");
+                        couponIcon.classList.add("rotate-180");
+                    } else {
+                        couponArea.classList.remove("max-h-40", "opacity-100", "mt-3");
+                        couponArea.classList.add("max-h-0", "opacity-0");
+                        couponIcon.classList.remove("rotate-180");
+                    }
+                });
+            }
+
+            function applyCoupon(code) {
+                code = code.trim().toUpperCase();
+                couponMsg.classList.remove("opacity-0");
+                
+                if (code === "VIP100") {
+                    currentDiscount = 100;
+                    isInfinite = true;
+                    couponMsg.innerText = "¡CUPÓN VIP APLICADO! Suscripción gratuita de por vida.";
+                    couponMsg.className = "text-xs font-bold tracking-wide transition-opacity duration-300 opacity-100 text-brandPink";
+                } else if (code === "PROMO10") {
+                    currentDiscount = 10;
+                    isInfinite = false;
+                    couponMsg.innerText = "¡10% de descuento aplicado!";
+                    couponMsg.className = "text-xs font-bold tracking-wide transition-opacity duration-300 opacity-100 text-green-600";
+                } else if (code === "DEVON20") {
+                    currentDiscount = 20;
+                    isInfinite = false;
+                    couponMsg.innerText = "¡20% de descuento aplicado!";
+                    couponMsg.className = "text-xs font-bold tracking-wide transition-opacity duration-300 opacity-100 text-green-600";
+                } else if (code === "FASHION30") {
+                    currentDiscount = 30;
+                    isInfinite = false;
+                    couponMsg.innerText = "¡30% de descuento aplicado!";
+                    couponMsg.className = "text-xs font-bold tracking-wide transition-opacity duration-300 opacity-100 text-green-600";
+                } else {
+                    currentDiscount = 0;
+                    isInfinite = false;
+                    couponMsg.innerText = "Cupón no válido";
+                    couponMsg.className = "text-xs font-bold tracking-wide transition-opacity duration-300 opacity-100 text-red-500";
+                    setTimeout(() => couponMsg.classList.add("opacity-0"), 3000);
+                }
+                updateUI();
+            }
+
+            if (applyCouponBtn) {
+                applyCouponBtn.addEventListener("click", () => applyCoupon(couponInput.value));
+            }
+
+            couponTags.forEach(tag => {
+                tag.addEventListener("click", (e) => {
+                    const code = e.target.getAttribute("data-code");
+                    couponInput.value = code;
+                    applyCoupon(code);
+                });
+            });
 
             if(btnSemestral) btnSemestral.addEventListener("click", () => { currentPlan = "semestral"; updateUI(); });
             if(btnAnual) btnAnual.addEventListener("click", () => { currentPlan = "anual"; updateUI(); });
