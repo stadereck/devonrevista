@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviso de Privacidad | Devon</title>
+    <!-- Ícono de la pestaña (Favicon) -->
+    <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Jost', 'sans-serif'],
+                        serif: ['"Bodoni Moda"', 'serif'],
+                    },
+                    colors: {
+                        brandPink: '#E8A5D6',
+                        brandDark: '#0B1320',
+                        brandGray: '#F2F2F2',
+                        vanCleefBg: '#E5F0E6'
+                    },
+                    letterSpacing: {
+                        widest: '.2em',
+                        wider: '.1em'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* --- Utilidades Extras (Sidebar) --- */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar nav a {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .sidebar.open nav a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .sidebar.open nav a:nth-child(1) { transition-delay: 0.10s; }
+        .sidebar.open nav a:nth-child(2) { transition-delay: 0.15s; }
+        .sidebar.open nav a:nth-child(3) { transition-delay: 0.20s; }
+        .sidebar.open nav a:nth-child(4) { transition-delay: 0.25s; }
+        .sidebar.open nav a:nth-child(5) { transition-delay: 0.30s; }
+        .sidebar.open nav a:nth-child(6) { transition-delay: 0.35s; }
+        .sidebar.open nav a:nth-child(7) { transition-delay: 0.40s; }
+        .sidebar.open nav a:nth-child(8) { transition-delay: 0.45s; }
+        .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
+        .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
+
+        /* --- Animación de Línea para los Enlaces --- */
+        .link-underline {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1.5px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease-in-out;
+        }
+        .link-underline:hover::after {
+            width: 100%;
+        }
+
+        /* Tipografía del artículo legal */
+        .article-body p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #333;
+        }
+        .article-body h3 {
+            font-family: 'Jost', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+        .article-body ul {
+            list-style-type: disc;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        .article-body li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body class="bg-white text-black font-sans flex flex-col min-h-screen">
+
+    <!-- Overlay y Sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
+    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-2xl flex flex-col">
+        <div class="p-5 flex justify-between items-center border-b border-gray-100">
+            <h2 class="text-xl font-bold tracking-widest">MENÚ</h2>
+            <button onclick="toggleMenu()" class="text-gray-500 hover:text-black p-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-600 uppercase overflow-y-auto no-scrollbar pb-20">
+            <a href="suscripcion.html" class="text-black hover:bg-gray-50 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Espacio Devon</a>
+        </nav>
+    </aside>
+
+    <!-- Barra de Navegación Principal -->
+    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-100 md:border-none">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
+            <button onclick="toggleMenu()" class="text-black z-20 hover:scale-110 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                    <line x1="3" y1="16" x2="21" y2="16"></line>
+                </svg>
+            </button>
+            
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center z-10">
+                <a href="index.html" class="flex items-center group/logo hover:opacity-80 transition-opacity">
+                    <h1 id="devon-text" class="text-4xl md:text-5xl font-bold tracking-widest text-black mt-1 flex items-center font-serif uppercase">
+                        DEVON
+                    </h1>
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-4 z-20">
+                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1 md:mr-0" style="font-family: 'Jost', sans-serif;">
+                    SUSCRIPCIÓN
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Top Bar -->
+    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
+        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+        <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+        <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+        <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+        <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+        <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
+    </div>
+
+    <!-- Contenedor Principal del Texto Legal -->
+    <main class="w-full flex-1 pb-20">
+        
+        <section class="max-w-3xl mx-auto px-6 pt-16 md:pt-24">
+            
+            <!-- Título Principal -->
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 block font-sans">LEGAL</span>
+                <h1 class="text-4xl md:text-5xl font-serif text-black mb-4">Aviso de Privacidad</h1>
+                <p class="text-xs font-sans uppercase tracking-widest text-gray-400">Devon, S.A. de C.V. | 2 de abril de 2026</p>
+            </div>
+
+            <!-- Cuerpo del texto legal -->
+            <div class="article-body font-serif">
+                
+                <p>DEVON, S.A. DE C.V., una Sociedad Anónima de Capital Variable, constituida conforme a las Leyes de la República Mexicana, como su domicilio el ubicado en Av. Paseo de las Palmas 781 Piso 8, Colonia Lomas de Chapultepec III Sección, Alcaldía Miguel Hidalgo, CP. 11000, CDMX, México, quien lleva a cabo, entre otras actividades, la edición, publicación y comercialización de revistas ilustradas, los sitios de internet de las revistas "Architectural Digest México", "Glamour México", "GQ México", "Vanity Fair" y "Devon México", la administración y producción de los contenidos para dichas revistas, así como sus respectivas ventas de publicidad y mercadotecnia, tanto en los sitios web, como en las revistas impresas.</p>
+
+                <h3>DATOS SUJETOS A TRATAMIENTO</h3>
+                <p>Se informa a los usuarios que DEVON, S.A. DE C.V. solicitará y recabará datos personales de los suscriptores (considerados como tal aquellas personas que contratan y adquieren el envío periódico de cualquiera de las publicaciones editadas por la empresa) y usuarios de los sitios web, ya sea por cualquiera de los siguientes medios: vía online, vía telefónica y de forma presencial, a través de formato de suscripción impreso o electrónico, ya sea de forma directa o a través de alianzas con otras empresas. DEVON, S.A. DE C.V. es responsable del tratamiento de sus datos personales, con independencia de la vía por la que éstos sean recabados.</p>
+
+                <p>Los datos personales que recabamos son los siguientes:</p>
+
+                <p>Cuando los datos se recaban de usuarios no suscriptores, son nombre y correo electrónico, lugar de residencia y en algunos casos adicionalmente se recabará número telefónico, sexo, edad, fecha de nacimiento, lugar de nacimiento y entidad de residencia, cuando por las mismas dinámicas de las promociones o campañas publicitarias éstos últimos sean requeridos para contactar al titular o cumplir con condiciones para poder participar en una promoción, sorteo o concurso.</p>
+
+                <p>Cuando los datos se recaban de usuarios suscriptores se recabará nombre, dirección, correo electrónico, sexo, edad, fecha de nacimiento y número telefónico; así como los datos de la tarjeta de crédito a la cual se realizará el cargo de la suscripción.</p>
+
+                <p>No recabamos ningún tipo de dato considerado sensible de parte de los usuarios, por lo que no es necesaria la obtención del consentimiento expreso y por escrito de parte de los titulares.</p>
+
+                <p>Hemos adoptado todas las medidas de seguridad pertinentes y razonables para resguardar la confidencialidad y seguridad de los datos financieros que nos proporcionan, para lo cual DEVON, S.A. DE C.V. utiliza, en el caso de suscripciones vía online, la plataforma de pagos digitales BANWIRE.COM – BANXOL DE MÉXICO, S.A. DE C.V. - (podrá encontrar más información y las políticas de privacidad de BANWIRE en la siguiente dirección www.banwire.com).</p>
+
+                <p>Los datos recabados serán siempre de forma directa, DEVON, S.A. DE C.V. no utiliza ningún tipo de fuente de acceso público o privado para la obtención de datos adicionales a los proporcionados directamente por los titulares, por lo que el propio titular es responsable de la exactitud, idoneidad y pertinencia de los datos proporcionados, así como de su posterior actualización.</p>
+
+                <h3>FINALIDADES DEL TRATAMIENTO</h3>
+                <p>Las finalidades del tratamiento de los datos serán primarias y secundarias de conformidad con lo siguiente:</p>
+
+                <p><strong>1. Primarias:</strong></p>
+                <ul>
+                    <li>En el caso de suscriptores, la finalidad primaria será el cobro del servicio, el envío de los ejemplares de las revistas a la que se suscriben a su domicilio, el acceso y puesta a disposición de las revistas en línea a los suscriptores de esta modalidad y el contacto del suscriptor al vencimiento de su suscripción para una posible renovación.</li>
+                    <li>En el caso de no suscriptores, la finalidad primaria será el envío de promociones publicitarias, información de la empresa, concursos, premios y cualquier tipo de información relacionada con las actividades comerciales de DEVON, S.A. DE C.V., así como contactar a los usuarios en caso de que resulten premiados en algún sorteo o concurso. Los datos personales también podrán ser utilizados para el envío de publicidad, información y promociones de terceros con los que DEVON, S.A. DE C.V. tiene relaciones comerciales, sin embargo, dichos envíos los realiza directamente DEVON, S.A. DE C.V. y no aquellos terceros.</li>
+                </ul>
+
+                <p><strong>2. Secundarias:</strong></p>
+                <p>En el caso de suscriptores, la finalidad secundaria será el envío de promociones publicitarias, información de la empresa, concursos, premios y cualquier tipo de información relacionada con las actividades comerciales de DEVON, S.A. DE C.V., así como contactar a los usuarios en caso de que resulten premiados en algún sorteo o concurso. Los datos personales también podrán ser utilizados para el envío de publicidad, información y promociones de terceros con los que DEVON, S.A. DE C.V. tiene relaciones comerciales, sin embargo, dichos envíos los realiza directamente DEVON, S.A. DE C.V. y no aquellos terceros.</p>
+
+                <!-- BANNER PUBLICIDAD: Van Cleef & Arpels -->
+                <div class="w-full my-16 border-t border-b border-gray-200 py-8 relative" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw; max-width: 100vw;">
+                    <div class="max-w-3xl mx-auto relative w-full px-6">
+                        <div class="absolute top-0 left-0 bg-white px-2 py-1 text-[9px] uppercase tracking-widest text-gray-400 font-sans transform -translate-y-1/2 ml-4 z-20">
+                            PUBLICIDAD
+                        </div>
+                        <div class="relative w-full h-[200px] md:h-[280px] overflow-hidden flex items-center justify-center bg-vanCleefBg">
+                            <img 
+                                src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
+                                alt="Fondo Van Cleef" 
+                                class="absolute inset-0 w-full h-full object-cover object-center opacity-80 z-0"
+                            />
+                            <div class="relative z-10 text-center px-4 flex flex-col items-center">
+                                <h2 class="text-3xl text-black mb-2" style="font-family: 'Georgia', 'Times New Roman', serif;">Van Cleef & Arpels</h2>
+                                <div class="mb-4 text-black opacity-90 flex items-center justify-center">
+                                    <svg width="24" height="16" viewBox="0 0 36 24">
+                                        <polygon points="18,1 35,12 18,23 1,12" fill="none" stroke="currentColor" stroke-width="1.2"></polygon>
+                                        <text x="18" y="15" font-size="7" font-family="serif" text-anchor="middle" fill="currentColor">VCA</text>
+                                    </svg>
+                                </div>
+                                <a href="coleccionlucky.html" class="text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:text-gray-600 transition-colors font-sans">
+                                    DESCUBRE LA COLECCIÓN
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>EJERCICIO DE DERECHOS ARCO</h3>
+                <p>De conformidad con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, el titular de los datos personales tiene en todo momento derecho de acceder, rectificar y cancelar sus datos personales, así como de oponerse al tratamiento de los mismos o revocar el consentimiento que para tal fin nos haya otorgado (Derechos ARCO), a través de los procedimientos que hemos implementado para tal efecto.</p>
+
+                <p>En el caso de las finalidades primarias antes descritas, el titular del dato personal está consciente de que el ejercicio de los derechos de oposición y cancelación puede imposibilitar la prestación del servicio contratado con DEVON, S.A. DE C.V., por lo que en el caso de suscriptores éste derecho se encuentra limitado y deberá sujetarse al procedimiento especial de cancelación de suscripción implementado para lo cual deberá manifestarlo, de lo contrario, DEVON, S.A. DE C.V. no se hace responsable por cualquier solicitud de ejercicio de derechos ARCO que conlleve a la imposibilidad de la prestación del servicio contratado por el usuario.</p>
+
+                <p>Para el ejercicio de los derechos ARCO, el titular deberá enviar un correo electrónico al responsable de datos en DEVON, S.A. DE C.V. a la siguiente dirección de correo electrónico: datos.personales@devon.com.mx, o bien presentar una solicitud impresa, con firma autógrafa del titular de los datos, en el domicilio señalado al inicio del presente aviso de privacidad; narrando de manera sucinta y lo más clara posible la solicitud planteada.</p>
+
+                <p>La solicitud de ejercicio de derechos deberá ser identificada con la referencia SOLICITUD DE EJERCICIO DE DERECHOS ARCO y el nombre completo del titular de los datos, además de estar acompañada con copia simple de la identificación oficial del titular de los datos personales, esto para asegurar la identidad del titular.</p>
+
+                <p>Si la solicitud de ejercicio de derechos es planteada a través de una persona distinta del titular, ésta deberá acreditar tener mandato y representación suficiente mediante documento legal que lo sustente, así como adjuntar copia de las identificaciones del titular del dato y del mandatario.</p>
+
+                <h3>TRANSFERENCIAS Y REMISIONES A TERCEROS</h3>
+                <p>DEVON, S.A. DE C.V. no realizará transferencia a terceros de sus datos personales, por lo que no es necesario obtener consentimiento expreso para tales efectos. No se entenderá que existen remisiones o transferencias de datos a terceros, para el caso de que DEVON, S.A. DE C.V. remita o almacene los datos recabados dentro de las empresas pertenecientes al mismo grupo económico DEVON GROUP, puesto que el consentimiento se entiende conferido a todo el grupo económico DEVON GROUP, recabado por DEVON, S.A. DE C.V. en representación de todo el grupo económico.</p>
+
+                <p>Se podrán hacer remisiones a terceros dentro y fuera del país, incluyendo sin limitar, a proveedores de servicios, publicistas y personas distintas a esta empresa, con la única finalidad de prestar los servicios y la realización de sus actividades; DEVON, S.A. DE C.V. ha adoptado las medidas técnicas y jurídicas necesarias para asegurar que cualquier tercero que llegue a intervenir en cualquier fase del Tratamiento de Datos Personales guardará confidencialidad respecto de los mismos, esto con el objetivo de brindar información de conveniencia y beneficio para el usuario.</p>
+
+                <p>En específico, para el caso de suscriptores de las revistas en línea DEVON, SA DE CV, usará los servicios de Zinio, LLC., con domicilio en 7900 International Dr #800, Bloomington, MN 55425, USA ("Zinio") como proveedor de servicios de plataforma de acceso, administración, puesta a disposición y gestión de suscriptores en línea, por lo que existirá remisión de los datos personales de los suscriptores en línea a ZINIO, quien procesará los datos personales en beneficio directo, bajo las políticas y lineamientos, y por instrucciones de DEVON, SA DE CV, conforme al presente aviso de privacidad.</p>
+
+                <p>Dentro de las páginas web de DEVON, S.A. DE C.V. pueden contenerse banners, links, hipervínculos o enlaces externos de parte de terceros distintos, por lo que DEVON, S.A. DE C.V. se deslinda de toda responsabilidad de la información que se proporcione por los usuarios a dichos terceros y se recomienda que se consulte las políticas de privacidad de los mismos ya que dichos sitios no están sujetos a la presente política de privacidad.</p>
+
+                <p>DEVON, S.A. DE C.V. advierte a sus Usuarios que algunos de los Servicios del portal son foros abiertos y no son monitoreados o supervisados por nosotros, incluyendo de manera enunciativa mas no limitativa: I) foros de discusión; II) páginas de Internet personales; III) avisos clasificados; IV) correo electrónico y; V) salas de chat, por lo que, toda Información que los Usuarios revelen por medio de dichos Servicios podrá ser utilizada o vista por terceros, sin embargo, la empresa no será responsable por el uso, publicación o revelación de Información que los Usuarios de dichos Servicios proporcionen pues dichos datos no serán tratados o recabados por DEVON, S.A. DE C.V., por lo que recomendamos a los Usuarios sean cuidadosos y responsables sobre la Información que van a proporcionar.</p>
+
+                <h3>VULNERACIONES DE SEGURIDAD</h3>
+                <p>DEVON, S.A. DE C.V. ha adoptado medidas tecnológicas, mejores prácticas y políticas internas para resguardar la seguridad de sus datos personales, sin embargo, al ser resguardados en soportes digitales pueden ocurrir vulneraciones de seguridad, en cuyo caso DEVON, S.A. DE C.V. informará a los titulares con base en la información que tenga disponible, preferentemente a través de correo electrónico, para que los usuarios/titulares adopten las medidas necesarias para prevenir el mal uso de su información.</p>
+
+                <h3>USO DE COOKIES Y HERRAMIENTAS TECNOLÓGICAS</h3>
+                <p>Nuestro sitio web utiliza herramientas de cookies para mejorar la experiencia del usuario en nuestras páginas web, por lo que, al navegar en el mismo, usted consiente el uso de estas, salvo que utilice configuraciones y herramientas apropiadas en sus propios navegadores que inhabiliten el uso de estas. Una Cookie es un pequeño archivo enviado a su equipo de cómputo, móvil o cualquier dispositivo electrónico mientras usted navega en Internet y visita algún sitio web que utilice cookies y que, entre otras cosas, permite reconocer su dispositivo en futuras visitas.</p>
+
+                <p><strong>Cookies de medición y analíticas</strong></p>
+                <p>El uso de las cookies analíticas y de medición en nuestro sitio web tiene como finalidad única mejorar la experiencia del usuario en la red mediante la medición del tráfico en nuestras webs, así como la obtención y análisis de datos estadísticos de los usuarios de forma anónima, a través de las siguientes funciones:</p>
+                <ul>
+                    <li>Permite la identificación de los dispositivos y navegadores que se utilizan por el usuario para navegar en la web, sin embargo, no utilizamos ninguna herramienta de rastreo que permita identificar al usuario.</li>
+                    <li>Permite contabilizar de forma aproximada el número de visitantes y su tendencia en el tiempo.</li>
+                    <li>Nos permite identificar los contenidos más visitados a través de los dispositivos o navegadores desde los que se accede. Dicha identificación se realiza de forma anónima.</li>
+                    <li>Nos permite conocer si los dispositivos desde los que se está accediendo a nuestro sitio web es nuevo o repiten visita.</li>
+                    <li>Nos permite conocer los gustos y preferencias de los usuarios de forma general y anónima, mediante la obtención de datos estadísticos y presentar información que consideramos de interés para los mismos.</li>
+                </ul>
+
+                <p>Esta página web utiliza como herramienta "Google Analytics", un servicio analítico de medición de tráfico en la web prestado por Google, Inc.</p>
+                
+                <p>La información que genera la cookie acerca de su uso de la web (incluyendo la dirección IP del dispositivo desde el que se accede) será directamente recabada, transmitida y archivada por Google en los servidores ubicados en Estados Unidos.</p>
+
+                <p>Google podrá transmitir dicha información a terceros de conformidad con sus propias políticas de privacidad y su legislación local, por lo que al navegar en el sitio web, usted consiente y acepta, en conjunto con las nuestras, las políticas de privacidad de Google, en particular las referentes a la herramienta de "Google Analytics".</p>
+
+                <p>Adicionalmente usamos como cookie de medición "Permutive", que es una herramienta de Permutive Inc, que almacena una identificación anónima de usuario y que permite reconocer su dispositivo mediante el cual accede a nuestros sitios web de forma anónima.</p>
+
+                <p>Los usuarios podrán configurar su navegador para rechazar estas Cookie, o todas las Cookies, y así evitar que nuestros proveedores de estos servicios recaben esta información al momento que usted navega por nuestras páginas web.</p>
+
+                <p>Ninguno de nuestros proveedores almacena direcciones IP de ninguno de los usuarios, incluyendo aquellos usuarios con domicilio en países de Latinoamérica o la Unión Europea.</p>
+
+                <p><strong>Cookies de publicidad</strong></p>
+                <p>Utilizamos cookies de publicidad con la finalidad de servir publicidad propia o de terceros en base a preferencias y datos estadísticos, recabados de forma anónima sin identificación de usuarios en específico.</p>
+
+                <p>Dichas cookies se utilizan para orientar la publicidad a los usuarios en función del contenido que les interesa, mejorar los informes sobre el rendimiento de las campañas y evitar mostrar anuncios que el usuario ya haya visto o que probablemente no le interese.</p>
+
+                <p>Nuestros sitios web permiten a terceros servir publicidad y acceder a los datos recabados mediante las cookies publicitarias, por lo que el tratamiento de los datos puede estar sujeto a las propias políticas de privacidad de dichos terceros.</p>
+
+                <p>Nuestro sitio web utiliza cookies publicitarias prestadas por Google, Inc, mediante una herramienta denominada "DoubleClick for Publishers", y las condiciones y uso de las mismas están sujetas a sus propias políticas de privacidad y su legislación local, por lo que al navegar en el sitio web, usted consiente y acepta, en conjunto con las nuestras, las políticas de privacidad de Google, en particular las referentes a la herramienta de "DoubleClick for Publishers".</p>
+
+                <p>Sparrow es un servicio de análisis web y servicio de targeting por comportamiento construido por Devon. Sparrow usa cookies para almacenar un ID anónimo para el usuario. Una cookie es un pequeño archivo de información que es enviado a tu computadora, móvil u otro dispositivo cuando visitas un sitio web y éste reconoce tu dispositivo para futuras visitas. Los usuarios pueden optar estas cookies -o incluso todas las cookies- y Devon ya no recopilará información de ellos.</p>
+
+                <p>Sailthru es una plataforma de segmentación por comportamiento que recopila información sobre las preferencias del usuario y/o la interacción con el contenido web y de correo electrónico (la información se utiliza en nuestras plataformas CRM para promocionar nuestros eventos y productos).</p>
+
+                <p><strong>Aviso para usuarios en la UE y UK</strong></p>
+                <p>Por favor, tenga en cuenta que las preferencias de cookies que pueda haber expresado en la página web "bit.ly/devonrevist" aplicarán también a todos los subdominios de la anterior.</p>
+
+                <h3>LÍMITE DE EDAD</h3>
+                <p>DEVON, S.A. DE C.V. no recaba ni realiza el tratamiento de datos personales de menores de 13 años, y ha adoptado las medidas necesarias que razonablemente tiene a su disposición para poder identificar a usuarios menores de edad y denegar sus servicios. Para algunos de los servicios que prestamos o algunas de nuestras promociones nos reservamos el derecho a requerir que los usuarios sean mayores de edad.</p>
+
+                <h3>MODIFICACIONES AL AVISO DE PRIVACIDAD</h3>
+                <p>DEVON, S.A. DE C.V., se reserva el derecho de modificar en cualquier momento el contenido del presente Aviso de Privacidad, cualquier modificación a este aviso de privacidad podrá consultarla en bit.ly/devonrevist</p>
+
+            </div>
+
+            <!-- Bloque de Suscripción Solicitado -->
+            <div class="w-full flex flex-col items-center text-center mt-24 mb-10 border-t border-gray-200 pt-20">
+                <h2 class="text-3xl md:text-[2.4rem] leading-tight text-black font-medium mb-8 max-w-2xl" style="font-family: 'Jost', sans-serif;">
+                    Todo lo que necesitas saber sobre moda, belleza y estilo de vida, directo en tu email.
+                </h2>
+                
+                <p class="text-[13px] font-sans text-black mb-8 uppercase tracking-widest font-bold">
+                    ¡Suscríbete!
+                </p>
+                
+                <a href="newsletter.html" class="inline-block bg-black text-white px-10 py-4 text-xs font-bold tracking-[0.2em] uppercase mb-8 hover:bg-gray-800 transition-colors font-sans">
+                    Inscribirse
+                </a>
+                
+                <p class="text-[11px] text-gray-500 max-w-xl mx-auto font-sans leading-relaxed tracking-wide">
+                    Ingresa tu dirección de correo electrónico para suscribirte a nuestro newsletter y formar parte del universo Devon. Tus datos personales serán tratados de acuerdo con nuestra <a href="convenio.html" class="underline hover:text-black">Convenio de Usuario</a> y <a href="privacidad.html" class="underline hover:text-black">Aviso de Privacidad</a>.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER: Diseño estilo Vogue -->
+    <footer class="bg-black text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+            
+            <!-- Columna Izquierda: Logo y Redes -->
+            <div class="md:col-span-4 flex flex-col items-start">
+                <a href="index.html" class="hover:opacity-80 transition-opacity">
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-widest mb-8 font-serif uppercase">DEVON</h2>
+                </a>
+                
+                <div class="flex gap-3">
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.04-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7.5v4H10v9.5h4v-9.5z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.872.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-3.957 1.406-3.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345l-.288 1.183c-.053.189-.168.223-.332.149-1.229-.556-1.996-2.311-1.996-3.719 0-3.037 2.203-5.834 6.368-5.834 3.346 0 5.952 2.385 5.952 5.568 0 3.325-2.096 6.002-5.008 6.002-1.024 0-1.99-.533-2.321-1.164l-.634 2.417c-.229.873-.853 1.96-1.272 2.624 1.139.317 2.339.489 3.585.489 6.621 0 11.988-5.367 11.988-11.987C24.005 5.367 18.638 0 12.017 0z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.525.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.63-.52 3.26-1.5 4.54-1.15 1.5-2.9 2.45-4.81 2.76-1.89.31-3.88.08-5.59-.83-1.69-.9-2.99-2.43-3.6-4.18-.62-1.78-.6-3.72.07-5.48.68-1.79 2.08-3.25 3.8-4.05 1.7-.8 3.65-1.05 5.5-.72v4.06c-.85-.11-1.74-.03-2.52.33-.78.36-1.42 1-1.8 1.75-.38.75-.46 1.64-.22 2.42.24.78.78 1.45 1.49 1.83.71.39 1.57.48 2.35.26.78-.22 1.44-.75 1.84-1.47.4-.73.53-1.6.36-2.42v-14z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Columna Central: MÁS EN DEVON -->
+            <div class="md:col-span-4 md:pl-8">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">MÁS EN DEVON</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
+                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
+                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
+                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
+                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna Derecha: DEVON MÉXICO -->
+            <div class="md:col-span-4">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">DEVON MÉXICO</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
+                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
+                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
+                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
+                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Línea separadora inferior y Links Legales -->
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
+            
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-400 uppercase">
+                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
+                <span class="text-gray-700">|</span>
+                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                <span class="text-gray-700">|</span>
+                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
+                <span class="text-gray-700">|</span>
+                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
+                <span class="text-gray-700">|</span>
+                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
+                <span class="text-gray-700">|</span>
+                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
+                <span class="text-gray-700">|</span>
+                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
+            </div>
+
+            <!-- Botón México -->
+            <button class="flex items-center gap-2 border border-gray-700 px-4 py-2 text-xs font-normal hover:border-gray-400 transition-colors text-white tracking-wide shrink-0">
+                México
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+        </div>
+    </footer>
+
+    <!-- SCIPT DE INTERACCIONES GLOBALES -->
+    <script>
+        // --- 1. Funciones Globales (Menú Hamburguesa) ---
+        const overlay = document.getElementById('overlay');
+        const sidebar = document.getElementById('sidebarMenu');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('open');
+            if (sidebar.classList.contains('open')) {
+                showOverlay();
+            } else {
+                hideOverlay();
+            }
+        }
+
+        function closeMenu() { sidebar.classList.remove('open'); }
+        
+        function showOverlay() {
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+        }
+        function hideOverlay() {
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+            closeMenu();
+        }
+        function closeAll() { hideOverlay(); }
+    </script>
+</body>
+</html>
