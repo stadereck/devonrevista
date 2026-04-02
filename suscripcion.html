@@ -234,7 +234,7 @@
                 </div>
                 
                 <h1 class="text-4xl md:text-5xl font-serif text-black mb-3">Devon México</h1>
-                <p class="text-2xl text-black font-sans mb-8 font-medium">$412.00 MXN</p>
+                <p id="mainPrice" class="text-2xl text-black font-sans mb-8 font-medium transition-all duration-300">$412.00 MXN</p>
                 
                 <!-- Opciones de Suscripción -->
                 <div class="space-y-6 mb-10 font-sans">
@@ -243,10 +243,10 @@
                     <div>
                         <h3 class="text-[11px] font-bold tracking-widest uppercase text-black mb-3">Suscripción</h3>
                         <div class="flex gap-3 md:gap-4">
-                            <button class="flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
+                            <button id="btnSemestral" class="flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
                                 Semestral
                             </button>
-                            <button class="flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
+                            <button id="btnAnual" class="flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
                                 Anual
                             </button>
                         </div>
@@ -256,10 +256,10 @@
                     <div>
                         <h3 class="text-[11px] font-bold tracking-widest uppercase text-black mb-3">Tipo</h3>
                         <div class="flex gap-3 md:gap-4">
-                            <button class="flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
+                            <button id="btnDigital" class="flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
                                 Digital
                             </button>
-                            <button class="flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors">
+                            <button id="btnPrint" class="flex-1 border border-gray-200 bg-gray-50 text-gray-400 px-4 py-3 text-[11px] font-bold tracking-widest uppercase cursor-not-allowed opacity-60" title="Solo disponible en formato digital">
                                 Print
                             </button>
                         </div>
@@ -269,7 +269,7 @@
                     <div>
                         <h3 class="text-[11px] font-bold tracking-widest uppercase text-black mb-3">Origen de Suscriptor</h3>
                         <div class="relative w-full md:max-w-[300px]">
-                            <select class="w-full border border-gray-300 p-3 text-xs text-black font-medium tracking-wide uppercase bg-white focus:outline-none focus:border-black appearance-none cursor-pointer">
+                            <select id="selectOrigin" class="w-full border border-gray-300 p-3 text-xs text-black font-medium tracking-wide uppercase bg-white focus:outline-none focus:border-black focus:ring-4 focus:ring-gray-200 transition-all duration-300 transform focus:scale-[1.03] appearance-none cursor-pointer">
                                 <option value="mexico">México</option>
                                 <option value="puerto-rico">Puerto Rico</option>
                                 <option value="argentina">Argentina</option>
@@ -293,13 +293,13 @@
                     
                     <div class="border-b border-gray-200 py-4 mb-5">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-1 gap-2">
-                            <span class="font-bold text-base text-black">Suscripción Semestral</span>
-                            <span class="font-bold text-base text-black">$412.00 MXN</span>
+                            <span id="summaryTitle" class="font-bold text-base text-black">Suscripción Semestral</span>
+                            <span id="summaryPrice" class="font-bold text-base text-black transition-opacity duration-300">$412.00 MXN</span>
                         </div>
-                        <p class="text-sm text-gray-500 font-medium">6 meses | Suscripción</p>
+                        <p id="summaryDesc" class="text-sm text-gray-500 font-medium">6 meses | Suscripción</p>
                     </div>
                     
-                    <p class="text-sm text-gray-600 mb-6 leading-relaxed">
+                    <p id="summaryLongDesc" class="text-sm text-gray-600 mb-6 leading-relaxed transition-opacity duration-300">
                         El cobro de la suscripción se hará en un pago único cada seis (6) meses. Recibirás hasta 6 ediciones al semestre.
                     </p>
                     
@@ -528,6 +528,82 @@
             const btnSubscribeNow = document.getElementById("btnSubscribeNow");
             const btnText = document.getElementById("btnText");
             const btnIcon = document.getElementById("btnIcon");
+
+            // --- Lógica de Precios y Opciones ---
+            const btnSemestral = document.getElementById("btnSemestral");
+            const btnAnual = document.getElementById("btnAnual");
+            const selectOrigin = document.getElementById("selectOrigin");
+            
+            const mainPrice = document.getElementById("mainPrice");
+            const summaryTitle = document.getElementById("summaryTitle");
+            const summaryPrice = document.getElementById("summaryPrice");
+            const summaryDesc = document.getElementById("summaryDesc");
+            const summaryLongDesc = document.getElementById("summaryLongDesc");
+
+            let currentPlan = "semestral";
+            let currentOrigin = "mexico";
+
+            // Datos de precios simulados por región
+            const pricingData = {
+                "mexico": { currency: "MXN", semestral: "412.00", anual: "799.00" },
+                "puerto-rico": { currency: "USD", semestral: "24.00", anual: "45.00" },
+                "argentina": { currency: "ARS", semestral: "20,000.00", anual: "38,000.00" },
+                "chile": { currency: "CLP", semestral: "22,000.00", anual: "40,000.00" },
+                "colombia": { currency: "COP", semestral: "95,000.00", anual: "180,000.00" },
+                "panama": { currency: "USD", semestral: "24.00", anual: "45.00" },
+                "us": { currency: "USD", semestral: "24.00", anual: "45.00" },
+                "peru": { currency: "PEN", semestral: "90.00", anual: "170.00" },
+                "dominicana": { currency: "DOP", semestral: "1,400.00", anual: "2,600.00" }
+            };
+
+            function updateUI() {
+                const data = pricingData[currentOrigin];
+                const priceStr = currentPlan === "semestral" ? data.semestral : data.anual;
+                const fullPrice = `$${priceStr} ${data.currency}`;
+
+                // Animación suave de cambio de precio
+                mainPrice.classList.add("opacity-0", "scale-95");
+                summaryPrice.classList.add("opacity-0");
+                summaryLongDesc.classList.add("opacity-0");
+
+                setTimeout(() => {
+                    mainPrice.innerText = fullPrice;
+                    summaryPrice.innerText = fullPrice;
+
+                    if (currentPlan === "semestral") {
+                        summaryTitle.innerText = "Suscripción Semestral";
+                        summaryDesc.innerText = "6 meses | Suscripción";
+                        summaryLongDesc.innerText = "El cobro de la suscripción se hará en un pago único cada seis (6) meses. Recibirás hasta 6 ediciones al semestre.";
+                        
+                        btnSemestral.className = "flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors";
+                        btnAnual.className = "flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors";
+                    } else {
+                        summaryTitle.innerText = "Suscripción Anual";
+                        summaryDesc.innerText = "12 meses | Suscripción";
+                        summaryLongDesc.innerText = "El cobro de la suscripción se hará en un pago único cada doce (12) meses. Recibirás hasta 10 ediciones al año.";
+                        
+                        btnAnual.className = "flex-1 border-2 border-black bg-black text-white px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors";
+                        btnSemestral.className = "flex-1 border border-gray-300 bg-white text-gray-500 hover:border-black hover:text-black px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-colors";
+                    }
+
+                    mainPrice.classList.remove("opacity-0", "scale-95");
+                    summaryPrice.classList.remove("opacity-0");
+                    summaryLongDesc.classList.remove("opacity-0");
+                }, 200);
+            }
+
+            if(btnSemestral) btnSemestral.addEventListener("click", () => { currentPlan = "semestral"; updateUI(); });
+            if(btnAnual) btnAnual.addEventListener("click", () => { currentPlan = "anual"; updateUI(); });
+            
+            if(selectOrigin) {
+                selectOrigin.addEventListener("change", (e) => { 
+                    currentOrigin = e.target.value; 
+                    updateUI(); 
+                });
+            }
+
+            // Inicializar la vista
+            updateUI();
 
             // Comprobar si ya compró (para cambiar el estado del botón al cargar)
             if (localStorage.getItem("devonSubscribed") === "true") {
