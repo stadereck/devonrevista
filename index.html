@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devon México</title>
+    <title>Moda | Devon</title>
     <!-- Ícono de la pestaña (Favicon) -->
     <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
     
-    <!-- Google Fonts: Agregamos 'Bodoni Moda' para el logo estilo Vogue y mantenemos 'Jost' para el resto -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,13 +20,13 @@
                 extend: {
                     fontFamily: {
                         sans: ['Jost', 'sans-serif'],
-                        serif: ['"Bodoni Moda"', 'serif'], /* Fuente estilo Vogue */
+                        serif: ['"Bodoni Moda"', 'serif'],
                     },
                     colors: {
                         brandPink: '#E8A5D6',
                         brandDark: '#0B1320',
                         brandGray: '#F2F2F2',
-                        vanCleefBg: '#E5F0E6' /* Verde suave del banner */
+                        vanCleefBg: '#E5F0E6'
                     },
                     letterSpacing: {
                         widest: '.2em',
@@ -63,53 +63,6 @@
             z-index: 10;
         }
 
-        /* --- Estilos de la Isla Dinámica --- */
-        .island-container {
-            width: 0px; height: 0px; opacity: 0;
-            transform: scale(0.5) translateY(-20px);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            pointer-events: none;
-        }
-        
-        .island-container.active {
-            width: 120px; height: 36px; opacity: 1;
-            transform: scale(1) translateY(0); pointer-events: auto;
-        }
-        .island-container.time-mode {
-            width: 80px; border-radius: 12px;
-        }
-        .island-container.views-mode {
-            width: 210px; border-radius: 24px; padding: 0 16px;
-        }
-        
-        @media (min-width: 768px) {
-            .island-container.active { width: 160px; height: 44px; }
-            .island-container.time-mode { width: 100px; }
-            .island-container.views-mode { width: 240px; }
-        }
-
-        /* --- Animación de "Negación" (Shake) para la Isla --- */
-        @keyframes islandShakeAnim {
-            0%, 100% { transform: scale(1) translateY(0) translateX(0); }
-            20% { transform: scale(1) translateY(0) translateX(-12px); }
-            40% { transform: scale(1) translateY(0) translateX(12px); }
-            60% { transform: scale(1) translateY(0) translateX(-6px); }
-            80% { transform: scale(1) translateY(0) translateX(6px); }
-        }
-        .island-shake {
-            animation: islandShakeAnim 0.4s ease-in-out;
-            transition: none !important; /* Esto evita que la animación rápida se mezcle con la apertura */
-        }
-        
-        .logo-hidden { opacity: 0; transform: scale(0.5) translateY(20px); pointer-events: none; }
-        .island-text-fade { opacity: 0; transform: scale(0.5); }
-
-        #views-counter {
-            display: inline-block;
-            transition: transform 0.1s ease-out;
-            will-change: transform;
-        }
-
         /* --- Utilidades Extras (Sidebar) --- */
         .sidebar {
             transform: translateX(-100%);
@@ -143,7 +96,7 @@
         .link-underline {
             position: relative;
             display: inline-block;
-            padding-bottom: 2px; /* Separación de la línea */
+            padding-bottom: 2px;
         }
         .link-underline::after {
             content: '';
@@ -161,38 +114,6 @@
     </style>
 </head>
 <body class="bg-white text-black font-sans flex flex-col min-h-screen">
-
-    <!-- Pantalla de Introducción -->
-    <div id="intro-container" class="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden pointer-events-auto transition-opacity duration-1000">
-        <div id="intro-bg" class="absolute inset-0 transition-colors duration-300"></div>
-        
-        <div id="intro-text-wrapper" class="relative flex items-center text-6xl md:text-8xl font-bold tracking-widest z-10 font-serif uppercase">
-            <span id="intro-dev" class="relative z-20 transition-opacity duration-500">DEV</span>
-            <div class="relative flex items-center justify-center mx-[0.02em] z-20">
-                <span id="intro-o-ring" class="relative z-20 inline-block transition-transform duration-[1.0s] ease-in-out origin-center">O</span>
-            </div>
-            <span id="intro-n" class="relative z-20 transition-opacity duration-500">N</span>
-        </div>
-    </div>
-
-    <!-- Script de colores (Blanco/Negro alternado) -->
-    <script>
-        let isDarkTheme;
-        try {
-            let lastTheme = sessionStorage.getItem('devon_intro_theme') || localStorage.getItem('devon_intro_theme');
-            if (lastTheme === 'dark') isDarkTheme = false; 
-            else if (lastTheme === 'light') isDarkTheme = true;  
-            else isDarkTheme = Math.random() > 0.5;
-            
-            sessionStorage.setItem('devon_intro_theme', isDarkTheme ? 'dark' : 'light');
-            localStorage.setItem('devon_intro_theme', isDarkTheme ? 'dark' : 'light');
-        } catch (e) {
-            isDarkTheme = Math.random() > 0.5;
-        }
-        
-        document.getElementById('intro-bg').style.backgroundColor = isDarkTheme ? '#000000' : '#ffffff';
-        document.getElementById('intro-text-wrapper').style.color = isDarkTheme ? '#ffffff' : '#000000';
-    </script>
 
     <!-- Overlay y Sidebar -->
     <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
@@ -217,7 +138,7 @@
         </nav>
     </aside>
 
-    <!-- Barra de Navegación Principal (DEVON con tipografía estilo Vogue) -->
+    <!-- Barra de Navegación Principal -->
     <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-100 md:border-none">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
             <button onclick="toggleMenu()" class="text-black z-20 hover:scale-110 transition-transform">
@@ -227,44 +148,33 @@
                 </svg>
             </button>
             
-            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center cursor-pointer select-none z-10 w-64">
-                
-                <h1 id="devon-text" class="text-4xl md:text-5xl font-bold tracking-widest text-black mt-1 transition-all duration-500 flex items-center font-serif uppercase">
-                    DEV
-                    <span class="relative inline-flex items-center justify-center group">
-                        O
-                        <span class="animated-slash group-hover:bg-brandPink group-hover:shadow-[0_0_8px_#E8A5D6] transition-colors duration-300"></span>
-                    </span>
-                    N
-                </h1>
-
-                <div id="dynamic-island" class="island-container absolute bg-black rounded-full flex items-center justify-center overflow-hidden shadow-xl">
-                    <div id="island-content" class="w-full flex items-center justify-center transition-all duration-300">
-                        <span class="text-white text-xs md:text-sm font-bold tracking-widest font-serif uppercase">DEVON</span>
-                    </div>
-                </div>
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center z-10">
+                <!-- Envolvemos el texto DEVON en un enlace para que funcione como botón de Inicio ya que no hay Isla Dinámica -->
+                <a href="index.html" class="flex items-center group/logo hover:opacity-80 transition-opacity">
+                    <h1 id="devon-text" class="text-4xl md:text-5xl font-bold tracking-widest text-black mt-1 flex items-center font-serif uppercase">
+                        DEV
+                        <span class="relative inline-flex items-center justify-center group">
+                            O
+                            <span class="animated-slash group-hover:bg-brandPink group-hover:shadow-[0_0_8px_#E8A5D6] transition-colors duration-300"></span>
+                        </span>
+                        N
+                    </h1>
+                </a>
             </div>
             
             <div class="flex items-center gap-4 z-20">
-                <!-- Botón SUSCRIPCIÓN agregado -->
-                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1" style="font-family: 'Jost', sans-serif;">
+                <!-- Botón SUSCRIPCIÓN -->
+                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1 md:mr-0" style="font-family: 'Jost', sans-serif;">
                     SUSCRIPCIÓN
                 </a>
-                
-                <button id="person-icon-btn" class="text-black hover:scale-110 transition-transform">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M12 16a4 4 0 0 0-4-4h8a4 4 0 0 0-4 4z"></path>
-                        <circle cx="12" cy="9" r="2.5"></circle>
-                    </svg>
-                </button>
+                <!-- Ícono de persona eliminado como se solicitó -->
             </div>
         </div>
     </header>
 
     <!-- Top Bar (Textos Modas/Belleza con tipografía editorial) -->
     <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
-        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors border-b border-black pb-0.5">MODA</a> <!-- Resaltado de página actual -->
         <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
         <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
         <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
@@ -308,113 +218,69 @@
         </div>
     </section>
 
-    <!-- Contenido Principal -->
+    <!-- Contenedor Principal -->
     <main class="w-full flex-1 pb-20">
-
-        <!-- Título EN PORTADA con líneas divisorias -->
-        <div class="w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12 mb-4">
-            <div class="border-t border-b border-gray-200 py-3 md:py-4">
-                <h2 class="text-lg md:text-xl font-medium tracking-widest text-black uppercase" style="font-family: 'Jost', sans-serif;">
-                    EN PORTADA
-                </h2>
-            </div>
-        </div>
-
-        <!-- Sección Hero (Carrusel Deslizante) -->
-        <section class="max-w-7xl w-full mx-auto px-4 md:px-6 pt-4 md:pt-6 mb-4">
-            <!-- Contenedor del Carrusel -->
-            <div class="w-full mx-auto overflow-hidden shadow-lg relative bg-gray-200 rounded-2xl md:rounded-[2rem]">
-                <div id="hero-anim-container" class="relative w-full aspect-[4/3] md:aspect-[16/9] transform origin-center will-change-transform bg-black">
-                    
-                    <!-- Slide 1: Fer & Alonso -->
-                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-0 z-10">
-                        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=1000&auto=format&fit=crop" alt="Fer & Alonso" class="absolute inset-0 w-full h-full object-cover object-center opacity-80"/>
-                    </div>
-
-                    <!-- Slide 2: Alonso Alvarez -->
-                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0">
-                        <img src="https://i.ibb.co/NchQM2g/b772fe23-6aca-47db-b91a-0ee4520e85e7.png" alt="Alonso Alvarez" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%]"/>
-                    </div>
-
-                    <!-- Slide 3: Espacio Devon -->
-                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1775094004/656410068-927276343609067-1256087780943380654-n_zjxxnt.jpg" alt="Alonso Alvarez & Fernanda en Espacio Devon" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%]"/>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Indicadores Dinámicos -->
-            <div class="flex justify-center items-center gap-2.5 mt-6 mb-6">
-                <div class="hero-dot w-8 h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
-                
-                <!-- Indicador de Tiempo Circular -->
-                <div class="relative w-7 h-7 flex items-center justify-center ml-3">
-                    <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                        <circle cx="18" cy="18" r="14" fill="none" stroke="#E5E7EB" stroke-width="2.5"></circle>
-                        <circle id="hero-progress-circle" cx="18" cy="18" r="14" fill="none" stroke="#000000" stroke-width="2.5" stroke-dasharray="88" stroke-dashoffset="88" stroke-linecap="round"></circle>
-                    </svg>
-                    <span id="hero-progress-text" class="text-[9px] font-bold text-black font-sans z-10" style="padding-top: 1px;">5</span>
-                </div>
-            </div>
+        
+        <!-- Encabezado de Sección: Moda -->
+        <section class="max-w-5xl mx-auto px-6 pt-16 md:pt-20 flex flex-col items-center text-center">
+            <h1 class="text-5xl md:text-6xl text-black mb-6 font-serif">Moda</h1>
             
-            <!-- Contenedor Wrapper para Animación de Altura (Eliminamos espacio vacío) -->
-            <div id="text-wrapper" class="relative w-full mx-auto overflow-hidden transition-[height] duration-500 ease-in-out px-2 md:px-4">
-                
-                <!-- Texto Slide 1 -->
-                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-100 z-10 pointer-events-auto flex flex-col items-start justify-start">
-                    <h2 class="text-2xl md:text-3xl font-medium text-black mb-6" style="font-family: 'Jost', sans-serif;">
-                        Fer & Alonso, ¿podrás descubrirlo?
-                    </h2>
-                    <a href="https://www.instagram.com/alonso_ia_alvarez" class="link-underline text-xs font-bold tracking-widest uppercase text-black">
-                        IR A VERLOS JUNTOS
-                    </a>
-                </div>
-
-                <!-- Texto Slide 2 (Alonso) -->
-                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-0 z-0 pointer-events-none flex flex-col items-start justify-start">
-                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-black mb-3 md:mb-4">MODA</p>
-                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-black leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
-                        Alonso Alvarez, el coach modelo mexicano regresa a la portada de Devon
-                    </h2>
-                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-black leading-loose">
-                        <p>POR DERECK J.</p>
-                        <p>FOTOGRAFÍA POR DEVON®</p>
-                        <p class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-800 tracking-normal leading-none" style="font-family: 'Jost', sans-serif;">1 de abril de 2026</p>
-                    </div>
-                </div>
-
-                <!-- Texto Slide 3 (Espacio Devon) -->
-                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-0 z-0 pointer-events-none flex flex-col items-start justify-start">
-                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-black mb-3 md:mb-4">Espacio Devon</p>
-                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-black leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
-                        Alonso Alvarez, el coach modelo mexicano & su date Fernanda hacen una aparición en Espacio Devon
-                    </h2>
-                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-black leading-loose">
-                        <p>POR Dereck J.</p>
-                        <p>Fotografia Por Devon®</p>
-                        <div class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-800 tracking-normal leading-none flex items-center gap-3" style="font-family: 'Jost', sans-serif;">
-                            <span>1 de abril de 2026</span>
-                            <a href="#" class="link-underline flex items-center gap-1 text-black font-medium transition-colors hover:text-black">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Acuatica Samil
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+            <p class="text-[14px] md:text-[16px] leading-relaxed text-black max-w-[850px] mb-16 font-serif">
+                Tendencias de moda, street style, qué llevar esta temporada. Los diseñadores del momento, las colecciones en tendencia.<br class="hidden md:block"> Entrevistas, consejos y lo último en la moda.
+            </p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-2 w-full">
+                <span class="text-[14px] md:text-[15px] font-medium text-black font-sans">
+                    Suscríbete a nuestra newsletter para recibir lo mejor de Devon en tu correo electrónico.
+                </span>
+                <a href="newsletter.html" class="link-underline text-[11px] md:text-xs font-bold tracking-[0.2em] uppercase text-black font-sans mt-2 md:mt-0">
+                    REGISTRARME
+                </a>
             </div>
         </section>
 
-        <!-- Título ÚLTIMAS TENDENCIAS -->
+        <!-- Separador / Título de Categoría: Semanas de la moda -->
         <div class="w-full max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-4">
             <div class="border-t border-b border-gray-200 py-3 md:py-4">
                 <h2 class="text-lg md:text-xl font-medium tracking-widest text-black uppercase" style="font-family: 'Jost', sans-serif;">
-                    ÚLTIMAS TENDENCIAS
+                    SEMANAS DE LA MODA OTOÑO-INVIERNO 2026
                 </h2>
             </div>
         </div>
+
+        <!-- Sección: Artículo Overlay (Alonso Alvarez) -->
+        <section class="max-w-7xl mx-auto px-4 md:px-6 mt-8 mb-20">
+            <a href="aguaconlimon.html" class="relative w-full block group overflow-hidden cursor-pointer" style="height: 65vh; min-height: 450px; max-height: 600px;">
+                <!-- Imagen de fondo -->
+                <img 
+                    src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1775103964/ChatGPT_Image_1_abr_2026_10_25_39_p.m._j2jdkf.png" 
+                    alt="Alonso Alvarez" 
+                    class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                
+                <!-- Gradiente oscuro sutil para asegurar que el texto blanco sea legible -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                <!-- Contenido de Texto superpuesto -->
+                <div class="absolute inset-0 flex flex-col items-center justify-end text-center pb-12 md:pb-16 px-4 md:px-12 z-10">
+                    <span class="text-white text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase mb-4 font-sans">
+                        BELLEZA
+                    </span>
+                    
+                    <h2 class="text-white text-3xl md:text-4xl lg:text-5xl font-medium max-w-4xl leading-tight mb-8" style="font-family: 'Jost', sans-serif;">
+                        Los 5 beneficios del agua con limón, explicados por un nutriólogo
+                    </h2>
+                    
+                    <span class="text-white text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase mb-3 font-sans">
+                        ALONSO ALVAREZ
+                    </span>
+                    
+                    <span class="text-white text-[11px] md:text-xs font-normal font-sans">
+                        1 de abril de 2026
+                    </span>
+                </div>
+            </a>
+        </section>
 
     </main>
 
@@ -424,7 +290,9 @@
             
             <!-- Columna Izquierda: Logo y Redes -->
             <div class="md:col-span-4 flex flex-col items-start">
-                <h2 class="text-5xl md:text-6xl font-bold tracking-widest mb-8 font-serif uppercase">DEVON</h2>
+                <a href="index.html" class="hover:opacity-80 transition-opacity">
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-widest mb-8 font-serif uppercase">DEVON</h2>
+                </a>
                 
                 <div class="flex gap-3">
                     <!-- FB -->
@@ -459,411 +327,4 @@
                 <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">MÁS EN DEVON</h4>
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
                     <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
-                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
-                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
-                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
-                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
-                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
-                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
-                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
-                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
-                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
-                </ul>
-            </div>
-
-            <!-- Columna Derecha: CONDÉ NAST MÉXICO -->
-            <div class="md:col-span-4">
-                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">CONDÉ NAST MÉXICO</h4>
-                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
-                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
-                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
-                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
-                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Línea separadora inferior y Links Legales -->
-        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
-            
-            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-400 uppercase">
-                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
-                <span class="text-gray-700">|</span>
-                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
-                <span class="text-gray-700">|</span>
-                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
-                <span class="text-gray-700">|</span>
-                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
-                <span class="text-gray-700">|</span>
-                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
-                <span class="text-gray-700">|</span>
-                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
-                <span class="text-gray-700">|</span>
-                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
-            </div>
-
-            <!-- Botón México -->
-            <button class="flex items-center gap-2 border border-gray-700 px-4 py-2 text-xs font-normal hover:border-gray-400 transition-colors text-white tracking-wide shrink-0">
-                México
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
-        </div>
-    </footer>
-
-    <!-- SCIPT DE INTERACCIONES GLOBALES -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // --- 0. Animación Inicial ---
-            const introContainer = document.getElementById('intro-container');
-            const introDev = document.getElementById('intro-dev');
-            const introN = document.getElementById('intro-n');
-            const introORing = document.getElementById('intro-o-ring');
-
-            if (introContainer) {
-                document.body.style.overflow = 'hidden';
-
-                setTimeout(() => {
-                    introDev.style.opacity = '0';
-                    introN.style.opacity = '0';
-
-                    setTimeout(() => {
-                        introORing.style.transform = 'scale(150)';
-                        introContainer.style.opacity = '0';
-                        document.body.style.overflow = '';
-
-                        setTimeout(() => {
-                            introContainer.remove();
-                        }, 1000); 
-
-                    }, 400); 
-                }, 1600); 
-            }
-
-            // --- 1. Contador de Vistas Constante ---
-            let viewsCount = 1000000; 
-
-            setInterval(() => {
-                viewsCount += Math.floor(Math.random() * 6) + 1; 
-                const counterElement = document.getElementById('views-counter');
-                if (counterElement) {
-                    counterElement.textContent = viewsCount.toLocaleString('en-US'); 
-                    counterElement.style.transform = 'scale(1.08)';
-                    setTimeout(() => counterElement.style.transform = 'scale(1)', 150);
-                }
-            }, 1200);
-
-            // --- 2. Isla Dinámica ---
-            const interactiveContainer = document.getElementById('interactive-header-center');
-            const personBtn = document.getElementById('person-icon-btn');
-            const devonText = document.getElementById('devon-text');
-            const dynamicIsland = document.getElementById('dynamic-island');
-            const islandContent = document.getElementById('island-content');
-
-            let islandMode = 'none'; 
-            let pressTimer;
-            let isLongPress = false;
-            let lastClickTime = 0;
-
-            function openIsland(mode) {
-                islandMode = mode;
-                devonText.classList.add('logo-hidden');
-                dynamicIsland.classList.add('active');
-
-                dynamicIsland.classList.remove('time-mode', 'views-mode', 'island-shake');
-                islandContent.classList.add('island-text-fade');
-
-                setTimeout(() => {
-                    if (mode === 'default') {
-                        islandContent.innerHTML = '<span class="text-white text-xs md:text-sm font-bold tracking-widest font-serif uppercase">DEVON</span>';
-                        islandContent.className = 'w-full flex items-center justify-center transition-all duration-300';
-                    } 
-                    else if (mode === 'time') {
-                        dynamicIsland.classList.add('time-mode');
-                        islandContent.innerHTML = `<span class="text-white text-xs md:text-sm font-bold tracking-widest">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>`;
-                        islandContent.className = 'w-full flex items-center justify-center transition-all duration-300';
-                    } 
-                    else if (mode === 'views') {
-                        dynamicIsland.classList.add('views-mode');
-                        islandContent.className = 'w-full flex items-center justify-between transition-all duration-300';
-                        islandContent.innerHTML = `
-                            <span class="flex items-center gap-1.5 text-gray-300 font-normal text-xs md:text-sm whitespace-nowrap">
-                                Visto por <span id="views-counter" class="text-white font-bold tracking-widest">${viewsCount.toLocaleString('en-US')}</span>
-                            </span>
-                            <button id="close-island-btn" class="text-gray-400 hover:text-white ml-2 transition-colors shrink-0">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </button>
-                        `;
-                        document.getElementById('close-island-btn').addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            closeIsland();
-                        });
-                    }
-                    else if (mode === 'unavailable') {
-                        dynamicIsland.classList.add('views-mode'); // Usamos este modo para darle suficiente ancho
-                        islandContent.className = 'w-full flex items-center justify-center transition-all duration-300';
-                        islandContent.innerHTML = `<span class="text-white text-xs md:text-sm font-bold tracking-widest uppercase">No Disponible</span>`;
-                        
-                        // Retrasar el temblor hasta que la isla esté completamente abierta
-                        setTimeout(() => {
-                            dynamicIsland.classList.add('island-shake'); // Agregamos la animación del temblor
-                            
-                            // Quitamos la clase del shake después de que termine la animación (400ms)
-                            setTimeout(() => dynamicIsland.classList.remove('island-shake'), 400);
-                        }, 350);
-
-                        // Auto-cerramos después de 2.5 segundos
-                        setTimeout(() => {
-                            if (islandMode === 'unavailable') closeIsland();
-                        }, 2500);
-                    }
-                    
-                    islandContent.classList.remove('island-text-fade');
-                }, 150); 
-            }
-
-            function closeIsland() {
-                islandMode = 'none';
-                dynamicIsland.classList.remove('active', 'time-mode', 'views-mode');
-                setTimeout(() => {
-                    devonText.classList.remove('logo-hidden');
-                }, 300);
-            }
-
-            personBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (islandMode === 'views') {
-                    closeIsland();
-                } else {
-                    openIsland('views');
-                }
-            });
-
-            const startPress = (e) => {
-                isLongPress = false;
-                if (navigator.vibrate) navigator.vibrate(20);
-
-                pressTimer = setTimeout(() => {
-                    isLongPress = true;
-                    if (navigator.vibrate) navigator.vibrate(50);
-                    
-                    if (islandMode !== 'none') closeIsland();
-                    else openIsland('default');
-                    
-                }, 500); 
-            };
-
-            const endPress = () => { clearTimeout(pressTimer); };
-
-            const handleClick = (e) => {
-                if (isLongPress) return; 
-                
-                const currentTime = new Date().getTime();
-                const timeDiff = currentTime - lastClickTime;
-                
-                if (timeDiff < 300 && timeDiff > 0) {
-                    if (islandMode === 'views') {
-                        closeIsland();
-                    } else if (islandMode === 'none' || islandMode === 'default') {
-                        openIsland('time');
-                        setTimeout(() => {
-                            if (islandMode === 'time') closeIsland();
-                        }, 3000);
-                    }
-                }
-                lastClickTime = currentTime;
-            };
-
-            if(interactiveContainer) {
-                interactiveContainer.addEventListener('mousedown', startPress);
-                interactiveContainer.addEventListener('mouseup', endPress);
-                interactiveContainer.addEventListener('mouseleave', endPress);
-                interactiveContainer.addEventListener('touchstart', startPress);
-                interactiveContainer.addEventListener('touchend', endPress);
-                interactiveContainer.addEventListener('touchcancel', endPress);
-                interactiveContainer.addEventListener('click', handleClick);
-            }
-
-            // --- 3. Slider Hero (Deslizamiento de Fotos y Ajuste de Altura de Texto) ---
-            const slides = document.querySelectorAll('.hero-slide');
-            const texts = document.querySelectorAll('.hero-text');
-            const dots = document.querySelectorAll('.hero-dot');
-            const textWrapper = document.getElementById('text-wrapper');
-            let currentSlide = 0;
-            let slideInterval;
-
-            // Variables para el indicador circular
-            const progressCircle = document.getElementById('hero-progress-circle');
-            const progressText = document.getElementById('hero-progress-text');
-            const slideDuration = 4500;
-            let slideStartTime;
-            let progressAnimFrame;
-
-            // Función para animar el círculo y el tiempo
-            function updateProgress() {
-                if (!slideStartTime) return;
-                const elapsed = Date.now() - slideStartTime;
-                let remaining = slideDuration - elapsed;
-                if (remaining < 0) remaining = 0;
-
-                // Actualizar texto (segundos restantes)
-                if (progressText) {
-                    progressText.textContent = Math.ceil(remaining / 1000);
-                }
-
-                // Actualizar progreso del borde circular (llenando de 88 a 0)
-                if (progressCircle) {
-                    const circumference = 88;
-                    const progress = Math.min(elapsed / slideDuration, 1);
-                    progressCircle.style.strokeDashoffset = circumference - (progress * circumference);
-                }
-
-                if (elapsed < slideDuration) {
-                    progressAnimFrame = requestAnimationFrame(updateProgress);
-                }
-            }
-
-            // Función para actualizar la altura del contenedor de texto
-            function updateTextHeight(index) {
-                if (textWrapper && texts[index]) {
-                    textWrapper.style.height = texts[index].offsetHeight + 'px';
-                }
-            }
-
-            if (slides.length > 0) {
-                
-                // Set initial height based on first slide
-                document.fonts.ready.then(() => {
-                    setTimeout(() => updateTextHeight(0), 100);
-                });
-                
-                // Recalculate on window resize
-                window.addEventListener('resize', () => {
-                    updateTextHeight(currentSlide);
-                });
-
-                function showSlide(index) {
-                    
-                    // 1. Fotos Deslizantes Horizontalmente (Sin Desvanecimiento)
-                    slides.forEach((slide, i) => {
-                        if (i === index) {
-                            slide.style.transform = 'translateX(0)';
-                            slide.style.zIndex = '10';
-                        } else if (i < index) {
-                            slide.style.transform = 'translateX(-100%)';
-                            slide.style.zIndex = '0';
-                        } else {
-                            slide.style.transform = 'translateX(100%)';
-                            slide.style.zIndex = '0';
-                        }
-                    });
-                    
-                    // 2. Textos Opacidad y Ajuste de Altura
-                    texts.forEach((text, i) => {
-                        if (i === index) {
-                            text.style.opacity = '1';
-                            text.style.pointerEvents = 'auto';
-                            text.style.zIndex = '10';
-                        } else {
-                            text.style.opacity = '0';
-                            text.style.pointerEvents = 'none';
-                            text.style.zIndex = '0';
-                        }
-                    });
-                    updateTextHeight(index);
-
-                    // 3. Indicadores (Dots)
-                    dots.forEach((dot, i) => {
-                        if(i === index) {
-                            dot.className = "hero-dot w-8 h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300";
-                        } else {
-                            dot.className = "hero-dot w-2 h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300";
-                        }
-                    });
-                    
-                    currentSlide = index;
-
-                    // 4. Reiniciar el temporizador circular
-                    slideStartTime = Date.now();
-                    if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-                    updateProgress();
-                }
-
-                function nextSlide() {
-                    showSlide((currentSlide + 1) % slides.length);
-                }
-
-                slideInterval = setInterval(nextSlide, 4500);
-
-                dots.forEach((dot, index) => {
-                    dot.addEventListener('click', () => {
-                        clearInterval(slideInterval);
-                        showSlide(index);
-                        slideInterval = setInterval(nextSlide, 4500);
-                    });
-                });
-            }
-
-            // --- 4. Lógica de Scroll ---
-            const heroAnimContainer = document.getElementById('hero-anim-container');
-            
-            window.addEventListener('scroll', () => {
-                if (!heroAnimContainer) return;
-                const scrollY = window.scrollY;
-                
-                const scale = 1 + (scrollY * 0.0004);
-                
-                heroAnimContainer.style.transform = `scale(${scale})`;
-            });
-
-            // --- 5. Interacción de Elementos "No Disponibles" ---
-            // Solo los enlaces con href="#" (como las redes sociales en el footer) activarán la Isla Dinámica de "No Disponible"
-            const unavailableElements = document.querySelectorAll('a[href="#"]');
-            unavailableElements.forEach(el => {
-                el.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    // Si el menú lateral está abierto, lo cerramos
-                    if (sidebar && sidebar.classList.contains('open')) {
-                        hideOverlay(); // Llamamos a la función global para cerrar
-                    }
-
-                    // Hacemos scroll suave hacia arriba para asegurarnos de que el usuario vea la Isla Dinámica
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                    openIsland('unavailable');
-                });
-            });
-
-        });
-
-        // --- 6. Funciones Globales (Menú Hamburguesa) ---
-        const overlay = document.getElementById('overlay');
-        const sidebar = document.getElementById('sidebarMenu');
-
-        function toggleMenu() {
-            sidebar.classList.toggle('open');
-            if (sidebar.classList.contains('open')) {
-                showOverlay();
-            } else {
-                hideOverlay();
-            }
-        }
-
-        function closeMenu() { sidebar.classList.remove('open'); }
-        
-        function showOverlay() {
-            overlay.classList.remove('hidden');
-            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-        }
-        function hideOverlay() {
-            overlay.classList.add('opacity-0');
-            setTimeout(() => overlay.classList.add('hidden'), 300);
-            closeMenu();
-        }
-        function closeAll() { hideOverlay(); }
-
-    </script>
-</body>
-</html>
+                    <li><a href="belleza.html" class="hover:text-white transition
