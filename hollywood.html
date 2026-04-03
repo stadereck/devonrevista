@@ -222,23 +222,23 @@
         <section class="max-w-5xl mx-auto px-6 pt-16 md:pt-20 flex flex-col items-center text-center">
             <h1 class="text-5xl md:text-6xl text-black mb-6 font-serif">Hollywood</h1>
             
-            <p class="text-[14px] md:text-[16px] leading-relaxed text-black max-w-[850px] mb-16 font-serif">
+            <p class="text-[14px] md:text-[16px] leading-relaxed text-black max-w-[850px] mb-8 font-serif">
                 Los mejores estrenos de películas, series de televisión y la alfombra roja de tus celebridades favoritas.
             </p>
             
-            <!-- Mini menú de temas de Hollywood -->
-            <div class="flex flex-wrap justify-center gap-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 font-sans mb-12">
-                <a href="#" class="hover:text-black transition-colors">TODOS LOS TEMAS</a>
-                <a href="#" class="hover:text-black transition-colors">PREMIOS OSCAR</a>
-                <a href="#" class="hover:text-black transition-colors">GOLDEN GLOBES</a>
-                <a href="#" class="hover:text-black transition-colors">PREMIOS GRAMMY</a>
-                <a href="#" class="hover:text-black transition-colors">MET GALA</a>
-                <a href="#" class="hover:text-black transition-colors">FESTIVAL DE CANNES</a>
-                <a href="#" class="hover:text-black transition-colors">FESTIVALES</a>
+            <!-- Mini menú de temas de Hollywood con enlaces solicitados -->
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-[10px] md:text-xs font-semibold tracking-widest text-gray-500 uppercase font-sans mb-12">
+                <a href="todoslostemas.html" class="hover:text-black transition-colors">TODOS LOS TEMAS</a>
+                <a href="premios-oscar.html" class="hover:text-black transition-colors">PREMIOS OSCAR</a>
+                <a href="golden-globes.html" class="hover:text-black transition-colors">GOLDEN GLOBES</a>
+                <a href="premios-grammy.html" class="hover:text-black transition-colors">PREMIOS GRAMMY</a>
+                <a href="met-gala.html" class="hover:text-black transition-colors">MET GALA</a>
+                <a href="festival-de-cannes.html" class="hover:text-black transition-colors">FESTIVAL DE CANNES</a>
+                <a href="festivales.html" class="hover:text-black transition-colors">FESTIVALES</a>
             </div>
         </section>
 
-        <!-- Sección: Artículo Overlay Principal (Oscars) -->
+        <!-- Sección 1: Artículo Overlay Principal (Oscars) -->
         <section class="max-w-7xl mx-auto px-4 md:px-6 mt-4 mb-12">
             <a href="#" class="relative w-full block group overflow-hidden cursor-pointer bg-gray-200" style="height: 65vh; min-height: 450px; max-height: 600px;">
                 <img 
@@ -257,36 +257,46 @@
                     <span class="text-white text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase mb-3 font-sans">
                         POR MIGUEL VICENCIO
                     </span>
+                    <span class="text-white text-[10px] md:text-xs font-sans uppercase tracking-wider">15 de marzo de 2026</span>
                 </div>
             </a>
         </section>
 
-        <!-- Grid 3 Columnas: Artículos Secundarios de Cine -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mb-20">
+        <!-- Sección 2: Oscars Red Carpet (4 Columnas) -->
+        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20">
             <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="Nominados" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3 font-sans">RED CARPET</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Nominados a los Oscars 2026: Lista completa</h3>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Nominados a los Oscars 2026: Lista completa</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Devon</span>
             </a>
             
             <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="Predicciones" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3 font-sans">RED CARPET</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Predicciones de los Oscars 2026: ¿qué películas ganarán y cuáles deberían ganar?</h3>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">El Agente Secreto, la película nominada al Oscar en palabras de su director: "Trata más sobre la amnesia que sobre la memoria"</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
             </a>
 
             <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="El Agente Secreto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3 font-sans">RED CARPET</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">El Agente Secreto, la película nominada al Oscar en palabras de su director: "Trata más sobre la amnesia que sobre la memoria"</h3>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">"Trata de hablar sobre el duelo con dignidad": Joachim Trier sobre Sentimental Value, la película que ganó el Oscar a Mejor Película Extranjera</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Predicciones de los Oscars 2026: ¿qué películas ganarán y cuáles deberían ganar?</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
             </a>
         </section>
@@ -300,29 +310,12 @@
             </div>
         </div>
 
-        <!-- Grid 4 Columnas: Series y Películas -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12">
+        <!-- Sección 3: Estrenos y Series (4 Columnas x 3 Filas) -->
+        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20">
+            <!-- Fila 1 -->
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Como agua para chocolate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Como agua para chocolate regresa con una segunda temporada</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Redacción</span>
-            </a>
-            
-            <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="La casa de los espíritus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">La casa de los espíritus: la serie inspirada en la aclamada novela</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Redacción</span>
-            </a>
-
-            <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="49 Películas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
                 <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Las 49 películas más esperadas de 2026</h3>
@@ -331,19 +324,16 @@
 
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Cumbres Borrascosas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
                 <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Cumbres Borrascosas llega a cines: Esto es todo sobre la película</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Miguel Vicencio</span>
             </a>
-        </section>
 
-        <!-- Grid 4 Columnas: Series y Películas (Fila 2) -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12">
             <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="El diablo viste a la moda 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
                 <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">El diablo viste a la moda 2: TODO lo que sabemos</h3>
@@ -351,38 +341,36 @@
             </a>
 
             <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="The Drama" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">The Drama, la película con Robert Pattinson y Zendaya ya tiene fecha de estreno</h3>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">The Drama, la película con Robert Pattinson y Zendaya ya tiene fecha de estreno y tráiler oficial</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Miguel Vicencio</span>
             </a>
 
+            <!-- Fila 2 -->
             <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="Harry Potter 6 momentos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">6 momentos de los libros de Harry Potter que queremos ver en la nueva serie</h3>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">6 momentos de los libros de Harry Potter que no vimos en las películas y queremos ver en la nueva serie</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
             </a>
 
             <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="Harry Potter serie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">El mundo mágico de Harry Potter regresará oficialmente en formato serie</h3>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">El mundo mágico de Harry Potter regresará oficialmente en formato serie. Esto es lo que sabemos</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Esteban Villaseñor y Miguel Vicencio</span>
             </a>
-        </section>
 
-        <!-- Grid 4 Columnas: Series y Películas (Fila 3) -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20">
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Bridgerton T5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
                 <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Todo lo que sabemos (hasta ahora) sobre la temporada 5 de Bridgerton</h3>
@@ -391,16 +379,17 @@
 
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Michaela Stirling" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
                 <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Michaela Stirling, el cambio más radical en la historia de Bridgerton</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Michel Mejía</span>
             </a>
 
+            <!-- Fila 3 -->
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Moana" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
                 <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Moana: Todo lo que debes saber sobre el nuevo live action</h3>
@@ -409,11 +398,29 @@
 
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="La oficina México" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">¿Quién es quién en La oficina México? Todos los actores y personajes</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Miguel Vicencio y Fernanda Pérez Sánchez</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Como agua para chocolate regresa con una segunda temporada</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Redacción</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">La casa de los espíritus: la serie inspirada en la novela de</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Redacción</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Así suena el amor de Tita y Pedro: Lila Downs y Carla Morrison reinterpretan Como agua para chocolate</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
             </a>
         </section>
 
@@ -426,41 +433,77 @@
             </div>
         </div>
 
-        <!-- Grid 3 Columnas: Artículos Destacados Alfombra Roja -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-            <a href="#" class="flex flex-col group cursor-pointer">
+        <!-- Sección 4: Alfombra Roja y Oscars 2026 -->
+        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20">
+            <!-- Fila 1 -->
+            <a href="#" class="flex flex-col group cursor-pointer lg:col-span-2">
                 <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="Camila Morrone" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">ABRIL 2026</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Camila Morrone en la portada de Devon: "Quiero ser íntegra y quiero seguir haciendo esto"</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
-            </a>
-            
-            <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="Fiesta WIF" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Mujeres celebrando a mujeres en el marco de los Oscars 2026, así fue la fiesta anual de la WIF</h3>
+                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">¿Quién es quién en La oficina México? Todos los actores y personajes</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Miguel Vicencio y Fernanda Pérez Sánchez</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer lg:col-span-2">
+                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">OPINIÓN</span>
+                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Creí que odiaría La oficina, pero estas son todas las razones las que la versión mexicana de The Office funciona tan bien</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
+            </a>
+
+            <!-- Fila 2 -->
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">ABRIL 2026</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Camila Morrone en la portada de Devon: "Quiero ser íntegra y quiero seguir haciendo esto mientras tenga la oportunidad"</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Mujeres celebrando a mujeres en el marco de los Oscars 2026, así fue la fiesta anual de la WIF</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Kelsey Stewart</span>
             </a>
 
             <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] mb-4 bg-gray-200">
-                    <img src="" alt="After Party Guy Oseary" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Imágenes exclusivas del after party de Guy Oseary en los Oscars 2026</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Freya Drohan</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Devon explica el impacto de Golden, la canción de K-pop Demon Hunters que se llevó el Oscar</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Ivana E. Morales</span>
             </a>
-        </section>
 
-        <!-- Grid 4 Columnas Finales: Moda en los Oscars -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20">
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Nicole Kidman" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Zoe Saldaña, la verdad sobre su espectacular collar de rubíes y diamantes en los Oscars 2026</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Jessica Scemama</span>
+            </a>
+
+            <!-- Fila 3 -->
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Imágenes exclusivas del after party de Guy Oseary en los Oscars 2026 (la celebración más privada de Hollywood)</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Freya Drohan</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
                 <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Nicole Kidman triunfa una vez más en color rosa en los Oscars 2026</h3>
@@ -469,39 +512,94 @@
 
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Joyas Oscars" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">No puedo dejar de pensar en las blusas transparentes de Connor Storrie y Hudson Williams de Heated Rivalry</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
                 <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Las joyas más impresionantes de los Oscars 2026</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Laura Hawkins</span>
             </a>
 
+            <!-- Fila 4 -->
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Karol G" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Karol G revive las sandalias de tacón invisibles en el after party de los Oscars 2026</h3>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">El vestido de Chase Infiniti para los Oscar 2026 tardó 750 horas en confeccionarse</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Christian Allaire</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Karol G revive las sandalias de tacón invisibles en el after party de los Oscars 2026 por Vanity Fair</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
             </a>
 
             <a href="#" class="flex flex-col group cursor-pointer">
                 <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
-                    <img src="" alt="Hailey Bieber" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Hailey Bieber recupera las uñas más clásicas en el after party de los Oscars 2026</h3>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Los 6 mejores cortes de cabello bob en la alfombra roja de los Oscars 2026</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Veronica Cristino</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Los mejores looks vintage (e inspirados en el pasado) de los Oscars 2026</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Emily Chan</span>
+            </a>
+
+            <!-- Fila 5 -->
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Celebridades mejor vestidas en el after party de los Oscars 2026 por Vanity Fair</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Morgan Evans</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Hailey Bieber recupera las uñas más clásicas en el after party de los Oscars 2026 por Vanity Fair</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Ana Morales</span>
             </a>
-            
-            <!-- Artículo Final suelto -->
-            <a href="#" class="flex flex-col group cursor-pointer sm:col-span-2 lg:col-span-4 lg:w-1/2 mx-auto text-center mt-8">
-                <div class="overflow-hidden aspect-[4/3] md:aspect-[21/9] mb-4 bg-gray-200">
-                    <img src="" alt="Todos los looks Oscars" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                 </div>
                 <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Oscars 2026: TODOS los looks y vestidos de las celebridades en la alfombra roja</h3>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Oscars 2026: TODOS los looks y vestidos de las celebridades en la alfombra roja</h3>
                 <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Devon y Ramón Barreto</span>
+            </a>
+
+            <a href="#" class="flex flex-col group cursor-pointer">
+                <div class="overflow-hidden aspect-[4/5] mb-4 bg-gray-200">
+                    <img src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                </div>
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2 font-sans">RED CARPET</span>
+                <h3 class="text-lg font-medium text-black leading-snug mb-3 font-sans group-hover:text-gray-600 transition-colors">Autumn Durald Arkapaw es la primera mujer en ganar el premio a la Mejor Fotografía en los Oscars 2026</h3>
+                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Lolita Mang</span>
             </a>
         </section>
 
@@ -549,15 +647,15 @@
             <div class="md:col-span-4 md:pl-8">
                 <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">MÁS EN DEVON</h4>
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="#" class="hover:text-white transition-colors">Moda</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Belleza</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Estilo de Vida</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Compras</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">(Re)Devon</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Red Carpet</a></li>
+                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="hollywood.html" class="hover:text-white transition-colors">Red Carpet</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Pasarelas</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Videos</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Espacio Devon</a></li>
+                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">PhotoDevon</a></li>
                 </ul>
             </div>
@@ -568,7 +666,7 @@
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
                     <li><a href="#" class="hover:text-white transition-colors">AD</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Glamour</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Devon</a></li>
+                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">GQ</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Wired</a></li>
                 </ul>
@@ -587,9 +685,9 @@
                 <span class="text-gray-700">|</span>
                 <a href="#" class="hover:text-white transition-colors">Media Kit</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-white transition-colors">Newsletter</a>
+                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-white transition-colors">Suscripción</a>
+                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
                 <span class="text-gray-700">|</span>
                 <a href="#" class="hover:text-white transition-colors">Site Map</a>
             </div>
