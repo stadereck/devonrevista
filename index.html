@@ -328,6 +328,15 @@
                     <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0">
                         <img src="https://acuaticasamil.com/wp-content/uploads/2025/08/2.jpg" alt="Salma Acuatica Samil" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%]"/>
                     </div>
+
+                    <!-- Slide 6: Backrooms -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0">
+                        <img src="https://hips.hearstapps.com/hmg-prod/images/screenshot-2026-02-26-at-10-18-37-am-69a0645189464.png?crop=0.9555555555555556xw:1xh;0,0.0179xh" alt="The Backrooms Movie" class="absolute inset-0 w-full h-full object-cover object-center"/>
+                        <!-- Efecto transparente Backrooms sobre la imagen (Más chico y solo B mayúscula) -->
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-20 bg-black/10">
+                            <span class="text-white/60 font-medium tracking-widest drop-shadow-2xl" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: clamp(2.5rem, 6vw, 5.5rem); text-shadow: 0 4px 30px rgba(0,0,0,0.6);">Backrooms</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -338,14 +347,25 @@
                 <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
                 <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
                 <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
+                <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
                 
-                <!-- Indicador de Tiempo Circular -->
-                <div class="relative w-7 h-7 flex items-center justify-center ml-3">
-                    <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                        <circle cx="18" cy="18" r="14" fill="none" stroke="#333333" stroke-width="2.5"></circle>
-                        <circle id="hero-progress-circle" cx="18" cy="18" r="14" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="88" stroke-dashoffset="88" stroke-linecap="round"></circle>
-                    </svg>
-                    <span id="hero-progress-text" class="text-[9px] font-bold text-white font-sans z-10" style="padding-top: 1px;">5</span>
+                <!-- Indicador de Tiempo Circular y Candado -->
+                <div class="flex items-center gap-2 ml-3">
+                    <div class="relative w-7 h-7 flex items-center justify-center">
+                        <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                            <circle cx="18" cy="18" r="14" fill="none" stroke="#333333" stroke-width="2.5"></circle>
+                            <circle id="hero-progress-circle" cx="18" cy="18" r="14" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="88" stroke-dashoffset="88" stroke-linecap="round"></circle>
+                        </svg>
+                        <span id="hero-progress-text" class="text-[9px] font-bold text-white font-sans z-10" style="padding-top: 1px;">6</span>
+                        <span id="hero-infinity-icon" class="hidden absolute inset-0 flex items-center justify-center text-[16px] font-medium text-white z-10 animate-pulse" style="padding-bottom: 2px;">∞</span>
+                    </div>
+                    <!-- Botón de candado (Lock) -->
+                    <button id="carousel-lock-btn" class="text-gray-500 hover:text-white transition-colors focus:outline-none flex items-center justify-center w-6 h-6">
+                        <svg id="lock-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
             
@@ -422,6 +442,25 @@
                             <span>4 de abril de 2026 (Actualizacion 6 abril de 2026)</span>
                         </div>
                     </div>
+                </div>
+
+                <!-- Texto Slide 6 (Backrooms) -->
+                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-0 z-0 pointer-events-none flex flex-col items-start justify-start">
+                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-gray-300 mb-3 md:mb-4">Espacio Devon</p>
+                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-white leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
+                        The Backrooms Movie, la pelicula estadounidense mas esperada producida por A24 para estar en los cines con su pelicula su lanzamiento se espera para el dia 29 mayo de 2026.
+                    </h2>
+                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-white leading-loose mb-6">
+                        <p class="text-gray-300">POR A24® & Devon®.</p>
+                        <p class="text-gray-300">Fotografia Por Devon®</p>
+                        <div class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-400 tracking-normal leading-none flex items-center gap-3" style="font-family: 'Jost', sans-serif;">
+                            <span>8 abril de 2026</span>
+                        </div>
+                    </div>
+                    <!-- Enlace a backrooms.html con animación de línea interactiva -->
+                    <a href="backrooms.html" class="link-underline text-xs md:text-sm font-bold tracking-widest uppercase text-white transition-colors pointer-events-auto relative z-30">
+                        Backrooms
+                    </a>
                 </div>
 
             </div>
@@ -670,6 +709,12 @@
             let currentSlide = 0;
             let slideInterval;
 
+            // Variables de la función Candado
+            let isCarouselLocked = false;
+            const lockBtn = document.getElementById('carousel-lock-btn');
+            const infinityIcon = document.getElementById('hero-infinity-icon');
+            const lockIconSvg = document.getElementById('lock-icon-svg');
+
             // Variables para el indicador circular
             const progressCircle = document.getElementById('hero-progress-circle');
             const progressText = document.getElementById('hero-progress-text');
@@ -678,6 +723,7 @@
             let progressAnimFrame;
 
             function updateProgress() {
+                if (isCarouselLocked) return; // Si está bloqueado, no avanzamos la animación
                 if (!slideStartTime) return;
                 const elapsed = Date.now() - slideStartTime;
                 let remaining = slideDuration - elapsed;
@@ -752,9 +798,13 @@
                     
                     currentSlide = index;
 
-                    slideStartTime = Date.now();
-                    if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-                    updateProgress();
+                    if (!isCarouselLocked) {
+                        slideStartTime = Date.now();
+                        if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
+                        updateProgress();
+                    } else {
+                        if (progressCircle) progressCircle.style.strokeDashoffset = '0';
+                    }
                 }
 
                 function nextSlide() {
@@ -767,9 +817,46 @@
                     dot.addEventListener('click', () => {
                         clearInterval(slideInterval);
                         showSlide(index);
-                        slideInterval = setInterval(nextSlide, 4500);
+                        if (!isCarouselLocked) {
+                            slideInterval = setInterval(nextSlide, 4500);
+                        }
                     });
                 });
+                
+                // Evento Lógica del Candado (Infinity Loop)
+                if (lockBtn) {
+                    lockBtn.addEventListener('click', () => {
+                        isCarouselLocked = !isCarouselLocked;
+                        if (isCarouselLocked) {
+                            // Detener carrusel
+                            clearInterval(slideInterval);
+                            if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
+                            progressText.style.display = 'none';
+                            infinityIcon.classList.remove('hidden');
+                            lockBtn.classList.add('text-white');
+                            lockBtn.classList.remove('text-gray-500');
+                            // Ícono: Candado Cerrado
+                            lockIconSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
+                            if (progressCircle) {
+                                progressCircle.style.transition = 'stroke-dashoffset 0.5s ease';
+                                progressCircle.style.strokeDashoffset = '0'; // Círculo completado
+                            }
+                        } else {
+                            // Reanudar carrusel
+                            progressText.style.display = 'block';
+                            infinityIcon.classList.add('hidden');
+                            lockBtn.classList.remove('text-white');
+                            lockBtn.classList.add('text-gray-500');
+                            // Ícono: Candado Abierto
+                            lockIconSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
+                            if (progressCircle) progressCircle.style.transition = 'none';
+                            
+                            slideStartTime = Date.now();
+                            slideInterval = setInterval(nextSlide, 4500);
+                            updateProgress();
+                        }
+                    });
+                }
             }
 
             // --- 4. Lógica de Scroll ---
