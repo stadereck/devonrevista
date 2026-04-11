@@ -302,7 +302,8 @@
         <section class="max-w-7xl w-full mx-auto px-4 md:px-6 pt-4 md:pt-6 mb-4">
             <!-- Contenedor del Carrusel -->
             <div class="w-full mx-auto overflow-hidden shadow-2xl relative bg-gray-900 rounded-2xl md:rounded-[2rem]">
-                <div id="hero-anim-container" class="relative w-full aspect-[4/3] md:aspect-[16/9] transform origin-center will-change-transform bg-black">
+                <!-- Cambio a formato vertical (aspect-[4/5]) en móvil y panorámico (aspect-[16/9]) en PC -->
+                <div id="hero-anim-container" class="relative w-full aspect-[4/5] md:aspect-[16/9] transform origin-center will-change-transform bg-black">
                     
                     <!-- Slide 1: Alonso y Alonso (NUEVO) -->
                     <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-0 z-10">
@@ -351,18 +352,21 @@
             </div>
 
             <!-- Indicadores Dinámicos -->
-            <div class="flex justify-center items-center gap-2.5 mt-6 mb-6">
-                <div class="hero-dot w-8 h-1.5 rounded-full bg-white cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
-                <div class="hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300"></div>
+            <div class="flex justify-center items-center gap-3 mt-6 mb-6">
+                <!-- Contenedor tipo 'píldora' en color oscuro, más ancha y con borde sutil -->
+                <div class="flex items-center gap-1.5 md:gap-2.5 px-5 py-2 md:px-7 md:py-2.5 bg-[#1a1a1a] rounded-full shadow-lg border border-gray-800">
+                    <div class="hero-dot w-5 h-1.5 md:w-8 md:h-1.5 rounded-full bg-white cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300 hover:bg-gray-500"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300 hover:bg-gray-500"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300 hover:bg-gray-500"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300 hover:bg-gray-500"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300 hover:bg-gray-500"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300 hover:bg-gray-500"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300 hover:bg-gray-500"></div>
+                </div>
                 
                 <!-- Indicador de Tiempo Circular y Candado -->
-                <div class="flex items-center gap-2 ml-3">
+                <div class="flex items-center gap-2 ml-1 md:ml-3">
                     <div class="relative w-7 h-7 flex items-center justify-center">
                         <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                             <circle cx="18" cy="18" r="14" fill="none" stroke="#333333" stroke-width="2.5"></circle>
@@ -832,11 +836,12 @@
                     });
                     updateTextHeight(index);
 
+                    // Se actualiza el color dinámico por JavaScript (Activo blanco, inactivo gris sobre oscuro)
                     dots.forEach((dot, i) => {
                         if(i === index) {
-                            dot.className = "hero-dot w-8 h-1.5 rounded-full bg-white cursor-pointer transition-all duration-300";
+                            dot.className = "hero-dot w-5 h-1.5 md:w-8 md:h-1.5 rounded-full bg-white cursor-pointer transition-all duration-300";
                         } else {
-                            dot.className = "hero-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300";
+                            dot.className = "hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600 cursor-pointer transition-all duration-300 hover:bg-gray-500";
                         }
                     });
                     
