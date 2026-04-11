@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La premiere de 'euphoria 3' fue una mezcla de estilo nostalgia y drama | Devon</title>
+    <!-- Ícono de la pestaña (Favicon) -->
+    <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Jost', 'sans-serif'],
+                        serif: ['"Bodoni Moda"', 'serif'],
+                    },
+                    colors: {
+                        brandPink: '#E8A5D6',
+                        brandDark: '#0B1320',
+                        brandGray: '#F2F2F2',
+                        vanCleefBg: '#E5F0E6'
+                    },
+                    letterSpacing: {
+                        widest: '.2em',
+                        wider: '.1em'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* --- Sincronización Animaciones (Letra O principal) --- */
+        @keyframes slashAnim {
+            0%, 20% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
+            30%, 70% { width: 140%; opacity: 1; transform: rotate(-45deg) scaleX(1); }
+            80%, 100% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
+        }
+        
+        .animated-slash {
+            position: absolute;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transform-origin: center;
+            animation: slashAnim 4s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* --- Reproductor Dinámico (Apple Music Style) --- */
+        #dynamic-player-wrapper {
+            transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: max-width, height, border-radius, border-color;
+        }
+        
+        /* Estado 1: Isla Dinámica Compacta */
+        .is-compact {
+            max-width: 320px;
+            height: 64px;
+            border-radius: 9999px;
+            border: 1px solid #333;
+            background: #0f0f0f;
+        }
+        
+        /* Estado 2: Reproductor Expandido */
+        .is-expanded {
+            max-width: 100%;
+            height: 80vh;
+            max-height: 800px;
+            border-radius: 2rem;
+            border: 1px solid transparent;
+            background: #000;
+        }
+        @media (min-width: 1024px) {
+            .is-expanded { height: 500px; }
+        }
+
+        /* --- Fondo Animado (Blobs) --- */
+        .ambient-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.6;
+            animation: floatBlob 12s infinite alternate ease-in-out;
+            will-change: transform;
+            z-index: 0;
+        }
+        .blob-1 { width: 350px; height: 350px; background: #1a2a6c; top: -10%; left: -10%; animation-delay: 0s; }
+        .blob-2 { width: 450px; height: 450px; background: #b21f1f; bottom: -20%; right: -10%; animation-delay: -3s; }
+        .blob-3 { width: 300px; height: 300px; background: #4a196e; top: 30%; left: 40%; animation-delay: -6s; }
+        
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 40px) scale(1.1); }
+        }
+
+        /* --- Estilo Letras (Apple Music Lyrics) --- */
+        .lyric-line {
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            filter: blur(2px);
+            opacity: 0.4;
+            transform: scale(0.95);
+            font-family: 'Jost', sans-serif;
+            font-weight: 600;
+            color: #d1d5db;
+            transform-origin: left center;
+        }
+        .lyric-line.active {
+            filter: blur(0px);
+            opacity: 1;
+            transform: scale(1.05) translateX(5px);
+            color: #ffffff;
+            font-weight: 800;
+            text-shadow: 0 4px 20px rgba(255,255,255,0.2);
+        }
+        .lyric-line:hover {
+            opacity: 0.8;
+            filter: blur(0px);
+            color: #ffffff;
+        }
+        @media (max-width: 1024px) {
+            .lyric-line { transform-origin: center center; }
+            .lyric-line.active { transform: scale(1.05); }
+        }
+
+        /* Deslizador de Audio */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(255,255,255,0.6);
+            margin-top: -5px; 
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 4px;
+            border-radius: 2px;
+            background: inherit;
+        }
+
+        /* Animación del ecualizador (Compacto) */
+        .wave-bar {
+            width: 3px;
+            background: white;
+            border-radius: 2px;
+            animation: wave 1.2s ease-in-out infinite;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.6s; }
+        @keyframes wave {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
+        }
+
+        /* Estilo editorial para la primera letra del artículo */
+        .drop-cap::first-letter {
+            float: left;
+            font-size: 4.5rem;
+            line-height: 0.8;
+            padding-top: 4px;
+            padding-right: 8px;
+            padding-left: 3px;
+            font-family: 'Bodoni Moda', serif;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Animación de Línea para los Enlaces */
+        .link-underline {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1.5px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease-in-out;
+        }
+        .link-underline:hover::after {
+            width: 100%;
+        }
+
+        /* Sidebar utils */
+        .sidebar { transform: translateX(-100%); transition: transform 0.3s ease-in-out; }
+        .sidebar.open { transform: translateX(0); }
+        .sidebar nav a { opacity: 0; transform: translateX(-20px); transition: opacity 0.4s ease, transform 0.4s ease; }
+        .sidebar.open nav a { opacity: 1; transform: translateX(0); }
+        .sidebar.open nav a:nth-child(1) { transition-delay: 0.10s; }
+        .sidebar.open nav a:nth-child(2) { transition-delay: 0.15s; }
+        .sidebar.open nav a:nth-child(3) { transition-delay: 0.20s; }
+        .sidebar.open nav a:nth-child(4) { transition-delay: 0.25s; }
+        .sidebar.open nav a:nth-child(5) { transition-delay: 0.30s; }
+        .sidebar.open nav a:nth-child(6) { transition-delay: 0.35s; }
+        .sidebar.open nav a:nth-child(7) { transition-delay: 0.40s; }
+        .sidebar.open nav a:nth-child(8) { transition-delay: 0.45s; }
+        .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
+        .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
+    </style>
+</head>
+<body class="bg-black text-white font-sans flex flex-col min-h-screen">
+
+    <!-- Pantalla de Introducción A24 -->
+    <div id="intro-container" class="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden pointer-events-auto bg-black transition-opacity duration-700">
+        <img id="intro-logo" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e94e7d1f-3328-48d3-b11a-45e835c32fcb/dhvgkbm-ea7c097b-28b8-421d-9517-808ca4874cf0.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9lOTRlN2QxZi0zMzI4LTQ4ZDMtYjExYS00NWU4MzVjMzJmY2IvZGh2Z2tibS1lYTdjMDk3Yi0yOGI4LTQyMWQtOTUxNy04MDhjYTQ4NzRjZjAuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.clS1Az05Pd-Bwh-3uZzyIZFNcJC3Q6dlwSwVI2riTaU" alt="A24 Intro" class="h-40 md:h-64 object-contain relative z-20 transition-all duration-[0.8s] ease-in-out origin-center">
+    </div>
+
+    <!-- Overlay y Sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black/70 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
+    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-[#0a0a0a] border-r border-gray-900 z-50 shadow-2xl flex flex-col">
+        <div class="p-5 flex justify-between items-center border-b border-gray-800">
+            <h2 class="text-xl font-bold tracking-widest text-white">MENÚ</h2>
+            <button onclick="toggleMenu()" class="text-gray-400 hover:text-white p-2 transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-400 uppercase overflow-y-auto no-scrollbar pb-20">
+            <a href="suscripcion.html" class="text-white hover:bg-gray-900 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Espacio Devon</a>
+        </nav>
+    </aside>
+
+    <!-- Barra de Navegación Principal -->
+    <header class="w-full bg-black sticky top-0 z-30 border-b border-gray-900 md:border-none">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
+            <div class="flex items-center gap-4 z-20">
+                <button onclick="toggleMenu()" class="text-white hover:scale-110 transition-transform">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <line x1="3" y1="16" x2="21" y2="16"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
+                <a href="index.html" id="devon-text" class="flex items-center justify-center gap-2 md:gap-3 transition-all duration-500 hover:opacity-80">
+                    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e94e7d1f-3328-48d3-b11a-45e835c32fcb/dhvgkbm-ea7c097b-28b8-421d-9517-808ca4874cf0.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9lOTRlN2QxZi0zMzI4LTQ4ZDMtYjExYS00NWU4MzVjMzJmY2IvZGh2Z2tibS1lYTdjMDk3Yi0yOGI4LTQyMWQtOTUxNy04MDhjYTQ4NzRjZjAuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.clS1Az05Pd-Bwh-3uZzyIZFNcJC3Q6dlwSwVI2riTaU" alt="A24 Logo GIF" class="h-8 sm:h-10 md:h-12 object-contain">
+                    <span class="text-xl sm:text-2xl md:text-3xl font-bold tracking-widest text-white font-serif uppercase">| DEVON</span>
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-4 z-20">
+                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-white hover:text-gray-400 transition-colors mr-1" style="font-family: 'Jost', sans-serif;">
+                    SUSCRIPCIÓN
+                </a>
+                <a href="usuario.html" class="text-white hover:scale-110 transition-transform">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 16a4 4 0 0 0-4-4h8a4 4 0 0 0-4 4z"></path>
+                        <circle cx="12" cy="9" r="2.5"></circle>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Top Bar -->
+    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-white uppercase py-4 bg-black border-b border-gray-900 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
+        <a href="moda.html" class="cursor-pointer hover:text-gray-400 transition-colors">MODA</a>
+        <a href="belleza.html" class="cursor-pointer hover:text-gray-400 transition-colors">BELLEZA</a>
+        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-400 transition-colors">ESTILO DE VIDA</a>
+        <a href="compras.html" class="cursor-pointer hover:text-gray-400 transition-colors">COMPRAS</a>
+        <a href="redevon.html" class="cursor-pointer hover:text-gray-400 transition-colors">(RE)DEVON</a>
+        <a href="hollywood.html" class="cursor-pointer hover:text-gray-400 transition-colors border-b border-white pb-0.5">HOLLYWOOD</a>
+        <a href="podcast.html" class="cursor-pointer hover:text-gray-400 transition-colors">PODCAST</a>
+        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-400 transition-colors">ESPACIO DEVON</a>
+    </div>
+
+    <!-- Pestañas Superiores (Solo Móvil) -->
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-400 uppercase">
+        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-black text-white border-b-2 border-white">
+            LO ÚLTIMO
+        </a>
+        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-gray-900 border-l border-gray-800 hover:bg-gray-800 transition-colors cursor-pointer">
+            TENDENCIAS
+        </a>
+    </div>
+
+    <!-- BANNER: Van Cleef & Arpels -->
+    <section class="w-full relative flex items-center justify-center overflow-hidden border-b border-gray-800 min-h-[220px] md:min-h-[280px]">
+        <img 
+            src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
+            alt="Fondo Van Cleef" 
+            class="absolute inset-0 w-full h-full object-cover object-center z-0 brightness-75"
+        />
+        <div class="max-w-7xl w-full flex flex-col items-center md:items-start text-center md:text-left z-10 px-6 md:px-12 py-8 md:py-10 relative">
+            <h2 class="text-2xl md:text-4xl text-white mb-2" style="font-family: 'Georgia', 'Times New Roman', serif;">Van Cleef & Arpels</h2>
+            <p class="text-[10px] md:text-xs text-gray-200 mb-4" style="font-family: 'Georgia', 'Times New Roman', serif;">Haute Joaillerie, place Vendôme desde 1906</p>
+            <div class="mb-4 text-white opacity-90 flex items-center justify-center md:justify-start">
+                <svg width="30" height="20" viewBox="0 0 36 24">
+                    <polygon points="18,1 35,12 18,23 1,12" fill="none" stroke="currentColor" stroke-width="1.2"></polygon>
+                    <text x="18" y="15" font-size="7" font-family="serif" text-anchor="middle" fill="currentColor">VCA</text>
+                </svg>
+            </div>
+            <a href="#" class="text-[9px] md:text-[10px] font-bold tracking-widest uppercase text-white border-b border-white pb-0.5 hover:text-gray-300 transition-colors">
+                DESCUBRE LA COLECCIÓN LUCKY SPRING
+            </a>
+        </div>
+    </section>
+
+    <!-- Contenedor Principal: Artículo Completo -->
+    <main class="w-full flex-1 bg-black overflow-hidden">
+        
+        <article class="max-w-4xl mx-auto px-6 pt-16 md:pt-24 pb-16">
+            
+            <div class="text-center mb-10">
+                <span class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-4 block font-sans">HOLLYWOOD / GOSSIP</span>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-medium text-white leading-[1.1] mb-6" style="font-family: 'Jost', sans-serif;">
+                    La premiere de 'euphoria 3' fue un mezcla de estilo nostalgia y drama
+                </h1>
+                
+                <p class="text-lg md:text-2xl text-gray-400 mb-8 font-serif italic max-w-2xl mx-auto leading-relaxed">
+                    Un desierto colorido en su máxima expresión.
+                </p>
+                
+                <div class="flex items-center justify-center gap-3 text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-white font-sans">
+                    <span class="text-gray-400">POR PAMELA VÁZQUEZ</span>
+                    <span class="w-1 h-1 bg-white rounded-full"></span>
+                    <span class="text-gray-400">8 DE ABRIL DE 2026</span>
+                </div>
+            </div>
+
+            <!-- Imagen Principal -->
+            <div class="w-full mb-12">
+                <img 
+                    src="https://media.glamour.mx/photos/69d692a2f23c6a7876d5a24f/16:9/w_1920,c_limit/euphoria-premiere.jpg" 
+                    alt="Cast de Euphoria 3 en la Premiere" 
+                    class="w-full h-auto aspect-[16/9] md:aspect-[21/9] object-cover object-center bg-gray-900"
+                />
+            </div>
+
+            <div class="max-w-2xl mx-auto text-[16px] md:text-[18px] leading-loose text-gray-300 font-serif space-y-8 relative">
+                
+                <p class="drop-cap">
+                    La espera por 'euphoria 3' ha sido larga e incierta, pues después de varios atrasos en la producción, disputas entre los creadores y protagonistas y dos dolorosas pérdidas, la tercera parte de esta controversial serie realmente pendía de un hilo.
+                </p>
+                <p>Pero finalmente, logró salir adelante y ya estamos en vísperas del gran estreno, agendado para el 12 de abril en HBO Max, con tráiler oficial y première incluidos.</p>
+                <p>Spoiler alert: no se sabe qué preámbulo tiene más drama, estilo y nostalgia, pues tanto el adelanto, como la alfombra roja crearon momentos de alta tensión, alta moda y altas ganas de llorar.</p>
+
+                <h2 class="text-2xl md:text-3xl font-medium text-white mt-16 mb-4" style="font-family: 'Jost', sans-serif;">Todo lo que pasó en la première de 'euphoria 3'</h2>
+                <p>La temática de desierto colorido fue visionaria porque así como hubo mucho glam, también dominó la sequía emocional.</p>
+
+                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">La aparición express de Zendaya</h2>
+                <p>A pesar de su apretada agenda, la protagonista y productora de la serie asistió al evento luciendo tan increíble como siempre en un vestido de cuello halter y escote de espalda en satin marrón que combinó con una versión wet de su pixie cut.</p>
+                <p>Pero solo tuvimos unos minutos para disfrutar de su presencia, pues luego de posar para las cámaras que lanzaron flashes sin cesar, salió corriendo de la red carpet hacia su transporte. Solo alcanzó a saludar brevemente a Sam Levinson, creador de 'euphoria 3'.</p>
+
+                <!-- Imagen Zendaya -->
+                <div class="w-full my-10">
+                    <img 
+                        src="https://media.glamour.mx/photos/69d69246e22a9a87373e9cdd/master/w_1600,c_limit/euphoria-3-premiere-zendaya.jpg" 
+                        alt="Zendaya en vestido halter" 
+                        class="w-full h-auto object-cover bg-gray-900"
+                    />
+                </div>
+
+                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Homenaje a Angus Cloud y Eric Dane</h2>
+                <p>Durante la primera presentación oficial, Levinson le dedicó unas palabras a dos de los miembros del elenco que lamentablemente perdieron la vida entre el estreno de la segunda temporada y de la tercera. Angus Cloud, quien interpretó a Fezco, falleció el 31 de julio de 2023 por sobredosis. Y Eric Dane, quien le dio vida a Cal Jacobs, falleció el 19 de febrero del 2026 a causa de una insuficiencia respiratoria provocada por la esclerosis lateral amiotrófica.</p>
+
+                <!-- Imagen Angus Cloud -->
+                <div class="w-full my-10">
+                    <img 
+                        src="https://media.glamour.mx/photos/64c988324b0bc56740ccc88d/2:3/w_1600,c_limit/1363008904" 
+                        alt="Angus Cloud" 
+                        class="w-full h-auto aspect-[2/3] object-cover bg-gray-900 mx-auto"
+                    />
+                </div>
+
+                <p>"Algunas personas se preguntan por qué tomó tanto tiempo entre las temporadas dos y tres. Había factores obvios: las huelgas, tratando de hacer que un horario funcione con nuestro elenco muy solicitado, pero el tiempo real estaba tratando de averiguar cómo encontrar una manera de respetar a aquellos que perdimos", dijo Sam durante la presentación.</p>
+
+                <!-- Imagen Eric Dane -->
+                <div class="w-full my-10">
+                    <img 
+                        src="https://media.glamour.mx/photos/6997d2be8b72353000c27f4f/2:3/w_1600,c_limit/eric-dane.jpg" 
+                        alt="Eric Dane" 
+                        class="w-full h-auto aspect-[2/3] object-cover bg-gray-900 mx-auto"
+                    />
+                </div>
+
+                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">¿Alexa Demie se va retirar?</h2>
+                <p>Volver a ver a la intérprete de la icónica Maddie fue un goce para todos, pues a diferencia de otros miembros del cast, sus apariciones son esporádicas. La estrella estuvo sonriendo, platicando con la prensa y los fans, y conviviendo con sus compañeros en un vestido de líneas B&W que complementó con un beauty look natural y fresco.</p>
+                <p>En varias entrevistas ha confesado sus deseos por retirarse de la actuación en un futuro próximo, pues aún hay una gran falta de oportunidades en Hollywood para mujeres latinas en sus 30, así que todos (incluyéndola a ella) disfrutaron de esta red carpet como si fuera la última.</p>
+
+                <!-- Imagen Alexa Demie -->
+                <div class="w-full my-10">
+                    <img 
+                        src="https://media.glamour.mx/photos/69d6925552fb2925a08302a8/master/w_1600,c_limit/alexa-demie.jpg" 
+                        alt="Alexa Demie" 
+                        class="w-full h-auto object-cover bg-gray-900"
+                    />
+                </div>
+
+                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Sidney Sweeney fue acompañada por Scooter Braun</h2>
+                <p>Después de la impactante noticia de que la actriz que le da vida a Cassie no se encuentra en buenos términos con Zendaya debido a “diferencias políticas", la première de 'euphoria 3' fue la confirmación de las tensiones entre las estrellas, pues no compartieron ni un segundo, mientras que el resto de los actores sí.</p>
+                <p>Pero el acompañante principal de Sweeney fue su novio, el ejecutivo discográfico, Scooter Braun. Llegaron juntos y se sentaron al lado en la sala para ver la proyección de la serie, donde compartieron un beso captado por una de las asistentes. Sin embargo, no desfilaron de la mano por la alfombra roja.</p>
+
+                <!-- ========================================== -->
+                <!-- REPRODUCTOR DE AUDIO ESTILO APPLE MUSIC -->
+                <!-- ========================================== -->
+                <div class="my-16 flex flex-col items-center justify-center w-full relative z-30 font-sans">
+                    
+                    <!-- Título encima de la Isla Dinámica -->
+                    <p id="dynamic-island-title" class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-gray-400 font-sans mb-4 text-center transition-opacity duration-300">
+                        La canción más viral de Euphoria
+                    </p>
+
+                    <!-- Wrapper Dinámico (Cambia de Isla a Pantalla Completa) -->
+                    <div id="dynamic-player-wrapper" class="is-compact relative mx-auto w-full overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+                        
+                        <!-- Fondo Blur Animado (Sólo visible/notable en expandido) -->
+                        <div id="ambient-bg" class="absolute inset-0 z-0 opacity-0 transition-opacity duration-700 pointer-events-none">
+                            <div class="ambient-blob blob-1"></div>
+                            <div class="ambient-blob blob-2"></div>
+                            <div class="ambient-blob blob-3"></div>
+                            <div class="absolute inset-0 bg-black/40 backdrop-blur-[60px]"></div>
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90"></div>
+                        </div>
+                        
+                        <!-- ESTADO 1: COMPACTO (ISLA DINÁMICA) -->
+                        <div id="compact-player" class="absolute inset-0 flex items-center justify-between px-4 py-2 cursor-pointer transition-opacity duration-300 opacity-100 hover:bg-white/5 z-20">
+                            <div class="flex items-center gap-4">
+                                <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1775946778/ab67616d0000b27389c39ba1acdf33ed7acd3867_piulto.jpg" id="compact-spin" class="w-12 h-12 rounded-full object-cover border border-gray-700 shadow-lg animate-[spin_5s_linear_infinite]" style="animation-play-state: paused;" alt="Cover">
+                                <div class="flex flex-col justify-center">
+                                    <span class="text-white font-bold text-sm font-sans leading-tight tracking-wide">Mount Everest</span>
+                                    <span class="text-gray-400 font-medium text-[10px] tracking-widest uppercase font-sans mt-0.5">Labrinth</span>
+                                </div>
+                            </div>
+                            <div id="compact-wave" class="flex items-center gap-1 h-5 mr-3 opacity-50">
+                                <div class="wave-bar" style="animation-play-state: paused;"></div>
+                                <div class="wave-bar" style="animation-play-state: paused;"></div>
+                                <div class="wave-bar" style="animation-play-state: paused;"></div>
+                                <div class="wave-bar" style="animation-play-state: paused;"></div>
+                            </div>
+                        </div>
+
+                        <!-- ESTADO 2: EXPANDIDO (REPRODUCTOR COMPLETO) -->
+                        <div id="expanded-player" class="absolute inset-0 flex flex-col lg:flex-row opacity-0 pointer-events-none transition-opacity duration-500 p-6 md:p-8 pt-16 lg:pt-8 w-full h-full z-10">
+                            
+                            <!-- Botón Minimizar -->
+                            <button id="minimize-player-btn" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/20 backdrop-blur-md text-white rounded-full transition-colors z-50">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+                            </button>
+
+                            <!-- Panel Izquierdo: Portada y Controles -->
+                            <div class="w-full lg:w-[45%] flex flex-col gap-6 z-10 h-full justify-center pb-4 lg:pb-0">
+                                
+                                <div class="flex flex-col items-center lg:items-start gap-5">
+                                    <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1775946778/ab67616d0000b27389c39ba1acdf33ed7acd3867_piulto.jpg" alt="Mount Everest Cover" class="w-36 h-36 md:w-56 md:h-56 rounded-2xl shadow-2xl object-cover border border-white/10">
+                                    <div class="text-center lg:text-left mt-2">
+                                        <h3 class="text-2xl md:text-3xl font-bold text-white font-sans leading-tight mb-1">Mount Everest</h3>
+                                        <p class="text-sm md:text-base text-gray-300 font-sans tracking-wide">Labrinth</p>
+                                    </div>
+                                </div>
+
+                                <!-- Audio nativo oculto -->
+                                <audio id="euphoria-audio" src="https://res.cloudinary.com/dhx58lnzb/video/upload/v1775946779/Labrinth_-_Mount_Everest_Official_Audio_a1cjbk.mp3" preload="metadata"></audio>
+                                
+                                <!-- Controles -->
+                                <div class="flex flex-col gap-3 w-full mt-2 lg:pr-10">
+                                    <!-- Progress Bar -->
+                                    <input type="range" id="audio-progress" class="w-full h-1.5 rounded-lg appearance-none cursor-pointer backdrop-blur-md" style="background: linear-gradient(to right, white 0%, rgba(255,255,255,0.2) 0%);" value="0" min="0" max="100" step="0.1">
+                                    
+                                    <!-- Tiempos -->
+                                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-300 font-sans tracking-wider">
+                                        <span id="audio-current">0:00</span>
+                                        <span id="audio-duration">2:40</span>
+                                    </div>
+                                    
+                                    <!-- Botón Play -->
+                                    <div class="flex items-center justify-center lg:justify-start mt-2">
+                                        <button id="audio-play-btn" class="w-16 h-16 flex items-center justify-center bg-white/20 backdrop-blur-xl text-white border border-white/30 rounded-full hover:scale-105 hover:bg-white transition-all hover:text-black shadow-lg focus:outline-none">
+                                            <!-- Play Icon -->
+                                            <svg id="icon-play" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="ml-1.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+                                            <!-- Pause Icon (hidden) -->
+                                            <svg id="icon-pause" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Panel Derecho: Letra Sincronizada -->
+                            <div class="w-full lg:w-[55%] h-[350px] lg:h-full relative flex flex-col z-10 pt-4 lg:pt-0 mt-6 lg:mt-0">
+                                
+                                <!-- Degradados para efecto de desvanecimiento -->
+                                <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-black/20 to-transparent z-20 pointer-events-none"></div>
+                                <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/80 to-transparent z-20 pointer-events-none"></div>
+
+                                <!-- Contenedor Scroll de Letras -->
+                                <div id="lyrics-wrapper" class="w-full h-full overflow-y-auto no-scrollbar scroll-smooth flex flex-col pb-40 pt-[25%] px-4 relative">
+                                    <div id="lyrics-content" class="flex flex-col gap-6 text-center lg:text-left text-[24px] md:text-[36px] leading-tight">
+                                        <!-- La letra se inyecta por JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Jacob Elordi y su tierno reencuentro con Maude Apatow</h2>
+                <p>Como siempre, la energía chill fue cortesía de Jacob Elordi y Maude Apatow, a quienes volveremos a ver en pantalla como Nate y Lexie. Esta vez protagonizaron un tierno momento porque Jacob tardó unos segundos en reconocer a Maude y en cuanto supo que era ella rieron y se abrazaron con mucho cariño.</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- FOOTER: Diseño estilo Devon -->
+    <footer class="bg-black text-white pt-16 pb-8 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+            <div class="md:col-span-4 flex flex-col items-start">
+                <a href="index.html" class="hover:opacity-80 transition-opacity">
+                    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e94e7d1f-3328-48d3-b11a-45e835c32fcb/dhvgkbm-ea7c097b-28b8-421d-9517-808ca4874cf0.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9lOTRlN2QxZi0zMzI4LTQ4ZDMtYjExYS00NWU4MzVjMzJmY2IvZGh2Z2tibS1lYTdjMDk3Yi0yOGI4LTQyMWQtOTUxNy04MDhjYTQ4NzRjZjAuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.clS1Az05Pd-Bwh-3uZzyIZFNcJC3Q6dlwSwVI2riTaU" alt="Logo GIF" class="h-16 md:h-24 lg:h-32 object-contain mb-8">
+                </a>
+                <div class="flex gap-3">
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors text-white"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.04-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7.5v4H10v9.5h4v-9.5z"/></svg></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors text-white"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors text-white"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                </div>
+            </div>
+            <!-- ... Links footer ... -->
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE INTERACCIONES GLOBALES -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 0. Animación Inicial (A24 Logo) ---
+            const introContainer = document.getElementById('intro-container');
+            const introLogo = document.getElementById('intro-logo');
+
+            if (introContainer) {
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    introLogo.style.transition = 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.6s ease-in';
+                    introLogo.style.transform = 'scale(200)';
+                    introLogo.style.opacity = '0';
+                    setTimeout(() => {
+                        introContainer.style.transition = 'opacity 0.5s ease';
+                        introContainer.style.opacity = '0';
+                        document.body.style.overflow = '';
+                        setTimeout(() => { introContainer.remove(); }, 500); 
+                    }, 400); 
+                }, 5000); 
+            }
+
+            // --- Lógica del Reproductor Isla Dinámica y Letra Sincronizada ---
+            const audio = document.getElementById('euphoria-audio');
+            const playBtn = document.getElementById('audio-play-btn');
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const progressBar = document.getElementById('audio-progress');
+            const currentTimeEl = document.getElementById('audio-current');
+            const durationEl = document.getElementById('audio-duration');
+            
+            // Elementos de la Isla
+            const dynamicWrapper = document.getElementById('dynamic-player-wrapper');
+            const islandTitle = document.getElementById('dynamic-island-title');
+            const compactPlayer = document.getElementById('compact-player');
+            const expandedPlayer = document.getElementById('expanded-player');
+            const minimizeBtn = document.getElementById('minimize-player-btn');
+            const compactSpin = document.getElementById('compact-spin');
+            const waveBars = document.querySelectorAll('.wave-bar');
+            const ambientBg = document.getElementById('ambient-bg');
+            const ambientBlobs = document.querySelectorAll('.ambient-blob');
+            
+            const lyricsContent = document.getElementById('lyrics-content');
+            const lyricsWrapper = document.getElementById('lyrics-wrapper');
+
+            let isExpanded = false;
+
+            // --- Control de Estados de la Isla ---
+            compactPlayer.addEventListener('click', () => {
+                if(isExpanded) return;
+                isExpanded = true;
+                
+                // Ocultar título superior
+                if(islandTitle) islandTitle.style.opacity = '0';
+
+                // Animación de expansión (pierde el borde y crece)
+                dynamicWrapper.classList.replace('is-compact', 'is-expanded');
+                
+                compactPlayer.style.opacity = '0';
+                compactPlayer.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    expandedPlayer.classList.remove('opacity-0', 'pointer-events-none');
+                    expandedPlayer.classList.add('opacity-100'); 
+                    ambientBg.classList.remove('opacity-0');
+                    ambientBg.classList.add('opacity-100'); 
+                }, 300);
+            });
+
+            minimizeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(!isExpanded) return;
+                isExpanded = false;
+
+                // Mostrar título superior nuevamente
+                if(islandTitle) islandTitle.style.opacity = '1';
+
+                // Animación de compresión
+                expandedPlayer.classList.remove('opacity-100');
+                expandedPlayer.classList.add('opacity-0', 'pointer-events-none');
+                ambientBg.classList.remove('opacity-100');
+                ambientBg.classList.add('opacity-0');
+                
+                setTimeout(() => {
+                    dynamicWrapper.classList.replace('is-expanded', 'is-compact');
+                    setTimeout(() => {
+                        compactPlayer.style.opacity = '1';
+                        compactPlayer.style.pointerEvents = 'auto';
+                    }, 400); 
+                }, 200); 
+            });
+
+
+            // Letra mapeada con tiempos exactos (Mount Everest)
+            const lyricsData = [
+                { time: 0, text: "Mount Everest ain't got shit on me" },
+                { time: 6, text: "(Tell 'em)" },
+                { time: 7, text: "Mount Everest ain't got shit on me" },
+                { time: 11, text: "'Cause I'm on top of the world" },
+                { time: 13, text: "I'm on top of the world, yeah" },
+                { time: 16, text: "Burj Dubai ain't got shit on me" },
+                { time: 20, text: "You could touch the sky, but you ain't got shit on me" },
+                { time: 24, text: "'Cause I'm on top of the world" },
+                { time: 27, text: "I'm on top of the world, yeah" },
+                { time: 33, text: "(Woop, woop, woop, woop)" },
+                { time: 34, text: "(Woop, woop, woop, woop)" },
+                { time: 38, text: "(Woop, woop, woop, woop)" },
+                { time: 41, text: "(Woop, woop, woop, woop)" },
+                { time: 44, text: "(Sweet, sweet, sweet, sweet)" },
+                { time: 46, text: "I burn down my house and build it up again" },
+                { time: 50, text: "(Tell 'em)" },
+                { time: 51, text: "I burn it down twice just for the fun of it" },
+                { time: 55, text: "So much money I don't know what to do with it" },
+                { time: 59, text: "I don't pick up my phone, ain't no one worth the time" },
+                { time: 63, text: "(Tell 'em)" },
+                { time: 64, text: "I got me one gun and an alibi" },
+                { time: 67, text: "(Tell 'em)" },
+                { time: 69, text: "So much love that the whole thing feel like a lie" },
+                { time: 73, text: "I don't need nobody" },
+                { time: 75, text: "I don't need nobody" },
+                { time: 77, text: "I don't need nobody" },
+                { time: 79, text: "I don't need nobody" },
+                { time: 81, text: "I don't need nobody" },
+                { time: 83, text: "I don't need nobody" },
+                { time: 85, text: "(To save me) (sweet, sweet, sweet, sweet)" }
+            ];
+
+            // Inyectar letra en el HTML
+            lyricsData.forEach((line, index) => {
+                const p = document.createElement('p');
+                p.className = 'lyric-line cursor-pointer';
+                p.textContent = line.text;
+                
+                // Si el usuario toca una línea, la canción salta a ese tiempo
+                p.addEventListener('click', () => {
+                    audio.currentTime = line.time;
+                    if (audio.paused) togglePlay();
+                });
+                
+                lyricsContent.appendChild(p);
+            });
+
+            // Formatear segundos a mm:ss
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return "0:00";
+                const m = Math.floor(seconds / 60);
+                const s = Math.floor(seconds % 60);
+                return `${m}:${s < 10 ? '0' : ''}${s}`;
+            }
+
+            audio.addEventListener('loadedmetadata', () => {
+                durationEl.textContent = formatTime(audio.duration);
+            });
+
+            // Función Play/Pause
+            function togglePlay() {
+                if (audio.paused) {
+                    audio.play();
+                    iconPlay.classList.add('hidden');
+                    iconPause.classList.remove('hidden');
+                    compactSpin.style.animationPlayState = 'running';
+                    waveBars.forEach(b => b.style.animationPlayState = 'running');
+                    ambientBlobs.forEach(b => b.style.animationPlayState = 'running');
+                } else {
+                    audio.pause();
+                    iconPause.classList.add('hidden');
+                    iconPlay.classList.remove('hidden');
+                    compactSpin.style.animationPlayState = 'paused';
+                    waveBars.forEach(b => b.style.animationPlayState = 'paused');
+                    ambientBlobs.forEach(b => b.style.animationPlayState = 'paused');
+                }
+            }
+
+            playBtn.addEventListener('click', togglePlay);
+
+            // Actualizar barra de progreso y letra
+            audio.addEventListener('timeupdate', () => {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressBar.value = percent;
+                progressBar.style.background = `linear-gradient(to right, white ${percent}%, rgba(255,255,255,0.2) ${percent}%)`;
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+
+                // Sincronizar Letra
+                let activeIndex = -1;
+                for (let i = 0; i < lyricsData.length; i++) {
+                    if (audio.currentTime >= lyricsData[i].time && (!lyricsData[i + 1] || audio.currentTime < lyricsData[i + 1].time)) {
+                        activeIndex = i;
+                        break;
+                    }
+                }
+
+                // Resaltar línea activa y hacer scroll (estilo Apple Music)
+                const lines = document.querySelectorAll('.lyric-line');
+                lines.forEach((line, i) => {
+                    if (i === activeIndex) {
+                        if (!line.classList.contains('active')) {
+                            line.classList.add('active');
+                            if(isExpanded) {
+                                const offset = line.offsetTop - (lyricsWrapper.offsetHeight / 2) + (line.offsetHeight / 2);
+                                lyricsWrapper.scrollTo({ top: offset, behavior: 'smooth' });
+                            }
+                        }
+                    } else {
+                        line.classList.remove('active');
+                    }
+                });
+            });
+
+            // Arrastrar la barra de progreso
+            progressBar.addEventListener('input', (e) => {
+                const time = (e.target.value / 100) * audio.duration;
+                audio.currentTime = time;
+                currentTimeEl.textContent = formatTime(time);
+                progressBar.style.background = `linear-gradient(to right, white ${e.target.value}%, rgba(255,255,255,0.2) ${e.target.value}%)`;
+            });
+        });
+
+        // --- Funciones Globales (Menú Hamburguesa) ---
+        const overlay = document.getElementById('overlay');
+        const sidebar = document.getElementById('sidebarMenu');
+        function toggleMenu() {
+            sidebar.classList.toggle('open');
+            if (sidebar.classList.contains('open')) showOverlay();
+            else hideOverlay();
+        }
+        function closeMenu() { sidebar.classList.remove('open'); }
+        function showOverlay() {
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+        }
+        function hideOverlay() {
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+            closeMenu();
+        }
+        function closeAll() { hideOverlay(); }
+    </script>
+</body>
+</html>
