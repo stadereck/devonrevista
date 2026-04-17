@@ -65,8 +65,9 @@
 
         /* --- Reproductor Dinámico (Apple Music Style) --- */
         #dynamic-player-wrapper {
-            transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-            will-change: max-width, height, border-radius, border-color;
+            transition: all 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+            will-change: max-width, height, border-radius, border-color, transform;
+            background: #000;
         }
         
         /* Estado 1: Isla Dinámica Compacta */
@@ -74,60 +75,71 @@
             max-width: 320px;
             height: 64px;
             border-radius: 9999px;
-            border: 1px solid #333;
-            background: #0f0f0f;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transform: scale(1);
         }
         
         /* Estado 2: Reproductor Expandido */
         .is-expanded {
             max-width: 100%;
-            height: 80vh;
+            height: 85vh;
             max-height: 800px;
             border-radius: 2rem;
             border: 1px solid transparent;
-            background: #000;
+            transform: scale(1);
         }
         @media (min-width: 1024px) {
-            .is-expanded { height: 500px; }
+            .is-expanded { height: 550px; }
         }
 
-        /* --- Fondo Animado (Blobs) --- */
+        /* --- Fondo Animado (Tonos exactos de la portada, sin auras raras) --- */
         .ambient-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.6;
-            animation: floatBlob 12s infinite alternate ease-in-out;
+            filter: blur(70px);
+            opacity: 0.7;
             will-change: transform;
             z-index: 0;
+            animation-play-state: paused;
         }
-        .blob-1 { width: 350px; height: 350px; background: #1a2a6c; top: -10%; left: -10%; animation-delay: 0s; }
-        .blob-2 { width: 450px; height: 450px; background: #b21f1f; bottom: -20%; right: -10%; animation-delay: -3s; }
-        .blob-3 { width: 300px; height: 300px; background: #4a196e; top: 30%; left: 40%; animation-delay: -6s; }
+        .blob-1 { width: 80%; height: 80%; background: #0b1536; top: -15%; left: -15%; animation: float1 15s infinite alternate ease-in-out; } /* Azul marino oscuro */
+        .blob-2 { width: 75%; height: 75%; background: #3d102e; bottom: -20%; right: -15%; animation: float2 18s infinite alternate ease-in-out; } /* Guinda/Magenta oscuro */
+        .blob-3 { width: 85%; height: 85%; background: #18092e; top: 15%; left: 15%; animation: float3 20s infinite alternate ease-in-out; } /* Púrpura muy profundo */
         
-        @keyframes floatBlob {
+        @keyframes float1 {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, 40px) scale(1.1); }
+            100% { transform: translate(12vw, 12vh) scale(1.1); }
+        }
+        @keyframes float2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-12vw, -12vh) scale(1.15); }
+        }
+        @keyframes float3 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(8vw, -8vh) scale(0.95); }
         }
 
-        /* --- Estilo Letras (Apple Music Lyrics) --- */
+        /* --- Estilo Letras (Apple Music Lyrics 100% fiel) --- */
         .lyric-line {
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            filter: blur(2px);
+            transition: all 0.5s ease;
+            filter: blur(1.5px); /* Desenfoque muy sutil para las inactivas */
             opacity: 0.4;
             transform: scale(0.95);
-            font-family: 'Jost', sans-serif;
-            font-weight: 600;
-            color: #d1d5db;
+            /* Tipografía limpia tipo app musical */
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #ffffff;
             transform-origin: left center;
+            line-height: 1.3;
         }
         .lyric-line.active {
-            filter: blur(0px);
-            opacity: 1;
-            transform: scale(1.05) translateX(5px);
+            filter: blur(0px); /* Totalmente nítida */
+            opacity: 1; /* Blanco normal sólido */
+            transform: scale(1);
             color: #ffffff;
-            font-weight: 800;
-            text-shadow: 0 4px 20px rgba(255,255,255,0.2);
+            font-weight: 700;
+            text-shadow: none; /* Sin ningún aura ni brillo feo */
         }
         .lyric-line:hover {
             opacity: 0.8;
@@ -136,7 +148,7 @@
         }
         @media (max-width: 1024px) {
             .lyric-line { transform-origin: center center; }
-            .lyric-line.active { transform: scale(1.05); }
+            .lyric-line.active { transform: scale(1); }
         }
 
         /* Deslizador de Audio */
@@ -422,9 +434,9 @@
                     />
                 </div>
 
-                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Sidney Sweeney fue acompañada por Scooter Braun</h2>
-                <p>Después de la impactante noticia de que la actriz que le da vida a Cassie no se encuentra en buenos términos con Zendaya debido a “diferencias políticas", la première de 'euphoria 3' fue la confirmación de las tensiones entre las estrellas, pues no compartieron ni un segundo, mientras que el resto de los actores sí.</p>
-                <p>Pero el acompañante principal de Sweeney fue su novio, el ejecutivo discográfico, Scooter Braun. Llegaron juntos y se sentaron al lado en la sala para ver la proyección de la serie, donde compartieron un beso captado por una de las asistentes. Sin embargo, no desfilaron de la mano por la alfombra roja.</p>
+                <p>
+                    Pero el acompañante principal de Sweeney fue su novio, el ejecutivo discográfico, Scooter Braun. Llegaron juntos y se sentaron al lado en la sala para ver la proyección de la serie, donde compartieron un beso captado por una de las asistentes. Sin embargo, no desfilaron de la mano por la alfombra roja.
+                </p>
 
                 <!-- ========================================== -->
                 <!-- REPRODUCTOR DE AUDIO ESTILO APPLE MUSIC -->
@@ -437,19 +449,18 @@
                     </p>
 
                     <!-- Wrapper Dinámico (Cambia de Isla a Pantalla Completa) -->
-                    <div id="dynamic-player-wrapper" class="is-compact relative mx-auto w-full overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+                    <div id="dynamic-player-wrapper" class="is-compact relative mx-auto w-full overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] bg-black">
                         
-                        <!-- Fondo Blur Animado (Sólo visible/notable en expandido) -->
-                        <div id="ambient-bg" class="absolute inset-0 z-0 opacity-0 transition-opacity duration-700 pointer-events-none">
+                        <!-- Fondo Blur Animado (Siempre visible ahora para colorear la isla y el fondo) -->
+                        <div id="ambient-bg" class="absolute inset-0 z-0 transition-opacity duration-700 pointer-events-none opacity-100 bg-[#050505]">
                             <div class="ambient-blob blob-1"></div>
                             <div class="ambient-blob blob-2"></div>
                             <div class="ambient-blob blob-3"></div>
-                            <div class="absolute inset-0 bg-black/40 backdrop-blur-[60px]"></div>
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90"></div>
+                            <div class="absolute inset-0 backdrop-blur-[100px]"></div>
                         </div>
                         
                         <!-- ESTADO 1: COMPACTO (ISLA DINÁMICA) -->
-                        <div id="compact-player" class="absolute inset-0 flex items-center justify-between px-4 py-2 cursor-pointer transition-opacity duration-300 opacity-100 hover:bg-white/5 z-20">
+                        <div id="compact-player" class="absolute inset-0 flex items-center justify-between px-4 py-2 cursor-pointer transition-opacity duration-300 opacity-100 hover:bg-white/10 z-20">
                             <div class="flex items-center gap-4">
                                 <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1775946778/ab67616d0000b27389c39ba1acdf33ed7acd3867_piulto.jpg" id="compact-spin" class="w-12 h-12 rounded-full object-cover border border-gray-700 shadow-lg animate-[spin_5s_linear_infinite]" style="animation-play-state: paused;" alt="Cover">
                                 <div class="flex flex-col justify-center">
@@ -519,7 +530,7 @@
 
                                 <!-- Contenedor Scroll de Letras -->
                                 <div id="lyrics-wrapper" class="w-full h-full overflow-y-auto no-scrollbar scroll-smooth flex flex-col pb-40 pt-[25%] px-4 relative">
-                                    <div id="lyrics-content" class="flex flex-col gap-6 text-center lg:text-left text-[24px] md:text-[36px] leading-tight">
+                                    <div id="lyrics-content" class="flex flex-col gap-6 text-center lg:text-left text-[28px] md:text-[42px]">
                                         <!-- La letra se inyecta por JS -->
                                     </div>
                                 </div>
@@ -616,8 +627,6 @@
                 setTimeout(() => {
                     expandedPlayer.classList.remove('opacity-0', 'pointer-events-none');
                     expandedPlayer.classList.add('opacity-100'); 
-                    ambientBg.classList.remove('opacity-0');
-                    ambientBg.classList.add('opacity-100'); 
                 }, 300);
             });
 
@@ -632,8 +641,6 @@
                 // Animación de compresión
                 expandedPlayer.classList.remove('opacity-100');
                 expandedPlayer.classList.add('opacity-0', 'pointer-events-none');
-                ambientBg.classList.remove('opacity-100');
-                ambientBg.classList.add('opacity-0');
                 
                 setTimeout(() => {
                     dynamicWrapper.classList.replace('is-expanded', 'is-compact');
@@ -645,12 +652,12 @@
             });
 
 
-            // Letra mapeada con tiempos exactos (Mount Everest)
+            // Letra mapeada con tiempos exactos ajustados (I don't need nobody en 1:36 y 1:47)
             const lyricsData = [
                 { time: 0, text: "Mount Everest ain't got shit on me" },
-                { time: 6, text: "(Tell 'em)" },
-                { time: 7, text: "Mount Everest ain't got shit on me" },
-                { time: 11, text: "'Cause I'm on top of the world" },
+                { time: 5, text: "(Tell 'em)" },
+                { time: 6, text: "Mount Everest ain't got shit on me" },
+                { time: 10, text: "'Cause I'm on top of the world" },
                 { time: 13, text: "I'm on top of the world, yeah" },
                 { time: 16, text: "Burj Dubai ain't got shit on me" },
                 { time: 20, text: "You could touch the sky, but you ain't got shit on me" },
@@ -670,13 +677,13 @@
                 { time: 64, text: "I got me one gun and an alibi" },
                 { time: 67, text: "(Tell 'em)" },
                 { time: 69, text: "So much love that the whole thing feel like a lie" },
-                { time: 73, text: "I don't need nobody" },
-                { time: 75, text: "I don't need nobody" },
-                { time: 77, text: "I don't need nobody" },
-                { time: 79, text: "I don't need nobody" },
-                { time: 81, text: "I don't need nobody" },
-                { time: 83, text: "I don't need nobody" },
-                { time: 85, text: "(To save me) (sweet, sweet, sweet, sweet)" }
+                { time: 96, text: "I don't need nobody" }, /* 1:36 */
+                { time: 98, text: "I don't need nobody" },
+                { time: 100, text: "I don't need nobody" },
+                { time: 102, text: "I don't need nobody" },
+                { time: 104, text: "I don't need nobody" },
+                { time: 105, text: "I don't need nobody" },
+                { time: 107, text: "(To save me) (sweet, sweet, sweet, sweet)" } /* 1:47 */
             ];
 
             // Inyectar letra en el HTML
