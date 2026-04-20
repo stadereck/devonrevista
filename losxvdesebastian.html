@@ -63,7 +63,7 @@
             z-index: 10;
         }
 
-        /* --- Utilidades Extras (Sidebar) --- */
+        /* --- Sidebar --- */
         .sidebar {
             transform: translateX(-100%);
             transition: transform 0.3s ease-in-out;
@@ -72,57 +72,12 @@
             transform: translateX(0);
         }
 
-        .sidebar nav a {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        .sidebar.open nav a {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .sidebar.open nav a:nth-child(1) { transition-delay: 0.10s; }
-        .sidebar.open nav a:nth-child(2) { transition-delay: 0.15s; }
-        .sidebar.open nav a:nth-child(3) { transition-delay: 0.20s; }
-        .sidebar.open nav a:nth-child(4) { transition-delay: 0.25s; }
-        .sidebar.open nav a:nth-child(5) { transition-delay: 0.30s; }
-        .sidebar.open nav a:nth-child(6) { transition-delay: 0.35s; }
-        .sidebar.open nav a:nth-child(7) { transition-delay: 0.40s; }
-        .sidebar.open nav a:nth-child(8) { transition-delay: 0.45s; }
-        .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
-        .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
-
-        /* --- Animación de Línea para los Enlaces --- */
-        .link-underline {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 2px;
-        }
-        .link-underline::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1.5px;
-            bottom: 0;
-            left: 0;
-            background-color: currentColor;
-            transition: width 0.3s ease-in-out;
-        }
-        .link-underline:hover::after {
-            width: 100%;
-        }
-
         /* Tipografía del artículo */
         .article-body p {
             margin-bottom: 1.5rem;
-            font-size: 1.125rem; /* 18px */
+            font-size: 1.125rem;
             line-height: 1.8;
             color: #111;
-        }
-        @media (min-width: 768px) {
-            .article-body p {
-                font-size: 1.1875rem; /* 19px */
-            }
         }
 
         /* Animación para el Toast de Alerta */
@@ -139,25 +94,55 @@
         }
 
         /* --- Reducción de Movimiento (Accesibilidad) --- */
-        body.reduced-motion .animated-slash {
-            animation: none !important;
-        }
+        body.reduced-motion .animated-slash,
         body.reduced-motion .animate-bounce {
             animation: none !important;
-            transform: translateY(0) !important;
         }
         body.reduced-motion .hero-slide {
             transition: none !important;
         }
+        
+        /* --- Animación de Olas para la Barra del Video --- */
+        .wave-progress-fill {
+            background: linear-gradient(90deg, #E8A5D6, #b366ff);
+            position: relative;
+            overflow: hidden;
+            border-radius: 9999px;
+        }
+        .wave-progress-fill::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0; top: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,60 Q25,30 50,60 T100,60 L100,100 L0,100 Z' fill='rgba(255,255,255,0.3)'/%3E%3Cpath d='M0,70 Q25,40 50,70 T100,70 L100,100 L0,100 Z' fill='rgba(255,255,255,0.2)'/%3E%3C/svg%3E");
+            background-size: 200% 100%;
+            animation: waveMove 2.5s linear infinite;
+        }
+        @keyframes waveMove {
+            0% { background-position-x: 0; }
+            100% { background-position-x: -200%; }
+        }
+        body.reduced-motion .wave-progress-fill::after {
+            animation: none !important;
+            background-image: none !important;
+        }
 
+        /* Estilos específicos footer */
+        .footer-link-col a {
+            display: block;
+            margin-bottom: 1.25rem;
+            transition: color 0.3s;
+        }
+        .footer-link-col a:hover {
+            color: white;
+        }
     </style>
 </head>
-<body class="bg-white text-black font-sans flex flex-col min-h-screen">
+<body class="bg-white text-black font-sans flex flex-col min-h-screen overflow-x-hidden">
 
     <!-- Flecha de Scroll Inferior -->
     <div id="scrollArrow" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[90] transition-all duration-300 opacity-100 flex flex-col items-center gap-2">
         <span class="text-[9px] font-bold tracking-widest uppercase text-black font-sans bg-white/90 px-3 py-1 rounded-full shadow-sm backdrop-blur-sm">Descubre más</span>
-        <div class="animate-bounce bg-white rounded-full p-2.5 shadow-[0_0_15px_rgba(0,0,0,0.15)] border border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors" onclick="window.scrollBy({top: window.innerHeight * 0.7, behavior: 'smooth'})">
+        <div class="animate-bounce bg-white rounded-full p-2.5 shadow-lg border border-gray-100 cursor-pointer" onclick="window.scrollBy({top: window.innerHeight * 0.7, behavior: 'smooth'})">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 5v14M19 12l-7 7-7-7"/>
             </svg>
@@ -171,846 +156,487 @@
 
     <!-- Overlay y Sidebar -->
     <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
-    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-2xl flex flex-col">
+    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-2xl flex flex-col border-r border-gray-100">
         <div class="p-5 flex justify-between items-center border-b border-gray-100">
-            <h2 class="text-xl font-bold tracking-widest">MENÚ</h2>
-            <button onclick="toggleMenu()" class="text-gray-500 hover:text-black p-2">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
+            <h2 class="text-xl font-bold tracking-widest uppercase">MENÚ</h2>
+            <button onclick="toggleMenu()" class="text-gray-500 hover:text-black p-2 transition-colors"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         </div>
-        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-600 uppercase overflow-y-auto no-scrollbar pb-20">
-            <a href="suscripcion.html" class="text-black hover:bg-gray-50 p-3 rounded transition-colors">Suscripción</a>
-            <a href="index.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Inicio</a>
-            <a href="moda.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Moda</a>
-            <a href="belleza.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Belleza</a>
-            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Estilo de Vida</a>
-            <a href="compras.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Compras</a>
-            <a href="redevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">(Re)Devon</a>
-            <a href="hollywood.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Hollywood</a>
-            <a href="podcast.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Podcast</a>
-            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Espacio Devon</a>
+        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-600 uppercase overflow-y-auto no-scrollbar">
+            <a href="#" class="text-black p-3 rounded hover:bg-gray-50 transition-colors">Suscripción</a>
+            <a href="#" class="p-3 rounded hover:bg-gray-50 transition-colors">Inicio</a>
+            <a href="#" class="p-3 rounded hover:bg-gray-50 transition-colors">Moda</a>
+            <a href="#" class="p-3 rounded hover:bg-gray-50 transition-colors">Belleza</a>
+            <a href="#" class="p-3 rounded hover:bg-gray-50 transition-colors">Estilo de Vida</a>
         </nav>
     </aside>
 
-    <!-- Barra de Navegación Principal -->
-    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-100 md:border-none">
+    <!-- Header -->
+    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-100">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
-            <button onclick="toggleMenu()" class="text-black z-20 hover:scale-110 transition-transform">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                    <line x1="3" y1="16" x2="21" y2="16"></line>
-                </svg>
-            </button>
-            
-            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center z-10">
-                <a href="index.html" class="flex items-center group/logo hover:opacity-80 transition-opacity">
-                    <h1 id="devon-text" class="text-4xl md:text-5xl font-bold tracking-widest text-black mt-1 flex items-center font-serif uppercase">
-                        DEV
-                        <span class="relative inline-flex items-center justify-center group">
-                            O
-                            <span class="animated-slash group-hover:bg-brandPink group-hover:shadow-[0_0_8px_#E8A5D6] transition-colors duration-300"></span>
-                        </span>
-                        N
+            <button onclick="toggleMenu()" class="text-black z-20 hover:scale-110 transition-transform"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="10" x2="21" y2="10"></line><line x1="3" y1="16" x2="21" y2="16"></line></svg></button>
+            <div class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center z-10">
+                <a href="#" class="flex items-center group">
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-widest text-black flex items-center font-serif uppercase transition-opacity group-hover:opacity-80">
+                        DEV<span class="relative inline-flex items-center justify-center">O<span class="animated-slash"></span></span>N
                     </h1>
                 </a>
             </div>
-            
-            <div class="flex items-center gap-4 z-20">
-                <!-- Botón SUSCRIPCIÓN -->
-                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1 md:mr-0" style="font-family: 'Jost', sans-serif;">
-                    SUSCRIPCIÓN
-                </a>
-            </div>
+            <a href="#" class="hidden md:block text-xs font-medium tracking-widest uppercase text-black font-sans hover:text-gray-500 transition-colors">SUSCRIPCIÓN</a>
         </div>
     </header>
 
-    <!-- Top Bar -->
-    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
-        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
-        <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
-        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
-        <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
-        <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
-        <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
-        <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
-        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors border-b border-black pb-0.5">ESPACIO DEVON</a>
+    <!-- Top Bar Navigation -->
+    <div class="hidden md:flex w-full justify-center gap-10 text-xs font-medium tracking-widest text-black uppercase py-4 bg-white border-b border-gray-100 px-6">
+        <a href="#" class="hover:text-gray-500 transition-colors">MODA</a>
+        <a href="#" class="hover:text-gray-500 transition-colors">BELLEZA</a>
+        <a href="#" class="hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+        <a href="#" class="hover:text-gray-500 transition-colors">COMPRAS</a>
+        <a href="#" class="hover:text-gray-500 border-b border-black pb-0.5 transition-colors">ESPACIO DEVON</a>
     </div>
 
     <!-- Pestañas Superiores (Solo Móvil) -->
-    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
-        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-[#f0f0f0] border-b border-gray-200">
-            LO ÚLTIMO
-        </a>
-        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-l border-gray-200 border-b-2 border-black cursor-pointer">
-            TENDENCIAS
-        </a>
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase border-b border-gray-100">
+        <a href="#" class="w-1/2 py-4 flex items-center justify-center bg-[#f0f0f0] border-r border-gray-200">LO ÚLTIMO</a>
+        <a href="#" class="w-1/2 py-4 flex items-center justify-center bg-white text-black">TENDENCIAS</a>
     </div>
 
-    <!-- Contenedor Principal del Artículo -->
+    <!-- Main Content -->
     <main class="w-full flex-1 pb-20">
 
-        <!-- Hero de la Publicación (Mitad Imagen / Mitad Texto) -->
+        <!-- Hero Article Header -->
         <section class="w-full max-w-[1400px] mx-auto flex flex-col md:flex-row min-h-[75vh]">
-            
-            <!-- Mitad Izquierda: Imagen de la chica / Nueva Imagen -->
-            <div class="w-full md:w-1/2 relative h-[50vh] md:h-auto">
-                <img 
-                    src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776716802/dji_mimo_20260418_181936_280_1776558362245_photo_2_tii88y.jpg" 
-                    alt="Los XV de Sebastian" 
-                    class="absolute inset-0 w-full h-full object-cover object-center"
-                />
+            <div class="w-full md:w-1/2 relative h-[50vh] md:h-auto overflow-hidden">
+                <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776716802/dji_mimo_20260418_181936_280_1776558362245_photo_2_tii88y.jpg" alt="Sebastian" class="absolute inset-0 w-full h-full object-cover object-center"/>
             </div>
-
-            <!-- Mitad Derecha: Título y Datos -->
             <div class="w-full md:w-1/2 flex items-center justify-center p-8 md:p-16 lg:p-24 bg-white text-center">
-                <div class="max-w-[450px]">
-                    <span class="block text-xs font-bold tracking-[0.2em] uppercase text-black mb-6 font-sans">
-                        TENDENCIAS
-                    </span>
+                <div class="max-w-[500px]">
+                    <span class="block text-xs font-bold tracking-[0.2em] uppercase text-black mb-6 font-sans">TENDENCIAS</span>
                     <h1 class="text-4xl md:text-5xl lg:text-[3.5rem] font-medium text-black leading-[1.1] mb-10" style="font-family: 'Jost', sans-serif;">
-                        Los <span class="font-serif italic font-bold">XV</span> de Sebastian, El fin de una era
+                        Los <span class="font-serif italic font-bold">XV</span> de Sebastian, El fin de una era y el comienzo de otra
                     </h1>
-                    
                     <div class="flex flex-col items-center gap-2">
-                        <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-black font-sans">
-                            POR DERECK J.
-                        </span>
-                        <span class="text-xs text-black font-sans">
-                            20 de abril de 2026
-                        </span>
+                        <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-black font-sans">POR DERECK J.</span>
+                        <span class="text-xs text-black font-sans">20 de abril de 2026</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Cuerpo del Artículo -->
+        <!-- Article Intro -->
         <article class="w-full max-w-3xl mx-auto px-6 pt-16 md:pt-24 font-serif article-body">
-            
-            <p>
-                Beber <strong>agua con limón</strong> por la mañana puede tener beneficios. Y no, no hablamos solo de las <strong>propiedades detox</strong> que siempre se le han atribuido. Se trata de una bebida refrescante que cuenta además con la aprobación de los expertos en salud.
+            <!-- Fuente Cambiada a Bodoni Moda de la página sin cursiva -->
+            <p class="text-xl md:text-2xl leading-relaxed text-black text-center mb-16 border-l-4 border-black pl-6 font-serif">
+                Celebrar los <strong>XV años</strong> de Sebastian no es solo festejar un cumpleaños; es honrar la elegancia de la juventud y el inicio de un nuevo capítulo lleno de promesas. En esta edición especial, recorremos los momentos que marcaron el fin de una era y el comienzo de un legado inolvidable.
             </p>
         </article>
 
-        <!-- NUEVO CARRUSEL (MÁS GRANDE Y EXPANDIDO) -->
+        <!-- CARRUSEL COMPLETO DE 12 ELEMENTOS -->
         <div class="w-full max-w-6xl mx-auto px-4 md:px-6 my-16 font-sans select-none">
             <div class="w-full mx-auto overflow-hidden shadow-2xl relative bg-black rounded-xl md:rounded-[2rem]">
-                <div id="article-carousel" class="relative w-full aspect-[4/5] md:aspect-[16/9] transform origin-center will-change-transform bg-black cursor-grab active:cursor-grabbing">
+                <div id="article-carousel" class="relative w-full aspect-[4/5] md:aspect-[16/9] transform origin-center will-change-transform bg-black cursor-grab active:cursor-grabbing group">
                     
-                    <!-- Capa de Oscurecimiento (Para Modo R) -->
                     <div id="carousel-fade-overlay" class="absolute inset-0 bg-black z-[15] pointer-events-none opacity-0 transition-opacity duration-[1250ms] ease-in-out"></div>
 
                     <!-- Slide 1 -->
                     <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-0 z-10 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182854_0021_D_eds3qg.jpg" alt="Slide 1" class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"/>
-                        <!-- Botón ALT -->
-                        <button class="alt-btn absolute bottom-4 left-4 md:bottom-6 md:left-6 z-20 bg-black text-white text-[9px] md:text-[10px] font-bold px-4 py-1.5 md:py-2 rounded-lg tracking-[0.2em] pointer-events-auto hover:bg-gray-800 transition-colors shadow-lg flex items-center justify-center border border-gray-800" data-slide="0">ALT</button>
-                        <!-- Panel de Descripción -->
-                        <div id="alt-panel-0" class="absolute inset-x-0 bottom-0 bg-black/90 backdrop-blur-md text-white p-6 md:p-8 z-30 transform translate-y-full transition-transform duration-500 ease-out pointer-events-none flex flex-col justify-end min-h-[140px] border-t border-gray-800">
-                            <button class="close-alt-btn absolute top-4 right-4 text-gray-400 hover:text-white transition-colors pointer-events-auto p-2" data-slide="0">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </button>
-                            <h4 class="text-[10px] md:text-xs font-bold tracking-widest uppercase mb-2 md:mb-3 text-gray-400 font-sans">Descripción de la imagen</h4>
-                            <p class="text-sm md:text-base font-serif leading-relaxed text-gray-100 max-w-3xl pr-8">
-                                Fotografía aérea que captura la magnitud y elegancia de la locación del evento, mostrando los primeros instantes de la celebración.
-                            </p>
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182854_0021_D_eds3qg.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800 hover:bg-gray-800 transition-colors" data-slide="0">ALT</button>
+                        <div id="alt-panel-0" class="alt-panel absolute inset-x-0 bottom-0 bg-black/90 text-white p-6 z-30 transform translate-y-full transition-transform duration-500 flex flex-col border-t border-gray-800">
+                            <button class="close-alt-btn self-end p-2" data-slide="0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                            <h4 class="text-[10px] font-bold tracking-widest uppercase mb-2 text-gray-400">Descripción</h4>
+                            <p class="font-serif text-sm">Vista aérea panorámica de la locación al inicio del festejo.</p>
                         </div>
                     </div>
-
                     <!-- Slide 2 -->
                     <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182929_0023_D_c2ftyk.jpg" alt="Slide 2" class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"/>
-                        <!-- Botón ALT -->
-                        <button class="alt-btn absolute bottom-4 left-4 md:bottom-6 md:left-6 z-20 bg-black text-white text-[9px] md:text-[10px] font-bold px-4 py-1.5 md:py-2 rounded-lg tracking-[0.2em] pointer-events-auto hover:bg-gray-800 transition-colors shadow-lg flex items-center justify-center border border-gray-800" data-slide="1">ALT</button>
-                        <!-- Panel de Descripción -->
-                        <div id="alt-panel-1" class="absolute inset-x-0 bottom-0 bg-black/90 backdrop-blur-md text-white p-6 md:p-8 z-30 transform translate-y-full transition-transform duration-500 ease-out pointer-events-none flex flex-col justify-end min-h-[140px] border-t border-gray-800">
-                            <button class="close-alt-btn absolute top-4 right-4 text-gray-400 hover:text-white transition-colors pointer-events-auto p-2" data-slide="1">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </button>
-                            <h4 class="text-[10px] md:text-xs font-bold tracking-widest uppercase mb-2 md:mb-3 text-gray-400 font-sans">Descripción de la imagen</h4>
-                            <p class="text-sm md:text-base font-serif leading-relaxed text-gray-100 max-w-3xl pr-8">
-                                Perspectiva dinámica tomada desde el exterior que resalta la iluminación cálida, la distribución de las mesas y el ambiente festivo de la noche.
-                            </p>
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182929_0023_D_c2ftyk.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="1">ALT</button>
+                        <div id="alt-panel-1" class="alt-panel absolute inset-x-0 bottom-0 bg-black/90 text-white p-6 z-30 transform translate-y-full transition-transform duration-500 border-t border-gray-800">
+                            <p class="font-serif text-sm">Perspectiva nocturna del montaje y las luces exteriores.</p>
                         </div>
                     </div>
-
                     <!-- Slide 3 -->
                     <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182926_0022_D_jxeiuk.jpg" alt="Slide 3" class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"/>
-                        <!-- Botón ALT -->
-                        <button class="alt-btn absolute bottom-4 left-4 md:bottom-6 md:left-6 z-20 bg-black text-white text-[9px] md:text-[10px] font-bold px-4 py-1.5 md:py-2 rounded-lg tracking-[0.2em] pointer-events-auto hover:bg-gray-800 transition-colors shadow-lg flex items-center justify-center border border-gray-800" data-slide="2">ALT</button>
-                        <!-- Panel de Descripción -->
-                        <div id="alt-panel-2" class="absolute inset-x-0 bottom-0 bg-black/90 backdrop-blur-md text-white p-6 md:p-8 z-30 transform translate-y-full transition-transform duration-500 ease-out pointer-events-none flex flex-col justify-end min-h-[140px] border-t border-gray-800">
-                            <button class="close-alt-btn absolute top-4 right-4 text-gray-400 hover:text-white transition-colors pointer-events-auto p-2" data-slide="2">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </button>
-                            <h4 class="text-[10px] md:text-xs font-bold tracking-widest uppercase mb-2 md:mb-3 text-gray-400 font-sans">Descripción de la imagen</h4>
-                            <p class="text-sm md:text-base font-serif leading-relaxed text-gray-100 max-w-3xl pr-8">
-                                Impresionante toma panorámica del recinto, mostrando en detalle los contrastes de luces entre el exterior y el salón principal del festejo.
-                            </p>
-                        </div>
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182926_0022_D_jxeiuk.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="2">ALT</button>
                     </div>
-
                     <!-- Slide 4 -->
                     <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776716802/dji_mimo_20260418_181936_280_1776558362245_photo_2_tii88y.jpg" alt="Slide 4" class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"/>
-                        <!-- Botón ALT -->
-                        <button class="alt-btn absolute bottom-4 left-4 md:bottom-6 md:left-6 z-20 bg-black text-white text-[9px] md:text-[10px] font-bold px-4 py-1.5 md:py-2 rounded-lg tracking-[0.2em] pointer-events-auto hover:bg-gray-800 transition-colors shadow-lg flex items-center justify-center border border-gray-800" data-slide="3">ALT</button>
-                        <!-- Panel de Descripción -->
-                        <div id="alt-panel-3" class="absolute inset-x-0 bottom-0 bg-black/90 backdrop-blur-md text-white p-6 md:p-8 z-30 transform translate-y-full transition-transform duration-500 ease-out pointer-events-none flex flex-col justify-end min-h-[140px] border-t border-gray-800">
-                            <button class="close-alt-btn absolute top-4 right-4 text-gray-400 hover:text-white transition-colors pointer-events-auto p-2" data-slide="3">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </button>
-                            <h4 class="text-[10px] md:text-xs font-bold tracking-widest uppercase mb-2 md:mb-3 text-gray-400 font-sans">Descripción de la imagen</h4>
-                            <p class="text-sm md:text-base font-serif leading-relaxed text-gray-100 max-w-3xl pr-8">
-                                Sebastian posando frente a la cámara con un elegante traje azul marino junto a su acompañante, quien luce un sofisticado vestido de noche color violeta oscuro.
-                            </p>
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776716802/dji_mimo_20260418_181936_280_1776558362245_photo_2_tii88y.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="3">ALT</button>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776720376/DJI_20260418220149_0081_D_fz3jnm.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="4">ALT</button>
+                    </div>
+                    <!-- Slide 6 -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776720410/DJI_20260418182816_0016_D_gseiz8.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="5">ALT</button>
+                    </div>
+                    <!-- Slide 7 -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776720556/DJI_20260418204117_0051_D_xf9w5f.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="6">ALT</button>
+                    </div>
+                    <!-- Slide 8 -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776720592/DJI_20260418204124_0053_D_oxvweb.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="7">ALT</button>
+                    </div>
+                    <!-- Slide 9 -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776720597/DJI_20260418204128_0054_D_decllr.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="8">ALT</button>
+                    </div>
+                    <!-- Slide 10 -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776720605/DJI_20260418204138_0056_D_zhpsni.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="9">ALT</button>
+                    </div>
+                    <!-- Slide 11 -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776720611/DJI_20260418204153_0059_D_v9fwke.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
+                        <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800" data-slide="10">ALT</button>
+                    </div>
+
+                    <!-- Slide 12 (Video) -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0 overflow-hidden bg-black flex items-center justify-center">
+                        <video id="slide-video" src="https://res.cloudinary.com/dhx58lnzb/video/upload/v1776720840/DJI_20260418201127_0042_D_xryb1d.mp4" class="w-full h-full object-cover" playsinline></video>
+                        <div id="video-controls" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-lg bg-black/70 backdrop-blur-md rounded-2xl p-4 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="w-full h-3 bg-gray-800 rounded-full overflow-hidden relative cursor-pointer" id="video-progress-bar">
+                                <div id="video-progress-fill" class="wave-progress-fill h-full w-0 transition-all"></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button id="video-play-btn" class="text-white"><svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+                                <span id="video-time" class="text-white text-[10px]">0:00 / 0:00</span>
+                                <button id="video-loop-btn" class="text-white"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 9l-3 3 3 3"/><path d="M22 12A5 5 0 0 0 12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5h1M14 15l3-3-3-3"/><path d="M2 12a5 5 0 0 0 10 5c2.76 0 5-2.24 5-5s-2.24-5-5-5H11"/></svg></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Indicadores Dinámicos -->
+            <!-- Carrusel Indicators -->
             <div class="flex justify-center items-center gap-3 mt-8 mb-2">
-                <!-- Contenedor tipo 'píldora' de puntos -->
-                <div class="flex items-center gap-1.5 md:gap-2.5 px-4 py-2 md:px-5 md:py-2 bg-gray-100 rounded-full shadow-sm border border-gray-200">
-                    <div class="hero-dot w-5 h-1.5 md:w-8 md:h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300"></div>
-                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400"></div>
-                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400"></div>
-                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400"></div>
+                <div id="dots-container" class="flex items-center gap-1.5 px-4 py-2 bg-gray-100 rounded-full border border-gray-200">
+                    <div class="hero-dot w-5 h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
                 </div>
-                
-                <!-- Controles: Indicador circular, Candado y Botón R -->
-                <div class="flex items-center gap-1 md:gap-2 ml-1">
+                <div class="flex items-center gap-2">
                     <div class="relative w-7 h-7 flex items-center justify-center">
                         <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                             <circle cx="18" cy="18" r="14" fill="none" stroke="#e5e7eb" stroke-width="2.5"></circle>
                             <circle id="hero-progress-circle" cx="18" cy="18" r="14" fill="none" stroke="#000000" stroke-width="2.5" stroke-dasharray="88" stroke-dashoffset="88" stroke-linecap="round"></circle>
                         </svg>
-                        <span id="hero-progress-text" class="text-[9px] font-bold text-black font-sans z-10" style="padding-top: 1px;">5</span>
-                        <span id="hero-infinity-icon" class="hidden absolute inset-0 flex items-center justify-center text-[16px] font-medium text-black z-10 animate-pulse" style="padding-bottom: 2px;">∞</span>
+                        <span id="hero-progress-text" class="text-[9px] font-bold">5</span>
+                        <span id="hero-infinity-icon" class="hidden absolute inset-0 flex items-center justify-center text-sm font-medium animate-pulse">∞</span>
                     </div>
-                    
-                    <!-- Botón de candado (Lock) -->
-                    <button id="carousel-lock-btn" class="text-gray-400 hover:text-black transition-colors focus:outline-none flex items-center justify-center w-6 h-6" title="Bloquear slider">
-                        <svg id="lock-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                        </svg>
-                    </button>
-
-                    <!-- Botón Reducir Movimiento (R) -->
-                    <button id="reduce-motion-btn" class="text-gray-400 hover:text-black transition-all duration-300 focus:outline-none flex items-center justify-center px-1.5 h-6 font-bold text-xs font-sans rounded-md ml-0.5" title="Reducir Animaciones">
-                        R
-                    </button>
+                    <button id="carousel-lock-btn" class="text-gray-400 hover:text-black transition-colors w-6 h-6"><svg id="lock-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg></button>
+                    <button id="reduce-motion-btn" class="text-gray-400 hover:text-black transition-all px-1.5 h-6 font-bold text-xs rounded-md">R</button>
                 </div>
             </div>
         </div>
-        <!-- FIN CARRUSEL -->
 
-        <!-- Continuación del artículo -->
         <article class="w-full max-w-3xl mx-auto px-6 font-serif article-body">
-            <h2 class="text-3xl md:text-[2.5rem] text-black font-medium leading-tight mt-16 mb-8">¿Qué beneficios tiene tomar agua con limón?</h2>
+            <!-- Texto "velada" eliminado -->
+            <h2 class="text-3xl md:text-[2.5rem] text-black font-medium leading-tight mt-16 mb-8 italic">Un evento para la posteridad</h2>
+            <p>El diseño del lugar, los contrastes de la iluminación nocturna y la compañía de sus seres queridos hicieron de este gran momento algo inolvidable.</p>
 
-            <p>
-                El <strong>agua con limón</strong> sirve principalmente para mejorar la hidratación, aportar vitamina C y antioxidantes, ayudar a la digestión, y además de ser una alternativa refrescante y baja en calorías a bebidas azucaradas. Eso sí, se debe cuidar el esmalte dental, por su ácido característico.
-            </p>
+            <h2 class="text-3xl md:text-[2.5rem] text-black font-medium leading-tight mt-16 mb-8">Momentos de Oro</h2>
+            <p>Desde la llegada de los invitados hasta el brindis principal, cada detalle fue cuidadosamente planeado para reflejar la personalidad de Sebastian.</p>
 
-            <p>
-                El <strong>agua con limón</strong> tiene otras cuantas bondades más allá de su efecto <strong>depurativo</strong>. Pero dado que es uno de los trucos de bienestar y nutrición más polarizante y que más opiniones encontradas genera, hemos hablado con el <strong>nutriólogo Dereck J.</strong>, director técnico de Devon Life House, para hablar de los beneficios que sí tiene.
-            </p>
-
-            <!-- BANNER PUBLICIDAD: Van Cleef & Arpels -->
-            <div class="w-full my-16 border-t border-b border-gray-200 py-8 relative">
-                <div class="absolute top-0 left-0 bg-white px-2 py-1 text-[9px] uppercase tracking-widest text-gray-400 font-sans transform -translate-y-1/2 ml-4">
-                    PUBLICIDAD
-                </div>
-                <div class="relative w-full h-[200px] md:h-[280px] overflow-hidden flex items-center justify-center bg-vanCleefBg">
-                    <img 
-                        src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
-                        alt="Fondo Van Cleef" 
-                        class="absolute inset-0 w-full h-full object-cover object-center opacity-80 z-0"
-                    />
-                    <div class="relative z-10 text-center px-4 flex flex-col items-center">
-                        <h2 class="text-3xl text-black mb-2" style="font-family: 'Georgia', 'Times New Roman', serif;">Van Cleef & Arpels</h2>
-                        <div class="mb-4 text-black opacity-90 flex items-center justify-center">
-                            <svg width="24" height="16" viewBox="0 0 36 24">
-                                <polygon points="18,1 35,12 18,23 1,12" fill="none" stroke="currentColor" stroke-width="1.2"></polygon>
-                                <text x="18" y="15" font-size="7" font-family="serif" text-anchor="middle" fill="currentColor">VCA</text>
-                            </svg>
-                        </div>
-                        <a href="coleccionlucky.html" class="text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:text-gray-600 transition-colors font-sans">
-                            DESCUBRE LA COLECCIÓN
-                        </a>
+            <!-- Banner Publicidad Van Cleef -->
+            <div class="w-full my-16 border-t border-b border-gray-200 py-8 relative select-none">
+                <div class="absolute top-0 left-0 bg-white px-2 py-1 text-[9px] uppercase tracking-widest text-gray-400 font-sans transform -translate-y-1/2 ml-4">PUBLICIDAD</div>
+                <div class="relative w-full h-[200px] md:h-[280px] overflow-hidden flex items-center justify-center bg-vanCleefBg rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80"/>
+                    <div class="relative z-10 text-center flex flex-col items-center">
+                        <h2 class="text-3xl text-black mb-2" style="font-family: 'Georgia', serif;">Van Cleef & Arpels</h2>
+                        <a href="#" class="text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:text-gray-600 transition-colors font-sans">DESCUBRE LA COLECCIÓN</a>
                     </div>
                 </div>
             </div>
 
-            <h2 class="text-3xl md:text-[2.2rem] text-black font-medium leading-tight mt-12 mb-8">Beneficios de tomar agua con limón:</h2>
-
-            <h3 class="text-2xl text-black font-medium mb-4 mt-8">#1 Ayuda a la digestión</h3>
-            <p>
-                "Ayuda a poner en marcha el proceso de <strong>digestión por la mañana</strong>", explica el experto. Y eso significa que también calma la indigestión, la acidez estomacal y la hinchazón. Además, el limón es conocido por estimular la producción de bilis y jugos gástricos y, por tanto, puede evitar la formación de gases. Eso sí, esto no quiere decir que sirva para adelgazar, todo lo contrario: este remedio no es milagroso ni tiene efecto quemagrasas.
-            </p>
-            <p>
-                "Mejora el tránsito intestinal e hidrata el colon", señala el experto, por lo que tomarlo en ayunas puede ayudar en procesos de estreñimiento. Además, el limón, al ser rico en fibra, también favorece los procesos intestinales.
-            </p>
-
-            <h3 class="text-2xl text-black font-medium mb-4 mt-12">#2 Fortalece el sistema inmunológico</h3>
-            <p>
-                "Refuerza el <strong>sistema inmunológico</strong>", apunta, en referencia al alto contenido en <strong>vitamina C</strong> que tiene el jugo de limón. Además, también es rico en vitamina B, calcio, hierro, magnesio, potasio y enzimas.
-            </p>
-
-            <h3 class="text-2xl text-black font-medium mb-4 mt-12">#3 Cuida la piel</h3>
-            <p>
-                Es bueno para la piel por su <strong>alto contenido en antioxidantes</strong> que "previenen el daño de los radicales libres", señala el experto.
-            </p>
-
-            <h3 class="text-2xl text-black font-medium mb-4 mt-12">#4 Hidrata el organismo</h3>
-            <p>
-                Recordemos que, tal y como explicamos en otra ocasión, <strong>beber agua en ayunas</strong> representa una parte importante de la cantidad de agua que tenemos que beber durante el día, es una forma eficaz de estimular el metabolismo e hidratar el cuerpo. Dado que en ocasiones beber agua puede dar cierta pereza, añadir el jugo de limón "puede dar un sabor agradable que facilite la tarea". Además, el hacerlo en ayunas favorece la hidratación del cuerpo después de haber estado muchas horas sin hidratar durante la noche.
-            </p>
-
-            <h2 class="text-3xl md:text-[2.2rem] text-black font-medium leading-tight mt-16 mb-6">¿Cuántas veces al día debo tomar agua con limón?</h2>
-            <p>
-                Aunque no hace daño si decides hacerlo varias veces al día, y seguro tendrá beneficios si se toma en ayunas antes de cada comida, la realidad es que solo es necesario tomarla una vez al día y <span class="underline decoration-1 underline-offset-4">el mejor momento para beber agua con limón</span> es por la mañana en ayunas.
-            </p>
-
-            <h2 class="text-3xl md:text-[2.2rem] text-black font-medium leading-tight mt-16 mb-6">¿Cómo se debe tomar el agua con limón?</h2>
-            <p>
-                Es importante que <strong>la temperatura del agua sea templada y no caliente</strong> ya que "al estar a una temperatura igual que la de nuestro cuerpo se absorbe mucho más rápido por el hecho de que no tiene que descender su temperatura para poder asimilarla", explica el experto. Por lo que se recomienda tomar el agua con limón caliente en ayunas, pero a lo largo del día se puede seguir consumiendo limonada fría.
-            </p>
-
-            <h2 class="text-3xl md:text-[2.2rem] text-black font-medium leading-tight mt-16 mb-6">¿Qué enfermedades previene el agua con limón?</h2>
-            <p>
-                Entre todos los beneficios que tiene esta bebida, se descarta que sea un <strong>truco alcalinizante</strong>. Aunque mucho se ha hablado de la posible capacidad de los alimentos para alcalinizar el pH de la sangre —y de los supuestos beneficios que puede tener, como prevenir la osteoporosis o regular la tensión arterial—, nos confirman que no es posible cambiar el pH de nuestro organismo <strong>mediante la dieta</strong>. "Se suele escuchar que el agua con limón podría modificar el pH de la sangre con un efecto alcalinizante. Esto es falso, ya que los encargados de regular la acidez sanguínea son los riñones, hígado y pulmones, manteniéndola siempre en un rango de 7,3 a 7,5", apunta.
-            </p>
-
-            <h2 class="text-3xl md:text-[2.2rem] text-black font-medium leading-tight mt-16 mb-6">¿Es buena el agua con limón para la diabetes?</h2>
-            <p>
-                Sí, el limón es bueno para la diabetes porque tiene un bajo índice glucémico, alto contenido de vitamina C y fibra soluble, ayudando a controlar los picos de azúcar en sangre, mejorar la sensibilidad a la insulina y reducir el riesgo de complicaciones, según la Asociación Americana de la Diabetes (ADA), que lo considera un superalimento para diabéticos. Se recomienda añadirlo al agua o comidas, evitando añadir azúcar, y consumir la pulpa para potenciar sus beneficios, eso sí, siempre <strong>consultando con tu médico de cabecera</strong>.
-            </p>
-
-            <h2 class="text-3xl md:text-[2.2rem] text-black font-medium leading-tight mt-16 mb-6">¿Cómo se toma agua con limón para los mareos?</h2>
-            <p>
-                Beber jugo de limón ayuda a mantener la energía y a reducir los mareos, ya que el limón es rico en vitamina C y ha ayudado a disminuirlos. Alimentos ricos en vitaminas como bayas, tomates y verduras de hoja verde deberían formar parte de tu dieta si tienes esta afección.
-            </p>
-
-            <h2 class="text-3xl md:text-[2.2rem] text-black font-medium leading-tight mt-16 mb-6">¿Es buena el agua con limón para la gastritis?</h2>
-            <p>
-                El <strong>agua con limón para la gastritis es un tema controvertido</strong>: aunque a algunos les ayuda a la digestión, para muchas personas con gastritis, el limón es ácido y puede irritar el revestimiento estomacal, empeorando el dolor y la inflamación, especialmente en ayunas, desmintiendo mitos populares que afirman que cura la condición. Lo mejor será siempre consultar con un gastroenterólogo.
-            </p>
-
-            <h2 class="text-3xl md:text-[2.2rem] text-black font-medium leading-tight mt-16 mb-6">Sobre el experto:</h2>
-            <p>
-                Dereck J. es experto en nutrición y salud integral con más de 10 años de experiencia en el campo de la salud y la alimentación. Es autor del libro <em>¿Qué nos mueve a comer así?</em>, y director técnico de Devon Life House, una clínica de bienestar basada en Madrid, España.
-            </p>
-            <p class="mt-8 text-sm text-gray-500 italic">
-                Artículo originalmente publicado en Devon España, devon.es.
-            </p>
-
             <!-- Etiquetas / Tags -->
             <div class="flex flex-wrap gap-3 mt-12 mb-8 font-sans">
-                <span class="bg-black text-white text-[11px] uppercase tracking-wider px-4 py-2 font-medium">Nutrición</span>
-                <span class="bg-black text-white text-[11px] uppercase tracking-wider px-4 py-2 font-medium">Dieta</span>
-                <span class="bg-black text-white text-[11px] uppercase tracking-wider px-4 py-2 font-medium">Cuerpo</span>
-                <span class="bg-black text-white text-[11px] uppercase tracking-wider px-4 py-2 font-medium">Healthy Lifestyle</span>
+                <span class="bg-black text-white text-[11px] uppercase tracking-wider px-4 py-2 font-medium">XV Años</span>
+                <span class="bg-black text-white text-[11px] uppercase tracking-wider px-4 py-2 font-medium">Sebastian</span>
+                <span class="bg-black text-white text-[11px] uppercase tracking-wider px-4 py-2 font-medium">Estilo</span>
+                <span class="bg-black text-white text-[11px] uppercase tracking-wider px-4 py-2 font-medium">Sociales</span>
             </div>
 
-            <!-- Bloque de Suscripción Solicitado -->
+            <!-- BLOQUE DE SUSCRIPCIÓN -->
             <div class="w-full flex flex-col items-center text-center mt-24 mb-10 border-t border-gray-200 pt-20">
                 <h2 class="text-3xl md:text-[2.4rem] leading-tight text-black font-medium mb-8 max-w-2xl" style="font-family: 'Jost', sans-serif;">
                     Todo lo que necesitas saber sobre moda, belleza y estilo de vida, directo en tu email.
                 </h2>
                 
-                <p class="text-[13px] font-sans text-black mb-8 uppercase tracking-widest font-bold">
-                    ¡Suscríbete!
-                </p>
+                <p class="text-[13px] font-sans text-black mb-8 uppercase tracking-widest font-bold">¡Suscríbete!</p>
                 
-                <a href="newsletter.html" class="inline-block bg-black text-white px-10 py-4 text-xs font-bold tracking-[0.2em] uppercase mb-8 hover:bg-gray-800 transition-colors font-sans">
+                <a href="#" class="inline-block bg-black text-white px-10 py-4 text-xs font-bold tracking-[0.2em] uppercase mb-8 hover:bg-gray-800 transition-colors font-sans">
                     Inscribirse
                 </a>
                 
                 <p class="text-[11px] text-gray-500 max-w-xl mx-auto font-sans leading-relaxed tracking-wide">
-                    Ingresa tu dirección de correo electrónico para suscribirte a nuestro newsletter y formar parte del universo Devon. Tus datos personales serán tratados de acuerdo con nuestra <a href="convenio.html" class="underline hover:text-black">Convenio de Usuario</a> y <a href="privacidad.html" class="underline hover:text-black">Aviso de Privacidad</a>.
+                    Ingresa tu dirección de correo electrónico para suscribirte a nuestro newsletter. Tus datos personales serán tratados de acuerdo con nuestra <a href="#" class="underline hover:text-black">Convenio de Usuario</a> y <a href="#" class="underline hover:text-black">Aviso de Privacidad</a>.
                 </p>
             </div>
 
         </article>
-
     </main>
 
-    <!-- FOOTER: Diseño estilo Vogue -->
-    <footer class="bg-black text-white pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+    <!-- FOOTER PREMIUM -->
+    <footer class="bg-black text-white pt-24 pb-12 mt-20 font-sans">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-20">
             
-            <!-- Columna Izquierda: Logo y Redes -->
-            <div class="md:col-span-4 flex flex-col items-start">
-                <a href="index.html" class="hover:opacity-80 transition-opacity">
-                    <h2 class="text-5xl md:text-6xl font-bold tracking-widest mb-8 font-serif uppercase">DEVON</h2>
-                </a>
+            <!-- Logo y Redes Sociales -->
+            <div class="md:col-span-4 flex flex-col items-start justify-start">
+                <h2 class="text-7xl font-bold tracking-[0.2em] mb-12 font-serif uppercase leading-none">DEVON</h2>
                 
-                <div class="flex gap-3">
-                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.04-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7.5v4H10v9.5h4v-9.5z"/></svg>
+                <div class="flex flex-wrap gap-4 mt-4">
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.04-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7.5v4H10v9.5h4v-9.5z"/></svg>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.872.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.872.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-3.957 1.406-3.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345l-.288 1.183c-.053.189-.168.223-.332.149-1.229-.556-1.996-2.311-1.996-3.719 0-3.037 2.203-5.834 6.368-5.834 3.346 0 5.952 2.385 5.952 5.568 0 3.325-2.096 6.002-5.008 6.002-1.024 0-1.99-.533-2.321-1.164l-.634 2.417c-.229.873-.853 1.96-1.272 2.624 1.139.317 2.339.489 3.585.489 6.621 0 11.988-5.367 11.988-11.987C24.005 5.367 18.638 0 12.017 0z"/></svg>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-3.957 1.406-3.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345l-.288 1.183c-.053.189-.168.223-.332.149-1.229-.556-1.996-2.311-1.996-3.719 0-3.037 2.203-5.834 6.368-5.834 3.346 0 5.952 2.385 5.952 5.568 0 3.325-2.096 6.002-5.008 6.002-1.024 0-1.99-.533-2.321-1.164l-.634 2.417c-.229.873-.853 1.96-1.272 2.624 1.139.317 2.339.489 3.585.489 6.621 0 11.988-5.367 11.988-11.987C24.005 5.367 18.638 0 12.017 0z"/></svg>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-white transition-colors text-white">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.525.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.63-.52 3.26-1.5 4.54-1.15 1.5-2.9 2.45-4.81 2.76-1.89.31-3.88.08-5.59-.83-1.69-.9-2.99-2.43-3.6-4.18-.62-1.78-.6-3.72.07-5.48.68-1.79 2.08-3.25 3.8-4.05 1.7-.8 3.65-1.05 5.5-.72v4.06c-.85-.11-1.74-.03-2.52.33-.78.36-1.42 1-1.8 1.75-.38.75-.46 1.64-.22 2.42.24.78.78 1.45 1.49 1.83.71.39 1.57.48 2.35.26.78-.22 1.44-.75 1.84-1.47.4-.73.53-1.6.36-2.42v-14z"/></svg>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.63-.52 3.26-1.5 4.54-1.15 1.5-2.9 2.45-4.81 2.76-1.89.31-3.88.08-5.59-.83-1.69-.9-2.99-2.43-3.6-4.18-.62-1.78-.6-3.72.07-5.48.68-1.79 2.08-3.25 3.8-4.05 1.7-.8 3.65-1.05 5.5-.72v4.06c-.85-.11-1.74-.03-2.52.33-.78.36-1.42 1-1.8 1.75-.38.75-.46 1.64-.22 2.42.24.78.78 1.45 1.49 1.83.71.39 1.57.48 2.35.26.78-.22 1.44-.75 1.84-1.47.4-.73.53-1.6.36-2.42v-14z"/></svg>
                     </a>
                 </div>
             </div>
 
-            <!-- Columna Central: MÁS EN DEVON -->
-            <div class="md:col-span-4 md:pl-8">
-                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">MÁS EN DEVON</h4>
-                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
-                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
-                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
-                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
-                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
-                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
-                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
-                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
-                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
-                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
-                </ul>
+            <!-- Columna Central -->
+            <div class="md:col-span-4 flex flex-col footer-link-col">
+                <h4 class="text-[11px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-50">MÁS EN DEVON</h4>
+                <div class="text-[11px] font-medium tracking-[0.15em] text-gray-400 uppercase">
+                    <a href="#">Moda</a>
+                    <a href="#">Belleza</a>
+                    <a href="#">Estilo de Vida</a>
+                    <a href="#">Compras</a>
+                    <a href="#">(Re)Devon</a>
+                    <a href="#">Red Carpet</a>
+                    <a href="#">Pasarelas</a>
+                    <a href="#">Videos</a>
+                    <a href="#">Espacio Devon</a>
+                    <a href="#">Photodevon</a>
+                </div>
             </div>
 
-            <!-- Columna Derecha: CONDÉ NAST MÉXICO -->
-            <div class="md:col-span-4">
-                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-100 font-sans">CONDÉ NAST MÉXICO</h4>
-                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
-                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
-                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
-                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
-                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
-                </ul>
+            <!-- Columna Derecha -->
+            <div class="md:col-span-4 flex flex-col footer-link-col">
+                <h4 class="text-[11px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-50">CONDÉ NAST MÉXICO</h4>
+                <div class="text-[11px] font-medium tracking-[0.15em] text-gray-400 uppercase">
+                    <a href="#">AD</a>
+                    <a href="#">Glamour</a>
+                    <a href="#">Devon</a>
+                    <a href="#">GQ</a>
+                    <a href="#">Wired</a>
+                </div>
             </div>
         </div>
 
-        <!-- Línea separadora inferior y Links Legales -->
-        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
-            
-            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-400 uppercase">
-                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
-                <span class="text-gray-700">|</span>
-                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
-                <span class="text-gray-700">|</span>
-                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
-                <span class="text-gray-700">|</span>
-                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
-                <span class="text-gray-700">|</span>
-                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
-                <span class="text-gray-700">|</span>
-                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
-                <span class="text-gray-700">|</span>
-                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
+        <!-- Barra Inferior Legal -->
+        <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-gray-900 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[10px] font-medium tracking-widest text-gray-500 uppercase">
+                <a href="#" class="hover:text-white">Convenio del Usuario</a>
+                <span class="text-gray-800">|</span>
+                <a href="#" class="hover:text-white">Aviso de Privacidad</a>
+                <span class="text-gray-800">|</span>
+                <a href="#" class="hover:text-white">Quiénes Somos</a>
+                <span class="text-gray-800">|</span>
+                <a href="#" class="hover:text-white">Media Kit</a>
+                <span class="text-gray-800">|</span>
+                <a href="#" class="hover:text-white">Newsletter</a>
+                <span class="text-gray-800">|</span>
+                <a href="#" class="hover:text-white">Suscripción</a>
+                <span class="text-gray-800">|</span>
+                <a href="#" class="hover:text-white">Site Map</a>
             </div>
 
-            <!-- Botón México -->
-            <button class="flex items-center gap-2 border border-gray-700 px-4 py-2 text-xs font-normal hover:border-gray-400 transition-colors text-white tracking-wide shrink-0">
+            <!-- Botón de País -->
+            <button class="flex items-center gap-4 border border-gray-800 px-6 py-2 text-xs font-normal hover:border-gray-500 transition-colors text-white tracking-widest uppercase">
                 México
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
         </div>
+        <p class="max-w-7xl mx-auto px-6 mt-12 text-[10px] text-gray-600 tracking-[0.2em] text-center md:text-left uppercase">© 2026 CONDÉ NAST MÉXICO. TODOS LOS DERECHOS RESERVADOS.</p>
     </footer>
 
-    <!-- SCRIPT DE INTERACCIONES GLOBALES -->
+    <!-- SCIPTS INTERACTIVOS -->
     <script>
-        // --- 1. Funciones Globales (Menú Hamburguesa) ---
         const overlay = document.getElementById('overlay');
         const sidebar = document.getElementById('sidebarMenu');
-
-        function toggleMenu() {
-            sidebar.classList.toggle('open');
-            if (sidebar.classList.contains('open')) {
-                showOverlay();
-            } else {
-                hideOverlay();
-            }
-        }
-
-        function closeMenu() { sidebar.classList.remove('open'); }
-        
-        function showOverlay() {
-            overlay.classList.remove('hidden');
-            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-        }
-        function hideOverlay() {
-            overlay.classList.add('opacity-0');
-            setTimeout(() => overlay.classList.add('hidden'), 300);
-            closeMenu();
-        }
+        function toggleMenu() { sidebar.classList.toggle('open'); if(sidebar.classList.contains('open')) showOverlay(); else hideOverlay(); }
+        function showOverlay() { overlay.classList.remove('hidden'); setTimeout(() => overlay.classList.remove('opacity-0'), 10); }
+        function hideOverlay() { overlay.classList.add('opacity-0'); setTimeout(() => overlay.classList.add('hidden'), 300); sidebar.classList.remove('open'); }
         function closeAll() { hideOverlay(); }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const toastMessage = document.getElementById('toastMessage');
-            const scrollArrow = document.getElementById('scrollArrow');
+            const toast = document.getElementById('toastMessage');
+            const arrow = document.getElementById('scrollArrow');
             let toastTimeout;
 
-            // --- 2. Ocultar flecha al hacer scroll ---
-            window.addEventListener('scroll', () => {
-                if (!scrollArrow) return;
-                
-                if (window.scrollY > 50) {
-                    scrollArrow.classList.add('arrow-hidden');
-                } else if (!toastMessage.classList.contains('toast-show')) {
-                    scrollArrow.classList.remove('arrow-hidden');
-                }
-            });
-
-            // --- 3. Interceptar Todos los Enlaces y Mostrar Toast ---
-            const allLinks = document.querySelectorAll('a');
-            
-            allLinks.forEach(link => {
+            // Bloqueo de enlaces
+            document.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-
-                    toastMessage.classList.add('toast-show');
-                    if(scrollArrow) scrollArrow.classList.add('arrow-hidden');
-
+                    toast.classList.add('toast-show');
+                    if(arrow) arrow.classList.add('arrow-hidden');
                     clearTimeout(toastTimeout);
-
                     toastTimeout = setTimeout(() => {
-                        toastMessage.classList.remove('toast-show');
-                        if(scrollArrow && window.scrollY <= 50) {
-                            scrollArrow.classList.remove('arrow-hidden');
-                        }
+                        toast.classList.remove('toast-show');
+                        if(arrow && window.scrollY <= 50) arrow.classList.remove('arrow-hidden');
                     }, 2500);
                 });
             });
 
-            // --- 4. Lógica del Carrusel del Artículo ---
+            // Scroll auto-hide
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) arrow.classList.add('arrow-hidden');
+                else if(!toast.classList.contains('toast-show')) arrow.classList.remove('arrow-hidden');
+            });
+
+            // LÓGICA CARRUSEL
             const slides = document.querySelectorAll('.hero-slide');
             const dots = document.querySelectorAll('.hero-dot');
             let currentSlide = 0;
+            let slideDuration = 4500;
+            let slideStartTime = Date.now();
             let slideInterval;
-            
-            let isReducedMotion = false; // Variable movida arriba para usarla globalmente
-            let isFading = false; // Bandera para la transición oscura
+            let isLocked = false;
+            let isReducedMotion = false;
+            let isFading = false;
 
-            // Variables de la función Candado
-            let isCarouselLocked = false;
-            const lockBtn = document.getElementById('carousel-lock-btn');
-            const infinityIcon = document.getElementById('hero-infinity-icon');
-            const lockIconSvg = document.getElementById('lock-icon-svg');
-
-            // Variables para el indicador circular
             const progressCircle = document.getElementById('hero-progress-circle');
             const progressText = document.getElementById('hero-progress-text');
-            const slideDuration = 4500;
-            let slideStartTime;
-            let progressAnimFrame;
-            
-            // Variables para las descripciones ALT
-            let wasLockedBeforeAlt = false;
+            const lockBtn = document.getElementById('carousel-lock-btn');
+            const lockIcon = document.getElementById('lock-icon-svg');
+            const infinity = document.getElementById('hero-infinity-icon');
+            const fadeOverlay = document.getElementById('carousel-fade-overlay');
 
             function updateProgress() {
-                if (isCarouselLocked) return; 
-                if (!slideStartTime) return;
+                if (isLocked) return;
                 const elapsed = Date.now() - slideStartTime;
-                let remaining = slideDuration - elapsed;
-                if (remaining < 0) remaining = 0;
-
-                if (progressText) {
-                    progressText.textContent = Math.ceil(remaining / 1000);
-                }
-
+                let remaining = Math.max(0, slideDuration - elapsed);
+                if (progressText) progressText.textContent = Math.ceil(remaining / 1000);
                 if (progressCircle) {
-                    const circumference = 88;
                     const progress = Math.min(elapsed / slideDuration, 1);
-                    progressCircle.style.strokeDashoffset = circumference - (progress * circumference);
+                    progressCircle.style.strokeDashoffset = 88 - (progress * 88);
                 }
+                if (elapsed < slideDuration) requestAnimationFrame(updateProgress);
+            }
 
-                if (elapsed < slideDuration) {
-                    progressAnimFrame = requestAnimationFrame(updateProgress);
+            function updateDots(index) {
+                dots.forEach((dot, i) => {
+                    if (isReducedMotion) {
+                        dot.className = "hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full " + (i === index ? "bg-black" : "bg-gray-300") + " cursor-pointer transition-all duration-500";
+                    } else {
+                        dot.className = "hero-dot " + (i === index ? "w-5 h-1.5 md:w-8 md:h-1.5 bg-black" : "w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-300") + " rounded-full cursor-pointer transition-all duration-300";
+                    }
+                });
+            }
+
+            function showSlide(index) {
+                if(index === currentSlide || isFading) return;
+                const video = document.getElementById('slide-video');
+                if(currentSlide === 11 && video) video.pause();
+                
+                document.querySelectorAll('.alt-panel').forEach(p => p.classList.add('translate-y-full'));
+
+                if (isReducedMotion) {
+                    isFading = true; fadeOverlay.style.opacity = '1';
+                    setTimeout(() => {
+                        slides.forEach((s, i) => { s.style.transform = (i === index ? 'translateX(0)' : 'translateX(100%)'); s.style.zIndex = (i === index ? '10' : '0'); });
+                        fadeOverlay.style.opacity = '0';
+                        currentSlide = index; updateDots(index);
+                        setTimeout(() => { isFading = false; resetTimer(); }, 1250);
+                    }, 1250);
+                } else {
+                    slides.forEach((s, i) => { s.style.transform = (i === index ? 'translateX(0)' : (i < index ? 'translateX(-100%)' : 'translateX(100%)')); s.style.zIndex = (i === index ? '10' : '0'); });
+                    currentSlide = index; updateDots(index); resetTimer();
                 }
             }
 
-            if (slides.length > 0) {
-                
-                function updateDots(index) {
-                    dots.forEach((dot, i) => {
-                        if (isReducedMotion) {
-                            // Modo R: Puntos estáticos que solo cambian de color (desaparece la pastilla de manera suave)
-                            if(i === index) {
-                                dot.className = "hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-black cursor-pointer transition-all duration-500";
-                            } else {
-                                dot.className = "hero-dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-gray-300 cursor-pointer transition-all duration-500 hover:bg-gray-400";
-                            }
-                        } else {
-                            // Modo Normal: Efecto pastilla al seleccionado
-                            if(i === index) {
-                                dot.className = "hero-dot w-5 h-1.5 md:w-8 md:h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300";
-                            } else {
-                                dot.className = "hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400";
-                            }
-                        }
-                    });
-                }
-
-                function showSlide(index) {
-                    if (index === currentSlide) return;
-                    if (isFading) return; // Si ya está haciendo el cambio oscuro, ignorar otras peticiones
-
-                    // Cerrar paneles ALT si están abiertos al cambiar de slide
-                    const allPanels = document.querySelectorAll('[id^="alt-panel-"]');
-                    allPanels.forEach(panel => {
-                        panel.classList.remove('translate-y-0', 'pointer-events-auto');
-                        panel.classList.add('translate-y-full', 'pointer-events-none');
-                    });
-
-                    if (isReducedMotion) {
-                        // --- ANIMACIÓN FUNDIDO NEGRO (MODO R) ---
-                        isFading = true;
-                        const fadeOverlay = document.getElementById('carousel-fade-overlay');
-                        
-                        // 1. Iniciar el fundido a negro
-                        if(fadeOverlay) fadeOverlay.style.opacity = '1';
-                        updateDots(index); // Actualizar los puntos de inmediato
-
-                        setTimeout(() => {
-                            // 2. Intercambio instantáneo de fotos oculto detrás del panel negro
-                            slides.forEach((slide, i) => {
-                                if (i === index) {
-                                    slide.style.transform = 'translateX(0)';
-                                    slide.style.zIndex = '10';
-                                } else {
-                                    slide.style.transform = 'translateX(100%)';
-                                    slide.style.zIndex = '0';
-                                }
-                            });
-
-                            // 3. Quitar el panel negro gradualmente (volver a mostrar foto)
-                            if(fadeOverlay) fadeOverlay.style.opacity = '0';
-                            currentSlide = index;
-
-                            setTimeout(() => {
-                                isFading = false;
-                                // Continuar progreso
-                                if (!isCarouselLocked) {
-                                    slideStartTime = Date.now();
-                                    if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-                                    updateProgress();
-                                } else {
-                                    if (progressCircle) progressCircle.style.strokeDashoffset = '0';
-                                }
-                            }, 1250); // Tiempo de la segunda mitad
-                        }, 1250); // Terminar de oscurecer (mitad de 2.5s)
-                    } else {
-                        // --- ANIMACIÓN BARRIDO NORMAL ---
-                        slides.forEach((slide, i) => {
-                            if (i === index) {
-                                slide.style.transform = 'translateX(0)';
-                                slide.style.zIndex = '10';
-                            } else if (i < index) {
-                                slide.style.transform = 'translateX(-100%)';
-                                slide.style.zIndex = '0';
-                            } else {
-                                slide.style.transform = 'translateX(100%)';
-                                slide.style.zIndex = '0';
-                            }
-                        });
-
-                        updateDots(index);
-                        currentSlide = index;
-
-                        if (!isCarouselLocked) {
-                            slideStartTime = Date.now();
-                            if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-                            updateProgress();
-                        } else {
-                            if (progressCircle) progressCircle.style.strokeDashoffset = '0';
-                        }
-                    }
-                }
-
-                function nextSlide() {
-                    showSlide((currentSlide + 1) % slides.length);
-                }
-
-                updateDots(0); // Forzar pintado inicial
-                slideInterval = setInterval(nextSlide, 4500);
+            function resetTimer() {
+                if(isLocked) return;
                 slideStartTime = Date.now();
                 updateProgress();
-
-                dots.forEach((dot, index) => {
-                    dot.addEventListener('click', () => {
-                        if (isFading) return; // Ignorar clic si está en fundido
-                        clearInterval(slideInterval);
-                        showSlide(index);
-                        if (!isCarouselLocked) {
-                            slideInterval = setInterval(nextSlide, 4500);
-                        }
-                    });
-                });
-
-                // --- Lógica Botones ALT ---
-                const altBtns = document.querySelectorAll('.alt-btn');
-                const closeAltBtns = document.querySelectorAll('.close-alt-btn');
-
-                altBtns.forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Previene que se dispare el drag del carrusel
-                        const slideIndex = btn.getAttribute('data-slide');
-                        const panel = document.getElementById(`alt-panel-${slideIndex}`);
-                        if(panel) {
-                            panel.classList.remove('translate-y-full', 'pointer-events-none');
-                            panel.classList.add('translate-y-0', 'pointer-events-auto');
-                            
-                            // Pausar el carrusel mientras se lee
-                            wasLockedBeforeAlt = isCarouselLocked;
-                            clearInterval(slideInterval);
-                            if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-                        }
-                    });
-                });
-
-                closeAltBtns.forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const slideIndex = btn.getAttribute('data-slide');
-                        const panel = document.getElementById(`alt-panel-${slideIndex}`);
-                        if(panel) {
-                            panel.classList.remove('translate-y-0', 'pointer-events-auto');
-                            panel.classList.add('translate-y-full', 'pointer-events-none');
-                            
-                            // Reanudar el carrusel si no estaba bloqueado antes
-                            if (!wasLockedBeforeAlt) {
-                                slideStartTime = Date.now();
-                                slideInterval = setInterval(nextSlide, 4500);
-                                updateProgress();
-                            }
-                        }
-                    });
-                });
-
-                // --- Lógica de Deslizamiento (Swipe / Drag) ---
-                let dragStartX = 0;
-                let dragEndX = 0;
-                const heroAnimContainer = document.getElementById('article-carousel');
-
-                function handleSwipe() {
-                    if (isFading) return; // Ignorar deslizamiento si está en fundido
-                    const swipeThreshold = 50; 
-                    if (dragStartX - dragEndX > swipeThreshold) {
-                        clearInterval(slideInterval);
-                        showSlide((currentSlide + 1) % slides.length);
-                        if (!isCarouselLocked) slideInterval = setInterval(nextSlide, 4500);
-                    } else if (dragEndX - dragStartX > swipeThreshold) {
-                        clearInterval(slideInterval);
-                        showSlide((currentSlide - 1 + slides.length) % slides.length);
-                        if (!isCarouselLocked) slideInterval = setInterval(nextSlide, 4500);
-                    }
-                }
-
-                if (heroAnimContainer) {
-                    heroAnimContainer.addEventListener('touchstart', (e) => {
-                        dragStartX = e.changedTouches[0].screenX;
-                    }, {passive: true});
-
-                    heroAnimContainer.addEventListener('touchend', (e) => {
-                        dragEndX = e.changedTouches[0].screenX;
-                        handleSwipe();
-                    }, {passive: true});
-
-                    let isDragging = false;
-                    heroAnimContainer.addEventListener('mousedown', (e) => {
-                        isDragging = true;
-                        dragStartX = e.clientX;
-                    });
-
-                    heroAnimContainer.addEventListener('mouseup', (e) => {
-                        if (!isDragging) return;
-                        isDragging = false;
-                        dragEndX = e.clientX;
-                        handleSwipe();
-                    });
-
-                    heroAnimContainer.addEventListener('mouseleave', () => {
-                        isDragging = false;
-                    });
-                }
-                
-                // Evento Lógica del Candado
-                if (lockBtn) {
-                    lockBtn.addEventListener('click', () => {
-                        isCarouselLocked = !isCarouselLocked;
-                        if (isCarouselLocked) {
-                            clearInterval(slideInterval);
-                            if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-                            progressText.style.display = 'none';
-                            infinityIcon.classList.remove('hidden');
-                            lockBtn.classList.add('text-black');
-                            lockBtn.classList.remove('text-gray-400');
-                            lockIconSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
-                            if (progressCircle) {
-                                progressCircle.style.transition = 'stroke-dashoffset 0.5s ease';
-                                progressCircle.style.strokeDashoffset = '0'; 
-                            }
-                        } else {
-                            progressText.style.display = 'block';
-                            infinityIcon.classList.add('hidden');
-                            lockBtn.classList.remove('text-black');
-                            lockBtn.classList.add('text-gray-400');
-                            lockIconSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
-                            if (progressCircle) progressCircle.style.transition = 'none';
-                            
-                            slideStartTime = Date.now();
-                            slideInterval = setInterval(nextSlide, 4500);
-                            updateProgress();
-                        }
-                    });
-                }
+                clearInterval(slideInterval);
+                slideInterval = setInterval(() => showSlide((currentSlide + 1) % slides.length), slideDuration);
             }
 
-            // --- 5. Lógica Botón Reducir Movimiento (R) ---
-            const reduceMotionBtn = document.getElementById('reduce-motion-btn');
-            
-            if (reduceMotionBtn) {
-                reduceMotionBtn.addEventListener('click', () => {
-                    isReducedMotion = !isReducedMotion;
-                    if (isReducedMotion) {
-                        // Activa el modo reducción
-                        document.body.classList.add('reduced-motion');
-                        // Cambios visuales para que se note mucho (botón gris/negro)
-                        reduceMotionBtn.classList.add('text-black', 'bg-gray-200', 'border', 'border-black');
-                        reduceMotionBtn.classList.remove('text-gray-400');
-                    } else {
-                        // Desactiva el modo reducción
-                        document.body.classList.remove('reduced-motion');
-                        // Revierte el botón a su estado normal sutil
-                        reduceMotionBtn.classList.remove('text-black', 'bg-gray-200', 'border', 'border-black');
-                        reduceMotionBtn.classList.add('text-gray-400');
+            updateDots(0);
+            resetTimer();
 
-                        // Resetear seguro para prevenir pantalla negra permanente
-                        const fadeOverlay = document.getElementById('carousel-fade-overlay');
-                        if(fadeOverlay) fadeOverlay.style.opacity = '0';
-                        isFading = false;
-                    }
+            dots.forEach((dot, idx) => dot.addEventListener('click', () => showSlide(idx)));
 
-                    // Forzar transformación de la forma de las pastillas/puntos al instante
-                    if (typeof updateDots === 'function') {
-                        updateDots(currentSlide);
-                    }
-                });
-            }
+            lockBtn.addEventListener('click', () => {
+                isLocked = !isLocked;
+                if (isLocked) {
+                    clearInterval(slideInterval);
+                    progressText.style.display = 'none';
+                    infinity.classList.remove('hidden');
+                    lockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
+                    progressCircle.style.strokeDashoffset = '0';
+                } else {
+                    progressText.style.display = 'block';
+                    infinity.classList.add('hidden');
+                    lockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
+                    resetTimer();
+                }
+            });
 
+            document.getElementById('reduce-motion-btn').addEventListener('click', function() {
+                isReducedMotion = !isReducedMotion;
+                document.body.classList.toggle('reduced-motion', isReducedMotion);
+                this.classList.toggle('bg-gray-200', isReducedMotion);
+                this.classList.toggle('text-black', isReducedMotion);
+                updateDots(currentSlide);
+            });
+
+            document.querySelectorAll('.alt-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => { e.stopPropagation(); document.getElementById(`alt-panel-${btn.getAttribute('data-slide')}`).classList.remove('translate-y-full'); });
+            });
+            document.querySelectorAll('.close-alt-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => { e.stopPropagation(); btn.closest('.alt-panel').classList.add('translate-y-full'); });
+            });
+
+            // Video Controls
+            const video = document.getElementById('slide-video');
+            const playBtn = document.getElementById('video-play-btn');
+            const progressFill = document.getElementById('video-progress-fill');
+            const timeDisp = document.getElementById('video-time');
+            playBtn.addEventListener('click', () => video.paused ? video.play() : video.pause());
+            video.addEventListener('timeupdate', () => {
+                const pct = (video.currentTime / video.duration) * 100;
+                progressFill.style.width = pct + '%';
+                const format = (t) => Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
+                timeDisp.textContent = format(video.currentTime) + " / " + format(video.duration || 0);
+            });
+            document.getElementById('video-loop-btn').addEventListener('click', function() { video.loop = !video.loop; this.classList.toggle('text-brandPink', video.loop); });
         });
-
     </script>
 </body>
 </html>
