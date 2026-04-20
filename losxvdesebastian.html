@@ -155,7 +155,7 @@
             justify-content: center;
             text-align: center;
             pointer-events: none;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
         }
         
         .info-content {
@@ -284,7 +284,7 @@
                         
                         <div id="carousel-fade-overlay" class="absolute inset-0 bg-black z-[15] pointer-events-none opacity-0 transition-opacity duration-[1250ms] ease-in-out"></div>
 
-                        <!-- Slide 1 -->
+                        <!-- Slides -->
                         <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-0 z-10 overflow-hidden">
                             <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182854_0021_D_eds3qg.jpg" class="absolute inset-0 w-full h-full object-cover pointer-events-none"/>
                             <button class="alt-btn absolute bottom-4 left-4 z-20 bg-black text-white text-[9px] px-4 py-1.5 rounded-lg border border-gray-800 hover:bg-gray-800 transition-colors" data-slide="0">ALT</button>
@@ -294,8 +294,6 @@
                                 <p class="font-serif text-sm">Vista aérea panorámica de la locación al inicio del festejo.</p>
                             </div>
                         </div>
-                        
-                        <!-- Imágenes Adicionales (2 a 11) -->
                         <div class="hero-slide absolute inset-0 transition-transform duration-500 transform translate-x-full z-0"><img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182929_0023_D_c2ftyk.jpg" class="w-full h-full object-cover"></div>
                         <div class="hero-slide absolute inset-0 transition-transform duration-500 transform translate-x-full z-0"><img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776718388/DJI_20260418182926_0022_D_jxeiuk.jpg" class="w-full h-full object-cover"></div>
                         <div class="hero-slide absolute inset-0 transition-transform duration-500 transform translate-x-full z-0"><img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776716802/dji_mimo_20260418_181936_280_1776558362245_photo_2_tii88y.jpg" class="w-full h-full object-cover"></div>
@@ -324,10 +322,9 @@
                     </div>
                 </div>
 
-                <!-- Carrusel Indicators -->
+                <!-- Indicadores -->
                 <div class="flex justify-center items-center gap-3 mt-8 mb-2">
                     <div id="dots-container" class="flex items-center gap-1.5 px-4 py-2 bg-gray-100 rounded-full border border-gray-200">
-                        <!-- 12 puntos generados -->
                         <div class="hero-dot w-5 h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300"></div>
                         <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
                         <div class="hero-dot w-1.5 h-1.5 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></div>
@@ -377,7 +374,7 @@
             </article>
         </main>
 
-        <!-- FOOTER -->
+        <!-- FOOTER PREMIUM -->
         <footer class="bg-black text-white pt-24 pb-12 mt-20 font-sans">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-20 text-left">
                 <div class="md:col-span-4 flex flex-col items-start justify-start">
@@ -412,14 +409,14 @@
     <script>
         const overlay = document.getElementById('overlay');
         const sidebar = document.getElementById('sidebarMenu');
-        function toggleMenu() { sidebar.classList.toggle('open'); if(sidebar.classList.contains('open')) showOverlay(); else hideOverlay(); }
+        function toggleMenu() { if(sidebar) sidebar.classList.toggle('open'); if(sidebar && sidebar.classList.contains('open')) showOverlay(); else hideOverlay(); }
         function showOverlay() { if(overlay) { overlay.classList.remove('hidden'); setTimeout(() => overlay.classList.remove('opacity-0'), 10); } }
-        function hideOverlay() { if(overlay) { overlay.classList.add('opacity-0'); setTimeout(() => overlay.classList.add('hidden'), 300); } sidebar.classList.remove('open'); }
+        function hideOverlay() { if(overlay) { overlay.classList.add('opacity-0'); setTimeout(() => overlay.classList.add('hidden'), 300); } if(sidebar) sidebar.classList.remove('open'); }
         function closeAll() { hideOverlay(); }
 
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- 0. Lógica de Bloqueo Temporal ---
+            // --- 0. Lógica de Bloqueo Temporal y Desbloqueo Automático a las 8PM ---
             const soonInfo = document.getElementById('coming-soon-info');
             const timerDisplay = document.getElementById('countdown-timer');
 
@@ -427,10 +424,20 @@
                 if(!timerDisplay) return;
                 const now = new Date();
                 const target = new Date();
-                target.setHours(20, 0, 0, 0); 
+                target.setHours(20, 0, 0, 0); // 8:00 PM de hoy
 
                 let diff = target - now;
-                if (diff < 0) { timerDisplay.textContent = "00:00:00"; return; }
+
+                // SI SON LAS 8:00 PM O MÁS TARDE: Desbloqueo automático
+                if (diff <= 0) { 
+                    timerDisplay.textContent = "00:00:00"; 
+                    if (document.body.classList.contains('is-blurring')) {
+                        document.body.classList.remove('is-blurring');
+                        if (soonInfo) soonInfo.classList.add('hidden-lock');
+                        document.body.style.overflow = '';
+                    }
+                    return; 
+                }
 
                 const hrs = Math.floor(diff / (1000 * 60 * 60));
                 const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -438,9 +445,11 @@
                 timerDisplay.textContent = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             }
 
-            setInterval(updateCountdown, 1000);
+            // Ejecución inicial y bucle del contador
             updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
 
+            // Tecla secreta "4" para desarrollo
             window.addEventListener('keydown', (e) => {
                 if (e.key === '4' && soonInfo) {
                     document.body.classList.remove('is-blurring');
@@ -448,9 +457,13 @@
                     document.body.style.overflow = '';
                 }
             });
-            document.body.style.overflow = 'hidden';
 
-            // --- 1. Interacciones ---
+            // Bloquear scroll si está el difuminado activo
+            if (document.body.classList.contains('is-blurring')) {
+                document.body.style.overflow = 'hidden';
+            }
+
+            // --- 1. Interacciones Generales ---
             const toast = document.getElementById('toastMessage');
             const arrow = document.getElementById('scrollArrow');
             let toastTimeout;
@@ -474,7 +487,7 @@
                 else if(toast && !toast.classList.contains('toast-show')) arrow.classList.remove('arrow-hidden');
             });
 
-            // --- 2. Carrusel ---
+            // --- 2. Lógica del Carrusel ---
             const slides = document.querySelectorAll('.hero-slide');
             const dots = document.querySelectorAll('.hero-dot');
             const progressCircle = document.getElementById('hero-progress-circle');
