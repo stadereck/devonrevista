@@ -169,6 +169,7 @@
     </div>
 
     <!-- Contenedor Principal de la Colección -->
+    <!-- Contenedor Principal de la Colección -->
     <main class="w-full flex-1 pb-20 bg-white">
         
         <!-- Hero de la Colección -->
@@ -384,7 +385,7 @@
         </div>
 
         <!-- Línea separadora inferior y Links Legales -->
-        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-8 font-sans pb-10">
             
             <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-400 uppercase">
                 <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
@@ -402,11 +403,19 @@
                 <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
             </div>
 
-            <!-- Botón México -->
-            <button class="flex items-center gap-2 border border-gray-700 px-4 py-2 text-xs font-normal hover:border-gray-400 transition-colors text-white tracking-wide shrink-0">
-                México
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
+            <!-- Botón de Región Desplegable -->
+            <div class="relative inline-block text-left">
+                <button id="regionButton" onclick="toggleRegionMenu()" class="flex items-center justify-between gap-3 border border-gray-700 px-5 py-2.5 text-[11px] font-medium tracking-[0.15em] uppercase hover:border-gray-400 transition-colors text-white shrink-0 bg-black">
+                    Región
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                
+                <!-- Menú desplegable hacia arriba (dropdown) con animación -->
+                <div id="regionMenu" class="absolute right-0 bottom-[110%] mb-2 w-32 bg-white text-black shadow-lg focus:outline-none z-50 border border-gray-200 transition-all duration-300 ease-in-out origin-bottom-right opacity-0 invisible translate-y-2">
+                    <a href="https://stadereck.github.io/devonrevista/index.html" class="block px-4 py-3 text-[11px] font-medium tracking-widest uppercase hover:bg-gray-100 transition-colors">México</a>
+                    <a href="https://stadereck.github.io/devonrevist/index.html" class="block px-4 py-3 text-[11px] font-medium tracking-widest uppercase hover:bg-gray-100 transition-colors border-t border-gray-100">USA</a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -437,6 +446,27 @@
             closeMenu();
         }
         function closeAll() { hideOverlay(); }
+
+        // --- 2. Función del Menú de Regiones (Footer) ---
+        function toggleRegionMenu() {
+            const menu = document.getElementById('regionMenu');
+            menu.classList.toggle('opacity-0');
+            menu.classList.toggle('invisible');
+            menu.classList.toggle('translate-y-2');
+            menu.classList.toggle('opacity-100');
+            menu.classList.toggle('visible');
+            menu.classList.toggle('translate-y-0');
+        }
+
+        // Cerrar el menú de regiones al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            const button = document.getElementById('regionButton');
+            const menu = document.getElementById('regionMenu');
+            if (button && menu && !button.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add('opacity-0', 'invisible', 'translate-y-2');
+                menu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+            }
+        });
     </script>
 </body>
 </html>
