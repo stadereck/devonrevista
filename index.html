@@ -617,15 +617,15 @@
 
         <!-- BANNER COACHELLA -->
         <div class="w-full max-w-7xl mx-auto px-6 mb-16">
-            <a href="coachella.html" class="w-full flex flex-col items-center justify-center py-10 md:py-16 border-t border-b border-gray-800 group hover:border-gray-500 active:border-gray-600 transition-colors cursor-pointer relative overflow-hidden">
+            <a href="coachella.html" class="w-full flex flex-col items-center justify-center py-12 md:py-20 border-t border-b border-gray-800 group hover:border-gray-500 active:border-gray-600 transition-colors cursor-pointer relative overflow-hidden">
                 <!-- Fondo sutil al hacer hover o clic -->
                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-700"></div>
                 
                 <!-- Logo de Coachella más grande -->
-                <img src="https://logos-world.net/wp-content/uploads/2024/02/Coachella-Emblem.png" alt="Coachella" class="h-24 md:h-32 lg:h-48 object-contain transition-transform duration-700 group-hover:scale-110 group-active:scale-105 relative z-10 drop-shadow-lg">
+                <img src="https://logos-world.net/wp-content/uploads/2024/02/Coachella-Emblem.png" alt="Coachella" class="h-32 md:h-48 lg:h-64 object-contain transition-transform duration-700 group-hover:scale-110 group-active:scale-105 relative z-10 drop-shadow-lg">
                 
                 <!-- Texto con animación de línea inferior al pasar el mouse o hacer clic -->
-                <span class="mt-4 md:mt-6 text-[9px] md:text-[10px] font-bold tracking-[0.3em] text-gray-600 uppercase group-hover:text-white group-active:text-white transition-colors relative z-10 pb-1 after:content-[''] after:absolute after:w-0 after:h-[1.5px] after:bottom-0 after:left-0 after:bg-white after:transition-all after:duration-300 group-hover:after:w-full group-active:after:w-full">
+                <span class="mt-4 md:mt-6 text-[10px] md:text-[11px] font-bold tracking-[0.3em] text-gray-600 uppercase group-hover:text-white group-active:text-white transition-colors relative z-10 pb-1 after:content-[''] after:absolute after:w-0 after:h-[1.5px] after:bottom-0 after:left-0 after:bg-white after:transition-all after:duration-300 group-hover:after:w-full group-active:after:w-full">
                     DESCUBRE LA COBERTURA
                 </span>
             </a>
@@ -713,11 +713,22 @@
                 <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
             </div>
 
-            <!-- Botón México -->
-            <button class="flex items-center gap-2 border border-gray-800 px-4 py-2 text-xs font-normal hover:border-gray-500 transition-colors text-white tracking-wide shrink-0">
-                México
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
+            <!-- Botón Selector de País -->
+            <div class="relative">
+                <button id="country-selector-btn" class="flex items-center gap-2 border border-gray-800 px-4 py-2 text-xs font-normal hover:border-gray-500 transition-colors text-white tracking-wide shrink-0">
+                    México
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <!-- Dropdown Menu de País -->
+                <div id="country-dropdown" class="absolute bottom-full mb-2 right-0 w-40 bg-[#0a0a0a] border border-gray-800 shadow-2xl hidden flex-col transition-all duration-200 opacity-0 transform translate-y-2 z-50">
+                    <a href="https://stadereck.github.io/devonrevista/index.html" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 border-b border-gray-800 transition-colors uppercase">
+                        México
+                    </a>
+                    <a href="https://stadereck.github.io/devonrevist/" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 transition-colors uppercase">
+                        EE.UU
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -1119,6 +1130,40 @@
             closeMenu();
         }
         function closeAll() { hideOverlay(); }
+
+        // --- 7. Selector de País (Footer) ---
+        const countryBtn = document.getElementById('country-selector-btn');
+        const countryDropdown = document.getElementById('country-dropdown');
+
+        if (countryBtn && countryDropdown) {
+            countryBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                if (countryDropdown.classList.contains('hidden')) {
+                    // Abrir
+                    countryDropdown.classList.remove('hidden');
+                    setTimeout(() => {
+                        countryDropdown.classList.remove('opacity-0', 'translate-y-2');
+                    }, 10);
+                } else {
+                    // Cerrar
+                    countryDropdown.classList.add('opacity-0', 'translate-y-2');
+                    setTimeout(() => {
+                        countryDropdown.classList.add('hidden');
+                    }, 200);
+                }
+            });
+
+            // Cerrar menú si se hace clic fuera
+            document.addEventListener('click', (e) => {
+                if (!countryBtn.contains(e.target) && !countryDropdown.contains(e.target) && !countryDropdown.classList.contains('hidden')) {
+                    countryDropdown.classList.add('opacity-0', 'translate-y-2');
+                    setTimeout(() => {
+                        countryDropdown.classList.add('hidden');
+                    }, 200);
+                }
+            });
+        }
 
     </script>
 </body>
