@@ -55,7 +55,7 @@
         .animated-slash {
             position: absolute;
             height: 3px;
-            background-color: white;
+            background-color: black;
             border-radius: 2px;
             transform-origin: center;
             animation: slashAnim 4s infinite ease-in-out;
@@ -92,7 +92,7 @@
             .is-expanded { height: 550px; }
         }
 
-        /* --- Fondo Animado (Tonos exactos de la portada, sin auras raras) --- */
+        /* --- Fondo Animado (Tonos exactos de la portada) --- */
         .ambient-blob {
             position: absolute;
             border-radius: 50%;
@@ -102,9 +102,9 @@
             z-index: 0;
             animation-play-state: paused;
         }
-        .blob-1 { width: 80%; height: 80%; background: #0b1536; top: -15%; left: -15%; animation: float1 15s infinite alternate ease-in-out; } /* Azul marino oscuro */
-        .blob-2 { width: 75%; height: 75%; background: #3d102e; bottom: -20%; right: -15%; animation: float2 18s infinite alternate ease-in-out; } /* Guinda/Magenta oscuro */
-        .blob-3 { width: 85%; height: 85%; background: #18092e; top: 15%; left: 15%; animation: float3 20s infinite alternate ease-in-out; } /* Púrpura muy profundo */
+        .blob-1 { width: 80%; height: 80%; background: #0b1536; top: -15%; left: -15%; animation: float1 15s infinite alternate ease-in-out; } 
+        .blob-2 { width: 75%; height: 75%; background: #3d102e; bottom: -20%; right: -15%; animation: float2 18s infinite alternate ease-in-out; } 
+        .blob-3 { width: 85%; height: 85%; background: #18092e; top: 15%; left: 15%; animation: float3 20s infinite alternate ease-in-out; } 
         
         @keyframes float1 {
             0% { transform: translate(0, 0) scale(1); }
@@ -122,10 +122,9 @@
         /* --- Estilo Letras (Apple Music Lyrics 100% fiel) --- */
         .lyric-line {
             transition: all 0.5s ease;
-            filter: blur(1.5px); /* Desenfoque muy sutil para las inactivas */
+            filter: blur(1.5px);
             opacity: 0.4;
             transform: scale(0.95);
-            /* Tipografía limpia tipo app musical */
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -134,12 +133,12 @@
             line-height: 1.3;
         }
         .lyric-line.active {
-            filter: blur(0px); /* Totalmente nítida */
-            opacity: 1; /* Blanco normal sólido */
+            filter: blur(0px);
+            opacity: 1;
             transform: scale(1);
             color: #ffffff;
             font-weight: 700;
-            text-shadow: none; /* Sin ningún aura ni brillo feo */
+            text-shadow: none;
         }
         .lyric-line:hover {
             opacity: 0.8;
@@ -151,7 +150,7 @@
             .lyric-line.active { transform: scale(1); }
         }
 
-        /* Deslizador de Audio */
+        /* --- Deslizador de Audio y Animación de Olas --- */
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -162,11 +161,25 @@
             cursor: pointer;
             box-shadow: 0 0 8px rgba(255,255,255,0.6);
             margin-top: -5px; 
+            transition: transform 0.2s;
         }
         input[type=range]::-webkit-slider-runnable-track {
             height: 4px;
             border-radius: 2px;
             background: inherit;
+        }
+        
+        /* Animación de la "ola" blanca en el control */
+        @keyframes wave-thumb {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); }
+            70% { box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        input[type=range].is-playing::-webkit-slider-thumb {
+            animation: wave-thumb 1.5s infinite;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
         }
 
         /* Animación del ecualizador (Compacto) */
@@ -194,7 +207,7 @@
             padding-left: 3px;
             font-family: 'Bodoni Moda', serif;
             font-weight: 700;
-            color: white;
+            color: black;
         }
 
         /* Animación de Línea para los Enlaces */
@@ -234,41 +247,41 @@
         .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
     </style>
 </head>
-<body class="bg-black text-white font-sans flex flex-col min-h-screen">
+<body class="bg-white text-black font-sans flex flex-col min-h-screen">
 
-    <!-- Pantalla de Introducción A24 -->
+    <!-- Pantalla de Introducción A24 (Fondo Negro) -->
     <div id="intro-container" class="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden pointer-events-auto bg-black transition-opacity duration-700">
-        <img id="intro-logo" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e94e7d1f-3328-48d3-b11a-45e835c32fcb/dhvgkbm-ea7c097b-28b8-421d-9517-808ca4874cf0.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9lOTRlN2QxZi0zMzI4LTQ4ZDMtYjExYS00NWU4MzVjMzJmY2IvZGh2Z2tibS1lYTdjMDk3Yi0yOGI4LTQyMWQtOTUxNy04MDhjYTQ4NzRjZjAuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.clS1Az05Pd-Bwh-3uZzyIZFNcJC3Q6dlwSwVI2riTaU" alt="A24 Intro" class="h-40 md:h-64 object-contain relative z-20 transition-all duration-[0.8s] ease-in-out origin-center">
+        <img id="intro-logo" src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776715522/output-onlinegiftools_ul8kkr.gif" alt="A24 Intro" class="h-40 md:h-64 object-contain relative z-20 transition-all duration-[0.8s] ease-in-out origin-center">
     </div>
 
     <!-- Overlay y Sidebar -->
-    <div id="overlay" class="fixed inset-0 bg-black/70 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
-    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-[#0a0a0a] border-r border-gray-900 z-50 shadow-2xl flex flex-col">
-        <div class="p-5 flex justify-between items-center border-b border-gray-800">
-            <h2 class="text-xl font-bold tracking-widest text-white">MENÚ</h2>
-            <button onclick="toggleMenu()" class="text-gray-400 hover:text-white p-2 transition-colors">
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
+    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-100 z-50 shadow-2xl flex flex-col">
+        <div class="p-5 flex justify-between items-center border-b border-gray-100">
+            <h2 class="text-xl font-bold tracking-widest text-black">MENÚ</h2>
+            <button onclick="toggleMenu()" class="text-gray-500 hover:text-black p-2 transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
         </div>
-        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-400 uppercase overflow-y-auto no-scrollbar pb-20">
-            <a href="suscripcion.html" class="text-white hover:bg-gray-900 p-3 rounded transition-colors">Suscripción</a>
-            <a href="index.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Inicio</a>
-            <a href="moda.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Moda</a>
-            <a href="belleza.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Belleza</a>
-            <a href="estilodevida.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Estilo de Vida</a>
-            <a href="compras.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Compras</a>
-            <a href="redevon.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">(Re)Devon</a>
-            <a href="hollywood.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Hollywood</a>
-            <a href="podcast.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Podcast</a>
-            <a href="espaciodevon.html" class="hover:text-white hover:bg-gray-900 p-3 rounded transition-colors">Espacio Devon</a>
+        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-600 uppercase overflow-y-auto no-scrollbar pb-20">
+            <a href="suscripcion.html" class="text-black hover:bg-gray-50 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-50 p-3 rounded transition-colors">Espacio Devon</a>
         </nav>
     </aside>
 
     <!-- Barra de Navegación Principal -->
-    <header class="w-full bg-black sticky top-0 z-30 border-b border-gray-900 md:border-none">
+    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-100 md:border-none">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
             <div class="flex items-center gap-4 z-20">
-                <button onclick="toggleMenu()" class="text-white hover:scale-110 transition-transform">
+                <button onclick="toggleMenu()" class="text-black hover:scale-110 transition-transform">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                         <line x1="3" y1="16" x2="21" y2="16"></line>
@@ -278,16 +291,16 @@
             
             <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
                 <a href="index.html" id="devon-text" class="flex items-center justify-center gap-2 md:gap-3 transition-all duration-500 hover:opacity-80">
-                    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e94e7d1f-3328-48d3-b11a-45e835c32fcb/dhvgkbm-ea7c097b-28b8-421d-9517-808ca4874cf0.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9lOTRlN2QxZi0zMzI4LTQ4ZDMtYjExYS00NWU4MzVjMzJmY2IvZGh2Z2tibS1lYTdjMDk3Yi0yOGI4LTQyMWQtOTUxNy04MDhjYTQ4NzRjZjAuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.clS1Az05Pd-Bwh-3uZzyIZFNcJC3Q6dlwSwVI2riTaU" alt="A24 Logo GIF" class="h-8 sm:h-10 md:h-12 object-contain">
-                    <span class="text-xl sm:text-2xl md:text-3xl font-bold tracking-widest text-white font-serif uppercase">| DEVON</span>
+                    <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776715522/output-onlinegiftools_ul8kkr.gif" alt="A24 Logo GIF" class="h-8 sm:h-10 md:h-12 object-contain filter invert">
+                    <span class="text-xl sm:text-2xl md:text-3xl font-bold tracking-widest text-black font-serif uppercase">| DEVON</span>
                 </a>
             </div>
             
             <div class="flex items-center gap-4 z-20">
-                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-white hover:text-gray-400 transition-colors mr-1" style="font-family: 'Jost', sans-serif;">
+                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1" style="font-family: 'Jost', sans-serif;">
                     SUSCRIPCIÓN
                 </a>
-                <a href="usuario.html" class="text-white hover:scale-110 transition-transform">
+                <a href="usuario.html" class="text-black hover:scale-110 transition-transform">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"></circle>
                         <path d="M12 16a4 4 0 0 0-4-4h8a4 4 0 0 0-4 4z"></path>
@@ -299,29 +312,29 @@
     </header>
 
     <!-- Top Bar -->
-    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-white uppercase py-4 bg-black border-b border-gray-900 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
-        <a href="moda.html" class="cursor-pointer hover:text-gray-400 transition-colors">MODA</a>
-        <a href="belleza.html" class="cursor-pointer hover:text-gray-400 transition-colors">BELLEZA</a>
-        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-400 transition-colors">ESTILO DE VIDA</a>
-        <a href="compras.html" class="cursor-pointer hover:text-gray-400 transition-colors">COMPRAS</a>
-        <a href="redevon.html" class="cursor-pointer hover:text-gray-400 transition-colors">(RE)DEVON</a>
-        <a href="hollywood.html" class="cursor-pointer hover:text-gray-400 transition-colors border-b border-white pb-0.5">HOLLYWOOD</a>
-        <a href="podcast.html" class="cursor-pointer hover:text-gray-400 transition-colors">PODCAST</a>
-        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-400 transition-colors">ESPACIO DEVON</a>
+    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
+        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+        <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+        <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+        <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+        <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors border-b border-black pb-0.5">HOLLYWOOD</a>
+        <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
     </div>
 
     <!-- Pestañas Superiores (Solo Móvil) -->
-    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-400 uppercase">
-        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-black text-white border-b-2 border-white">
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
+        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
             LO ÚLTIMO
         </a>
-        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-gray-900 border-l border-gray-800 hover:bg-gray-800 transition-colors cursor-pointer">
+        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-[#f0f0f0] border-l border-gray-200 hover:bg-gray-200 transition-colors cursor-pointer">
             TENDENCIAS
         </a>
     </div>
 
     <!-- BANNER: Van Cleef & Arpels -->
-    <section class="w-full relative flex items-center justify-center overflow-hidden border-b border-gray-800 min-h-[220px] md:min-h-[280px]">
+    <section class="w-full relative flex items-center justify-center overflow-hidden border-b border-gray-200 min-h-[220px] md:min-h-[280px]">
         <img 
             src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
             alt="Fondo Van Cleef" 
@@ -343,25 +356,25 @@
     </section>
 
     <!-- Contenedor Principal: Artículo Completo -->
-    <main class="w-full flex-1 bg-black overflow-hidden">
+    <main class="w-full flex-1 bg-white overflow-hidden">
         
         <article class="max-w-4xl mx-auto px-6 pt-16 md:pt-24 pb-16">
             
             <div class="text-center mb-10">
-                <span class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-4 block font-sans">HOLLYWOOD / GOSSIP</span>
+                <span class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 block font-sans">HOLLYWOOD / GOSSIP</span>
                 
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-medium text-white leading-[1.1] mb-6" style="font-family: 'Jost', sans-serif;">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-medium text-black leading-[1.1] mb-6" style="font-family: 'Jost', sans-serif;">
                     La premiere de 'euphoria 3' fue un mezcla de estilo nostalgia y drama
                 </h1>
                 
-                <p class="text-lg md:text-2xl text-gray-400 mb-8 font-serif italic max-w-2xl mx-auto leading-relaxed">
+                <p class="text-lg md:text-2xl text-gray-600 mb-8 font-serif italic max-w-2xl mx-auto leading-relaxed">
                     Un desierto colorido en su máxima expresión.
                 </p>
                 
-                <div class="flex items-center justify-center gap-3 text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-white font-sans">
-                    <span class="text-gray-400">POR PAMELA VÁZQUEZ</span>
-                    <span class="w-1 h-1 bg-white rounded-full"></span>
-                    <span class="text-gray-400">8 DE ABRIL DE 2026</span>
+                <div class="flex items-center justify-center gap-3 text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-black font-sans">
+                    <span class="text-gray-600">POR PAMELA VÁZQUEZ</span>
+                    <span class="w-1 h-1 bg-black rounded-full"></span>
+                    <span class="text-gray-600">8 DE ABRIL DE 2026</span>
                 </div>
             </div>
 
@@ -370,11 +383,11 @@
                 <img 
                     src="https://media.glamour.mx/photos/69d692a2f23c6a7876d5a24f/16:9/w_1920,c_limit/euphoria-premiere.jpg" 
                     alt="Cast de Euphoria 3 en la Premiere" 
-                    class="w-full h-auto aspect-[16/9] md:aspect-[21/9] object-cover object-center bg-gray-900"
+                    class="w-full h-auto aspect-[16/9] md:aspect-[21/9] object-cover object-center bg-gray-100"
                 />
             </div>
 
-            <div class="max-w-2xl mx-auto text-[16px] md:text-[18px] leading-loose text-gray-300 font-serif space-y-8 relative">
+            <div class="max-w-2xl mx-auto text-[16px] md:text-[18px] leading-loose text-gray-800 font-serif space-y-8 relative">
                 
                 <p class="drop-cap">
                     La espera por 'euphoria 3' ha sido larga e incierta, pues después de varios atrasos en la producción, disputas entre los creadores y protagonistas y dos dolorosas pérdidas, la tercera parte de esta controversial serie realmente pendía de un hilo.
@@ -382,10 +395,10 @@
                 <p>Pero finalmente, logró salir adelante y ya estamos en vísperas del gran estreno, agendado para el 12 de abril en HBO Max, con tráiler oficial y première incluidos.</p>
                 <p>Spoiler alert: no se sabe qué preámbulo tiene más drama, estilo y nostalgia, pues tanto el adelanto, como la alfombra roja crearon momentos de alta tensión, alta moda y altas ganas de llorar.</p>
 
-                <h2 class="text-2xl md:text-3xl font-medium text-white mt-16 mb-4" style="font-family: 'Jost', sans-serif;">Todo lo que pasó en la première de 'euphoria 3'</h2>
+                <h2 class="text-2xl md:text-3xl font-medium text-black mt-16 mb-4" style="font-family: 'Jost', sans-serif;">Todo lo que pasó en la première de 'euphoria 3'</h2>
                 <p>La temática de desierto colorido fue visionaria porque así como hubo mucho glam, también dominó la sequía emocional.</p>
 
-                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">La aparición express de Zendaya</h2>
+                <h2 class="text-2xl md:text-3xl font-medium text-black mt-12 mb-4" style="font-family: 'Jost', sans-serif;">La aparición express de Zendaya</h2>
                 <p>A pesar de su apretada agenda, la protagonista y productora de la serie asistió al evento luciendo tan increíble como siempre en un vestido de cuello halter y escote de espalda en satin marrón que combinó con una versión wet de su pixie cut.</p>
                 <p>Pero solo tuvimos unos minutos para disfrutar de su presencia, pues luego de posar para las cámaras que lanzaron flashes sin cesar, salió corriendo de la red carpet hacia su transporte. Solo alcanzó a saludar brevemente a Sam Levinson, creador de 'euphoria 3'.</p>
 
@@ -394,11 +407,11 @@
                     <img 
                         src="https://media.glamour.mx/photos/69d69246e22a9a87373e9cdd/master/w_1600,c_limit/euphoria-3-premiere-zendaya.jpg" 
                         alt="Zendaya en vestido halter" 
-                        class="w-full h-auto object-cover bg-gray-900"
+                        class="w-full h-auto object-cover bg-gray-100"
                     />
                 </div>
 
-                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Homenaje a Angus Cloud y Eric Dane</h2>
+                <h2 class="text-2xl md:text-3xl font-medium text-black mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Homenaje a Angus Cloud y Eric Dane</h2>
                 <p>Durante la primera presentación oficial, Levinson le dedicó unas palabras a dos de los miembros del elenco que lamentablemente perdieron la vida entre el estreno de la segunda temporada y de la tercera. Angus Cloud, quien interpretó a Fezco, falleció el 31 de julio de 2023 por sobredosis. Y Eric Dane, quien le dio vida a Cal Jacobs, falleció el 19 de febrero del 2026 a causa de una insuficiencia respiratoria provocada por la esclerosis lateral amiotrófica.</p>
 
                 <!-- Imagen Angus Cloud -->
@@ -406,7 +419,7 @@
                     <img 
                         src="https://media.glamour.mx/photos/64c988324b0bc56740ccc88d/2:3/w_1600,c_limit/1363008904" 
                         alt="Angus Cloud" 
-                        class="w-full h-auto aspect-[2/3] object-cover bg-gray-900 mx-auto"
+                        class="w-full h-auto aspect-[2/3] object-cover bg-gray-100 mx-auto"
                     />
                 </div>
 
@@ -417,11 +430,11 @@
                     <img 
                         src="https://media.glamour.mx/photos/6997d2be8b72353000c27f4f/2:3/w_1600,c_limit/eric-dane.jpg" 
                         alt="Eric Dane" 
-                        class="w-full h-auto aspect-[2/3] object-cover bg-gray-900 mx-auto"
+                        class="w-full h-auto aspect-[2/3] object-cover bg-gray-100 mx-auto"
                     />
                 </div>
 
-                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">¿Alexa Demie se va retirar?</h2>
+                <h2 class="text-2xl md:text-3xl font-medium text-black mt-12 mb-4" style="font-family: 'Jost', sans-serif;">¿Alexa Demie se va retirar?</h2>
                 <p>Volver a ver a la intérprete de la icónica Maddie fue un goce para todos, pues a diferencia de otros miembros del cast, sus apariciones son esporádicas. La estrella estuvo sonriendo, platicando con la prensa y los fans, y conviviendo con sus compañeros en un vestido de líneas B&W que complementó con un beauty look natural y fresco.</p>
                 <p>En varias entrevistas ha confesado sus deseos por retirarse de la actuación en un futuro próximo, pues aún hay una gran falta de oportunidades en Hollywood para mujeres latinas en sus 30, así que todos (incluyéndola a ella) disfrutaron de esta red carpet como si fuera la última.</p>
 
@@ -430,13 +443,13 @@
                     <img 
                         src="https://media.glamour.mx/photos/69d6925552fb2925a08302a8/master/w_1600,c_limit/alexa-demie.jpg" 
                         alt="Alexa Demie" 
-                        class="w-full h-auto object-cover bg-gray-900"
+                        class="w-full h-auto object-cover bg-gray-100"
                     />
                 </div>
 
-                <p>
-                    Pero el acompañante principal de Sweeney fue su novio, el ejecutivo discográfico, Scooter Braun. Llegaron juntos y se sentaron al lado en la sala para ver la proyección de la serie, donde compartieron un beso captado por una de las asistentes. Sin embargo, no desfilaron de la mano por la alfombra roja.
-                </p>
+                <h2 class="text-2xl md:text-3xl font-medium text-black mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Sidney Sweeney fue acompañada por Scooter Braun</h2>
+                <p>Después de la impactante noticia de que la actriz que le da vida a Cassie no se encuentra en buenos términos con Zendaya debido a “diferencias políticas", la première de 'euphoria 3' fue la confirmación de las tensiones entre las estrellas, pues no compartieron ni un segundo, mientras que el resto de los actores sí.</p>
+                <p>Pero el acompañante principal de Sweeney fue su novio, el ejecutivo discográfico, Scooter Braun. Llegaron juntos y se sentaron al lado en la sala para ver la proyección de la serie, donde compartieron un beso captado por una de las asistentes. Sin embargo, no desfilaron de la mano por la alfombra roja.</p>
 
                 <!-- ========================================== -->
                 <!-- REPRODUCTOR DE AUDIO ESTILO APPLE MUSIC -->
@@ -444,14 +457,14 @@
                 <div class="my-16 flex flex-col items-center justify-center w-full relative z-30 font-sans">
                     
                     <!-- Título encima de la Isla Dinámica -->
-                    <p id="dynamic-island-title" class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-gray-400 font-sans mb-4 text-center transition-opacity duration-300">
+                    <p id="dynamic-island-title" class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-gray-500 font-sans mb-4 text-center transition-opacity duration-300">
                         La canción más viral de Euphoria
                     </p>
 
                     <!-- Wrapper Dinámico (Cambia de Isla a Pantalla Completa) -->
                     <div id="dynamic-player-wrapper" class="is-compact relative mx-auto w-full overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] bg-black">
                         
-                        <!-- Fondo Blur Animado (Siempre visible ahora para colorear la isla y el fondo) -->
+                        <!-- Fondo Blur Animado -->
                         <div id="ambient-bg" class="absolute inset-0 z-0 transition-opacity duration-700 pointer-events-none opacity-100 bg-[#050505]">
                             <div class="ambient-blob blob-1"></div>
                             <div class="ambient-blob blob-2"></div>
@@ -524,12 +537,8 @@
                             <!-- Panel Derecho: Letra Sincronizada -->
                             <div class="w-full lg:w-[55%] h-[350px] lg:h-full relative flex flex-col z-10 pt-4 lg:pt-0 mt-6 lg:mt-0">
                                 
-                                <!-- Degradados para efecto de desvanecimiento -->
-                                <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-black/20 to-transparent z-20 pointer-events-none"></div>
-                                <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/80 to-transparent z-20 pointer-events-none"></div>
-
-                                <!-- Contenedor Scroll de Letras -->
-                                <div id="lyrics-wrapper" class="w-full h-full overflow-y-auto no-scrollbar scroll-smooth flex flex-col pb-40 pt-[25%] px-4 relative">
+                                <!-- Contenedor Scroll de Letras con Máscara de Degradado (Apple Music Style) -->
+                                <div id="lyrics-wrapper" class="w-full h-full overflow-y-auto no-scrollbar scroll-smooth flex flex-col pb-40 pt-[25%] px-4 relative" style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);">
                                     <div id="lyrics-content" class="flex flex-col gap-6 text-center lg:text-left text-[28px] md:text-[42px]">
                                         <!-- La letra se inyecta por JS -->
                                     </div>
@@ -539,7 +548,7 @@
                     </div>
                 </div>
 
-                <h2 class="text-2xl md:text-3xl font-medium text-white mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Jacob Elordi y su tierno reencuentro con Maude Apatow</h2>
+                <h2 class="text-2xl md:text-3xl font-medium text-black mt-12 mb-4" style="font-family: 'Jost', sans-serif;">Jacob Elordi y su tierno reencuentro con Maude Apatow</h2>
                 <p>Como siempre, la energía chill fue cortesía de Jacob Elordi y Maude Apatow, a quienes volveremos a ver en pantalla como Nate y Lexie. Esta vez protagonizaron un tierno momento porque Jacob tardó unos segundos en reconocer a Maude y en cuanto supo que era ella rieron y se abrazaron con mucho cariño.</p>
             </div>
         </article>
@@ -550,7 +559,7 @@
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
             <div class="md:col-span-4 flex flex-col items-start">
                 <a href="index.html" class="hover:opacity-80 transition-opacity">
-                    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e94e7d1f-3328-48d3-b11a-45e835c32fcb/dhvgkbm-ea7c097b-28b8-421d-9517-808ca4874cf0.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9lOTRlN2QxZi0zMzI4LTQ4ZDMtYjExYS00NWU4MzVjMzJmY2IvZGh2Z2tibS1lYTdjMDk3Yi0yOGI4LTQyMWQtOTUxNy04MDhjYTQ4NzRjZjAuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.clS1Az05Pd-Bwh-3uZzyIZFNcJC3Q6dlwSwVI2riTaU" alt="Logo GIF" class="h-16 md:h-24 lg:h-32 object-contain mb-8">
+                    <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1776715522/output-onlinegiftools_ul8kkr.gif" alt="Logo GIF" class="h-16 md:h-24 lg:h-32 object-contain mb-8">
                 </a>
                 <div class="flex gap-3">
                     <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors text-white"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.04-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7.5v4H10v9.5h4v-9.5z"/></svg></a>
@@ -722,6 +731,7 @@
                     compactSpin.style.animationPlayState = 'running';
                     waveBars.forEach(b => b.style.animationPlayState = 'running');
                     ambientBlobs.forEach(b => b.style.animationPlayState = 'running');
+                    progressBar.classList.add('is-playing');
                 } else {
                     audio.pause();
                     iconPause.classList.add('hidden');
@@ -729,6 +739,7 @@
                     compactSpin.style.animationPlayState = 'paused';
                     waveBars.forEach(b => b.style.animationPlayState = 'paused');
                     ambientBlobs.forEach(b => b.style.animationPlayState = 'paused');
+                    progressBar.classList.remove('is-playing');
                 }
             }
 
