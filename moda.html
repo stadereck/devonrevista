@@ -167,7 +167,6 @@
                 <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-500 transition-colors mr-1 md:mr-0" style="font-family: 'Jost', sans-serif;">
                     SUSCRIPCIÓN
                 </a>
-                <!-- Ícono de persona eliminado como se solicitó -->
             </div>
         </div>
     </header>
@@ -239,47 +238,70 @@
             </div>
         </section>
 
-        <!-- Separador / Título de Categoría: Semanas de la moda -->
-        <div class="w-full max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-4">
-            <div class="border-t border-b border-gray-200 py-3 md:py-4">
+        <!-- Separador / Título de Categoría: Lo Último -->
+        <div class="w-full max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-8">
+            <div class="border-t border-b border-black py-3 md:py-4 flex justify-between items-center">
                 <h2 class="text-lg md:text-xl font-medium tracking-widest text-black uppercase" style="font-family: 'Jost', sans-serif;">
-                    SEMANAS DE LA MODA OTOÑO-INVIERNO 2026
+                    LO ÚLTIMO
                 </h2>
             </div>
         </div>
 
-        <!-- Sección: Artículo Overlay (Alonso Alvarez) -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 mt-8 mb-20">
-            <a href="aguaconlimon.html" class="relative w-full block group overflow-hidden cursor-pointer" style="height: 65vh; min-height: 450px; max-height: 600px;">
-                <!-- Imagen de fondo -->
-                <img 
-                    src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1775103964/ChatGPT_Image_1_abr_2026_10_25_39_p.m._j2jdkf.png" 
-                    alt="Alonso Alvarez" 
-                    class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                
-                <!-- Gradiente oscuro sutil para asegurar que el texto blanco sea legible -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <!-- Sección: Grid Lo Último -->
+        <section class="max-w-7xl mx-auto px-6 mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Featured (Large) -->
+                <a href="rio-fashion-week.html" class="lg:col-span-8 group cursor-pointer flex flex-col">
+                    <div class="relative w-full aspect-[4/3] lg:aspect-[16/9] overflow-hidden mb-4">
+                        <img src="https://media.vogue.mx/photos/69ec351d28bd53d8bef0e129/3:4/w_960,c_limit/rio-fashion-week-2026-.jpg" class="object-cover object-center lg:object-top w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Rio Fashion Week">
+                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                    <h3 class="text-3xl lg:text-4xl font-medium leading-tight mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">El regreso de Rio Fashion Week es un triunfo necesario para la moda latina</h3>
+                    <span class="text-[10px] uppercase text-gray-400">Por Luz García</span>
+                </a>
 
-                <!-- Contenido de Texto superpuesto -->
-                <div class="absolute inset-0 flex flex-col items-center justify-end text-center pb-12 md:pb-16 px-4 md:px-12 z-10">
-                    <span class="text-white text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase mb-4 font-sans">
-                        BELLEZA
-                    </span>
+                <!-- Side Stack (2 items) -->
+                <div class="lg:col-span-4 flex flex-col gap-8 md:grid md:grid-cols-2 lg:flex lg:flex-col">
+                    <a href="constanza-zamora.html" class="group flex flex-col cursor-pointer">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden mb-3">
+                            <img src="https://media.vogue.mx/photos/69e91d7b9c5cf00f4dbd18b0/1:1/w_640,c_limit/constanza-zamora-modelo-oaxaquen%CC%83a-fotos-enrique-leyva.jpg" class="object-cover object-center w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Constanza Zamora">
+                        </div>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                        <h3 class="text-xl font-medium leading-tight mb-2 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Conoce a Constanza Zamora, la modelo de la costa de Oaxaca que se abre camino en la moda internacional</h3>
+                        <span class="text-[10px] uppercase text-gray-400">Por Luz García</span>
+                    </a>
                     
-                    <h2 class="text-white text-3xl md:text-4xl lg:text-5xl font-medium max-w-4xl leading-tight mb-8" style="font-family: 'Jost', sans-serif;">
-                        Los 5 beneficios del agua con limón, explicados por un nutriólogo
-                    </h2>
-                    
-                    <span class="text-white text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase mb-3 font-sans">
-                        ALONSO ALVAREZ
-                    </span>
-                    
-                    <span class="text-white text-[11px] md:text-xs font-normal font-sans">
-                        1 de abril de 2026
-                    </span>
+                    <a href="stella-mccartney.html" class="group flex flex-col cursor-pointer">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden mb-3">
+                            <img src="https://media.vogue.mx/photos/69e12b6f33af0168b6a09cd7/1:1/w_640,c_limit/2023-H&M_SMC-PR-Portrait-A4-RGB-260217_4.jpg" class="object-cover object-top w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Stella McCartney">
+                        </div>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                        <h3 class="text-xl font-medium leading-tight mb-2 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Stella McCartney vuelve a colaborar con esta marca icónica, 20 años después</h3>
+                        <span class="text-[10px] uppercase text-gray-400">Por Liam Hess</span>
+                    </a>
                 </div>
-            </a>
+            </div>
+            
+            <!-- Bottom row (2 items) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <a href="vestidos-flores.html" class="group flex flex-col cursor-pointer">
+                    <div class="relative w-full aspect-[16/9] overflow-hidden mb-3">
+                        <img src="https://media.vogue.mx/photos/6952d340bb9c9febc67d6ecc/1:1/w_640,c_limit/ToryBurch_NYFW_SS26_backstage_acielle_18.jpg" class="object-cover object-center w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Vestidos de flores">
+                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                    <h3 class="text-2xl font-medium leading-tight mb-2 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Los vestidos de flores más bonitos y elegantes para llevar en Primavera-Verano 2026</h3>
+                    <span class="text-[10px] uppercase text-gray-400">Por Renata Joffre</span>
+                </a>
+
+                <a href="sandalias-colombianas.html" class="group flex flex-col cursor-pointer">
+                    <div class="relative w-full aspect-[16/9] overflow-hidden mb-3">
+                        <img src="https://media.vogue.mx/photos/69deddd1444f8a825e2e8e50/1:1/w_640,c_limit/%20sandalias-colombianas-color-cafe-elegantes.jpg" class="object-cover object-center w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sandalias colombianas">
+                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                    <h3 class="text-2xl font-medium leading-tight mb-2 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Las sandalias colombianas color café más elegantes para llevar con vestidos en primavera 2026</h3>
+                    <span class="text-[10px] uppercase text-gray-400">Por Melisa Vargas</span>
+                </a>
+            </div>
         </section>
 
     </main>
