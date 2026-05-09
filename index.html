@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devon México</title>
+    <title>Devon México | Billie Eilish</title>
     <!-- Ícono de la pestaña (Favicon) -->
     <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
     
@@ -160,6 +160,24 @@
         }
         .link-underline:hover::after {
             width: 100%;
+        }
+
+        /* --- ESTILOS DEL INTRO ANIMADO --- */
+        #intro-wrapper {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff; /* Fondo blanco suave */
+            z-index: 999999;
+            overflow: hidden;
+            transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
+        }
+        .intro-img-particle {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 80px; /* Tamaño equivalente aprox a centímetros en pantalla */
+            height: auto;
+            will-change: transform;
         }
     </style>
 </head>
@@ -1043,7 +1061,228 @@
                 }
             });
         }
+    </script>
 
+    <!-- SCRIPT DEL INTRO ANIMADO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Contenedor principal de la animación
+            const introWrapper = document.createElement('div');
+            introWrapper.id = 'intro-wrapper';
+            document.body.appendChild(introWrapper);
+            
+            // Bloquear el scroll de la página para no arruinar la animación
+            document.body.style.overflow = 'hidden';
+
+            // --- EFECTO REVELACIÓN: Preparar la página web para ocultarla inicialmente ---
+            // 1. Ocultar el logo de la barra superior para que no se vea doble
+            const realLogo = document.getElementById('devon-text');
+            if (realLogo) {
+                realLogo.style.opacity = '0';
+                realLogo.style.transition = 'opacity 0.4s ease-in-out';
+            }
+
+            // 2. Seleccionar los bloques principales de la página para la animación de entrada
+            const siteElements = Array.from(document.body.children).filter(el => 
+                ['HEADER', 'MAIN', 'FOOTER', 'SECTION', 'DIV'].includes(el.tagName) && 
+                !['intro-wrapper', 'overlay', 'sidebarMenu'].includes(el.id)
+            );
+            
+            siteElements.forEach(el => {
+                el.style.opacity = '0';
+                // La cabecera (HEADER) no se traslada en Y para que el logo sepa su coordenada final exacta
+                if (el.tagName !== 'HEADER') {
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
+                } else {
+                    el.style.transition = 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1)';
+                }
+            });
+            // ----------------------------------------------------------------------------
+
+            // URLs de las imágenes
+            const imgWhiteBg = 'https://res.cloudinary.com/dhx58lnzb/image/upload/v1778359985/Billirrrr_b8kb0a.png';
+            const imgBlackBg = 'https://res.cloudinary.com/dhx58lnzb/image/upload/v1778360524/Billie_Clare-removebg-preview_f13qjf.png';
+            
+            // Pre-cargar ambas imágenes para evitar parpadeos no deseados durante la animación rápida
+            const preload1 = new Image(); preload1.src = imgWhiteBg;
+            const preload2 = new Image(); preload2.src = imgBlackBg;
+
+            // --- FASE 1: Animación de Inversión y Parpadeo del Personaje Grande ---
+            
+            const bigChar = document.createElement('img');
+            bigChar.src = imgWhiteBg;
+            bigChar.style.position = 'absolute';
+            bigChar.style.top = '50%';
+            bigChar.style.left = '50%';
+            bigChar.style.transform = 'translate(-50%, -50%) scaleX(1)';
+            bigChar.style.maxHeight = '80vh';
+            bigChar.style.maxWidth = '90vw';
+            bigChar.style.objectFit = 'contain';
+            // Sin transiciones css para que el "flash" y la inversión sean agresivos e instantáneos
+            bigChar.style.transition = 'none'; 
+            introWrapper.appendChild(bigChar);
+
+            let isBlack = false;
+            let flipState = 1; // 1 (normal) o -1 (invertido)
+            let flashDelay = 550; // Tiempo inicial en milisegundos (lento)
+            let flashCount = 0;
+            const maxFlashes = 16; // Número de veces que parpadeará antes de la lluvia
+
+            function doFlashSequence() {
+                if (flashCount >= maxFlashes) {
+                    // Terminar la Fase 1 e iniciar la lluvia de imágenes
+                    bigChar.remove();
+                    introWrapper.style.backgroundColor = '#ffffff'; // Asegurar fondo blanco para la lluvia
+                    startFallingGrid();
+                    return;
+                }
+
+                // Alternar colores e imágenes
+                isBlack = !isBlack;
+                flipState *= -1; // Invertir de izquierda a derecha
+
+                introWrapper.style.backgroundColor = isBlack ? '#000000' : '#ffffff';
+                bigChar.src = isBlack ? imgBlackBg : imgWhiteBg;
+                
+                // Aplicamos el centrado absoluto y la inversión del personaje al mismo tiempo
+                bigChar.style.transform = `translate(-50%, -50%) scaleX(${flipState})`;
+
+                // Aumentar la velocidad del flash reduciendo el tiempo de espera
+                // Multiplicamos por 0.8 para hacerlo 20% más rápido cada vez (mínimo 50ms)
+                flashDelay = Math.max(50, flashDelay * 0.8); 
+                flashCount++;
+
+                setTimeout(doFlashSequence, flashDelay);
+            }
+
+            // Iniciar la secuencia de flashes tras medio segundo
+            setTimeout(doFlashSequence, 500);
+
+            // --- FASE 2: Animación de Caída Múltiple (Lluvia con variaciones) ---
+            
+            function startFallingGrid() {
+                const particles = [];
+                const spacingPx = 90; 
+                const cols = Math.ceil(window.innerWidth / spacingPx) + 1;
+                const rows = 35; 
+
+                // Los 4 estilos de inversión requeridos
+                const inversionStyles = [
+                    'scaleX(-1)',      // 1. Invertido horizontalmente (a un lado)
+                    'scaleY(-1)',      // 2. Invertido verticalmente (hacia abajo/arriba)
+                    'scale(-1, -1)',   // 3. Invertido en ambas direcciones (hacia el otro lado cruzado)
+                    'rotate(180deg)'   // 4. Rotado completamente (efecto opuesto absoluto)
+                ];
+
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        const img = document.createElement('img');
+                        img.src = imgWhiteBg; // La lluvia utiliza el primer personaje
+                        img.className = 'intro-img-particle';
+                        
+                        const x = c * spacingPx + (Math.random() * 30 - 15);
+                        const y = -(r * spacingPx * 1.5) - 150; 
+                        
+                        // Seleccionar aleatoriamente si esta imagen se invierte (~40% de probabilidad)
+                        let baseTransform = '';
+                        if (Math.random() < 0.4) {
+                            // Escoger al azar uno de los 4 estilos de inversión
+                            const randomStyle = inversionStyles[Math.floor(Math.random() * inversionStyles.length)];
+                            baseTransform = ` ${randomStyle}`; // Espacio antes para concatenar en el loop
+                        }
+                        
+                        // Estado inicial
+                        img.style.transform = `translate3d(${x}px, ${y}px, 0)${baseTransform}`;
+                        introWrapper.appendChild(img);
+                        
+                        particles.push({ el: img, x: x, y: y, vy: 0, tBase: baseTransform });
+                    }
+                }
+
+                let gravity = 0.02; 
+                let animationId;
+
+                function animateIntro() {
+                    gravity += 0.004; 
+                    
+                    for(let i = 0; i < particles.length; i++) {
+                        let p = particles[i];
+                        p.vy += gravity; 
+                        p.y += p.vy; 
+                        // Aplicar movimiento y mantener su inversión especial
+                        p.el.style.transform = `translate3d(${p.x}px, ${p.y}px, 0)${p.tBase}`; 
+                    }
+
+                    animationId = requestAnimationFrame(animateIntro);
+                }
+
+                // Iniciar la física de caída
+                requestAnimationFrame(animateIntro);
+
+                // --- FASE 3: Transición final con el logo DEVON ---
+                setTimeout(() => {
+                    // 1. Detener la lluvia y eliminar las partículas INMEDIATAMENTE
+                    cancelAnimationFrame(animationId);
+                    particles.forEach(p => p.el.remove());
+                    
+                    // 2. Crear el texto final DEVON
+                    const finalLogo = document.createElement('div');
+                    finalLogo.textContent = 'DEVON';
+                    
+                    // Clases básicas (sin las transiciones de Tailwind para controlarlo mejor con JS)
+                    finalLogo.className = 'font-serif text-black font-bold tracking-[0.2em] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 scale-95';
+                    finalLogo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    finalLogo.style.fontSize = 'clamp(3rem, 12vw, 10rem)'; 
+                    introWrapper.appendChild(finalLogo);
+                    
+                    // Forzar un reflow para que el navegador registre el estado inicial
+                    void finalLogo.offsetWidth;
+                    
+                    // 3. Aparecer DEVON inmediatamente en el centro
+                    finalLogo.style.opacity = '1';
+                    finalLogo.style.transform = 'translate(-50%, -50%) scale(1)';
+
+                    // 4. COREOGRAFÍA FINAL: El logo vuela, el fondo se desvanece y la web aparece
+                    setTimeout(() => {
+                        const realLogoRect = realLogo.getBoundingClientRect();
+                        const realLogoTextSpan = realLogo.querySelector('span');
+                        
+                        // A) El fondo blanco del intro se vuelve transparente suavemente
+                        introWrapper.style.transition = 'background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                        introWrapper.style.backgroundColor = 'transparent';
+                        
+                        // B) Aparecer todo el contenido de la web con efecto de elevación "premium"
+                        siteElements.forEach(el => {
+                            el.style.opacity = '1';
+                            if (el.tagName !== 'HEADER') el.style.transform = 'translateY(0)';
+                        });
+                        
+                        // C) El logo central viaja y se encoge hacia la posición exacta del header
+                        finalLogo.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                        finalLogo.style.top = (realLogoRect.top + (realLogoRect.height / 2)) + 'px';
+                        finalLogo.style.fontSize = window.getComputedStyle(realLogoTextSpan).fontSize;
+                        
+                        // Devolver el scroll al usuario porque la web ya es visible
+                        document.body.style.overflow = '';
+
+                        // Justo cuando termine el vuelo de 800ms, damos el cambiazo invisible
+                        setTimeout(() => {
+                            finalLogo.style.opacity = '0'; // Se oculta el animado
+                            realLogo.style.opacity = '1';  // Se revela el original (con la línea de animación de la O)
+                            
+                            // Limpiar por completo el intro del DOM para no dejar residuos
+                            setTimeout(() => {
+                                introWrapper.remove();
+                            }, 500);
+
+                        }, 800);
+
+                    }, 1800); // El logo DEVON se admira en el centro durante 1.8 segundos antes de despegar
+
+                }, 4000); // 4 segundos de la lluvia antes de la aparición inmediata del logo
+            }
+        });
     </script>
 </body>
 </html>
