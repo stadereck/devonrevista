@@ -82,16 +82,20 @@
             <span class="text-6xl md:text-8xl lg:text-[9rem] font-bold tracking-widest text-black font-serif uppercase flex items-center">
                 DE<span class="relative inline-flex items-center justify-center">
                     V
-                    <a href="https://charlixcx.lnk.to/SS26" target="_blank" rel="noopener noreferrer" class="absolute bottom-full mb-1 md:mb-2 left-1/2 -translate-x-1/2 w-28 md:w-36 lg:w-44 z-10 group overflow-hidden flex items-center justify-center">
+                    <a id="ss26-link" href="https://charlixcx.lnk.to/SS26" target="_blank" rel="noopener noreferrer" class="absolute bottom-full mb-1 md:mb-2 left-1/2 -translate-x-1/2 w-44 md:w-52 lg:w-64 z-10 group overflow-hidden flex items-center justify-center">
                         <!-- Botón rectangular negro que sube desde abajo -->
                         <div class="absolute inset-0 bg-black flex items-center justify-center transition-all duration-500 ease-in-out transform translate-y-full group-hover:translate-y-0 z-20">
-                            <span id="ss26-btn-text" class="text-white text-[9px] md:text-[11px] lg:text-xs font-sans tracking-[0.2em] uppercase font-medium whitespace-nowrap transition-opacity duration-300">
-                                Escuchar SS26
-                            </span>
+                            <div class="flex items-center justify-center text-white text-[9px] md:text-[11px] lg:text-xs font-sans tracking-[0.15em] uppercase font-medium whitespace-nowrap">
+                                <span id="ss26-btn-text" class="transition-opacity duration-300">
+                                    Escuchar SS26
+                                </span>
+                                <!-- Ícono de play que reemplaza al 6 -->
+                                <svg id="ss26-play-icon" class="hidden w-2.5 h-2.5 md:w-3 md:h-3 ml-[2px] -mt-[1px]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
                         </div>
                         
                         <!-- Imagen principal que desaparece deslizándose hacia arriba -->
-                        <img src="https://www.charlixcx.com/sites/g/files/g2000022946/files/2026-05/yhnmdfeolklo.webp" alt="Decoración sobre la V" class="w-full h-auto object-contain transition-all duration-500 ease-in-out transform group-hover:-translate-y-full group-hover:opacity-0 relative z-10">
+                        <img src="https://www.charlixcx.com/sites/g/files/g2000022946/files/2026-05/yhnmdfeolklo.webp" alt="Decoración sobre la V" class="w-28 md:w-36 lg:w-44 h-auto object-contain transition-all duration-500 ease-in-out transform group-hover:-translate-y-full group-hover:opacity-0 relative z-10">
                     </a>
                 </span><span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
             </span>
@@ -133,24 +137,27 @@
         </div>
     </div>
 
+    <!-- Audio Element for SS26 -->
+    <audio id="ss26-audio" src="https://res.cloudinary.com/dhx58lnzb/video/upload/v1779589629/SS26_3_rvi3nk.wav" preload="metadata"></audio>
+
     <!-- Script de Traducción y Animación -->
     <script>
         const translations = [
-            { code: 'es', label: 'Traducir al Español', dir: 'ltr', title: 'Sitio en mantenimiento', body: 'Estimado lector, lamentamos no poder estar disponibles en este momento. Nos encontramos realizando mejoras para ofrecerle una experiencia excepcional. Por favor, vuelva más tarde.', btnText: 'Escuchar SS26' },
-            { code: 'en', label: 'Translate to English', dir: 'ltr', title: 'Site under maintenance', body: 'Dear reader, we regret that we are unavailable at this moment. We are making improvements to offer you an exceptional experience. Please come back later.', btnText: 'Listen to SS26' },
-            { code: 'fr', label: 'Traduire en Français', dir: 'ltr', title: 'Site en maintenance', body: 'Cher lecteur, nous regrettons de ne pas être disponibles pour le moment. Nous apportons des améliorations pour vous offrir une expérience exceptionnelle. Veuillez revenir plus tard.', btnText: 'Écouter SS26' },
-            { code: 'it', label: 'Traduci in Italiano', dir: 'ltr', title: 'Sito in manutenzione', body: 'Caro lettore, ci dispiace non essere disponibili in questo momento. Stiamo apportando miglioramenti per offrirti un\'esperienza eccezionale. Ti preghiamo di tornare più tardi.', btnText: 'Ascolta SS26' },
-            { code: 'pt', label: 'Traduzir para Português', dir: 'ltr', title: 'Site em manutenção', body: 'Caro leitor, lamentamos não estar disponíveis neste momento. Estamos a fazer melhorias para lhe oferecer uma experiência excecional. Por favor, volte mais tarde.', btnText: 'Ouvir SS26' },
-            { code: 'de', label: 'Übersetzen auf Deutsch', dir: 'ltr', title: 'Wartungsarbeiten', body: 'Lieber Leser, wir bedauern, dass wir im Moment nicht erreichbar sind. Wir führen Verbesserungen durch, um Ihnen ein außergewöhnliches Erlebnis zu bieten. Bitte kommen Sie später wieder.', btnText: 'SS26 anhören' },
-            { code: 'ar', label: 'ترجم إلى العربية', dir: 'rtl', title: 'الموقع تحت الصيانة', body: 'عزيزي القارئ، نأسف لعدم توفرنا في هذا الوقت. نحن نجري تحسينات لنقدم لك تجربة استثنائية. يرجى العودة لاحقاً.', btnText: 'استمع إلى SS26' },
-            { code: 'hi', label: 'हिंदी में अनुवाद करें', dir: 'ltr', title: 'साइट रखरखाव में है', body: 'प्रिय पाठक, हमें खेद है कि हम इस समय उपलब्ध नहीं हैं। हम आपको एक असाधारण अनुभव प्रदान करने के लिए सुधार कर रहे हैं। कृपया बाद में वापस आएं।', btnText: 'SS26 सुनें' },
-            { code: 'zh', label: '翻译成中文', dir: 'ltr', title: '网站维护中', body: '尊敬的读者，很抱歉我们目前无法提供服务。我们正在进行改进，以提升您的卓越体验。请稍后再来。', btnText: '收听 SS26' },
-            { code: 'ja', label: '日本語に翻訳', dir: 'ltr', title: 'メンテナンス中', body: '読者の皆様、現在ご利用いただけず申し訳ありません。素晴らしい体験を提供するために改善を行っています。後ほど再度アクセスしてください。', btnText: 'SS26を聴く' },
-            { code: 'ko', label: '한국어로 번역', dir: 'ltr', title: '사이트 유지 보수 중', body: '독자 여러분, 현재 이용할 수 없어 죄송합니다. 특별한 경험을 제공하기 위해 개선 작업을 진행 중입니다. 나중에 다시 방문해 주세요.', btnText: 'SS26 듣기' },
-            { code: 'ru', label: 'Перевести на русский', dir: 'ltr', title: 'Сайт на реконструкции', body: 'Уважаемый читатель, к сожалению, в данный момент мы недоступны. Мы вносим улучшения, чтобы предложить вам исключительный опыт. Пожалуйста, зайдите позже.', btnText: 'Слушать SS26' },
-            { code: 'tr', label: 'Türkçeye çevir', dir: 'ltr', title: 'Site bakımda', body: 'Değerli okuyucu, şu anda hizmet veremediğimiz için üzgünüz. Size olağanüstü bir deneyim sunmak için iyileştirmeler yapıyoruz. Lütfen daha sonra tekrar gelin.', btnText: 'SS26 Dinle' },
-            { code: 'nl', label: 'Vertaal naar Nederlands', dir: 'ltr', title: 'Site in onderhoud', body: 'Beste lezer, het spijt ons dat we op dit moment niet bereikbaar zijn. We voeren verbeteringen uit om u een uitzonderlijke ervaring te bieden. Kom alstublieft later terug.', btnText: 'Luister naar SS26' },
-            { code: 'el', label: 'Μετάφραση στα Ελληνικά', dir: 'ltr', title: 'Ιστότοπος υπό συντήρηση', body: 'Αγαπητέ αναγνώστη, λυπούμαστε που δεν είμαστε διαθέσιμοι αυτή τη στιγμή. Πραγματοποιούμε βελτιώσεις για να σας προσφέρουμε μια εξαιρετική εμπειρία. Παρακαλούμε επιστρέψτε αργότερα.', btnText: 'Ακούστε το SS26' }
+            { code: 'es', label: 'Traducir al Español', dir: 'ltr', title: 'Sitio en mantenimiento', body: 'Estimado lector, lamentamos no poder estar disponibles en este momento. Nos encontramos realizando mejoras para ofrecerle una experiencia excepcional. Por favor, vuelva más tarde.', btnText: 'Escuchar SS26', btnPlaying: 'Reproduciendo SS2', btnComplete: '¿Reproducirla completa?' },
+            { code: 'en', label: 'Translate to English', dir: 'ltr', title: 'Site under maintenance', body: 'Dear reader, we regret that we are unavailable at this moment. We are making improvements to offer you an exceptional experience. Please come back later.', btnText: 'Listen to SS26', btnPlaying: 'Playing SS2', btnComplete: 'Play fully?' },
+            { code: 'fr', label: 'Traduire en Français', dir: 'ltr', title: 'Site en maintenance', body: 'Cher lecteur, nous regrettons de ne pas être disponibles pour le moment. Nous apportons des améliorations pour vous offrir une expérience exceptionnelle. Veuillez revenir plus tard.', btnText: 'Écouter SS26', btnPlaying: 'Lecture SS2', btnComplete: 'Écouter en entier ?' },
+            { code: 'it', label: 'Traduci in Italiano', dir: 'ltr', title: 'Sito in manutenzione', body: 'Caro lettore, ci dispiace non essere disponibili in questo momento. Stiamo apportando miglioramenti per offrirti un\'esperienza eccezionale. Ti preghiamo di tornare più tardi.', btnText: 'Ascolta SS26', btnPlaying: 'Riproducendo SS2', btnComplete: 'Riprodurre per intero?' },
+            { code: 'pt', label: 'Traduzir para Português', dir: 'ltr', title: 'Site em manutenção', body: 'Caro leitor, lamentamos não estar disponíveis neste momento. Estamos a fazer melhorias para lhe oferecer uma experiência excecional. Por favor, volte mais tarde.', btnText: 'Ouvir SS26', btnPlaying: 'Reproduzindo SS2', btnComplete: 'Reproduzir completa?' },
+            { code: 'de', label: 'Übersetzen auf Deutsch', dir: 'ltr', title: 'Wartungsarbeiten', body: 'Lieber Leser, wir bedauern, dass wir im Moment nicht erreichbar sind. Wir führen Verbesserungen durch, um Ihnen ein außergewöhnliches Erlebnis zu bieten. Bitte kommen Sie später wieder.', btnText: 'SS26 anhören', btnPlaying: 'Spiele SS2', btnComplete: 'Ganz abspielen?' },
+            { code: 'ar', label: 'ترجم إلى العربية', dir: 'rtl', title: 'الموقع تحت الصيانة', body: 'عزيزي القارئ، نأسف لعدم توفرنا في هذا الوقت. نحن نجري تحسينات لنقدم لك تجربة استثنائية. يرجى العودة لاحقاً.', btnText: 'استمع إلى SS26', btnPlaying: 'جاري تشغيل SS2', btnComplete: 'تشغيل كاملة؟' },
+            { code: 'hi', label: 'हिंदी में अनुवाद करें', dir: 'ltr', title: 'साइट रखरखाव में है', body: 'प्रिय पाठक, हमें खेद है कि हम इस समय उपलब्ध नहीं हैं। हम आपको एक असाधारण अनुभव प्रदान करने के लिए सुधार कर रहे हैं। कृपया बाद में वापस आएं।', btnText: 'SS26 सुनें', btnPlaying: 'बजा रहा है SS2', btnComplete: 'पूरा चलाएं?' },
+            { code: 'zh', label: '翻译成中文', dir: 'ltr', title: '网站维护中', body: '尊敬的读者，很抱歉我们目前无法提供服务。我们正在进行改进，以提升您的卓越体验。请稍后再来。', btnText: '收听 SS26', btnPlaying: '正在播放 SS2', btnComplete: '完整播放？' },
+            { code: 'ja', label: '日本語に翻訳', dir: 'ltr', title: 'メンテナンス中', body: '読者の皆様、現在ご利用いただけず申し訳ありません。素晴らしい体験を提供するために改善を行っています。後ほど再度アクセスしてください。', btnText: 'SS26を聴く', btnPlaying: '再生中 SS2', btnComplete: 'フル再生する？' },
+            { code: 'ko', label: '한국어로 번역', dir: 'ltr', title: '사이트 유지 보수 중', body: '독자 여러분, 현재 이용할 수 없어 죄송합니다. 특별한 경험을 제공하기 위해 개선 작업을 진행 중입니다. 나중에 다시 방문해 주세요.', btnText: 'SS26 듣기', btnPlaying: '재생 중 SS2', btnComplete: '전체 재생할까요?' },
+            { code: 'ru', label: 'Перевести на русский', dir: 'ltr', title: 'Сайт на реконструкции', body: 'Уважаемый читатель, к сожалению, в данный момент мы недоступны. Мы вносим улучшения, чтобы предложить вам исключительный опыт. Пожалуйста, зайдите позже.', btnText: 'Слушать SS26', btnPlaying: 'Воспроизведение SS2', btnComplete: 'Слушать полностью?' },
+            { code: 'tr', label: 'Türkçeye çevir', dir: 'ltr', title: 'Site bakımda', body: 'Değerli okuyucu, şu anda hizmet veremediğimiz için üzgünüz. Size olağanüstü bir deneyim sunmak için iyileştirmeler yapıyoruz. Lütfen daha sonra tekrar gelin.', btnText: 'SS26 Dinle', btnPlaying: 'Çalınıyor SS2', btnComplete: 'Tamamını çal?' },
+            { code: 'nl', label: 'Vertaal naar Nederlands', dir: 'ltr', title: 'Site in onderhoud', body: 'Beste lezer, het spijt ons dat we op dit moment niet bereikbaar zijn. We voeren verbeteringen uit om u een uitzonderlijke ervaring te bieden. Kom alstublieft later terug.', btnText: 'Luister naar SS26', btnPlaying: 'Speelt SS2', btnComplete: 'Volledig afspelen?' },
+            { code: 'el', label: 'Μετάφραση στα Ελληνικά', dir: 'ltr', title: 'Ιστότοπος υπό συντήρηση', body: 'Αγαπητέ αναγνώστη, λυπούμαστε που δεν είμαστε διαθέσιμοι αυτή τη στιγμή. Πραγματοποιούμε βελτιώσεις για να σας προσφέρουμε μια εξαιρετική εμπειρία. Παρακαλούμε επιστρέψτε αργότερα.', btnText: 'Ακούστε το SS26', btnPlaying: 'Αναπαραγωγή SS2', btnComplete: 'Πλήρης αναπαραγωγή;' }
         ];
 
         const container = document.getElementById('lang-selector');
@@ -158,6 +165,10 @@
         const titleEl = document.getElementById('maint-title');
         const bodyEl = document.getElementById('maint-body');
         const btnTextEl = document.getElementById('ss26-btn-text');
+
+        let currentLangCode = 'es';
+        let ss26State = 'init'; // 'init', 'playing', 'complete'
+        let audioTimeout;
 
         // Generar dinámicamente los botones de idiomas
         translations.forEach(lang => {
@@ -175,9 +186,21 @@
                 
                 // 2. Esperar al medio de la animación para cambiar el texto
                 setTimeout(() => {
+                    currentLangCode = lang.code;
                     titleEl.textContent = lang.title;
                     bodyEl.textContent = lang.body;
-                    btnTextEl.textContent = lang.btnText;
+                    
+                    if (ss26State === 'init') {
+                        btnTextEl.textContent = lang.btnText;
+                        document.getElementById('ss26-play-icon').classList.add('hidden');
+                    } else if (ss26State === 'playing') {
+                        btnTextEl.textContent = lang.btnPlaying;
+                        document.getElementById('ss26-play-icon').classList.remove('hidden');
+                    } else if (ss26State === 'complete') {
+                        btnTextEl.textContent = lang.btnComplete;
+                        document.getElementById('ss26-play-icon').classList.add('hidden');
+                    }
+
                     textWrapper.dir = lang.dir; // Soporte RTL para árabe
                     
                     // 3. Remover clase de ocultamiento para que vuelva a aparecer
@@ -236,6 +259,50 @@
             // Cambia el estilo del botón para rellenarlo de negro y texto blanco
             declineBtn.classList.remove('bg-white', 'text-gray-400', 'border-gray-300', 'cursor-not-allowed');
             declineBtn.classList.add('bg-black', 'text-white', 'border-black');
+        });
+
+        // --- Lógica del Audio SS26 ---
+        const ss26Link = document.getElementById('ss26-link');
+        const ss26Audio = document.getElementById('ss26-audio');
+
+        ss26Link.addEventListener('click', (e) => {
+            if (ss26State === 'init') {
+                e.preventDefault(); // Prevenir redirección en el primer clic
+                ss26State = 'playing';
+
+                // Actualizar texto a "Reproduciendo SS2" + Icono
+                const langData = translations.find(t => t.code === currentLangCode);
+                btnTextEl.textContent = langData.btnPlaying;
+                document.getElementById('ss26-play-icon').classList.remove('hidden');
+
+                // Determinar duración y momento aleatorio
+                let duration = ss26Audio.duration;
+                if (isNaN(duration) || duration < 25) duration = 180; // fallback seguro si no ha cargado metadata
+                
+                const maxStart = Math.max(0, duration - 25);
+                const start = Math.random() * maxStart;
+
+                ss26Audio.currentTime = start;
+                ss26Audio.play().catch(err => console.log("Bloqueado por autoplay: ", err));
+
+                // Detener después de 25 segundos
+                audioTimeout = setTimeout(() => {
+                    ss26Audio.pause();
+                    ss26State = 'complete';
+                    btnTextEl.textContent = translations.find(t => t.code === currentLangCode).btnComplete;
+                    document.getElementById('ss26-play-icon').classList.add('hidden');
+                }, 25000);
+            } else if (ss26State === 'playing') {
+                // Si hace clic mientras se reproduce, pausar y permitir abrir la web
+                clearTimeout(audioTimeout);
+                ss26Audio.pause();
+                ss26State = 'complete';
+                btnTextEl.textContent = translations.find(t => t.code === currentLangCode).btnComplete;
+                document.getElementById('ss26-play-icon').classList.add('hidden');
+                // No hay preventDefault, así que ahora sí abrirá el link de Charli
+            } else if (ss26State === 'complete') {
+                // Ya terminó, al hacer clic simplemente abre la pestaña del enlace (no preventDefault)
+            }
         });
     </script>
 </body>
