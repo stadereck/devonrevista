@@ -283,6 +283,18 @@
                 const start = Math.random() * maxStart;
 
                 ss26Audio.currentTime = start;
+
+                // Configurar Media Session API para la portada del sistema (Google, SO, etc.)
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.metadata = new MediaMetadata({
+                        title: 'SS26',
+                        artist: 'Charli XCX',
+                        artwork: [
+                            { src: 'https://res.cloudinary.com/dhx58lnzb/image/upload/v1779589604/ab67616d0000b273516b540fe2ff881fdc36d7f3_btven9.jpg', sizes: '512x512', type: 'image/jpeg' }
+                        ]
+                    });
+                }
+
                 ss26Audio.play().catch(err => console.log("Bloqueado por autoplay: ", err));
 
                 // Detener después de 25 segundos
