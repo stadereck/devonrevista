@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devon México</title>
+    <!-- Ícono de la pestaña (Favicon) -->
+    <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Jost', 'sans-serif'],
+                        serif: ['"Bodoni Moda"', 'serif'],
+                    },
+                    colors: {
+                        brandPink: '#E8A5D6',
+                        brandDark: '#0B1320',
+                        brandGray: '#F2F2F2',
+                        vanCleefBg: '#E5F0E6'
+                    },
+                    letterSpacing: {
+                        widest: '.2em',
+                        wider: '.1em'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* --- Sincronització Animacions (Línia) --- */
+        @keyframes slashAnim {
+            0%, 20% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
+            30%, 70% { width: 145%; opacity: 1; transform: rotate(-45deg) scaleX(1); }
+            80%, 100% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
+        }
+        
+        .animated-slash {
+            position: absolute;
+            height: 2px;
+            background-color: currentColor;
+            border-radius: 2px;
+            transform-origin: center;
+            animation: slashAnim 4s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* --- Estils de la Illa Dinàmica --- */
+        .island-container {
+            width: 0px; height: 0px; opacity: 0;
+            transform: scale(0.5) translateY(-20px);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+            background-color: #1a1a1a; 
+            border: 1px solid #333;
+        }
+        
+        .island-container.active {
+            width: 120px; height: 36px; opacity: 1;
+            transform: scale(1) translateY(0); pointer-events: auto;
+        }
+        .island-container.time-mode {
+            width: 80px; border-radius: 12px;
+        }
+        .island-container.views-mode {
+            width: 210px; border-radius: 24px; padding: 0 16px;
+        }
+        
+        @media (min-width: 768px) {
+            .island-container.active { width: 160px; height: 44px; }
+            .island-container.time-mode { width: 100px; }
+            .island-container.views-mode { width: 240px; }
+        }
+
+        /* --- Animación de "Negación" (Shake) para la Isla --- */
+        @keyframes islandShakeAnim {
+            0%, 100% { transform: scale(1) translateY(0) translateX(0); }
+            20% { transform: scale(1) translateY(0) translateX(-12px); }
+            40% { transform: scale(1) translateY(0) translateX(12px); }
+            60% { transform: scale(1) translateY(0) translateX(-6px); }
+            80% { transform: scale(1) translateY(0) translateX(6px); }
+        }
+        .island-shake {
+            animation: islandShakeAnim 0.4s ease-in-out;
+            transition: none !important;
+        }
+        
+        .logo-hidden { opacity: 0; transform: scale(0.5) translateY(20px); pointer-events: none; }
+        .island-text-fade { opacity: 0; transform: scale(0.5); }
+
+        #views-counter {
+            display: inline-block;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        /* --- Utilidades Extras (Sidebar) --- */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar nav a {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .sidebar.open nav a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .sidebar.open nav a:nth-child(1) { transition-delay: 0.10s; }
+        .sidebar.open nav a:nth-child(2) { transition-delay: 0.15s; }
+        .sidebar.open nav a:nth-child(3) { transition-delay: 0.20s; }
+        .sidebar.open nav a:nth-child(4) { transition-delay: 0.25s; }
+        .sidebar.open nav a:nth-child(5) { transition-delay: 0.30s; }
+        .sidebar.open nav a:nth-child(6) { transition-delay: 0.35s; }
+        .sidebar.open nav a:nth-child(7) { transition-delay: 0.40s; }
+        .sidebar.open nav a:nth-child(8) { transition-delay: 0.45s; }
+        .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
+        .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
+
+        /* --- Animación de Línea para los Enlaces --- */
+        .link-underline {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1.5px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease-in-out;
+        }
+        .link-underline:hover::after {
+            width: 100%;
+        }
+
+        /* --- ESTILOS DEL INTRO ANIMADO --- */
+        #intro-wrapper {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff; /* Fondo blanco suave */
+            z-index: 999999;
+            overflow: hidden;
+            transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
+        }
+        .intro-img-particle {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 80px; /* Tamaño equivalente aprox a centímetros en pantalla */
+            height: auto;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="bg-white text-black font-sans flex flex-col min-h-screen">
+
+    <!-- Overlay y Sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black/70 z-40 hidden transition-opacity opacity-0" onclick="closeAll()"></div>
+    <aside id="sidebarMenu" class="sidebar fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-50 shadow-2xl flex flex-col">
+        <div class="p-5 flex justify-between items-center border-b border-gray-200">
+            <h2 class="text-xl font-bold tracking-widest text-black">MENÚ</h2>
+            <button onclick="toggleMenu()" class="text-gray-500 hover:text-black p-2 transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-500 uppercase overflow-y-auto no-scrollbar pb-20">
+            <a href="suscripcion.html" class="text-black hover:bg-gray-100 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Espacio Devon</a>
+        </nav>
+    </aside>
+
+    <!-- Barra de Navegación Principal -->
+    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-200 md:border-none">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
+            
+            <!-- Izquierda: Menú -->
+            <div class="flex items-center gap-4 z-20">
+                <button onclick="toggleMenu()" class="text-black hover:scale-110 transition-transform">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <line x1="3" y1="16" x2="21" y2="16"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
+                
+                <!-- Logo DEVON centrat amb la línia animada a la O -->
+                <div id="devon-text" class="flex items-center justify-center transition-all duration-500">
+                    <span class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-widest text-black font-serif uppercase flex items-center">
+                        DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+                    </span>
+                </div>
+
+                <div id="dynamic-island" class="island-container absolute rounded-full flex items-center justify-center overflow-hidden shadow-xl">
+                    <div id="island-content" class="w-full flex items-center justify-center transition-all duration-300">
+                        <span class="text-white text-xs md:text-sm font-bold tracking-widest font-serif uppercase">DEVON</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 z-20">
+                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-600 transition-colors mr-1" style="font-family: 'Jost', sans-serif;">
+                    SUSCRIPCIÓN
+                </a>
+                
+                <!-- Ícono de usuario -->
+                <a href="usuario.html" class="text-black hover:scale-110 transition-transform">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 16a4 4 0 0 0-4-4h8a4 4 0 0 0-4 4z"></path>
+                        <circle cx="12" cy="9" r="2.5"></circle>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Top Bar -->
+    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-200 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
+        <a href="moda.html" class="cursor-pointer hover:text-gray-600 transition-colors">MODA</a>
+        <a href="belleza.html" class="cursor-pointer hover:text-gray-600 transition-colors">BELLEZA</a>
+        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-600 transition-colors">ESTILO DE VIDA</a>
+        <a href="compras.html" class="cursor-pointer hover:text-gray-600 transition-colors">COMPRAS</a>
+        <a href="redevon.html" class="cursor-pointer hover:text-gray-600 transition-colors">(RE)DEVON</a>
+        <a href="hollywood.html" class="cursor-pointer hover:text-gray-600 transition-colors">HOLLYWOOD</a>
+        <a href="podcast.html" class="cursor-pointer hover:text-gray-600 transition-colors">PODCAST</a>
+        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-600 transition-colors">ESPACIO DEVON</a>
+    </div>
+
+    <!-- Pestañas Superiores (Solo Móvil) -->
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
+        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
+            LO ÚLTIMO
+        </a>
+        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-gray-100 border-l border-gray-200 hover:bg-gray-200 text-gray-600 transition-colors cursor-pointer">
+            TENDENCIAS
+        </a>
+    </div>
+
+    <!-- BANNER: Van Cleef & Arpels (Se mantiene texto blanco por la imagen de fondo oscuro) -->
+    <section class="w-full relative flex items-center justify-center overflow-hidden border-b border-gray-200 min-h-[220px] md:min-h-[280px]">
+        <img 
+            src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
+            alt="Fondo Van Cleef" 
+            class="absolute inset-0 w-full h-full object-cover object-center z-0 brightness-75"
+        />
+        <div class="max-w-7xl w-full flex flex-col items-center md:items-start text-center md:text-left z-10 px-6 md:px-12 py-8 md:py-10 relative">
+            <h2 class="text-2xl md:text-4xl text-white mb-2" style="font-family: 'Georgia', 'Times New Roman', serif;">Van Cleef & Arpels</h2>
+            <p class="text-[10px] md:text-xs text-gray-200 mb-4" style="font-family: 'Georgia', 'Times New Roman', serif;">Haute Joaillerie, place Vendôme desde 1906</p>
+            
+            <div class="mb-4 text-white opacity-90 flex items-center justify-center md:justify-start">
+                <svg width="30" height="20" viewBox="0 0 36 24">
+                    <polygon points="18,1 35,12 18,23 1,12" fill="none" stroke="currentColor" stroke-width="1.2"></polygon>
+                    <text x="18" y="15" font-size="7" font-family="serif" text-anchor="middle" fill="currentColor">VCA</text>
+                </svg>
+            </div>
+            
+            <a href="coleccionlucky.html" class="text-[9px] md:text-[10px] font-bold tracking-widest uppercase text-white border-b border-white pb-0.5 hover:text-gray-300 transition-colors">
+                DESCUBRE LA COLECCIÓN LUCKY SPRING
+            </a>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="w-full flex-1 pb-20">
+
+        <!-- Título EN PORTADA con líneas divisorias -->
+        <div class="w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12 mb-4">
+            <div class="border-t border-b border-gray-200 py-3 md:py-4">
+                <h2 class="text-lg md:text-xl font-medium tracking-widest text-black uppercase" style="font-family: 'Jost', sans-serif;">
+                    EN PORTADA
+                </h2>
+            </div>
+        </div>
+
+        <!-- Sección Hero (Carrusel Deslizante) -->
+        <section class="max-w-7xl w-full mx-auto px-4 md:px-6 pt-4 md:pt-6 mb-4">
+            <!-- Contenedor del Carrusel -->
+            <div class="w-full mx-auto overflow-hidden shadow-2xl relative bg-gray-100 rounded-2xl md:rounded-[2rem]">
+                <!-- Cambio a formato vertical (aspect-[4/5]) en móvil y panorámico (aspect-[16/9]) en PC -->
+                <div id="hero-anim-container" class="relative w-full aspect-[4/5] md:aspect-[16/9] transform origin-center will-change-transform bg-white cursor-grab active:cursor-grabbing">
+                    
+                    <!-- Slide 1: Bad Bunny MET Gala (Más reciente: 4 de mayo) -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-0 z-10">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1778010951/bad-bunny-met-gala-2026_ynn3sq.webp" alt="Bad Bunny MET Gala 2026" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%] pointer-events-none"/>
+                    </div>
+
+                    <!-- Slide 2: Lux Pascal MET Gala (4 de mayo) -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1778011193/lux-pascal-met-gala-2026_qtddjs.webp" alt="Lux Pascal MET Gala 2026" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%] pointer-events-none"/>
+                    </div>
+
+                    <!-- Slide 3: Georgina Rodríguez MET Gala (4 de mayo) -->
+                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1778011513/georgina-rodriguez-met-gala-2026-vestido_l87wof.webp" alt="Georgina Rodríguez MET Gala 2026" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%] pointer-events-none"/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Indicadores Dinámicos -->
+            <div class="flex justify-center items-center gap-3 mt-6 mb-6">
+                <!-- Contenedor tipo 'píldora' estilo Liquid Glass -->
+                <div class="flex items-center gap-1.5 md:gap-2.5 px-5 py-2 md:px-7 md:py-2.5 bg-gray-400/10 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-full">
+                    <div class="hero-dot w-5 h-1.5 md:w-8 md:h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400"></div>
+                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400"></div>
+                </div>
+                
+                <!-- Indicador de Tiempo Circular y Candado -->
+                <div class="flex items-center gap-2 ml-1 md:ml-3">
+                    <div class="relative w-7 h-7 flex items-center justify-center">
+                        <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                            <circle cx="18" cy="18" r="14" fill="none" stroke="#e5e5e5" stroke-width="2.5"></circle>
+                            <circle id="hero-progress-circle" cx="18" cy="18" r="14" fill="none" stroke="#000000" stroke-width="2.5" stroke-dasharray="88" stroke-dashoffset="88" stroke-linecap="round"></circle>
+                        </svg>
+                        <span id="hero-progress-text" class="text-[9px] font-bold text-black font-sans z-10" style="padding-top: 1px;">5</span>
+                        <span id="hero-infinity-icon" class="hidden absolute inset-0 flex items-center justify-center text-[16px] font-medium text-black z-10 animate-pulse" style="padding-bottom: 2px;">∞</span>
+                    </div>
+                    <!-- Botón de candado (Lock) -->
+                    <button id="carousel-lock-btn" class="text-gray-500 hover:text-black transition-colors focus:outline-none flex items-center justify-center w-6 h-6">
+                        <svg id="lock-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Contenedor Wrapper para Animación de Altura -->
+            <div id="text-wrapper" class="relative w-full mx-auto overflow-hidden transition-[height] duration-500 ease-in-out px-2 md:px-4">
+                
+                <!-- Texto Slide 1 (Bad Bunny - 4 de mayo) -->
+                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-100 z-10 pointer-events-auto flex flex-col items-start justify-start">
+                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-gray-600 mb-3 md:mb-4">MET Gala</p>
+                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-black leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
+                        A Bad Bunny le tomó 53 años dar con el look más original de la MET Gala 2026
+                    </h2>
+                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-black leading-loose">
+                        <p class="text-gray-600">Por Vogue</p>
+                        <p class="text-gray-600">Fotografia por Devon</p>
+                        <div class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-500 tracking-normal leading-none flex items-center gap-3" style="font-family: 'Jost', sans-serif;">
+                            <span>4 de mayo de 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Texto Slide 2 (Lux Pascal - 4 de mayo) -->
+                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-0 z-0 pointer-events-none flex flex-col items-start justify-start">
+                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-gray-600 mb-3 md:mb-4">MET Gala</p>
+                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-black leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
+                        Lux Pascal roba suspiros en la MET Gala 2026 con un vestido color arena con el que lució como escultura
+                    </h2>
+                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-black leading-loose">
+                        <p class="text-gray-600">Por Vogue®</p>
+                        <p class="text-gray-600">Fotografia por Devon®</p>
+                        <div class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-500 tracking-normal leading-none flex items-center gap-3" style="font-family: 'Jost', sans-serif;">
+                            <span>4 de mayo de 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Texto Slide 3 (Georgina Rodríguez - 4 de mayo) -->
+                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-0 z-0 pointer-events-none flex flex-col items-start justify-start">
+                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-gray-600 mb-3 md:mb-4">MET Gala</p>
+                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-black leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
+                        Georgina Rodríguez hace un homenaje a la Virgen de Fátima en la MET Gala 2026
+                    </h2>
+                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-black leading-loose">
+                        <p class="text-gray-600">Por Vogue®</p>
+                        <p class="text-gray-600">Fotografia por Devon®</p>
+                        <div class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-500 tracking-normal leading-none flex items-center gap-3" style="font-family: 'Jost', sans-serif;">
+                            <span>4 de mayo de 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Título ÚLTIMAS TENDENCIAS -->
+        <div class="w-full max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-6">
+            <div class="border-t border-b border-gray-200 py-3 md:py-4">
+                <h2 class="text-lg md:text-xl font-medium tracking-widest text-black uppercase" style="font-family: 'Jost', sans-serif;">
+                    ÚLTIMAS TENDENCIAS
+                </h2>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER: Diseño estilo Vogue -->
+    <footer class="bg-black text-white pt-16 pb-8 border-t border-gray-900 mt-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+            
+            <!-- Columna Izquierda: Logo y Redes -->
+            <div class="md:col-span-4 flex flex-col items-start">
+                
+                <!-- Logo DEVON centrado con la línea animada en la O (Versión Blanca) -->
+                <div class="flex items-center justify-start transition-all duration-500 mb-8">
+                    <span class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white font-serif uppercase flex items-center">
+                        DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+                    </span>
+                </div>
+                
+                <div class="flex gap-3">
+                    <a href="https://www.instagram.com/devonmagazine/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Columna Central: MÁS EN DEVON -->
+            <div class="md:col-span-4 md:pl-8">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">MÁS EN DEVON</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
+                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
+                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
+                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
+                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna Derecha: CONDÉ NAST MÉXICO -->
+            <div class="md:col-span-4">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">CONDÉ NAST MÉXICO</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
+                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
+                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
+                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
+                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Línea separadora inferior y Links Legales -->
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-900 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
+            
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-500 uppercase">
+                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
+                <span class="text-gray-700">|</span>
+                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                <span class="text-gray-700">|</span>
+                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
+                <span class="text-gray-700">|</span>
+                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
+                <span class="text-gray-700">|</span>
+                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
+                <span class="text-gray-700">|</span>
+                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
+                <span class="text-gray-700">|</span>
+                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
+            </div>
+
+            <!-- Botón Selector de País -->
+            <div class="relative">
+                <button id="country-selector-btn" class="flex items-center gap-2 border border-gray-800 px-4 py-2 text-xs font-normal hover:border-gray-500 transition-colors text-white tracking-wide shrink-0">
+                    México
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <!-- Dropdown Menu de País -->
+                <div id="country-dropdown" class="absolute bottom-full mb-2 right-0 w-40 bg-[#0a0a0a] border border-gray-800 shadow-2xl hidden flex-col transition-all duration-200 opacity-0 transform translate-y-2 z-50">
+                    <a href="https://stadereck.github.io/devonrevista/index.html" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 border-b border-gray-800 transition-colors uppercase">
+                        México
+                    </a>
+                    <a href="https://stadereck.github.io/devonrevist/" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 transition-colors uppercase">
+                        EE.UU
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCIPT DE INTERACCIONES GLOBALES -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Contador de Vistas Constante ---
+            let viewsCount = 1000000; 
+
+            setInterval(() => {
+                viewsCount += Math.floor(Math.random() * 6) + 1; 
+                const counterElement = document.getElementById('views-counter');
+                if (counterElement) {
+                    counterElement.textContent = viewsCount.toLocaleString('en-US'); 
+                    counterElement.style.transform = 'scale(1.08)';
+                    setTimeout(() => counterElement.style.transform = 'scale(1)', 150);
+                }
+            }, 1200);
+
+            // --- 2. Isla Dinámica ---
+            const interactiveContainer = document.getElementById('interactive-header-center');
+            const devonText = document.getElementById('devon-text');
+            const dynamicIsland = document.getElementById('dynamic-island');
+            const islandContent = document.getElementById('island-content');
+
+            let islandMode = 'none'; 
+            let pressTimer;
+            let isLongPress = false;
+
+            function openIsland(mode) {
+                islandMode = mode;
+                devonText.classList.add('logo-hidden');
+                dynamicIsland.classList.add('active');
+
+                dynamicIsland.classList.remove('time-mode', 'views-mode', 'island-shake');
+                islandContent.classList.add('island-text-fade');
+
+                setTimeout(() => {
+                    if (mode === 'default') {
+                        islandContent.innerHTML = '<span class="text-white text-xs md:text-sm font-bold tracking-widest font-serif uppercase">DEVON</span>';
+                        islandContent.className = 'w-full flex items-center justify-center transition-all duration-300';
+                    } 
+                    else if (mode === 'views') {
+                        dynamicIsland.classList.add('views-mode');
+                        islandContent.className = 'w-full flex items-center justify-between transition-all duration-300';
+                        islandContent.innerHTML = `
+                            <span class="flex items-center gap-1.5 text-gray-300 font-normal text-xs md:text-sm whitespace-nowrap">
+                                Visto por <span id="views-counter" class="text-white font-bold tracking-widest">${viewsCount.toLocaleString('en-US')}</span>
+                            </span>
+                            <button id="close-island-btn" class="text-gray-400 hover:text-white ml-2 transition-colors shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        `;
+                        document.getElementById('close-island-btn').addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            closeIsland();
+                        });
+                    }
+                    else if (mode === 'unavailable') {
+                        dynamicIsland.classList.add('views-mode'); 
+                        islandContent.className = 'w-full flex items-center justify-center transition-all duration-300';
+                        islandContent.innerHTML = `<span class="text-white text-xs md:text-sm font-bold tracking-widest uppercase">No Disponible</span>`;
+                        
+                        setTimeout(() => {
+                            dynamicIsland.classList.add('island-shake'); 
+                            setTimeout(() => dynamicIsland.classList.remove('island-shake'), 400);
+                        }, 350);
+
+                        setTimeout(() => {
+                            if (islandMode === 'unavailable') closeIsland();
+                        }, 2500);
+                    }
+                    
+                    islandContent.classList.remove('island-text-fade');
+                }, 150); 
+            }
+
+            function closeIsland() {
+                islandMode = 'none';
+                dynamicIsland.classList.remove('active', 'time-mode', 'views-mode');
+                setTimeout(() => {
+                    devonText.classList.remove('logo-hidden');
+                }, 300);
+            }
+
+            const startPress = (e) => {
+                isLongPress = false;
+                if (navigator.vibrate) navigator.vibrate(20);
+
+                pressTimer = setTimeout(() => {
+                    isLongPress = true;
+                    if (navigator.vibrate) navigator.vibrate(50);
+                    
+                    if (islandMode !== 'none') closeIsland();
+                    else openIsland('default');
+                    
+                }, 500); 
+            };
+
+            const endPress = () => { clearTimeout(pressTimer); };
+
+            if(interactiveContainer) {
+                interactiveContainer.addEventListener('mousedown', startPress);
+                interactiveContainer.addEventListener('mouseup', endPress);
+                interactiveContainer.addEventListener('mouseleave', endPress);
+                interactiveContainer.addEventListener('touchstart', startPress);
+                interactiveContainer.addEventListener('touchend', endPress);
+                interactiveContainer.addEventListener('touchcancel', endPress);
+            }
+
+            // --- 3. Slider Hero (Deslizamiento de Fotos y Ajuste de Altura de Texto) ---
+            const slides = document.querySelectorAll('.hero-slide');
+            const texts = document.querySelectorAll('.hero-text');
+            const dots = document.querySelectorAll('.hero-dot');
+            const textWrapper = document.getElementById('text-wrapper');
+            let currentSlide = 0;
+            let slideInterval;
+
+            // Variables de la función Candado
+            let isCarouselLocked = false;
+            const lockBtn = document.getElementById('carousel-lock-btn');
+            const infinityIcon = document.getElementById('hero-infinity-icon');
+            const lockIconSvg = document.getElementById('lock-icon-svg');
+
+            // Variables para el indicador circular
+            const progressCircle = document.getElementById('hero-progress-circle');
+            const progressText = document.getElementById('hero-progress-text');
+            const slideDuration = 4500;
+            let slideStartTime;
+            let progressAnimFrame;
+
+            function updateProgress() {
+                if (isCarouselLocked) return; 
+                if (!slideStartTime) return;
+                const elapsed = Date.now() - slideStartTime;
+                let remaining = slideDuration - elapsed;
+                if (remaining < 0) remaining = 0;
+
+                if (progressText) {
+                    progressText.textContent = Math.ceil(remaining / 1000);
+                }
+
+                if (progressCircle) {
+                    const circumference = 88;
+                    const progress = Math.min(elapsed / slideDuration, 1);
+                    progressCircle.style.strokeDashoffset = circumference - (progress * circumference);
+                }
+
+                if (elapsed < slideDuration) {
+                    progressAnimFrame = requestAnimationFrame(updateProgress);
+                }
+            }
+
+            function updateTextHeight(index) {
+                if (textWrapper && texts[index]) {
+                    textWrapper.style.height = texts[index].offsetHeight + 'px';
+                }
+            }
+
+            if (slides.length > 0) {
+                
+                document.fonts.ready.then(() => {
+                    setTimeout(() => updateTextHeight(0), 100);
+                });
+                
+                window.addEventListener('resize', () => {
+                    updateTextHeight(currentSlide);
+                });
+
+                function showSlide(index) {
+                    
+                    slides.forEach((slide, i) => {
+                        if (i === index) {
+                            slide.style.transform = 'translateX(0)';
+                            slide.style.zIndex = '10';
+                        } else if (i < index) {
+                            slide.style.transform = 'translateX(-100%)';
+                            slide.style.zIndex = '0';
+                        } else {
+                            slide.style.transform = 'translateX(100%)';
+                            slide.style.zIndex = '0';
+                        }
+                    });
+                    
+                    texts.forEach((text, i) => {
+                        if (i === index) {
+                            text.style.opacity = '1';
+                            text.style.pointerEvents = 'auto';
+                            text.style.zIndex = '10';
+                        } else {
+                            text.style.opacity = '0';
+                            text.style.pointerEvents = 'none';
+                            text.style.zIndex = '0';
+                        }
+                    });
+                    updateTextHeight(index);
+
+                    dots.forEach((dot, i) => {
+                        if(i === index) {
+                            dot.className = "hero-dot w-5 h-1.5 md:w-8 md:h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300";
+                        } else {
+                            dot.className = "hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400";
+                        }
+                    });
+                    
+                    currentSlide = index;
+
+                    if (!isCarouselLocked) {
+                        slideStartTime = Date.now();
+                        if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
+                        updateProgress();
+                    } else {
+                        if (progressCircle) progressCircle.style.strokeDashoffset = '0';
+                    }
+                }
+
+                function nextSlide() {
+                    showSlide((currentSlide + 1) % slides.length);
+                }
+
+                slideInterval = setInterval(nextSlide, 4500);
+
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        clearInterval(slideInterval);
+                        showSlide(index);
+                        if (!isCarouselLocked) {
+                            slideInterval = setInterval(nextSlide, 4500);
+                        }
+                    });
+                });
+
+                // --- Lógica de Deslizamiento (Swipe / Drag) ---
+                let dragStartX = 0;
+                let dragEndX = 0;
+                const heroAnimContainer = document.getElementById('hero-anim-container');
+
+                function handleSwipe() {
+                    const swipeThreshold = 50; 
+                    if (dragStartX - dragEndX > swipeThreshold) {
+                        clearInterval(slideInterval);
+                        showSlide((currentSlide + 1) % slides.length);
+                        if (!isCarouselLocked) slideInterval = setInterval(nextSlide, 4500);
+                    } else if (dragEndX - dragStartX > swipeThreshold) {
+                        clearInterval(slideInterval);
+                        showSlide((currentSlide - 1 + slides.length) % slides.length);
+                        if (!isCarouselLocked) slideInterval = setInterval(nextSlide, 4500);
+                    }
+                }
+
+                if (heroAnimContainer) {
+                    heroAnimContainer.addEventListener('touchstart', (e) => {
+                        dragStartX = e.changedTouches[0].screenX;
+                    }, {passive: true});
+
+                    heroAnimContainer.addEventListener('touchend', (e) => {
+                        dragEndX = e.changedTouches[0].screenX;
+                        handleSwipe();
+                    }, {passive: true});
+
+                    let isDragging = false;
+                    heroAnimContainer.addEventListener('mousedown', (e) => {
+                        isDragging = true;
+                        dragStartX = e.clientX;
+                    });
+
+                    heroAnimContainer.addEventListener('mouseup', (e) => {
+                        if (!isDragging) return;
+                        isDragging = false;
+                        dragEndX = e.clientX;
+                        handleSwipe();
+                    });
+
+                    heroAnimContainer.addEventListener('mouseleave', () => {
+                        isDragging = false;
+                    });
+                }
+                
+                // Evento Lógica del Candado (Infinity Loop)
+                if (lockBtn) {
+                    lockBtn.addEventListener('click', () => {
+                        isCarouselLocked = !isCarouselLocked;
+                        if (isCarouselLocked) {
+                            clearInterval(slideInterval);
+                            if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
+                            progressText.style.display = 'none';
+                            infinityIcon.classList.remove('hidden');
+                            lockBtn.classList.add('text-black');
+                            lockBtn.classList.remove('text-gray-500');
+                            lockIconSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
+                            if (progressCircle) {
+                                progressCircle.style.transition = 'stroke-dashoffset 0.5s ease';
+                                progressCircle.style.strokeDashoffset = '0'; 
+                            }
+                        } else {
+                            progressText.style.display = 'block';
+                            infinityIcon.classList.add('hidden');
+                            lockBtn.classList.remove('text-black');
+                            lockBtn.classList.add('text-gray-500');
+                            lockIconSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
+                            if (progressCircle) progressCircle.style.transition = 'none';
+                            
+                            slideStartTime = Date.now();
+                            slideInterval = setInterval(nextSlide, 4500);
+                            updateProgress();
+                        }
+                    });
+                }
+            }
+
+            // --- 4. Lógica de Scroll ---
+            const heroAnimContainerScroll = document.getElementById('hero-anim-container');
+            
+            window.addEventListener('scroll', () => {
+                if (!heroAnimContainerScroll) return;
+                const scrollY = window.scrollY;
+                const scale = 1 + (scrollY * 0.0004);
+                heroAnimContainerScroll.style.transform = `scale(${scale})`;
+            });
+
+            // --- 5. Interacción de Elementos "No Disponibles" ---
+            const unavailableElements = document.querySelectorAll('a[href="#"]');
+            unavailableElements.forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    if (sidebar && sidebar.classList.contains('open')) {
+                        hideOverlay(); 
+                    }
+
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    openIsland('unavailable');
+                });
+            });
+
+        });
+
+        // --- 6. Funciones Globales (Menú Hamburguesa) ---
+        const overlay = document.getElementById('overlay');
+        const sidebar = document.getElementById('sidebarMenu');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('open');
+            if (sidebar.classList.contains('open')) {
+                showOverlay();
+            } else {
+                hideOverlay();
+            }
+        }
+
+        function closeMenu() { sidebar.classList.remove('open'); }
+        
+        function showOverlay() {
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+        }
+        function hideOverlay() {
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+            closeMenu();
+        }
+        function closeAll() { hideOverlay(); }
+
+        // --- 7. Selector de País (Footer) ---
+        const countryBtn = document.getElementById('country-selector-btn');
+        const countryDropdown = document.getElementById('country-dropdown');
+
+        if (countryBtn && countryDropdown) {
+            countryBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                if (countryDropdown.classList.contains('hidden')) {
+                    countryDropdown.classList.remove('hidden');
+                    setTimeout(() => {
+                        countryDropdown.classList.remove('opacity-0', 'translate-y-2');
+                    }, 10);
+                } else {
+                    countryDropdown.classList.add('opacity-0', 'translate-y-2');
+                    setTimeout(() => {
+                        countryDropdown.classList.add('hidden');
+                    }, 200);
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!countryBtn.contains(e.target) && !countryDropdown.contains(e.target) && !countryDropdown.classList.contains('hidden')) {
+                    countryDropdown.classList.add('opacity-0', 'translate-y-2');
+                    setTimeout(() => {
+                        countryDropdown.classList.add('hidden');
+                    }, 200);
+                }
+            });
+        }
+
+    </script>
+
+    <!-- SCRIPT DEL INTRO ANIMADO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Contenedor principal de la animación
+            const introWrapper = document.createElement('div');
+            introWrapper.id = 'intro-wrapper';
+            document.body.appendChild(introWrapper);
+            
+            // Bloquear el scroll de la página para no arruinar la animación
+            document.body.style.overflow = 'hidden';
+
+            // --- EFECTO REVELACIÓN: Preparar la página web para ocultarla inicialmente ---
+            // 1. Ocultar el logo de la barra superior para que no se vea doble
+            const realLogo = document.getElementById('devon-text');
+            if (realLogo) {
+                realLogo.style.opacity = '0';
+                realLogo.style.transition = 'opacity 0.4s ease-in-out';
+            }
+
+            // 2. Seleccionar los bloques principales de la página para la animación de entrada
+            const siteElements = Array.from(document.body.children).filter(el => 
+                ['HEADER', 'MAIN', 'FOOTER', 'SECTION', 'DIV'].includes(el.tagName) && 
+                !['intro-wrapper', 'overlay', 'sidebarMenu'].includes(el.id)
+            );
+            
+            siteElements.forEach(el => {
+                el.style.opacity = '0';
+                // La cabecera (HEADER) no se traslada en Y para que el logo sepa su coordenada final exacta
+                if (el.tagName !== 'HEADER') {
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
+                } else {
+                    el.style.transition = 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1)';
+                }
+            });
+            // ----------------------------------------------------------------------------
+
+            // URLs de las imágenes
+            const imgWhiteBg = 'https://res.cloudinary.com/dhx58lnzb/image/upload/v1778359985/Billirrrr_b8kb0a.png';
+            const imgBlackBg = 'https://res.cloudinary.com/dhx58lnzb/image/upload/v1778360524/Billie_Clare-removebg-preview_f13qjf.png';
+            
+            // Pre-cargar ambas imágenes para evitar parpadeos no deseados durante la animación rápida
+            const preload1 = new Image(); preload1.src = imgWhiteBg;
+            const preload2 = new Image(); preload2.src = imgBlackBg;
+
+            // --- FASE 1: Animación de Inversión y Parpadeo del Personaje Grande ---
+            
+            const bigChar = document.createElement('img');
+            bigChar.src = imgWhiteBg;
+            bigChar.style.position = 'absolute';
+            bigChar.style.top = '50%';
+            bigChar.style.left = '50%';
+            bigChar.style.transform = 'translate(-50%, -50%) scaleX(1)';
+            bigChar.style.maxHeight = '80vh';
+            bigChar.style.maxWidth = '90vw';
+            bigChar.style.objectFit = 'contain';
+            // Sin transiciones css para que el "flash" y la inversión sean agresivos e instantáneos
+            bigChar.style.transition = 'none'; 
+            introWrapper.appendChild(bigChar);
+
+            let isBlack = false;
+            let flipState = 1; // 1 (normal) o -1 (invertido)
+            let flashDelay = 550; // Tiempo inicial en milisegundos (lento)
+            let flashCount = 0;
+            const maxFlashes = 16; // Número de veces que parpadeará antes de la lluvia
+
+            function doFlashSequence() {
+                if (flashCount >= maxFlashes) {
+                    // Terminar la Fase 1 e iniciar la lluvia de imágenes
+                    bigChar.remove();
+                    introWrapper.style.backgroundColor = '#ffffff'; // Asegurar fondo blanco para la lluvia
+                    startFallingGrid();
+                    return;
+                }
+
+                // Alternar colores e imágenes
+                isBlack = !isBlack;
+                flipState *= -1; // Invertir de izquierda a derecha
+
+                introWrapper.style.backgroundColor = isBlack ? '#000000' : '#ffffff';
+                bigChar.src = isBlack ? imgBlackBg : imgWhiteBg;
+                
+                // Aplicamos el centrado absoluto y la inversión del personaje al mismo tiempo
+                bigChar.style.transform = `translate(-50%, -50%) scaleX(${flipState})`;
+
+                // Aumentar la velocidad del flash reduciendo el tiempo de espera
+                // Multiplicamos por 0.8 para hacerlo 20% más rápido cada vez (mínimo 50ms)
+                flashDelay = Math.max(50, flashDelay * 0.8); 
+                flashCount++;
+
+                setTimeout(doFlashSequence, flashDelay);
+            }
+
+            // Iniciar la secuencia de flashes tras medio segundo
+            setTimeout(doFlashSequence, 500);
+
+            // --- FASE 2: Animación de Caída Múltiple (Lluvia con variaciones) ---
+            
+            function startFallingGrid() {
+                const particles = [];
+                const spacingPx = 90; 
+                const cols = Math.ceil(window.innerWidth / spacingPx) + 1;
+                const rows = 35; 
+
+                // Los 4 estilos de inversión requeridos
+                const inversionStyles = [
+                    'scaleX(-1)',      // 1. Invertido horizontalmente (a un lado)
+                    'scaleY(-1)',      // 2. Invertido verticalmente (hacia abajo/arriba)
+                    'scale(-1, -1)',   // 3. Invertido en ambas direcciones (hacia el otro lado cruzado)
+                    'rotate(180deg)'   // 4. Rotado completamente (efecto opuesto absoluto)
+                ];
+
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        const img = document.createElement('img');
+                        img.src = imgWhiteBg; // La lluvia utiliza el primer personaje
+                        img.className = 'intro-img-particle';
+                        
+                        const x = c * spacingPx + (Math.random() * 30 - 15);
+                        const y = -(r * spacingPx * 1.5) - 150; 
+                        
+                        // Seleccionar aleatoriamente si esta imagen se invierte (~40% de probabilidad)
+                        let baseTransform = '';
+                        if (Math.random() < 0.4) {
+                            // Escoger al azar uno de los 4 estilos de inversión
+                            const randomStyle = inversionStyles[Math.floor(Math.random() * inversionStyles.length)];
+                            baseTransform = ` ${randomStyle}`; // Espacio antes para concatenar en el loop
+                        }
+                        
+                        // Estado inicial
+                        img.style.transform = `translate3d(${x}px, ${y}px, 0)${baseTransform}`;
+                        introWrapper.appendChild(img);
+                        
+                        particles.push({ el: img, x: x, y: y, vy: 0, tBase: baseTransform });
+                    }
+                }
+
+                let gravity = 0.02; 
+                let animationId;
+
+                function animateIntro() {
+                    gravity += 0.004; 
+                    
+                    for(let i = 0; i < particles.length; i++) {
+                        let p = particles[i];
+                        p.vy += gravity; 
+                        p.y += p.vy; 
+                        // Aplicar movimiento y mantener su inversión especial
+                        p.el.style.transform = `translate3d(${p.x}px, ${p.y}px, 0)${p.tBase}`; 
+                    }
+
+                    animationId = requestAnimationFrame(animateIntro);
+                }
+
+                // Iniciar la física de caída
+                requestAnimationFrame(animateIntro);
+
+                // --- FASE 3: Transición final con el logo DEVON ---
+                setTimeout(() => {
+                    // 1. Detener la lluvia y eliminar las partículas INMEDIATAMENTE
+                    cancelAnimationFrame(animationId);
+                    particles.forEach(p => p.el.remove());
+                    
+                    // 2. Crear el texto final DEVON
+                    const finalLogo = document.createElement('div');
+                    finalLogo.textContent = 'DEVON';
+                    
+                    // Clases básicas (sin las transiciones de Tailwind para controlarlo mejor con JS)
+                    finalLogo.className = 'font-serif text-black font-bold tracking-[0.2em] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 scale-95';
+                    finalLogo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    finalLogo.style.fontSize = 'clamp(3rem, 12vw, 10rem)'; 
+                    introWrapper.appendChild(finalLogo);
+                    
+                    // Forzar un reflow para que el navegador registre el estado inicial
+                    void finalLogo.offsetWidth;
+                    
+                    // 3. Aparecer DEVON inmediatamente en el centro
+                    finalLogo.style.opacity = '1';
+                    finalLogo.style.transform = 'translate(-50%, -50%) scale(1)';
+
+                    // 4. COREOGRAFÍA FINAL: El logo vuela, el fondo se desvanece y la web aparece
+                    setTimeout(() => {
+                        const realLogoRect = realLogo.getBoundingClientRect();
+                        const realLogoTextSpan = realLogo.querySelector('span');
+                        
+                        // A) El fondo blanco del intro se vuelve transparente suavemente
+                        introWrapper.style.transition = 'background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                        introWrapper.style.backgroundColor = 'transparent';
+                        
+                        // B) Aparecer todo el contenido de la web con efecto de elevación "premium"
+                        siteElements.forEach(el => {
+                            el.style.opacity = '1';
+                            if (el.tagName !== 'HEADER') el.style.transform = 'translateY(0)';
+                        });
+                        
+                        // C) El logo central viaja y se encoge hacia la posición exacta del header
+                        finalLogo.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                        finalLogo.style.top = (realLogoRect.top + (realLogoRect.height / 2)) + 'px';
+                        finalLogo.style.fontSize = window.getComputedStyle(realLogoTextSpan).fontSize;
+                        
+                        // Devolver el scroll al usuario porque la web ya es visible
+                        document.body.style.overflow = '';
+
+                        // Justo cuando termine el vuelo de 800ms, damos el cambiazo invisible
+                        setTimeout(() => {
+                            finalLogo.style.opacity = '0'; // Se oculta el animado
+                            realLogo.style.opacity = '1';  // Se revela el original (con la línea de animación de la O)
+                            
+                            // Limpiar por completo el intro del DOM para no dejar residuos
+                            setTimeout(() => {
+                                introWrapper.remove();
+                            }, 500);
+
+                        }, 800);
+
+                    }, 1800); // El logo DEVON se admira en el centro durante 1.8 segundos antes de despegar
+
+                }, 4000); // 4 segundos de la lluvia antes de la aparición inmediata del logo
+            }
+        });
+    </script>
+</body>
+</html>
