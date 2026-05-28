@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,6 +23,7 @@
                     fontFamily: {
                         sans: ['Jost', 'sans-serif'],
                         serif: ['"Bodoni Moda"', 'serif'],
+                        geometric: ['"Century Gothic"', '"Avant Garde"', 'Questrial', 'sans-serif'],
                     },
                     colors: {
                         brandPink: '#E8A5D6',
@@ -171,14 +173,6 @@
             overflow: hidden;
             transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
         }
-        .intro-img-particle {
-            position: absolute;
-            top: 0; 
-            left: 0;
-            width: 80px; /* Tamaño equivalente aprox a centímetros en pantalla */
-            height: auto;
-            will-change: transform;
-        }
     </style>
 </head>
 <body class="bg-white text-black font-sans flex flex-col min-h-screen">
@@ -206,67 +200,68 @@
         </nav>
     </aside>
 
-    <!-- Barra de Navegación Principal -->
-    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-200 md:border-none">
-        <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
+    <!-- Barra de Navegación Principal (Unificada con animación al hacer scroll) -->
+    <header id="main-header" class="w-full bg-white sticky top-0 z-40 border-b border-gray-200 transition-all duration-300">
+        
+        <!-- Fila Superior (Siempre visible) -->
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between px-5 md:px-8 h-16 md:h-[90px] relative bg-white z-20">
             
-            <!-- Izquierda: Menú -->
-            <div class="flex items-center gap-4 z-20">
-                <button onclick="toggleMenu()" class="text-black hover:scale-110 transition-transform">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                        <line x1="3" y1="16" x2="21" y2="16"></line>
+            <!-- Izquierda: Menú Hamburguesa -->
+            <div class="flex items-center gap-4 z-20 w-1/4">
+                <button onclick="toggleMenu()" class="text-black hover:text-gray-500 transition-colors">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="square">
+                        <line x1="2" y1="9" x2="22" y2="9"></line>
+                        <line x1="2" y1="15" x2="22" y2="15"></line>
                     </svg>
                 </button>
             </div>
             
-            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
+            <!-- Centro: Logo animado y Subtítulo -->
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex flex-col items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
                 
-                <!-- Logo DEVON centrat amb la línia animada a la O -->
-                <div id="devon-text" class="flex items-center justify-center transition-all duration-500">
-                    <span class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-widest text-black font-serif uppercase flex items-center">
+                <div id="devon-text" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
+                    <span class="text-3xl sm:text-4xl md:text-[42px] font-bold tracking-widest text-black font-serif uppercase flex items-center leading-none">
                         DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+                    </span>
+                    <span class="text-[7px] md:text-[8px] font-semibold tracking-[0.2em] text-black uppercase mt-1.5 leading-tight text-center font-geometric">
+                        MÉXICO Y<br>LATINOAMÉRICA
                     </span>
                 </div>
 
-                <div id="dynamic-island" class="island-container absolute rounded-full flex items-center justify-center overflow-hidden shadow-xl">
+                <!-- Isla Dinámica -->
+                <div id="dynamic-island" class="island-container absolute rounded-full flex items-center justify-center overflow-hidden shadow-xl" style="top: 25px;">
                     <div id="island-content" class="w-full flex items-center justify-center transition-all duration-300">
                         <span class="text-white text-xs md:text-sm font-bold tracking-widest font-serif uppercase">DEVON</span>
                     </div>
                 </div>
             </div>
             
-            <div class="flex items-center gap-4 z-20">
-                <a href="suscripcion.html" class="hidden md:block text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase text-black hover:text-gray-600 transition-colors mr-1" style="font-family: 'Jost', sans-serif;">
+            <!-- Derecha: Suscripción -->
+            <div class="flex items-center justify-end gap-5 md:gap-7 z-20 w-1/4">
+                <a href="suscripcion.html" class="hidden md:block text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black hover:text-gray-500 transition-colors mt-0.5 font-geometric">
                     SUSCRIPCIÓN
                 </a>
-                
-                <!-- Ícono de usuario -->
-                <a href="usuario.html" class="text-black hover:scale-110 transition-transform">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M12 16a4 4 0 0 0-4-4h8a4 4 0 0 0-4 4z"></path>
-                        <circle cx="12" cy="9" r="2.5"></circle>
-                    </svg>
-                </a>
+            </div>
+        </div>
+
+        <!-- Fila Inferior: Menú de Categorías (Se oculta al deslizar hacia abajo) -->
+        <div id="secondary-nav" class="hidden md:flex w-full justify-center text-[9px] lg:text-[10px] font-bold tracking-[0.15em] text-black uppercase bg-white overflow-hidden transition-[height,opacity] duration-300 ease-in-out h-12 opacity-100 font-geometric">
+            <div class="flex items-center h-full px-4 gap-4 md:gap-5 lg:gap-6">
+                <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+                <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+                <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+                <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+                <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+                <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+                <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+                <a href="videos.html" class="cursor-pointer hover:text-gray-500 transition-colors">VIDEOS</a>
+                <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
             </div>
         </div>
     </header>
 
-    <!-- Top Bar -->
-    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-200 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
-        <a href="moda.html" class="cursor-pointer hover:text-gray-600 transition-colors">MODA</a>
-        <a href="belleza.html" class="cursor-pointer hover:text-gray-600 transition-colors">BELLEZA</a>
-        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-600 transition-colors">ESTILO DE VIDA</a>
-        <a href="compras.html" class="cursor-pointer hover:text-gray-600 transition-colors">COMPRAS</a>
-        <a href="redevon.html" class="cursor-pointer hover:text-gray-600 transition-colors">(RE)DEVON</a>
-        <a href="hollywood.html" class="cursor-pointer hover:text-gray-600 transition-colors">HOLLYWOOD</a>
-        <a href="podcast.html" class="cursor-pointer hover:text-gray-600 transition-colors">PODCAST</a>
-        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-600 transition-colors">ESPACIO DEVON</a>
-    </div>
-
     <!-- Pestañas Superiores (Solo Móvil) -->
-    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase font-geometric">
         <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
             LO ÚLTIMO
         </a>
@@ -275,151 +270,108 @@
         </a>
     </div>
 
-    <!-- BANNER: Van Cleef & Arpels (Se mantiene texto blanco por la imagen de fondo oscuro) -->
-    <section class="w-full relative flex items-center justify-center overflow-hidden border-b border-gray-200 min-h-[220px] md:min-h-[280px]">
-        <img 
-            src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
-            alt="Fondo Van Cleef" 
-            class="absolute inset-0 w-full h-full object-cover object-center z-0 brightness-75"
-        />
-        <div class="max-w-7xl w-full flex flex-col items-center md:items-start text-center md:text-left z-10 px-6 md:px-12 py-8 md:py-10 relative">
-            <h2 class="text-2xl md:text-4xl text-white mb-2" style="font-family: 'Georgia', 'Times New Roman', serif;">Van Cleef & Arpels</h2>
-            <p class="text-[10px] md:text-xs text-gray-200 mb-4" style="font-family: 'Georgia', 'Times New Roman', serif;">Haute Joaillerie, place Vendôme desde 1906</p>
-            
-            <div class="mb-4 text-white opacity-90 flex items-center justify-center md:justify-start">
-                <svg width="30" height="20" viewBox="0 0 36 24">
-                    <polygon points="18,1 35,12 18,23 1,12" fill="none" stroke="currentColor" stroke-width="1.2"></polygon>
-                    <text x="18" y="15" font-size="7" font-family="serif" text-anchor="middle" fill="currentColor">VCA</text>
-                </svg>
+    <!-- BANNER PRINCIPAL: Portada Mundial 2026 -->
+    <section class="w-full border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity" onclick="window.location.href='vogue-ficcion-2026-ganadoras-y-finalistas.html'">
+        <div class="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-4 md:pt-6">
+            <img src="https://media.vogue.mx/photos/6a17605f026af0d9c3cb7327/16:9/w_1600,c_limit/Ganadoras%20Vogue%20Ficcio%CC%81n%202026.jpg" alt="Vogue Ficción 2026: Estos son los relatos ganadores y finalistas" class="w-full h-auto max-h-[85vh] object-cover object-center"/>
+        </div>
+        <div class="max-w-4xl mx-auto flex flex-col items-center text-center mt-6 md:mt-8 px-4 font-geometric">
+            <p class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-black mb-3">ESTILO DE VIDA</p>
+            <h2 class="text-3xl md:text-4xl lg:text-[44px] font-normal text-black leading-[1.15] mb-6" style="letter-spacing: -0.02em;">
+                Vogue Ficción 2026: Estos son los relatos ganadores y finalistas
+            </h2>
+            <div class="text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-black leading-loose flex flex-col items-center">
+                <p>POR CAMILA COLINA</p>
+                <p class="normal-case font-semibold mt-1 text-[11px] md:text-[13px] tracking-normal">27 de mayo de 2026</p>
             </div>
-            
-            <a href="coleccionlucky.html" class="text-[9px] md:text-[10px] font-bold tracking-widest uppercase text-white border-b border-white pb-0.5 hover:text-gray-300 transition-colors">
-                DESCUBRE LA COLECCIÓN LUCKY SPRING
-            </a>
         </div>
     </section>
 
     <!-- Contenido Principal -->
     <main class="w-full flex-1 pb-20">
 
-        <!-- Título EN PORTADA con líneas divisorias -->
+        <!-- Título HOY con líneas divisorias -->
         <div class="w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12 mb-4">
             <div class="border-t border-b border-gray-200 py-3 md:py-4">
-                <h2 class="text-lg md:text-xl font-medium tracking-widest text-black uppercase" style="font-family: 'Jost', sans-serif;">
-                    EN PORTADA
+                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700" style="font-family: 'Jost', sans-serif;">
+                    HOY
                 </h2>
             </div>
         </div>
 
-        <!-- Sección Hero (Carrusel Deslizante) -->
-        <section class="max-w-7xl w-full mx-auto px-4 md:px-6 pt-4 md:pt-6 mb-4">
-            <!-- Contenedor del Carrusel -->
-            <div class="w-full mx-auto overflow-hidden shadow-2xl relative bg-gray-100 rounded-2xl md:rounded-[2rem]">
-                <!-- Cambio a formato vertical (aspect-[4/5]) en móvil y panorámico (aspect-[16/9]) en PC -->
-                <div id="hero-anim-container" class="relative w-full aspect-[4/5] md:aspect-[16/9] transform origin-center will-change-transform bg-white cursor-grab active:cursor-grabbing">
-                    
-                    <!-- Slide 1: Bad Bunny MET Gala (Más reciente: 4 de mayo) -->
-                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-0 z-10">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1778010951/bad-bunny-met-gala-2026_ynn3sq.webp" alt="Bad Bunny MET Gala 2026" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%] pointer-events-none"/>
-                    </div>
+        <!-- Grid HOY -->
+        <div class="w-full max-w-7xl mx-auto px-6 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8">
 
-                    <!-- Slide 2: Lux Pascal MET Gala (4 de mayo) -->
-                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1778011193/lux-pascal-met-gala-2026_qtddjs.webp" alt="Lux Pascal MET Gala 2026" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%] pointer-events-none"/>
-                    </div>
-
-                    <!-- Slide 3: Georgina Rodríguez MET Gala (4 de mayo) -->
-                    <div class="hero-slide absolute inset-0 transition-transform duration-500 ease-in-out transform translate-x-full z-0">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1778011513/georgina-rodriguez-met-gala-2026-vestido_l87wof.webp" alt="Georgina Rodríguez MET Gala 2026" class="absolute inset-0 w-full h-full object-cover object-top md:object-[center_15%] pointer-events-none"/>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Indicadores Dinámicos -->
-            <div class="flex justify-center items-center gap-3 mt-6 mb-6">
-                <!-- Contenedor tipo 'píldora' estilo Liquid Glass -->
-                <div class="flex items-center gap-1.5 md:gap-2.5 px-5 py-2 md:px-7 md:py-2.5 bg-gray-400/10 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-full">
-                    <div class="hero-dot w-5 h-1.5 md:w-8 md:h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300"></div>
-                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400"></div>
-                    <div class="hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400"></div>
-                </div>
-                
-                <!-- Indicador de Tiempo Circular y Candado -->
-                <div class="flex items-center gap-2 ml-1 md:ml-3">
-                    <div class="relative w-7 h-7 flex items-center justify-center">
-                        <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                            <circle cx="18" cy="18" r="14" fill="none" stroke="#e5e5e5" stroke-width="2.5"></circle>
-                            <circle id="hero-progress-circle" cx="18" cy="18" r="14" fill="none" stroke="#000000" stroke-width="2.5" stroke-dasharray="88" stroke-dashoffset="88" stroke-linecap="round"></circle>
-                        </svg>
-                        <span id="hero-progress-text" class="text-[9px] font-bold text-black font-sans z-10" style="padding-top: 1px;">5</span>
-                        <span id="hero-infinity-icon" class="hidden absolute inset-0 flex items-center justify-center text-[16px] font-medium text-black z-10 animate-pulse" style="padding-bottom: 2px;">∞</span>
-                    </div>
-                    <!-- Botón de candado (Lock) -->
-                    <button id="carousel-lock-btn" class="text-gray-500 hover:text-black transition-colors focus:outline-none flex items-center justify-center w-6 h-6">
-                        <svg id="lock-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Contenedor Wrapper para Animación de Altura -->
-            <div id="text-wrapper" class="relative w-full mx-auto overflow-hidden transition-[height] duration-500 ease-in-out px-2 md:px-4">
-                
-                <!-- Texto Slide 1 (Bad Bunny - 4 de mayo) -->
-                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-100 z-10 pointer-events-auto flex flex-col items-start justify-start">
-                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-gray-600 mb-3 md:mb-4">MET Gala</p>
-                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-black leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
-                        A Bad Bunny le tomó 53 años dar con el look más original de la MET Gala 2026
-                    </h2>
-                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-black leading-loose">
-                        <p class="text-gray-600">Por Vogue</p>
-                        <p class="text-gray-600">Fotografia por Devon</p>
-                        <div class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-500 tracking-normal leading-none flex items-center gap-3" style="font-family: 'Jost', sans-serif;">
-                            <span>4 de mayo de 2026</span>
+                <!-- Artículo principal (grande, col-span-1) -->
+                <div class="md:col-span-1 cursor-pointer group" onclick="window.location.href='vogue-anuncia-su-club-del-libro.html'">
+                    <div class="relative overflow-hidden aspect-[2/3] w-full">
+                        <img src="https://media.vogue.mx/photos/6a17465b2eb98a8c4553403c/2:3/w_1920,c_limit/Vogue-Club-del-Libro-Isabel-Allende.jpg" alt="El Club del Libro de Vogue anuncia La Casa de los Espíritus por Isabel Allende" class="w-full h-full object-cover group-hover:opacity-95 transition-opacity duration-300"/>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 pt-20 pb-8 text-white text-center">
+                            <p class="text-[9px] font-light tracking-[0.2em] uppercase mb-3" style="font-family: 'Jost', sans-serif;">ESTILO DE VIDA</p>
+                            <h3 class="text-2xl md:text-3xl font-normal leading-tight mb-4" style="font-family: 'Jost', sans-serif;">El Club del Libro de Vogue anuncia La Casa de los Espíritus por Isabel Allende</h3>
+                            <p class="text-[9px] font-light tracking-[0.15em] uppercase" style="font-family: 'Jost', sans-serif;">POR ATENEA MORALES DE LA CRUZ</p>
+                            <p class="text-[11px] font-light mt-1" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Texto Slide 2 (Lux Pascal - 4 de mayo) -->
-                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-0 z-0 pointer-events-none flex flex-col items-start justify-start">
-                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-gray-600 mb-3 md:mb-4">MET Gala</p>
-                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-black leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
-                        Lux Pascal roba suspiros en la MET Gala 2026 con un vestido color arena con el que lució como escultura
-                    </h2>
-                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-black leading-loose">
-                        <p class="text-gray-600">Por Vogue®</p>
-                        <p class="text-gray-600">Fotografia por Devon®</p>
-                        <div class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-500 tracking-normal leading-none flex items-center gap-3" style="font-family: 'Jost', sans-serif;">
-                            <span>4 de mayo de 2026</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- Columna central y derecha: 2 columnas de artículos pequeños -->
+                <div class="md:col-span-2 grid grid-cols-2 gap-6 md:gap-8 mt-8 md:mt-0">
 
-                <!-- Texto Slide 3 (Georgina Rodríguez - 4 de mayo) -->
-                <div class="hero-text absolute top-0 left-0 w-full px-2 md:px-4 transition-opacity duration-500 ease-in-out opacity-0 z-0 pointer-events-none flex flex-col items-start justify-start">
-                    <p class="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-gray-600 mb-3 md:mb-4">MET Gala</p>
-                    <h2 class="text-3xl md:text-5xl lg:text-[3.2rem] font-medium text-black leading-[1.15] mb-6 md:mb-8 max-w-5xl" style="font-family: 'Jost', sans-serif; letter-spacing: -0.02em;">
-                        Georgina Rodríguez hace un homenaje a la Virgen de Fátima en la MET Gala 2026
-                    </h2>
-                    <div class="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-black leading-loose">
-                        <p class="text-gray-600">Por Vogue®</p>
-                        <p class="text-gray-600">Fotografia por Devon®</p>
-                        <div class="normal-case mt-2 text-[11px] md:text-[13px] text-gray-500 tracking-normal leading-none flex items-center gap-3" style="font-family: 'Jost', sans-serif;">
-                            <span>4 de mayo de 2026</span>
+                    <!-- Artículo 2: Pantalones palazzo -->
+                    <div class="cursor-pointer group" onclick="window.location.href='como-llevar-pantalones-palazzo-colombianos-elegantes-con-blusas-y-sandalias-en-primavera-2026.html'">
+                        <div class="overflow-hidden aspect-square w-full mb-3">
+                            <img src="https://media.vogue.mx/photos/64e8c1bc2896a4c853a1033c/1:1/w_960,c_limit/sofia-vergara-con.camisa-blanca.jpg" alt="Los pantalones palazzo colombianos más elegantes" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
                         </div>
+                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">MODA</p>
+                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Los pantalones palazzo colombianos más elegantes para llevar con blusas y sandalias en primavera 2026</h3>
+                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR MELISA VARGAS</p>
+                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
                     </div>
-                </div>
 
+                    <!-- Artículo 4: Pedicuras -->
+                    <div class="cursor-pointer group" onclick="window.location.href='articulo/pedicuras-para-pies-bonitos-con-sandalias-en-primavera-verano-2026.html'">
+                        <div class="overflow-hidden aspect-square w-full mb-3">
+                            <img src="https://media.vogue.mx/photos/6a1845c5e370d10b4ca5a19c/2:3/w_960,c_limit/pedicura-colores-primavera-verano-2026.jpg" alt="Las 10 pedicuras para pies bonitos" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                        </div>
+                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">BELLEZA</p>
+                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Las 10 pedicuras para pies bonitos que llevarás con sandalias elegantes en Primavera-Verano 2026</h3>
+                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR LAURA SOLLA Y CAROLINA ARANGO</p>
+                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
+                    </div>
+
+                    <!-- Artículo 3: Zapatos y sandalias -->
+                    <div class="cursor-pointer group" onclick="window.location.href='zapatos-y-sandalias-planas-para-llevar-con-jeans-rectos-como-en-los-90-esta-primavera.html'">
+                        <div class="overflow-hidden aspect-[2/3] w-full mb-3">
+                            <img src="https://media.vogue.mx/photos/6a1741f92c5f265073cb40e3/2:3/w_960,c_limit/zapatos-y-sandalias-planas-para-llevar-con-jeans-rectos-como-en-los-90-esta-primavera.jpg" alt="Zapatos y sandalias planas para llevar con jeans rectos" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                        </div>
+                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">MODA</p>
+                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Zapatos y sandalias planas para llevar con jeans rectos como en los 90 esta primavera</h3>
+                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR MARÍA FERNANDA MARÍN</p>
+                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
+                    </div>
+
+                    <!-- Artículo 5: Nutracéuticos -->
+                    <div class="cursor-pointer group" onclick="window.location.href='articulo/que-son-los-nutraceuticos-bene-add-life-para-que-sirven-y-como-integrarlos-a-tu-rutina.html'">
+                        <div class="overflow-hidden aspect-square w-full mb-3">
+                            <img src="https://media.vogue.mx/photos/6a16073b7feaa3e1f07a9e32/1:1/w_960,c_limit/GettyImages-2238762538.jpg" alt="¿Qué son los nutracéuticos?" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                        </div>
+                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">VOGUE PARA BÈNE</p>
+                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">¿Qué son los nutracéuticos y cómo integrarlos a tu rutina?</h3>
+                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR ANDREA VILLEGAS</p>
+                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
+                    </div>
+
+                </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Título ÚLTIMAS TENDENCIAS -->
-        <div class="w-full max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-6">
+        <!-- Título RUMBO AL MUNDIAL 2026 -->
+        <div class="max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-6">
             <div class="border-t border-b border-gray-200 py-3 md:py-4">
-                <h2 class="text-lg md:text-xl font-medium tracking-widest text-black uppercase" style="font-family: 'Jost', sans-serif;">
-                    ÚLTIMAS TENDENCIAS
+                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700 uppercase" style="font-family: 'Jost', sans-serif;">
+                    RUMBO AL MUNDIAL 2026
                 </h2>
             </div>
         </div>
@@ -623,215 +575,29 @@
                 interactiveContainer.addEventListener('touchcancel', endPress);
             }
 
-            // --- 3. Slider Hero (Deslizamiento de Fotos y Ajuste de Altura de Texto) ---
-            const slides = document.querySelectorAll('.hero-slide');
-            const texts = document.querySelectorAll('.hero-text');
-            const dots = document.querySelectorAll('.hero-dot');
-            const textWrapper = document.getElementById('text-wrapper');
-            let currentSlide = 0;
-            let slideInterval;
-
-            // Variables de la función Candado
-            let isCarouselLocked = false;
-            const lockBtn = document.getElementById('carousel-lock-btn');
-            const infinityIcon = document.getElementById('hero-infinity-icon');
-            const lockIconSvg = document.getElementById('lock-icon-svg');
-
-            // Variables para el indicador circular
-            const progressCircle = document.getElementById('hero-progress-circle');
-            const progressText = document.getElementById('hero-progress-text');
-            const slideDuration = 4500;
-            let slideStartTime;
-            let progressAnimFrame;
-
-            function updateProgress() {
-                if (isCarouselLocked) return; 
-                if (!slideStartTime) return;
-                const elapsed = Date.now() - slideStartTime;
-                let remaining = slideDuration - elapsed;
-                if (remaining < 0) remaining = 0;
-
-                if (progressText) {
-                    progressText.textContent = Math.ceil(remaining / 1000);
-                }
-
-                if (progressCircle) {
-                    const circumference = 88;
-                    const progress = Math.min(elapsed / slideDuration, 1);
-                    progressCircle.style.strokeDashoffset = circumference - (progress * circumference);
-                }
-
-                if (elapsed < slideDuration) {
-                    progressAnimFrame = requestAnimationFrame(updateProgress);
-                }
-            }
-
-            function updateTextHeight(index) {
-                if (textWrapper && texts[index]) {
-                    textWrapper.style.height = texts[index].offsetHeight + 'px';
-                }
-            }
-
-            if (slides.length > 0) {
-                
-                document.fonts.ready.then(() => {
-                    setTimeout(() => updateTextHeight(0), 100);
-                });
-                
-                window.addEventListener('resize', () => {
-                    updateTextHeight(currentSlide);
-                });
-
-                function showSlide(index) {
-                    
-                    slides.forEach((slide, i) => {
-                        if (i === index) {
-                            slide.style.transform = 'translateX(0)';
-                            slide.style.zIndex = '10';
-                        } else if (i < index) {
-                            slide.style.transform = 'translateX(-100%)';
-                            slide.style.zIndex = '0';
-                        } else {
-                            slide.style.transform = 'translateX(100%)';
-                            slide.style.zIndex = '0';
-                        }
-                    });
-                    
-                    texts.forEach((text, i) => {
-                        if (i === index) {
-                            text.style.opacity = '1';
-                            text.style.pointerEvents = 'auto';
-                            text.style.zIndex = '10';
-                        } else {
-                            text.style.opacity = '0';
-                            text.style.pointerEvents = 'none';
-                            text.style.zIndex = '0';
-                        }
-                    });
-                    updateTextHeight(index);
-
-                    dots.forEach((dot, i) => {
-                        if(i === index) {
-                            dot.className = "hero-dot w-5 h-1.5 md:w-8 md:h-1.5 rounded-full bg-black cursor-pointer transition-all duration-300";
-                        } else {
-                            dot.className = "hero-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 hover:bg-gray-400";
-                        }
-                    });
-                    
-                    currentSlide = index;
-
-                    if (!isCarouselLocked) {
-                        slideStartTime = Date.now();
-                        if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-                        updateProgress();
-                    } else {
-                        if (progressCircle) progressCircle.style.strokeDashoffset = '0';
-                    }
-                }
-
-                function nextSlide() {
-                    showSlide((currentSlide + 1) % slides.length);
-                }
-
-                slideInterval = setInterval(nextSlide, 4500);
-
-                dots.forEach((dot, index) => {
-                    dot.addEventListener('click', () => {
-                        clearInterval(slideInterval);
-                        showSlide(index);
-                        if (!isCarouselLocked) {
-                            slideInterval = setInterval(nextSlide, 4500);
-                        }
-                    });
-                });
-
-                // --- Lógica de Deslizamiento (Swipe / Drag) ---
-                let dragStartX = 0;
-                let dragEndX = 0;
-                const heroAnimContainer = document.getElementById('hero-anim-container');
-
-                function handleSwipe() {
-                    const swipeThreshold = 50; 
-                    if (dragStartX - dragEndX > swipeThreshold) {
-                        clearInterval(slideInterval);
-                        showSlide((currentSlide + 1) % slides.length);
-                        if (!isCarouselLocked) slideInterval = setInterval(nextSlide, 4500);
-                    } else if (dragEndX - dragStartX > swipeThreshold) {
-                        clearInterval(slideInterval);
-                        showSlide((currentSlide - 1 + slides.length) % slides.length);
-                        if (!isCarouselLocked) slideInterval = setInterval(nextSlide, 4500);
-                    }
-                }
-
-                if (heroAnimContainer) {
-                    heroAnimContainer.addEventListener('touchstart', (e) => {
-                        dragStartX = e.changedTouches[0].screenX;
-                    }, {passive: true});
-
-                    heroAnimContainer.addEventListener('touchend', (e) => {
-                        dragEndX = e.changedTouches[0].screenX;
-                        handleSwipe();
-                    }, {passive: true});
-
-                    let isDragging = false;
-                    heroAnimContainer.addEventListener('mousedown', (e) => {
-                        isDragging = true;
-                        dragStartX = e.clientX;
-                    });
-
-                    heroAnimContainer.addEventListener('mouseup', (e) => {
-                        if (!isDragging) return;
-                        isDragging = false;
-                        dragEndX = e.clientX;
-                        handleSwipe();
-                    });
-
-                    heroAnimContainer.addEventListener('mouseleave', () => {
-                        isDragging = false;
-                    });
-                }
-                
-                // Evento Lógica del Candado (Infinity Loop)
-                if (lockBtn) {
-                    lockBtn.addEventListener('click', () => {
-                        isCarouselLocked = !isCarouselLocked;
-                        if (isCarouselLocked) {
-                            clearInterval(slideInterval);
-                            if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
-                            progressText.style.display = 'none';
-                            infinityIcon.classList.remove('hidden');
-                            lockBtn.classList.add('text-black');
-                            lockBtn.classList.remove('text-gray-500');
-                            lockIconSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
-                            if (progressCircle) {
-                                progressCircle.style.transition = 'stroke-dashoffset 0.5s ease';
-                                progressCircle.style.strokeDashoffset = '0'; 
-                            }
-                        } else {
-                            progressText.style.display = 'block';
-                            infinityIcon.classList.add('hidden');
-                            lockBtn.classList.remove('text-black');
-                            lockBtn.classList.add('text-gray-500');
-                            lockIconSvg.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
-                            if (progressCircle) progressCircle.style.transition = 'none';
-                            
-                            slideStartTime = Date.now();
-                            slideInterval = setInterval(nextSlide, 4500);
-                            updateProgress();
-                        }
-                    });
-                }
-            }
-
-            // --- 4. Lógica de Scroll ---
-            const heroAnimContainerScroll = document.getElementById('hero-anim-container');
+            // --- 4. Lógica de Scroll y Header Collapsable ---
+            const secondaryNav = document.getElementById('secondary-nav');
             
             window.addEventListener('scroll', () => {
-                if (!heroAnimContainerScroll) return;
                 const scrollY = window.scrollY;
-                const scale = 1 + (scrollY * 0.0004);
-                heroAnimContainerScroll.style.transform = `scale(${scale})`;
+                
+                // Animación colapso del Header (estilo Vogue)
+                if (secondaryNav) {
+                    if (scrollY > 20) {
+                        secondaryNav.style.height = '0px';
+                        secondaryNav.style.opacity = '0';
+                    } else {
+                        secondaryNav.style.height = '48px'; // Equivale a h-12
+                        secondaryNav.style.opacity = '1';
+                    }
+                }
             });
+
+            // Validar estado inicial del header al cargar (por si se recarga a mitad de página)
+            if (secondaryNav && window.scrollY > 20) {
+                secondaryNav.style.height = '0px';
+                secondaryNav.style.opacity = '0';
+            }
 
             // --- 5. Interacción de Elementos "No Disponibles" ---
             const unavailableElements = document.querySelectorAll('a[href="#"]');
@@ -909,12 +675,14 @@
 
     </script>
 
-    <!-- SCRIPT DEL INTRO ANIMADO -->
+    <!-- SCRIPT DEL INTRO ANIMADO (REDUCIDO) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Contenedor principal de la animación
             const introWrapper = document.createElement('div');
             introWrapper.id = 'intro-wrapper';
+            // Configurar el fondo de inmediato para que empiece de blanco
+            introWrapper.style.backgroundColor = '#ffffff'; 
             document.body.appendChild(introWrapper);
             
             // Bloquear el scroll de la página para no arruinar la animación
@@ -944,190 +712,62 @@
                     el.style.transition = 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1)';
                 }
             });
-            // ----------------------------------------------------------------------------
 
-            // URLs de las imágenes
-            const imgWhiteBg = 'https://res.cloudinary.com/dhx58lnzb/image/upload/v1778359985/Billirrrr_b8kb0a.png';
-            const imgBlackBg = 'https://res.cloudinary.com/dhx58lnzb/image/upload/v1778360524/Billie_Clare-removebg-preview_f13qjf.png';
+            // --- ANIMACIÓN ÚNICA: Transición fluida con el logo DEVON ---
             
-            // Pre-cargar ambas imágenes para evitar parpadeos no deseados durante la animación rápida
-            const preload1 = new Image(); preload1.src = imgWhiteBg;
-            const preload2 = new Image(); preload2.src = imgBlackBg;
-
-            // --- FASE 1: Animación de Inversión y Parpadeo del Personaje Grande ---
+            // 1. Crear el texto inicial centrado
+            const finalLogo = document.createElement('div');
+            finalLogo.textContent = 'DEVON';
             
-            const bigChar = document.createElement('img');
-            bigChar.src = imgWhiteBg;
-            bigChar.style.position = 'absolute';
-            bigChar.style.top = '50%';
-            bigChar.style.left = '50%';
-            bigChar.style.transform = 'translate(-50%, -50%) scaleX(1)';
-            bigChar.style.maxHeight = '80vh';
-            bigChar.style.maxWidth = '90vw';
-            bigChar.style.objectFit = 'contain';
-            // Sin transiciones css para que el "flash" y la inversión sean agresivos e instantáneos
-            bigChar.style.transition = 'none'; 
-            introWrapper.appendChild(bigChar);
+            // Clases básicas (sin las transiciones de Tailwind para controlarlo mejor con JS)
+            finalLogo.className = 'font-serif text-black font-bold tracking-[0.2em] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 scale-95';
+            finalLogo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            finalLogo.style.fontSize = 'clamp(3rem, 12vw, 10rem)'; 
+            introWrapper.appendChild(finalLogo);
+            
+            // Forzar un reflow para que el navegador registre el estado inicial
+            void finalLogo.offsetWidth;
+            
+            // 2. Aparecer el logo DEVON inmediatamente en el centro
+            finalLogo.style.opacity = '1';
+            finalLogo.style.transform = 'translate(-50%, -50%) scale(1)';
 
-            let isBlack = false;
-            let flipState = 1; // 1 (normal) o -1 (invertido)
-            let flashDelay = 550; // Tiempo inicial en milisegundos (lento)
-            let flashCount = 0;
-            const maxFlashes = 16; // Número de veces que parpadeará antes de la lluvia
-
-            function doFlashSequence() {
-                if (flashCount >= maxFlashes) {
-                    // Terminar la Fase 1 e iniciar la lluvia de imágenes
-                    bigChar.remove();
-                    introWrapper.style.backgroundColor = '#ffffff'; // Asegurar fondo blanco para la lluvia
-                    startFallingGrid();
-                    return;
-                }
-
-                // Alternar colores e imágenes
-                isBlack = !isBlack;
-                flipState *= -1; // Invertir de izquierda a derecha
-
-                introWrapper.style.backgroundColor = isBlack ? '#000000' : '#ffffff';
-                bigChar.src = isBlack ? imgBlackBg : imgWhiteBg;
+            // 3. COREOGRAFÍA FINAL: El logo vuela hacia arriba, el fondo se desvanece y la web se revela
+            setTimeout(() => {
+                const realLogoTextSpan = realLogo.querySelector('span'); // Seleccionamos solo el texto "DEVON"
+                const targetRect = realLogoTextSpan.getBoundingClientRect(); // Calculamos la posición exacta solo de la palabra
                 
-                // Aplicamos el centrado absoluto y la inversión del personaje al mismo tiempo
-                bigChar.style.transform = `translate(-50%, -50%) scaleX(${flipState})`;
+                // A) El fondo blanco del intro se vuelve transparente suavemente
+                introWrapper.style.transition = 'background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                introWrapper.style.backgroundColor = 'transparent';
+                
+                // B) Aparecer todo el contenido de la web con efecto de elevación "premium"
+                siteElements.forEach(el => {
+                    el.style.opacity = '1';
+                    if (el.tagName !== 'HEADER') el.style.transform = 'translateY(0)';
+                });
+                
+                // C) El logo central viaja y se encoge hacia la posición exacta de la palabra en el header
+                finalLogo.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                finalLogo.style.top = (targetRect.top + (targetRect.height / 2)) + 'px';
+                finalLogo.style.fontSize = window.getComputedStyle(realLogoTextSpan).fontSize;
+                
+                // Devolver el scroll al usuario porque la web ya es visible
+                document.body.style.overflow = '';
 
-                // Aumentar la velocidad del flash reduciendo el tiempo de espera
-                // Multiplicamos por 0.8 para hacerlo 20% más rápido cada vez (mínimo 50ms)
-                flashDelay = Math.max(50, flashDelay * 0.8); 
-                flashCount++;
-
-                setTimeout(doFlashSequence, flashDelay);
-            }
-
-            // Iniciar la secuencia de flashes tras medio segundo
-            setTimeout(doFlashSequence, 500);
-
-            // --- FASE 2: Animación de Caída Múltiple (Lluvia con variaciones) ---
-            
-            function startFallingGrid() {
-                const particles = [];
-                const spacingPx = 90; 
-                const cols = Math.ceil(window.innerWidth / spacingPx) + 1;
-                const rows = 35; 
-
-                // Los 4 estilos de inversión requeridos
-                const inversionStyles = [
-                    'scaleX(-1)',      // 1. Invertido horizontalmente (a un lado)
-                    'scaleY(-1)',      // 2. Invertido verticalmente (hacia abajo/arriba)
-                    'scale(-1, -1)',   // 3. Invertido en ambas direcciones (hacia el otro lado cruzado)
-                    'rotate(180deg)'   // 4. Rotado completamente (efecto opuesto absoluto)
-                ];
-
-                for (let r = 0; r < rows; r++) {
-                    for (let c = 0; c < cols; c++) {
-                        const img = document.createElement('img');
-                        img.src = imgWhiteBg; // La lluvia utiliza el primer personaje
-                        img.className = 'intro-img-particle';
-                        
-                        const x = c * spacingPx + (Math.random() * 30 - 15);
-                        const y = -(r * spacingPx * 1.5) - 150; 
-                        
-                        // Seleccionar aleatoriamente si esta imagen se invierte (~40% de probabilidad)
-                        let baseTransform = '';
-                        if (Math.random() < 0.4) {
-                            // Escoger al azar uno de los 4 estilos de inversión
-                            const randomStyle = inversionStyles[Math.floor(Math.random() * inversionStyles.length)];
-                            baseTransform = ` ${randomStyle}`; // Espacio antes para concatenar en el loop
-                        }
-                        
-                        // Estado inicial
-                        img.style.transform = `translate3d(${x}px, ${y}px, 0)${baseTransform}`;
-                        introWrapper.appendChild(img);
-                        
-                        particles.push({ el: img, x: x, y: y, vy: 0, tBase: baseTransform });
-                    }
-                }
-
-                let gravity = 0.02; 
-                let animationId;
-
-                function animateIntro() {
-                    gravity += 0.004; 
-                    
-                    for(let i = 0; i < particles.length; i++) {
-                        let p = particles[i];
-                        p.vy += gravity; 
-                        p.y += p.vy; 
-                        // Aplicar movimiento y mantener su inversión especial
-                        p.el.style.transform = `translate3d(${p.x}px, ${p.y}px, 0)${p.tBase}`; 
-                    }
-
-                    animationId = requestAnimationFrame(animateIntro);
-                }
-
-                // Iniciar la física de caída
-                requestAnimationFrame(animateIntro);
-
-                // --- FASE 3: Transición final con el logo DEVON ---
+                // Justo cuando termine el vuelo de 800ms, damos el cambiazo invisible
                 setTimeout(() => {
-                    // 1. Detener la lluvia y eliminar las partículas INMEDIATAMENTE
-                    cancelAnimationFrame(animationId);
-                    particles.forEach(p => p.el.remove());
+                    finalLogo.style.opacity = '0'; // Se oculta el animado
+                    realLogo.style.opacity = '1';  // Se revela el original (y aparece México y Latam suavemente abajo)
                     
-                    // 2. Crear el texto final DEVON
-                    const finalLogo = document.createElement('div');
-                    finalLogo.textContent = 'DEVON';
-                    
-                    // Clases básicas (sin las transiciones de Tailwind para controlarlo mejor con JS)
-                    finalLogo.className = 'font-serif text-black font-bold tracking-[0.2em] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 scale-95';
-                    finalLogo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    finalLogo.style.fontSize = 'clamp(3rem, 12vw, 10rem)'; 
-                    introWrapper.appendChild(finalLogo);
-                    
-                    // Forzar un reflow para que el navegador registre el estado inicial
-                    void finalLogo.offsetWidth;
-                    
-                    // 3. Aparecer DEVON inmediatamente en el centro
-                    finalLogo.style.opacity = '1';
-                    finalLogo.style.transform = 'translate(-50%, -50%) scale(1)';
-
-                    // 4. COREOGRAFÍA FINAL: El logo vuela, el fondo se desvanece y la web aparece
+                    // Limpiar por completo el intro del DOM para no dejar residuos
                     setTimeout(() => {
-                        const realLogoRect = realLogo.getBoundingClientRect();
-                        const realLogoTextSpan = realLogo.querySelector('span');
-                        
-                        // A) El fondo blanco del intro se vuelve transparente suavemente
-                        introWrapper.style.transition = 'background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                        introWrapper.style.backgroundColor = 'transparent';
-                        
-                        // B) Aparecer todo el contenido de la web con efecto de elevación "premium"
-                        siteElements.forEach(el => {
-                            el.style.opacity = '1';
-                            if (el.tagName !== 'HEADER') el.style.transform = 'translateY(0)';
-                        });
-                        
-                        // C) El logo central viaja y se encoge hacia la posición exacta del header
-                        finalLogo.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                        finalLogo.style.top = (realLogoRect.top + (realLogoRect.height / 2)) + 'px';
-                        finalLogo.style.fontSize = window.getComputedStyle(realLogoTextSpan).fontSize;
-                        
-                        // Devolver el scroll al usuario porque la web ya es visible
-                        document.body.style.overflow = '';
+                        introWrapper.remove();
+                    }, 500);
 
-                        // Justo cuando termine el vuelo de 800ms, damos el cambiazo invisible
-                        setTimeout(() => {
-                            finalLogo.style.opacity = '0'; // Se oculta el animado
-                            realLogo.style.opacity = '1';  // Se revela el original (con la línea de animación de la O)
-                            
-                            // Limpiar por completo el intro del DOM para no dejar residuos
-                            setTimeout(() => {
-                                introWrapper.remove();
-                            }, 500);
+                }, 800);
 
-                        }, 800);
-
-                    }, 1800); // El logo DEVON se admira en el centro durante 1.8 segundos antes de despegar
-
-                }, 4000); // 4 segundos de la lluvia antes de la aparición inmediata del logo
-            }
+            }, 1800); // El logo DEVON se admira en el centro durante 1.8 segundos antes de despegar
         });
     </script>
 </body>
