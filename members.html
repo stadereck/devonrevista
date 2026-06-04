@@ -173,6 +173,15 @@
             overflow: hidden;
             transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
         }
+
+        /* --- Estilos para la Pantalla de Bloqueo (Cuenta Regresiva) --- */
+        .locked-content {
+            filter: blur(12px) grayscale(30%);
+            opacity: 0.3;
+            pointer-events: none;
+            user-select: none;
+            transition: filter 2s ease-in-out, opacity 2s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-white text-black font-sans flex flex-col min-h-screen">
@@ -271,7 +280,7 @@
     </div>
 
     <!-- BANNER PRINCIPAL: Portada Mundial 2026 -->
-    <section class="w-full border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity" onclick="window.location.href='vogue-ficcion-2026-ganadoras-y-finalistas.html'">
+    <section class="blur-target w-full border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity" onclick="window.location.href='vogue-ficcion-2026-ganadoras-y-finalistas.html'">
         <div class="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-4 md:pt-6">
             <img src="https://media.vogue.mx/photos/6a17605f026af0d9c3cb7327/16:9/w_1600,c_limit/Ganadoras%20Vogue%20Ficcio%CC%81n%202026.jpg" alt="Vogue Ficción 2026: Estos son los relatos ganadores y finalistas" class="w-full h-auto max-h-[85vh] object-cover object-center"/>
         </div>
@@ -288,7 +297,7 @@
     </section>
 
     <!-- Contenido Principal -->
-    <main class="w-full flex-1 pb-20">
+    <main class="blur-target w-full flex-1 pb-20">
 
         <!-- Título HOY con líneas divisorias -->
         <div class="w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12 mb-4">
@@ -379,7 +388,7 @@
     </main>
 
     <!-- FOOTER: Diseño estilo Vogue -->
-    <footer class="bg-black text-white pt-16 pb-8 border-t border-gray-900 mt-20">
+    <footer class="blur-target bg-black text-white pt-16 pb-8 border-t border-gray-900 mt-20">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
             
             <!-- Columna Izquierda: Logo y Redes -->
@@ -467,8 +476,96 @@
         </div>
     </footer>
 
+    <!-- PANTALLA DE BLOQUEO (Cuenta Regresiva) -->
+    <div id="lock-screen" class="fixed inset-0 z-30 flex flex-col items-center justify-center pointer-events-none opacity-0 transition-opacity duration-[1500ms]" style="top: 90px;">
+        <div id="lock-modal" class="bg-white/95 backdrop-blur-xl p-10 md:p-14 text-center max-w-lg mx-4 border border-gray-200 shadow-2xl rounded-sm transform translate-y-12 transition-all duration-[1500ms] ease-out">
+            <h2 class="text-2xl md:text-3xl font-serif text-black mb-5 leading-snug">Hola,<br>Te damos la bienvenida a Devon Members</h2>
+            <p class="text-[10px] md:text-xs font-sans text-gray-500 tracking-[0.15em] mb-8 leading-relaxed uppercase">Gracias por formar parte de Devon. Tu acceso se desbloquea en:</p>
+            <div id="countdown-display" class="text-5xl md:text-6xl font-geometric tracking-[0.1em] text-black font-light">30:00</div>
+        </div>
+    </div>
+
     <!-- SCIPT DE INTERACCIONES GLOBALES -->
     <script>
+        // --- FUNCIÓN DE BLOQUEO DEVON MEMBERS ---
+        function initDevonLock() {
+            const lockScreen = document.getElementById('lock-screen');
+            const lockModal = document.getElementById('lock-modal');
+            const blurTargets = document.querySelectorAll('.blur-target');
+            const display = document.getElementById('countdown-display');
+            
+            // Si el usuario ya esperó su tiempo en visitas anteriores
+            if (localStorage.getItem('devonUnlocked') === 'true') {
+                if(lockScreen) lockScreen.remove();
+                return;
+            }
+
+            const LOCK_DURATION = 30 * 60 * 1000; // 30 minutos en milisegundos
+            let unlockTime = localStorage.getItem('devonUnlockTime');
+            
+            // Si es la primera vez que entra, establecer el tiempo límite
+            if (!unlockTime) {
+                unlockTime = Date.now() + LOCK_DURATION;
+                localStorage.setItem('devonUnlockTime', unlockTime);
+            } else {
+                unlockTime = parseInt(unlockTime, 10);
+            }
+
+            // Si aún no se cumple el tiempo
+            if (Date.now() < unlockTime) {
+                // Difuminar contenido
+                blurTargets.forEach(el => el.classList.add('locked-content'));
+                
+                // Mostrar alerta flotante de bienvenida y cuenta regresiva
+                lockScreen.classList.remove('opacity-0');
+                lockScreen.classList.add('opacity-100', 'pointer-events-auto');
+                
+                setTimeout(() => {
+                    lockModal.classList.remove('translate-y-12');
+                    lockModal.classList.add('translate-y-0');
+                }, 100);
+
+                // Función que actualiza el reloj
+                const interval = setInterval(() => {
+                    const now = Date.now();
+                    const timeLeft = unlockTime - now;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                        unlockSite();
+                    } else {
+                        const minutes = Math.floor(timeLeft / (1000 * 60));
+                        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                        display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    }
+                }, 1000);
+                
+                // Llamada inicial para que no tarde 1 segundo en aparecer el tiempo
+                const timeLeft = unlockTime - Date.now();
+                const minutes = Math.floor(timeLeft / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+            } else {
+                unlockSite(); // Si el tiempo ya pasó antes de cargar la web
+            }
+            
+            // Función para liberar la web
+            function unlockSite() {
+                localStorage.setItem('devonUnlocked', 'true');
+                lockScreen.classList.remove('opacity-100', 'pointer-events-auto');
+                lockScreen.classList.add('opacity-0');
+                lockModal.classList.remove('translate-y-0');
+                lockModal.classList.add('-translate-y-12');
+                
+                blurTargets.forEach(el => el.classList.remove('locked-content'));
+                
+                setTimeout(() => {
+                    if(lockScreen) lockScreen.remove();
+                }, 1500);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
 
             // --- 1. Contador de Vistas Constante ---
@@ -731,8 +828,11 @@
                 // Justo cuando termine el vuelo de 800ms, damos el cambiazo invisible
                 setTimeout(() => {
                     finalLogo.style.opacity = '0'; // Se oculta el animado
-                    realLogo.style.opacity = '1';  // Se revela el original (y aparece Devon Members suavemente abajo)
+                    realLogo.style.opacity = '1';  // Se revela el original (y aparece Members suavemente abajo)
                     
+                    // Iniciar la verificación de bloqueo/cuenta regresiva
+                    if(typeof initDevonLock === 'function') initDevonLock();
+
                     // Limpiar por completo el intro del DOM para no dejar residuos
                     setTimeout(() => {
                         introWrapper.remove();
