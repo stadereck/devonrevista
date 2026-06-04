@@ -441,23 +441,29 @@
             // --- LÓGICA SI YA EXISTE UN USUARIO REGISTRADO ---
             const savedName = localStorage.getItem('devonMemberName');
             if (savedName) {
-                // Mostrar directamente el mensaje final sin animación
+                // Mostrar directamente el mensaje final sin animación si ya hay un usuario
                 mainTextContainer.innerHTML = `<span class="inline">${getFinalText(savedName)}</span>`;
                 driveBtnContainer.classList.remove('hidden');
                 setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 100);
-                return;
+                return; // Importante: Salir de la función aquí si ya está registrado
             }
 
-            // --- INICIO DE SECUENCIA NUEVA ---
-            text1El.textContent = '';
+            // --- INICIO DE SECUENCIA NUEVA (Si NO hay usuario) ---
+            text1El.textContent = ''; // Limpiar cualquier texto previo
             text2El.textContent = '';
-            inputContainer.classList.remove('hidden'); 
-            hintText.classList.remove('hidden');
+            
+            // Ocultar input y hint inicialmente para que la animación fluya
+            inputContainer.classList.add('hidden');
+            inputContainer.classList.remove('opacity-100');
+            inputContainer.classList.add('opacity-0');
+            hintText.classList.add('hidden');
+            hintText.classList.remove('opacity-100');
+            hintText.classList.add('opacity-0');
             
             let i = 0;
             text1El.classList.add('typing-cursor');
             
-            // Función que escribe la primera parte
+            // Función que escribe la primera parte letra por letra
             function typeChar() {
                 if (i < text1.length) {
                     text1El.textContent += text1.charAt(i);
@@ -466,14 +472,22 @@
                 } else {
                     text1El.classList.remove('typing-cursor');
                     
-                    inputContainer.classList.remove('opacity-0');
-                    inputContainer.classList.add('opacity-100');
-                    
+                    // Mostrar el input suavemente
+                    inputContainer.classList.remove('hidden'); 
+                    // Pequeña pausa para permitir que el display: none se quite antes de animar opacidad
                     setTimeout(() => {
-                        hintText.classList.remove('opacity-0');
-                        hintText.classList.add('opacity-100');
-                        nameInput.focus();
-                    }, 500);
+                        inputContainer.classList.remove('opacity-0');
+                        inputContainer.classList.add('opacity-100');
+                        
+                        setTimeout(() => {
+                            hintText.classList.remove('hidden');
+                            setTimeout(() => {
+                                hintText.classList.remove('opacity-0');
+                                hintText.classList.add('opacity-100');
+                                nameInput.focus();
+                            }, 50);
+                        }, 500);
+                    }, 50);
                 }
             }
             
