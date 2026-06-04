@@ -438,27 +438,22 @@
             // Textos para la Fase Final
             const getFinalText = (name) => `"${name}", Aquí puedes volver las veces que necesites para obtener acceso al Google Drive donde tú podrás crear una carpeta propia donde podrás subir tus mejores Fotos, Looks, etcétera. Si tienes cualquier duda no dudes en enviarnos un mensaje a nuestro instagram. Aquí podrás encontrar el drive donde podrás subir tus fotos, no te preocupes si salen algo mal, nuestro equipo se encargará de editarlas y subirlas a nuestro instagram si así lo decides, y elegiremos las mejores fotos para subirlas a nuestra próxima edición en aproximadamente de 1 a 2 semanas desde la fecha de hoy.`;
 
-            // --- LÓGICA SI YA EXISTE UN USUARIO REGISTRADO ---
-            const savedName = localStorage.getItem('devonMemberName');
-            if (savedName) {
-                // Mostrar directamente el mensaje final sin animación si ya hay un usuario
-                mainTextContainer.innerHTML = `<span class="inline">${getFinalText(savedName)}</span>`;
-                driveBtnContainer.classList.remove('hidden');
-                setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 100);
-                return; // Importante: Salir de la función aquí si ya está registrado
-            }
-
-            // --- INICIO DE SECUENCIA NUEVA (Si NO hay usuario) ---
+            // --- INICIO DE SECUENCIA (Siempre desde cero) ---
             text1El.textContent = ''; // Limpiar cualquier texto previo
             text2El.textContent = '';
             
-            // Ocultar input y hint inicialmente para que la animación fluya
-            inputContainer.classList.add('hidden');
+            // Reiniciar estado visual del input (en caso de que se haya escrito algo antes)
+            nameInput.value = '';
+            nameInput.disabled = false;
+            nameInput.classList.remove('text-gray-600');
+            
+            // Ocultar input, botón Drive y hint inicialmente para que la animación fluya
+            inputContainer.classList.add('hidden', 'opacity-0');
             inputContainer.classList.remove('opacity-100');
-            inputContainer.classList.add('opacity-0');
-            hintText.classList.add('hidden');
+            hintText.classList.add('hidden', 'opacity-0');
             hintText.classList.remove('opacity-100');
-            hintText.classList.add('opacity-0');
+            driveBtnContainer.classList.add('hidden', 'opacity-0');
+            driveBtnContainer.classList.remove('opacity-100');
             
             let i = 0;
             text1El.classList.add('typing-cursor');
@@ -498,7 +493,7 @@
             nameInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' && this.value.trim() !== '') {
                     const userName = this.value.trim();
-                    localStorage.setItem('devonMemberName', userName);
+                    // Ya no guardamos en localStorage para forzar la repetición
                     
                     // Ocultar elementos del input visualmente
                     this.disabled = true;
