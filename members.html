@@ -182,6 +182,18 @@
             user-select: none;
             transition: filter 2s ease-in-out, opacity 2s ease-in-out;
         }
+
+        /* --- Animación del cursor escribiendo --- */
+        .typing-cursor::after {
+            content: '|';
+            display: inline-block;
+            margin-left: 2px;
+            animation: blinkCursor 0.8s step-end infinite;
+        }
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
     </style>
 </head>
 <body class="bg-white text-black font-sans flex flex-col min-h-screen">
@@ -279,112 +291,30 @@
         </a>
     </div>
 
-    <!-- BANNER PRINCIPAL: Portada Mundial 2026 -->
-    <section class="blur-target w-full border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity" onclick="window.location.href='vogue-ficcion-2026-ganadoras-y-finalistas.html'">
-        <div class="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-4 md:pt-6">
-            <img src="https://media.vogue.mx/photos/6a17605f026af0d9c3cb7327/16:9/w_1600,c_limit/Ganadoras%20Vogue%20Ficcio%CC%81n%202026.jpg" alt="Vogue Ficción 2026: Estos son los relatos ganadores y finalistas" class="w-full h-auto max-h-[85vh] object-cover object-center"/>
-        </div>
-        <div class="max-w-4xl mx-auto flex flex-col items-center text-center mt-6 md:mt-8 px-4 font-geometric">
-            <p class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-black mb-3">ESTILO DE VIDA</p>
-            <h2 class="text-3xl md:text-4xl lg:text-[44px] font-normal text-black leading-[1.15] mb-6" style="letter-spacing: -0.02em;">
-                Vogue Ficción 2026: Estos son los relatos ganadores y finalistas
-            </h2>
-            <div class="text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-black leading-loose flex flex-col items-center">
-                <p>POR CAMILA COLINA</p>
-                <p class="normal-case font-semibold mt-1 text-[11px] md:text-[13px] tracking-normal">27 de mayo de 2026</p>
+    <!-- Contenido Principal (Secuencia de Bienvenida Interactiva) -->
+    <main class="blur-target w-full flex-1 flex flex-col items-center justify-center min-h-[60vh] pb-20 pt-20">
+        <div id="welcome-sequence-container" class="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-start text-left">
+            
+            <!-- Contenedor flex para que el texto y el input estén en la misma línea (inline-block o flex wrap) -->
+            <div class="text-lg md:text-2xl font-light tracking-wide text-black leading-relaxed font-serif w-full">
+                <!-- Texto que se escribe solo -->
+                <span id="typing-text-1" class="inline"></span>
+                
+                <!-- Input para el nombre (oculto inicialmente) que fluye junto con el texto -->
+                <span id="name-input-container" class="opacity-0 transition-opacity duration-1000 hidden inline-block align-baseline mt-2 md:mt-0 ml-2">
+                    _<input type="text" id="member-name-input" class="text-lg md:text-2xl font-serif text-black bg-transparent outline-none w-48 md:w-64 placeholder-gray-400 font-light" style="border:none; border-bottom: 1px solid black; border-radius: 0; box-shadow: none;" placeholder="(Escribe tu nombre aqui)" autocomplete="off" spellcheck="false">_
+                </span>
             </div>
+
+            <!-- Hint de presionar enter (abajo) -->
+            <p id="name-hint" class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-gray-400 mt-4 uppercase font-geometric transition-opacity duration-500 opacity-0 hidden">
+                Presiona Enter para continuar
+            </p>
+
+            <!-- Texto de continuación -->
+            <p id="typing-text-2" class="text-lg md:text-2xl font-light tracking-wide text-black mt-8 min-h-[3rem] font-serif w-full"></p>
+
         </div>
-    </section>
-
-    <!-- Contenido Principal -->
-    <main class="blur-target w-full flex-1 pb-20">
-
-        <!-- Título HOY con líneas divisorias -->
-        <div class="w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12 mb-4">
-            <div class="border-t border-b border-gray-200 py-3 md:py-4">
-                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700" style="font-family: 'Jost', sans-serif;">
-                    HOY
-                </h2>
-            </div>
-        </div>
-
-        <!-- Grid HOY -->
-        <div class="w-full max-w-7xl mx-auto px-6 mb-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8">
-
-                <!-- Artículo principal (grande, col-span-1) -->
-                <div class="md:col-span-1 cursor-pointer group" onclick="window.location.href='vogue-anuncia-su-club-del-libro.html'">
-                    <div class="relative overflow-hidden aspect-[2/3] w-full">
-                        <img src="https://media.vogue.mx/photos/6a17465b2eb98a8c4553403c/2:3/w_1920,c_limit/Vogue-Club-del-Libro-Isabel-Allende.jpg" alt="El Club del Libro de Vogue anuncia La Casa de los Espíritus por Isabel Allende" class="w-full h-full object-cover group-hover:opacity-95 transition-opacity duration-300"/>
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 pt-20 pb-8 text-white text-center">
-                            <p class="text-[9px] font-light tracking-[0.2em] uppercase mb-3" style="font-family: 'Jost', sans-serif;">ESTILO DE VIDA</p>
-                            <h3 class="text-2xl md:text-3xl font-normal leading-tight mb-4" style="font-family: 'Jost', sans-serif;">El Club del Libro de Vogue anuncia La Casa de los Espíritus por Isabel Allende</h3>
-                            <p class="text-[9px] font-light tracking-[0.15em] uppercase" style="font-family: 'Jost', sans-serif;">POR ATENEA MORALES DE LA CRUZ</p>
-                            <p class="text-[11px] font-light mt-1" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Columna central y derecha: 2 columnas de artículos pequeños -->
-                <div class="md:col-span-2 grid grid-cols-2 gap-6 md:gap-8 mt-8 md:mt-0">
-
-                    <!-- Artículo 2: Pantalones palazzo -->
-                    <div class="cursor-pointer group" onclick="window.location.href='como-llevar-pantalones-palazzo-colombianos-elegantes-con-blusas-y-sandalias-en-primavera-2026.html'">
-                        <div class="overflow-hidden aspect-square w-full mb-3">
-                            <img src="https://media.vogue.mx/photos/64e8c1bc2896a4c853a1033c/1:1/w_960,c_limit/sofia-vergara-con.camisa-blanca.jpg" alt="Los pantalones palazzo colombianos más elegantes" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
-                        </div>
-                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">MODA</p>
-                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Los pantalones palazzo colombianos más elegantes para llevar con blusas y sandalias en primavera 2026</h3>
-                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR MELISA VARGAS</p>
-                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
-                    </div>
-
-                    <!-- Artículo 4: Pedicuras -->
-                    <div class="cursor-pointer group" onclick="window.location.href='articulo/pedicuras-para-pies-bonitos-con-sandalias-en-primavera-verano-2026.html'">
-                        <div class="overflow-hidden aspect-square w-full mb-3">
-                            <img src="https://media.vogue.mx/photos/6a1845c5e370d10b4ca5a19c/2:3/w_960,c_limit/pedicura-colores-primavera-verano-2026.jpg" alt="Las 10 pedicuras para pies bonitos" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
-                        </div>
-                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">BELLEZA</p>
-                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Las 10 pedicuras para pies bonitos que llevarás con sandalias elegantes en Primavera-Verano 2026</h3>
-                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR LAURA SOLLA Y CAROLINA ARANGO</p>
-                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
-                    </div>
-
-                    <!-- Artículo 3: Zapatos y sandalias -->
-                    <div class="cursor-pointer group" onclick="window.location.href='zapatos-y-sandalias-planas-para-llevar-con-jeans-rectos-como-en-los-90-esta-primavera.html'">
-                        <div class="overflow-hidden aspect-[2/3] w-full mb-3">
-                            <img src="https://media.vogue.mx/photos/6a1741f92c5f265073cb40e3/2:3/w_960,c_limit/zapatos-y-sandalias-planas-para-llevar-con-jeans-rectos-como-en-los-90-esta-primavera.jpg" alt="Zapatos y sandalias planas para llevar con jeans rectos" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
-                        </div>
-                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">MODA</p>
-                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Zapatos y sandalias planas para llevar con jeans rectos como en los 90 esta primavera</h3>
-                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR MARÍA FERNANDA MARÍN</p>
-                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
-                    </div>
-
-                    <!-- Artículo 5: Nutracéuticos -->
-                    <div class="cursor-pointer group" onclick="window.location.href='articulo/que-son-los-nutraceuticos-bene-add-life-para-que-sirven-y-como-integrarlos-a-tu-rutina.html'">
-                        <div class="overflow-hidden aspect-square w-full mb-3">
-                            <img src="https://media.vogue.mx/photos/6a16073b7feaa3e1f07a9e32/1:1/w_960,c_limit/GettyImages-2238762538.jpg" alt="¿Qué son los nutracéuticos?" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
-                        </div>
-                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">VOGUE PARA BÈNE</p>
-                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">¿Qué son los nutracéuticos y cómo integrarlos a tu rutina?</h3>
-                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR ANDREA VILLEGAS</p>
-                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Título RUMBO AL MUNDIAL 2026 -->
-        <div class="max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-6">
-            <div class="border-t border-b border-gray-200 py-3 md:py-4">
-                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700 uppercase" style="font-family: 'Jost', sans-serif;">
-                    RUMBO AL MUNDIAL 2026
-                </h2>
-            </div>
-        </div>
-
     </main>
 
     <!-- FOOTER: Diseño estilo Vogue -->
@@ -487,6 +417,97 @@
 
     <!-- SCIPT DE INTERACCIONES GLOBALES -->
     <script>
+        // --- FUNCIÓN DE SECUENCIA DE BIENVENIDA (TYPING EFFECT) ---
+        window.startWelcomeSequence = function() {
+            const mainContainer = document.getElementById('welcome-sequence-container');
+            if (!mainContainer) return;
+
+            const text1 = "Hola, te damos la bienvenida a Devon Members. Si estás aquí es porque quisiste ser miembra o miembro de Devon, te agradecemos por tu interés en Devon.";
+            const text1El = document.getElementById('typing-text-1');
+            const inputContainer = document.getElementById('name-input-container');
+            const nameInput = document.getElementById('member-name-input');
+            const hintText = document.getElementById('name-hint');
+            const text2El = document.getElementById('typing-text-2');
+
+            // Si ya se registró antes, mostrar un mensaje de regreso sin hacer toda la animación
+            const savedName = localStorage.getItem('devonMemberName');
+            if (savedName) {
+                text1El.textContent = text1;
+                nameInput.value = savedName;
+                inputContainer.classList.remove('hidden');
+                inputContainer.classList.add('opacity-100');
+                nameInput.disabled = true;
+                hintText.style.display = 'none';
+                text2El.textContent = "Nos alegra tenerte de vuelta, " + savedName + ". Disfruta de tu espacio exclusivo en Devon.";
+                return;
+            }
+
+            // Reiniciar estado
+            text1El.textContent = '';
+            text2El.textContent = '';
+            inputContainer.classList.remove('hidden'); 
+            hintText.classList.remove('hidden');
+            
+            let i = 0;
+            text1El.classList.add('typing-cursor');
+            
+            // Función que escribe la primera parte
+            function typeChar() {
+                if (i < text1.length) {
+                    text1El.textContent += text1.charAt(i);
+                    i++;
+                    setTimeout(typeChar, Math.random() * 35 + 25); // Velocidad aleatoria para mayor realismo
+                } else {
+                    text1El.classList.remove('typing-cursor');
+                    
+                    // Mostrar la línea para el nombre y el hint
+                    inputContainer.classList.remove('opacity-0');
+                    inputContainer.classList.add('opacity-100');
+                    
+                    setTimeout(() => {
+                        hintText.classList.remove('opacity-0');
+                        hintText.classList.add('opacity-100');
+                        nameInput.focus();
+                    }, 500);
+                }
+            }
+            
+            // Iniciar escritura con un pequeño retraso
+            setTimeout(typeChar, 800);
+
+            // Escuchar el 'Enter' en el input
+            nameInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && this.value.trim() !== '') {
+                    const userName = this.value.trim();
+                    localStorage.setItem('devonMemberName', userName); // Guardar el nombre
+                    
+                    // Desactivar el input visualmente de forma elegante
+                    this.disabled = true;
+                    this.classList.add('text-gray-600');
+                    this.blur();
+                    hintText.classList.remove('opacity-100');
+                    hintText.classList.add('opacity-0');
+                    setTimeout(() => hintText.classList.add('hidden'), 500);
+                    
+                    const text2 = "Gracias, " + userName + ". A partir de ahora, este es tu espacio exclusivo.";
+                    let j = 0;
+                    text2El.classList.add('typing-cursor');
+                    
+                    // Escribir la respuesta
+                    function typeChar2() {
+                        if (j < text2.length) {
+                            text2El.textContent += text2.charAt(j);
+                            j++;
+                            setTimeout(typeChar2, Math.random() * 35 + 25);
+                        } else {
+                            text2El.classList.remove('typing-cursor');
+                        }
+                    }
+                    setTimeout(typeChar2, 600); // Pausa dramática antes de responder
+                }
+            });
+        }
+
         // --- FUNCIÓN DE BLOQUEO DEVON MEMBERS ---
         function initDevonLock() {
             const lockScreen = document.getElementById('lock-screen');
@@ -497,6 +518,7 @@
             // Si el usuario ya esperó su tiempo en visitas anteriores
             if (localStorage.getItem('devonUnlocked') === 'true') {
                 if(lockScreen) lockScreen.remove();
+                if(window.startWelcomeSequence) window.startWelcomeSequence();
                 return;
             }
 
@@ -532,7 +554,7 @@
 
                     if (timeLeft <= 0) {
                         clearInterval(interval);
-                        unlockSite();
+                        unlockSite(true);
                     } else {
                         const minutes = Math.floor(timeLeft / (1000 * 60));
                         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
@@ -546,23 +568,45 @@
                 const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
                 display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                 
+                // --- ATAJO: Si se presiona '2', se salta la espera sin recargar ---
+                const bypassListener = (e) => {
+                    if (e.key === '2') {
+                        clearInterval(interval);
+                        document.removeEventListener('keydown', bypassListener);
+                        unlockSite(false);
+                    }
+                };
+                document.addEventListener('keydown', bypassListener);
+
             } else {
-                unlockSite(); // Si el tiempo ya pasó antes de cargar la web
+                unlockSite(false); // Si el tiempo ya pasó antes de cargar la web
             }
             
             // Función para liberar la web
-            function unlockSite() {
+            function unlockSite(reload = true) {
                 localStorage.setItem('devonUnlocked', 'true');
-                lockScreen.classList.remove('opacity-100', 'pointer-events-auto');
-                lockScreen.classList.add('opacity-0');
-                lockModal.classList.remove('translate-y-0');
-                lockModal.classList.add('-translate-y-12');
                 
-                blurTargets.forEach(el => el.classList.remove('locked-content'));
-                
-                setTimeout(() => {
-                    if(lockScreen) lockScreen.remove();
-                }, 1500);
+                if (reload) {
+                    window.location.reload(); // Recargar la página solo si el contador llega a 0 naturalmente
+                } else {
+                    // Remover bloqueo visual de inmediato sin recargar (para la tecla '2')
+                    const lockScreen = document.getElementById('lock-screen');
+                    const blurTargets = document.querySelectorAll('.blur-target');
+                    
+                    if (lockScreen) {
+                        lockScreen.classList.remove('opacity-100', 'pointer-events-auto');
+                        lockScreen.classList.add('opacity-0', 'pointer-events-none');
+                        setTimeout(() => lockScreen.remove(), 1500); // Limpiar del DOM tras la animación
+                    }
+                    if (blurTargets) {
+                        blurTargets.forEach(el => el.classList.remove('locked-content'));
+                    }
+
+                    // Iniciar secuencia interactiva después de quitar el blur
+                    setTimeout(() => {
+                        if(window.startWelcomeSequence) window.startWelcomeSequence();
+                    }, 1000);
+                }
             }
         }
 
