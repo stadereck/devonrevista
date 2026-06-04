@@ -174,15 +174,6 @@
             transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
         }
 
-        /* --- Estilos para la Pantalla de Bloqueo (Cuenta Regresiva) --- */
-        .locked-content {
-            filter: blur(12px) grayscale(30%);
-            opacity: 0.3;
-            pointer-events: none;
-            user-select: none;
-            transition: filter 2s ease-in-out, opacity 2s ease-in-out;
-        }
-
         /* --- Animación del cursor escribiendo --- */
         .typing-cursor::after {
             content: '|';
@@ -221,10 +212,10 @@
         </nav>
     </aside>
 
-    <!-- Barra de Navegación Principal (Unificada con animación al hacer scroll) -->
+    <!-- Barra de Navegación Principal -->
     <header id="main-header" class="w-full bg-white sticky top-0 z-40 border-b border-gray-200 transition-all duration-300">
         
-        <!-- Fila Superior (Siempre visible) -->
+        <!-- Fila Superior -->
         <div class="max-w-[1400px] mx-auto flex items-center justify-between px-5 md:px-8 h-16 md:h-[90px] relative bg-white z-20">
             
             <!-- Izquierda: Menú Hamburguesa -->
@@ -237,7 +228,7 @@
                 </button>
             </div>
             
-            <!-- Centro: Logo animado y Subtítulo -->
+            <!-- Centro: Logo animado -->
             <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex flex-col items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
                 
                 <div id="devon-text" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
@@ -265,7 +256,7 @@
             </div>
         </div>
 
-        <!-- Fila Inferior: Menú de Categorías (Se oculta al deslizar hacia abajo) -->
+        <!-- Fila Inferior: Menú de Categorías -->
         <div id="secondary-nav" class="hidden md:flex w-full justify-center text-[9px] lg:text-[10px] font-bold tracking-[0.15em] text-black uppercase bg-white overflow-hidden transition-[height,opacity] duration-300 ease-in-out h-12 opacity-100 font-geometric">
             <div class="flex items-center h-full px-4 gap-4 md:gap-5 lg:gap-6">
                 <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
@@ -292,7 +283,7 @@
     </div>
 
     <!-- Contenido Principal (Secuencia de Bienvenida Interactiva) -->
-    <main class="blur-target w-full flex-1 flex flex-col items-center justify-center min-h-[60vh] pb-20 pt-20">
+    <main class="w-full flex-1 flex flex-col items-center justify-center min-h-[60vh] pb-20 pt-20">
         <div id="welcome-sequence-container" class="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-start text-left">
             
             <!-- Contenedor ÚNICO para todo el texto. Se vaciará dinámicamente -->
@@ -322,7 +313,7 @@
     </main>
 
     <!-- FOOTER: Diseño estilo Vogue -->
-    <footer class="blur-target bg-black text-white pt-16 pb-8 border-t border-gray-900 mt-20">
+    <footer class="bg-black text-white pt-16 pb-8 border-t border-gray-900 mt-20">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
             
             <!-- Columna Izquierda: Logo y Redes -->
@@ -410,15 +401,6 @@
         </div>
     </footer>
 
-    <!-- PANTALLA DE BLOQUEO (Cuenta Regresiva) -->
-    <div id="lock-screen" class="fixed inset-0 z-30 flex flex-col items-center justify-center pointer-events-none opacity-0 transition-opacity duration-[1500ms]" style="top: 90px;">
-        <div id="lock-modal" class="bg-white/95 backdrop-blur-xl p-10 md:p-14 text-center max-w-lg mx-4 border border-gray-200 shadow-2xl rounded-sm transform translate-y-12 transition-all duration-[1500ms] ease-out">
-            <h2 class="text-2xl md:text-3xl font-serif text-black mb-5 leading-snug">Hola,<br>Te damos la bienvenida a Devon Members</h2>
-            <p class="text-[10px] md:text-xs font-sans text-gray-500 tracking-[0.15em] mb-8 leading-relaxed uppercase">Gracias por formar parte de Devon. Tu acceso se desbloquea en:</p>
-            <div id="countdown-display" class="text-5xl md:text-6xl font-geometric tracking-[0.1em] text-black font-light">30:00</div>
-        </div>
-    </div>
-
     <!-- SCIPT DE INTERACCIONES GLOBALES -->
     <script>
         // --- FUNCIÓN DE SECUENCIA DE BIENVENIDA (TYPING EFFECT) ---
@@ -436,241 +418,173 @@
             const driveBtnContainer = document.getElementById('drive-button-container');
 
             // Textos para la Fase Final
-            const getFinalText = (name) => `"${name}", Aquí puedes volver las veces que necesites para obtener acceso al Google Drive donde tú podrás crear una carpeta propia donde podrás subir tus mejores Fotos, Looks, etcétera. Si tienes cualquier duda no dudes en enviarnos un mensaje a nuestro instagram. Aquí podrás encontrar el drive donde podrás subir tus fotos, no te preocupes si salen algo mal, nuestro equipo se encargará de editarlas y subirlas a nuestro instagram si así lo decides, y elegiremos las mejores fotos para subirlas a nuestra próxima edición en aproximadamente de 1 a 2 semanas desde la fecha de hoy.`;
+            const getFinalText = (name) => `Aquí puedes volver las veces que necesites para obtener acceso al Google Drive donde tú podrás crear una carpeta propia donde podrás subir tus mejores Fotos, Looks, etcétera. Si tienes cualquier duda no dudes en enviarnos un mensaje a nuestro instagram. Aquí podrás encontrar el drive donde podrás subir tus fotos, no te preocupes si salen algo mal, nuestro equipo se encargará de editarlas y subirlas a nuestro instagram si así lo decides, y elegiremos las mejores fotos para subirlas a nuestra próxima edición en aproximadamente de 1 a 2 semanas desde la fecha de hoy.`;
 
-            // --- INICIO DE SECUENCIA (Siempre desde cero) ---
-            text1El.textContent = ''; // Limpiar cualquier texto previo
-            text2El.textContent = '';
-            
-            // Reiniciar estado visual del input (en caso de que se haya escrito algo antes)
-            nameInput.value = '';
-            nameInput.disabled = false;
-            nameInput.classList.remove('text-gray-600');
-            
-            // Ocultar input, botón Drive y hint inicialmente para que la animación fluya
-            inputContainer.classList.add('hidden', 'opacity-0');
-            inputContainer.classList.remove('opacity-100');
-            hintText.classList.add('hidden', 'opacity-0');
-            hintText.classList.remove('opacity-100');
-            driveBtnContainer.classList.add('hidden', 'opacity-0');
-            driveBtnContainer.classList.remove('opacity-100');
-            
-            let i = 0;
-            text1El.classList.add('typing-cursor');
-            
-            // Función que escribe la primera parte letra por letra
-            function typeChar() {
-                if (i < text1.length) {
-                    text1El.textContent += text1.charAt(i);
-                    i++;
-                    setTimeout(typeChar, Math.random() * 35 + 25);
-                } else {
-                    text1El.classList.remove('typing-cursor');
-                    
-                    // Mostrar el input suavemente
-                    inputContainer.classList.remove('hidden'); 
-                    // Pequeña pausa para permitir que el display: none se quite antes de animar opacidad
-                    setTimeout(() => {
-                        inputContainer.classList.remove('opacity-0');
-                        inputContainer.classList.add('opacity-100');
-                        
-                        setTimeout(() => {
-                            hintText.classList.remove('hidden');
-                            setTimeout(() => {
-                                hintText.classList.remove('opacity-0');
-                                hintText.classList.add('opacity-100');
-                                nameInput.focus();
-                            }, 50);
-                        }, 500);
-                    }, 50);
-                }
-            }
-            
-            // Iniciar escritura inicial
-            setTimeout(typeChar, 800);
+            // Verificar si ya tenemos el nombre guardado en localStorage
+            const savedName = localStorage.getItem('devonMemberName');
 
-            // Escuchar el 'Enter' en el input
-            nameInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' && this.value.trim() !== '') {
-                    const userName = this.value.trim();
-                    // Ya no guardamos en localStorage para forzar la repetición
-                    
-                    // Ocultar elementos del input visualmente
-                    this.disabled = true;
-                    this.classList.add('text-gray-600');
-                    this.blur();
-                    hintText.classList.remove('opacity-100');
-                    hintText.classList.add('opacity-0');
-                    setTimeout(() => hintText.classList.add('hidden'), 500);
-                    
-                    // Asegurarnos de que haya un espacio antes del saludo
-                    const text2 = " Gracias, " + userName + ". A partir de ahora, este es tu espacio exclusivo.";
-                    let j = 0;
-                    text2El.classList.add('typing-cursor');
-                    
-                    // Escribir el saludo
-                    function typeChar2() {
-                        if (j < text2.length) {
-                            text2El.textContent += text2.charAt(j);
-                            j++;
-                            setTimeout(typeChar2, Math.random() * 35 + 25);
-                        } else {
-                            text2El.classList.remove('typing-cursor');
-                            
-                            // *** COMIENZA FASE 3: BORRADO Y NUEVO TEXTO ***
-                            setTimeout(() => {
-                                startEraseSequence(userName);
-                            }, 3000); // Pausa dramática de 3 segundos para que lean el saludo
-                        }
-                    }
-                    setTimeout(typeChar2, 600);
-                }
-            });
+            if (savedName) {
+                // --- ESCENARIO B: USUARIO QUE REGRESA ---
+                // Ocultar inputs y textos iniciales
+                text1El.textContent = ''; 
+                text2El.textContent = '';
+                inputContainer.classList.add('hidden', 'opacity-0');
+                hintText.classList.add('hidden', 'opacity-0');
 
-            // Función para borrar el texto actual y escribir el nuevo
-            function startEraseSequence(userName) {
-                // Unificar todo el texto visible en un solo bloque para borrarlo fácilmente
-                const currentFullText = mainTextContainer.textContent.replace(/_/g, '').trim(); // Quitamos los guiones bajos del input
-                mainTextContainer.innerHTML = ''; // Limpiamos la estructura compleja
-                const erasingSpan = document.createElement('span');
-                erasingSpan.textContent = currentFullText;
-                erasingSpan.className = 'inline typing-cursor';
-                mainTextContainer.appendChild(erasingSpan);
+                // Mensaje directo de bienvenida
+                const welcomeBackMsg = `Hola de nuevo, "${savedName}". `;
+                const fullText = welcomeBackMsg + getFinalText(savedName);
 
-                let k = currentFullText.length;
-                
-                function eraseChar() {
-                    if (k > 0) {
-                        erasingSpan.textContent = currentFullText.substring(0, k - 1);
-                        k--;
-                        setTimeout(eraseChar, 10); // Velocidad de borrado súper rápida
+                // Limpiar contenedor principal y crear span para escribir
+                mainTextContainer.innerHTML = ''; 
+                const finalTextSpan = document.createElement('span');
+                finalTextSpan.className = 'inline typing-cursor';
+                mainTextContainer.appendChild(finalTextSpan);
+
+                let l = 0;
+                function typeReturnText() {
+                    if (l < fullText.length) {
+                        finalTextSpan.textContent += fullText.charAt(l);
+                        l++;
+                        setTimeout(typeReturnText, Math.random() * 15 + 10); // Escribe un poco más rápido
                     } else {
-                        // Terminó de borrar, empezar a escribir el texto final
-                        erasingSpan.classList.remove('typing-cursor');
-                        const finalTextSpan = document.createElement('span');
-                        finalTextSpan.className = 'inline typing-cursor';
-                        mainTextContainer.appendChild(finalTextSpan);
+                        finalTextSpan.classList.remove('typing-cursor');
+                        // Revelar el botón Drive
+                        driveBtnContainer.classList.remove('hidden');
+                        setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 200);
+                    }
+                }
+                
+                // Empezar a escribir después de un breve delay
+                setTimeout(typeReturnText, 800);
+
+            } else {
+                // --- ESCENARIO A: PRIMERA VISITA ---
+                text1El.textContent = ''; 
+                text2El.textContent = '';
+                
+                nameInput.value = '';
+                nameInput.disabled = false;
+                nameInput.classList.remove('text-gray-600');
+                
+                inputContainer.classList.add('hidden', 'opacity-0');
+                inputContainer.classList.remove('opacity-100');
+                hintText.classList.add('hidden', 'opacity-0');
+                hintText.classList.remove('opacity-100');
+                driveBtnContainer.classList.add('hidden', 'opacity-0');
+                driveBtnContainer.classList.remove('opacity-100');
+                
+                let i = 0;
+                text1El.classList.add('typing-cursor');
+                
+                // Función que escribe la primera parte letra por letra
+                function typeChar() {
+                    if (i < text1.length) {
+                        text1El.textContent += text1.charAt(i);
+                        i++;
+                        setTimeout(typeChar, Math.random() * 35 + 25);
+                    } else {
+                        text1El.classList.remove('typing-cursor');
                         
-                        const finalText = getFinalText(userName);
-                        let l = 0;
+                        inputContainer.classList.remove('hidden'); 
+                        setTimeout(() => {
+                            inputContainer.classList.remove('opacity-0');
+                            inputContainer.classList.add('opacity-100');
+                            
+                            setTimeout(() => {
+                                hintText.classList.remove('hidden');
+                                setTimeout(() => {
+                                    hintText.classList.remove('opacity-0');
+                                    hintText.classList.add('opacity-100');
+                                    nameInput.focus();
+                                }, 50);
+                            }, 500);
+                        }, 50);
+                    }
+                }
+                
+                // Iniciar escritura inicial
+                setTimeout(typeChar, 800);
+
+                // Escuchar el 'Enter' en el input
+                nameInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && this.value.trim() !== '') {
+                        const userName = this.value.trim();
                         
-                        function typeFinalText() {
-                            if (l < finalText.length) {
-                                finalTextSpan.textContent += finalText.charAt(l);
-                                l++;
-                                setTimeout(typeFinalText, Math.random() * 20 + 15); // Un poco más rápido por ser un texto largo
+                        // ¡AQUÍ GUARDAMOS EL NOMBRE PARA FUTURAS VISITAS!
+                        localStorage.setItem('devonMemberName', userName);
+                        
+                        // Ocultar elementos del input visualmente
+                        this.disabled = true;
+                        this.classList.add('text-gray-600');
+                        this.blur();
+                        hintText.classList.remove('opacity-100');
+                        hintText.classList.add('opacity-0');
+                        setTimeout(() => hintText.classList.add('hidden'), 500);
+                        
+                        const text2 = " Gracias, " + userName + ". A partir de ahora, este es tu espacio exclusivo.";
+                        let j = 0;
+                        text2El.classList.add('typing-cursor');
+                        
+                        // Escribir el saludo
+                        function typeChar2() {
+                            if (j < text2.length) {
+                                text2El.textContent += text2.charAt(j);
+                                j++;
+                                setTimeout(typeChar2, Math.random() * 35 + 25);
                             } else {
-                                finalTextSpan.classList.remove('typing-cursor');
-                                // Revelar el botón Drive
-                                driveBtnContainer.classList.remove('hidden');
-                                setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 200);
+                                text2El.classList.remove('typing-cursor');
+                                
+                                setTimeout(() => {
+                                    startEraseSequence(userName);
+                                }, 3000); // Pausa dramática de 3 segundos
                             }
                         }
-                        setTimeout(typeFinalText, 800); // Pequeña pausa después de borrar
+                        setTimeout(typeChar2, 600);
                     }
-                }
-                eraseChar();
-            }
-        }
+                });
 
-        // --- FUNCIÓN DE BLOQUEO DEVON MEMBERS ---
-        function initDevonLock() {
-            const lockScreen = document.getElementById('lock-screen');
-            const lockModal = document.getElementById('lock-modal');
-            const blurTargets = document.querySelectorAll('.blur-target');
-            const display = document.getElementById('countdown-display');
-            
-            // Si el usuario ya esperó su tiempo en visitas anteriores
-            if (localStorage.getItem('devonUnlocked') === 'true') {
-                if(lockScreen) lockScreen.remove();
-                if(window.startWelcomeSequence) window.startWelcomeSequence();
-                return;
-            }
+                // Función para borrar el texto actual y escribir el nuevo
+                function startEraseSequence(userName) {
+                    const currentFullText = mainTextContainer.textContent.replace(/_/g, '').trim(); 
+                    mainTextContainer.innerHTML = ''; 
+                    const erasingSpan = document.createElement('span');
+                    erasingSpan.textContent = currentFullText;
+                    erasingSpan.className = 'inline typing-cursor';
+                    mainTextContainer.appendChild(erasingSpan);
 
-            const LOCK_DURATION = 30 * 60 * 1000; // 30 minutos en milisegundos
-            let unlockTime = localStorage.getItem('devonUnlockTime');
-            
-            // Si es la primera vez que entra, establecer el tiempo límite
-            if (!unlockTime) {
-                unlockTime = Date.now() + LOCK_DURATION;
-                localStorage.setItem('devonUnlockTime', unlockTime);
-            } else {
-                unlockTime = parseInt(unlockTime, 10);
-            }
-
-            // Si aún no se cumple el tiempo
-            if (Date.now() < unlockTime) {
-                // Difuminar contenido
-                blurTargets.forEach(el => el.classList.add('locked-content'));
-                
-                // Mostrar alerta flotante de bienvenida y cuenta regresiva
-                lockScreen.classList.remove('opacity-0');
-                lockScreen.classList.add('opacity-100', 'pointer-events-auto');
-                
-                setTimeout(() => {
-                    lockModal.classList.remove('translate-y-12');
-                    lockModal.classList.add('translate-y-0');
-                }, 100);
-
-                // Función que actualiza el reloj
-                const interval = setInterval(() => {
-                    const now = Date.now();
-                    const timeLeft = unlockTime - now;
-
-                    if (timeLeft <= 0) {
-                        clearInterval(interval);
-                        unlockSite(true);
-                    } else {
-                        const minutes = Math.floor(timeLeft / (1000 * 60));
-                        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                        display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    }
-                }, 1000);
-                
-                // Llamada inicial para que no tarde 1 segundo en aparecer el tiempo
-                const timeLeft = unlockTime - Date.now();
-                const minutes = Math.floor(timeLeft / (1000 * 60));
-                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                // --- ATAJO: Si se presiona '2', se salta la espera sin recargar ---
-                const bypassListener = (e) => {
-                    if (e.key === '2') {
-                        clearInterval(interval);
-                        document.removeEventListener('keydown', bypassListener);
-                        unlockSite(false);
-                    }
-                };
-                document.addEventListener('keydown', bypassListener);
-
-            } else {
-                unlockSite(false); // Si el tiempo ya pasó antes de cargar la web
-            }
-            
-            // Función para liberar la web
-            function unlockSite(reload = true) {
-                localStorage.setItem('devonUnlocked', 'true');
-                
-                if (reload) {
-                    window.location.reload(); // Recargar la página solo si el contador llega a 0 naturalmente
-                } else {
-                    // Remover bloqueo visual de inmediato sin recargar (para la tecla '2')
-                    const lockScreen = document.getElementById('lock-screen');
-                    const blurTargets = document.querySelectorAll('.blur-target');
+                    let k = currentFullText.length;
                     
-                    if (lockScreen) {
-                        lockScreen.classList.remove('opacity-100', 'pointer-events-auto');
-                        lockScreen.classList.add('opacity-0', 'pointer-events-none');
-                        setTimeout(() => lockScreen.remove(), 1500); // Limpiar del DOM tras la animación
+                    function eraseChar() {
+                        if (k > 0) {
+                            erasingSpan.textContent = currentFullText.substring(0, k - 1);
+                            k--;
+                            setTimeout(eraseChar, 10); // Velocidad de borrado súper rápida
+                        } else {
+                            erasingSpan.classList.remove('typing-cursor');
+                            const finalTextSpan = document.createElement('span');
+                            finalTextSpan.className = 'inline typing-cursor';
+                            mainTextContainer.appendChild(finalTextSpan);
+                            
+                            const finalText = `"${userName}", ` + getFinalText(userName);
+                            let l = 0;
+                            
+                            function typeFinalText() {
+                                if (l < finalText.length) {
+                                    finalTextSpan.textContent += finalText.charAt(l);
+                                    l++;
+                                    setTimeout(typeFinalText, Math.random() * 20 + 15);
+                                } else {
+                                    finalTextSpan.classList.remove('typing-cursor');
+                                    // Revelar el botón Drive
+                                    driveBtnContainer.classList.remove('hidden');
+                                    setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 200);
+                                }
+                            }
+                            setTimeout(typeFinalText, 800); 
+                        }
                     }
-                    if (blurTargets) {
-                        blurTargets.forEach(el => el.classList.remove('locked-content'));
-                    }
-
-                    // Iniciar secuencia interactiva después de quitar el blur
-                    setTimeout(() => {
-                        if(window.startWelcomeSequence) window.startWelcomeSequence();
-                    }, 1000);
+                    eraseChar();
                 }
             }
         }
@@ -729,8 +643,6 @@
                             closeIsland();
                         });
                     }
-                    // Nota: Se ha eliminado el modo 'unavailable' a petición del usuario.
-                    
                     islandContent.classList.remove('island-text-fade');
                 }, 150); 
             }
@@ -773,26 +685,21 @@
             
             window.addEventListener('scroll', () => {
                 const scrollY = window.scrollY;
-                
-                // Animación colapso del Header (estilo Vogue)
                 if (secondaryNav) {
                     if (scrollY > 20) {
                         secondaryNav.style.height = '0px';
                         secondaryNav.style.opacity = '0';
                     } else {
-                        secondaryNav.style.height = '48px'; // Equivale a h-12
+                        secondaryNav.style.height = '48px'; 
                         secondaryNav.style.opacity = '1';
                     }
                 }
             });
 
-            // Validar estado inicial del header al cargar (por si se recarga a mitad de página)
             if (secondaryNav && window.scrollY > 20) {
                 secondaryNav.style.height = '0px';
                 secondaryNav.style.opacity = '0';
             }
-
-            // Nota: Se eliminó el script "5. Interacción de Elementos No Disponibles"
         });
 
         // --- 6. Funciones Globales (Menú Hamburguesa) ---
@@ -867,7 +774,6 @@
             // Bloquear el scroll de la página para no arruinar la animación
             document.body.style.overflow = 'hidden';
 
-            // --- EFECTO REVELACIÓN: Preparar la página web para ocultarla inicialmente ---
             // 1. Ocultar el logo de la barra superior para que no se vea doble
             const realLogo = document.getElementById('devon-text');
             if (realLogo) {
@@ -883,7 +789,6 @@
             
             siteElements.forEach(el => {
                 el.style.opacity = '0';
-                // La cabecera (HEADER) no se traslada en Y para que el logo sepa su coordenada final exacta
                 if (el.tagName !== 'HEADER') {
                     el.style.transform = 'translateY(30px)';
                     el.style.transition = 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
@@ -898,7 +803,6 @@
             const finalLogo = document.createElement('div');
             finalLogo.textContent = 'DEVON';
             
-            // Clases básicas (sin las transiciones de Tailwind para controlarlo mejor con JS)
             finalLogo.className = 'font-serif text-black font-bold tracking-[0.2em] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 scale-95';
             finalLogo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
             finalLogo.style.fontSize = 'clamp(3rem, 12vw, 10rem)'; 
@@ -920,7 +824,7 @@
                 introWrapper.style.transition = 'background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
                 introWrapper.style.backgroundColor = 'transparent';
                 
-                // B) Aparecer todo el contenido de la web con efecto de elevación "premium"
+                // B) Aparecer todo el contenido de la web con efecto de elevación
                 siteElements.forEach(el => {
                     el.style.opacity = '1';
                     if (el.tagName !== 'HEADER') el.style.transform = 'translateY(0)';
@@ -937,10 +841,10 @@
                 // Justo cuando termine el vuelo de 800ms, damos el cambiazo invisible
                 setTimeout(() => {
                     finalLogo.style.opacity = '0'; // Se oculta el animado
-                    realLogo.style.opacity = '1';  // Se revela el original (y aparece Members suavemente abajo)
+                    realLogo.style.opacity = '1';  // Se revela el original
                     
-                    // Iniciar la verificación de bloqueo/cuenta regresiva
-                    if(typeof initDevonLock === 'function') initDevonLock();
+                    // Iniciar la secuencia de bienvenida sin pasar por el bloqueo
+                    if(typeof window.startWelcomeSequence === 'function') window.startWelcomeSequence();
 
                     // Limpiar por completo el intro del DOM para no dejar residuos
                     setTimeout(() => {
@@ -949,7 +853,7 @@
 
                 }, 800);
 
-            }, 1800); // El logo DEVON se admira en el centro durante 1.8 segundos antes de despegar
+            }, 1800); 
         });
     </script>
 </body>
