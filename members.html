@@ -295,24 +295,24 @@
     <main class="blur-target w-full flex-1 flex flex-col items-center justify-center min-h-[60vh] pb-20 pt-20">
         <div id="welcome-sequence-container" class="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-start text-left">
             
-            <!-- Contenedor flex para que el texto y el input estén en la misma línea (inline-block o flex wrap) -->
-            <div class="text-lg md:text-2xl font-light tracking-wide text-black leading-relaxed font-serif w-full">
+            <!-- Contenedor del texto interactivo -->
+            <div class="text-lg md:text-2xl font-normal tracking-wide text-black leading-relaxed font-geometric w-full">
                 <!-- Texto que se escribe solo -->
                 <span id="typing-text-1" class="inline"></span>
                 
-                <!-- Input para el nombre (oculto inicialmente) que fluye junto con el texto -->
-                <span id="name-input-container" class="opacity-0 transition-opacity duration-1000 hidden inline-block align-baseline mt-2 md:mt-0 ml-2">
-                    _<input type="text" id="member-name-input" class="text-lg md:text-2xl font-serif text-black bg-transparent outline-none w-48 md:w-64 placeholder-gray-400 font-light" style="border:none; border-bottom: 1px solid black; border-radius: 0; box-shadow: none;" placeholder="(Escribe tu nombre aqui)" autocomplete="off" spellcheck="false">_
+                <!-- Input para el nombre que fluye junto con el texto -->
+                <span id="name-input-container" class="opacity-0 transition-opacity duration-1000 hidden inline">
+                    <span class="ml-1">_</span><input type="text" id="member-name-input" class="text-lg md:text-2xl font-geometric text-black bg-transparent outline-none w-56 md:w-64 placeholder-gray-400 font-normal inline" style="border:none; border-bottom: 1px solid black; border-radius: 0; box-shadow: none;" placeholder="(Escribe tu nombre aqui)" autocomplete="off" spellcheck="false"><span class="mr-1">_</span>
                 </span>
             </div>
 
             <!-- Hint de presionar enter (abajo) -->
-            <p id="name-hint" class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-gray-400 mt-4 uppercase font-geometric transition-opacity duration-500 opacity-0 hidden">
+            <p id="name-hint" class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-gray-400 mt-6 uppercase font-geometric transition-opacity duration-500 opacity-0 hidden">
                 Presiona Enter para continuar
             </p>
 
             <!-- Texto de continuación -->
-            <p id="typing-text-2" class="text-lg md:text-2xl font-light tracking-wide text-black mt-8 min-h-[3rem] font-serif w-full"></p>
+            <p id="typing-text-2" class="text-lg md:text-2xl font-normal tracking-wide text-black mt-8 min-h-[3rem] font-geometric w-full"></p>
 
         </div>
     </main>
