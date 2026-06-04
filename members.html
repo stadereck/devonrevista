@@ -295,15 +295,15 @@
     <main class="blur-target w-full flex-1 flex flex-col items-center justify-center min-h-[60vh] pb-20 pt-20">
         <div id="welcome-sequence-container" class="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-start text-left">
             
-            <!-- Contenedor del texto interactivo -->
-            <div class="text-lg md:text-2xl font-normal tracking-wide text-black leading-relaxed font-geometric w-full">
-                <!-- Texto que se escribe solo -->
+            <!-- Contenedor ÚNICO para todo el texto. Se vaciará dinámicamente -->
+            <div id="main-text-container" class="text-lg md:text-2xl font-normal tracking-wide text-black leading-relaxed font-geometric w-full">
+                <!-- Fase 1: Texto inicial y input -->
                 <span id="typing-text-1" class="inline"></span>
-                
-                <!-- Input para el nombre que fluye junto con el texto -->
                 <span id="name-input-container" class="opacity-0 transition-opacity duration-1000 hidden inline">
                     <span class="ml-1">_</span><input type="text" id="member-name-input" class="text-lg md:text-2xl font-geometric text-black bg-transparent outline-none w-56 md:w-64 placeholder-gray-400 font-normal inline" style="border:none; border-bottom: 1px solid black; border-radius: 0; box-shadow: none;" placeholder="(Escribe tu nombre aqui)" autocomplete="off" spellcheck="false"><span class="mr-1">_</span>
                 </span>
+                <!-- Fase 2: Saludo inicial en la misma línea -->
+                <span id="typing-text-2" class="inline"></span>
             </div>
 
             <!-- Hint de presionar enter (abajo) -->
@@ -311,8 +311,12 @@
                 Presiona Enter para continuar
             </p>
 
-            <!-- Texto de continuación -->
-            <p id="typing-text-2" class="text-lg md:text-2xl font-normal tracking-wide text-black mt-8 min-h-[3rem] font-geometric w-full"></p>
+            <!-- Contenedor del Botón Drive (Oculto inicialmente) -->
+            <div id="drive-button-container" class="mt-8 opacity-0 transition-opacity duration-1000 hidden w-full flex justify-center">
+                <a href="https://drive.google.com/drive/folders/1FrLGUH8RY6NnqOrDKr0vJtdNBn_zev8O?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-block px-8 py-3 bg-black text-white text-xs md:text-sm font-bold tracking-[0.2em] uppercase font-geometric hover:bg-gray-800 transition-colors border border-black">
+                    DRIVE
+                </a>
+            </div>
 
         </div>
     </main>
@@ -428,21 +432,23 @@
             const nameInput = document.getElementById('member-name-input');
             const hintText = document.getElementById('name-hint');
             const text2El = document.getElementById('typing-text-2');
+            const mainTextContainer = document.getElementById('main-text-container');
+            const driveBtnContainer = document.getElementById('drive-button-container');
 
-            // Si ya se registró antes, mostrar un mensaje de regreso sin hacer toda la animación
+            // Textos para la Fase Final
+            const getFinalText = (name) => `"${name}", Aquí puedes volver las veces que necesites para obtener acceso al Google Drive donde tú podrás crear una carpeta propia donde podrás subir tus mejores Fotos, Looks, etcétera. Si tienes cualquier duda no dudes en enviarnos un mensaje a nuestro instagram. Aquí podrás encontrar el drive donde podrás subir tus fotos, no te preocupes si salen algo mal, nuestro equipo se encargará de editarlas y subirlas a nuestro instagram si así lo decides, y elegiremos las mejores fotos para subirlas a nuestra próxima edición en aproximadamente de 1 a 2 semanas desde la fecha de hoy.`;
+
+            // --- LÓGICA SI YA EXISTE UN USUARIO REGISTRADO ---
             const savedName = localStorage.getItem('devonMemberName');
             if (savedName) {
-                text1El.textContent = text1;
-                nameInput.value = savedName;
-                inputContainer.classList.remove('hidden');
-                inputContainer.classList.add('opacity-100');
-                nameInput.disabled = true;
-                hintText.style.display = 'none';
-                text2El.textContent = "Nos alegra tenerte de vuelta, " + savedName + ". Disfruta de tu espacio exclusivo en Devon.";
+                // Mostrar directamente el mensaje final sin animación
+                mainTextContainer.innerHTML = `<span class="inline">${getFinalText(savedName)}</span>`;
+                driveBtnContainer.classList.remove('hidden');
+                setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 100);
                 return;
             }
 
-            // Reiniciar estado
+            // --- INICIO DE SECUENCIA NUEVA ---
             text1El.textContent = '';
             text2El.textContent = '';
             inputContainer.classList.remove('hidden'); 
@@ -456,11 +462,10 @@
                 if (i < text1.length) {
                     text1El.textContent += text1.charAt(i);
                     i++;
-                    setTimeout(typeChar, Math.random() * 35 + 25); // Velocidad aleatoria para mayor realismo
+                    setTimeout(typeChar, Math.random() * 35 + 25);
                 } else {
                     text1El.classList.remove('typing-cursor');
                     
-                    // Mostrar la línea para el nombre y el hint
                     inputContainer.classList.remove('opacity-0');
                     inputContainer.classList.add('opacity-100');
                     
@@ -472,16 +477,16 @@
                 }
             }
             
-            // Iniciar escritura con un pequeño retraso
+            // Iniciar escritura inicial
             setTimeout(typeChar, 800);
 
             // Escuchar el 'Enter' en el input
             nameInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' && this.value.trim() !== '') {
                     const userName = this.value.trim();
-                    localStorage.setItem('devonMemberName', userName); // Guardar el nombre
+                    localStorage.setItem('devonMemberName', userName);
                     
-                    // Desactivar el input visualmente de forma elegante
+                    // Ocultar elementos del input visualmente
                     this.disabled = true;
                     this.classList.add('text-gray-600');
                     this.blur();
@@ -489,11 +494,12 @@
                     hintText.classList.add('opacity-0');
                     setTimeout(() => hintText.classList.add('hidden'), 500);
                     
-                    const text2 = "Gracias, " + userName + ". A partir de ahora, este es tu espacio exclusivo.";
+                    // Asegurarnos de que haya un espacio antes del saludo
+                    const text2 = " Gracias, " + userName + ". A partir de ahora, este es tu espacio exclusivo.";
                     let j = 0;
                     text2El.classList.add('typing-cursor');
                     
-                    // Escribir la respuesta
+                    // Escribir el saludo
                     function typeChar2() {
                         if (j < text2.length) {
                             text2El.textContent += text2.charAt(j);
@@ -501,11 +507,61 @@
                             setTimeout(typeChar2, Math.random() * 35 + 25);
                         } else {
                             text2El.classList.remove('typing-cursor');
+                            
+                            // *** COMIENZA FASE 3: BORRADO Y NUEVO TEXTO ***
+                            setTimeout(() => {
+                                startEraseSequence(userName);
+                            }, 3000); // Pausa dramática de 3 segundos para que lean el saludo
                         }
                     }
-                    setTimeout(typeChar2, 600); // Pausa dramática antes de responder
+                    setTimeout(typeChar2, 600);
                 }
             });
+
+            // Función para borrar el texto actual y escribir el nuevo
+            function startEraseSequence(userName) {
+                // Unificar todo el texto visible en un solo bloque para borrarlo fácilmente
+                const currentFullText = mainTextContainer.textContent.replace(/_/g, '').trim(); // Quitamos los guiones bajos del input
+                mainTextContainer.innerHTML = ''; // Limpiamos la estructura compleja
+                const erasingSpan = document.createElement('span');
+                erasingSpan.textContent = currentFullText;
+                erasingSpan.className = 'inline typing-cursor';
+                mainTextContainer.appendChild(erasingSpan);
+
+                let k = currentFullText.length;
+                
+                function eraseChar() {
+                    if (k > 0) {
+                        erasingSpan.textContent = currentFullText.substring(0, k - 1);
+                        k--;
+                        setTimeout(eraseChar, 10); // Velocidad de borrado súper rápida
+                    } else {
+                        // Terminó de borrar, empezar a escribir el texto final
+                        erasingSpan.classList.remove('typing-cursor');
+                        const finalTextSpan = document.createElement('span');
+                        finalTextSpan.className = 'inline typing-cursor';
+                        mainTextContainer.appendChild(finalTextSpan);
+                        
+                        const finalText = getFinalText(userName);
+                        let l = 0;
+                        
+                        function typeFinalText() {
+                            if (l < finalText.length) {
+                                finalTextSpan.textContent += finalText.charAt(l);
+                                l++;
+                                setTimeout(typeFinalText, Math.random() * 20 + 15); // Un poco más rápido por ser un texto largo
+                            } else {
+                                finalTextSpan.classList.remove('typing-cursor');
+                                // Revelar el botón Drive
+                                driveBtnContainer.classList.remove('hidden');
+                                setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 200);
+                            }
+                        }
+                        setTimeout(typeFinalText, 800); // Pequeña pausa después de borrar
+                    }
+                }
+                eraseChar();
+            }
         }
 
         // --- FUNCIÓN DE BLOQUEO DEVON MEMBERS ---
