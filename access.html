@@ -66,6 +66,12 @@
             z-index: 10;
         }
 
+        footer .animated-slash {
+            background-color: white;
+        }
+
+
+
         /* --- Estils de la Illa Dinàmica --- */
         .island-container {
             width: 0px; height: 0px; opacity: 0;
@@ -113,6 +119,31 @@
             display: inline-block;
             transition: transform 0.1s ease-out;
             will-change: transform;
+        }
+
+        /* --- Dynamic Island --- */
+        #dynamic-island {
+            position: absolute;
+            inset: -8px -24px;
+            border-radius: 9999px;
+            background-color: #0B1320;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bodoni Moda', serif;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            transform: scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+        #dynamic-island.active {
+            transform: scale(1);
+            opacity: 1;
         }
 
         /* --- Utilidades Extras (Sidebar) --- */
@@ -219,14 +250,14 @@
             <!-- Centro: Logo animado y Subtítulo -->
             <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex flex-col items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
                 
-                <div id="devon-text" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
+                <a id="devon-text" href="index.html" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
                     <span class="text-3xl sm:text-4xl md:text-[42px] font-bold tracking-widest text-black font-serif uppercase flex items-center leading-none">
                         DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
                     </span>
                     <span class="text-[7px] md:text-[8px] font-semibold tracking-[0.2em] text-black uppercase mt-1.5 leading-tight text-center font-geometric">
                         MÉXICO Y<br>LATINOAMÉRICA
                     </span>
-                </div>
+                </a>
 
                 <!-- Isla Dinámica -->
                 <div id="dynamic-island" class="island-container absolute rounded-full flex items-center justify-center overflow-hidden shadow-xl" style="top: 25px;">
@@ -387,9 +418,10 @@
                 
                 <!-- Logo DEVON centrado con la línea animada en la O (Versión Blanca) -->
                 <div class="flex items-center justify-start transition-all duration-500 mb-8">
-                    <span class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white font-serif uppercase flex items-center">
+                    <a href="index.html" class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white font-serif uppercase flex items-center">
                         DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
                     </span>
+                    </a>
                 </div>
                 
                 <div class="flex gap-3">
