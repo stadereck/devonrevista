@@ -116,6 +116,21 @@
         .link-underline:hover::after {
             width: 100%;
         }
+        /* Protección contra selección y guardado */
+        .no-select, .no-select * {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+        }
+        img { -webkit-user-drag: none; user-drag: none; }
+        /* Overlay que evita interacciones directas con la imagen */
+        .no-save-overlay { position: absolute; inset: 0; z-index: 20; }
+        /* Evitar impresión útil */
+        @media print {
+            html, body { display: none !important; }
+        }
     </style>
 </head>
 <body class="bg-white text-black font-sans flex flex-col min-h-screen">
@@ -202,17 +217,18 @@
     <main class="w-full flex-1 bg-white pt-12 md:pt-16">
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             
-            <!-- Columna Izquierda: Imagen Portada -->
-            <div class="lg:col-span-5 relative group">
-                <img 
-                        src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1780770047/Devon_June_2026_N.231_Suscripcio%CC%81n_sddr6u.png" 
-                        alt="Hailei Bieber" 
-                        class="w-full h-auto object-cover shadow-sm transition-transform duration-700 hover:scale-[1.02]"
-                    />
+            <!-- Columna Izquierda: Imagen Portada (agrandada, sticky) -->
+            <div class="lg:col-span-7 relative group">
+                <div class="cover-image-wrap sticky top-0 w-full h-screen overflow-hidden">
+                            <div class="cover-image-scale w-full h-full" style="background-image: url('https://res.cloudinary.com/dhx58lnzb/image/upload/v1780770047/Devon_June_2026_N.231_Suscripcio%CC%81n_sddr6u.png'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
+                                <!-- Overlay para prevenir toques/descargas directas -->
+                                <div class="no-save-overlay no-select" aria-hidden="true"></div>
+                            </div>
+                </div>
             </div>
 
             <!-- Columna Derecha: Detalles del Producto -->
-            <div class="lg:col-span-7 flex flex-col justify-start">
+            <div class="lg:col-span-5 flex flex-col justify-start">
                 
                 <!-- Breadcrumb -->
                 <div class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-4 font-sans">
@@ -514,6 +530,61 @@
 
     <!-- SCIPT DE INTERACCIONES GLOBALES -->
     <script>
+        // Ajuste para mantener la imagen visualmente grande al cambiar el zoom del navegador.
+        // Nota: esto intenta compensar cambios en `window.devicePixelRatio` pero no puede
+        // garantizar un comportamiento idéntico en todos los navegadores/dispositivos.
+        (function(){
+            function adjustCoverScale(){
+                const wrap = document.querySelector('.cover-image-scale');
+                if(!wrap) return;
+                const dpr = window.devicePixelRatio || 1;
+                // Escalamos inversamente al DPR y ajustamos el ancho/alto para compensar
+                wrap.style.transformOrigin = 'top left';
+                wrap.style.transform = `scale(${1 / dpr})`;
+                wrap.style.width = `${100 * dpr}%`;
+                wrap.style.height = `${100 * dpr}%`;
+            }
+            window.addEventListener('load', adjustCoverScale);
+            window.addEventListener('resize', adjustCoverScale);
+            // También en cambio de zoom (algunos navegadores cambian devicePixelRatio)
+            setInterval(adjustCoverScale, 800);
+        })();
+
+        // --- Protección contra guardado/imprenta/capturas (tan robusta como permite el navegador) ---
+        (function(){
+            // Bloquear menú contextual y arrastre
+            document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+            document.addEventListener('mousedown', function(e){ if (e.button === 2) e.preventDefault(); });
+            document.addEventListener('selectstart', function(e){ e.preventDefault(); });
+            document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+
+            // Bloquear atajos de impresión/guardar
+            document.addEventListener('keydown', function(e){
+                // Ctrl/Cmd+P, Ctrl/Cmd+S, Ctrl+Shift+S, PrintScreen
+                if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P' || e.key === 's' || e.key === 'S')) {
+                    e.preventDefault();
+                    return false;
+                }
+                if (e.key === 'PrintScreen') {
+                    try { navigator.clipboard && navigator.clipboard.writeText(''); } catch (err) {}
+                }
+            });
+
+            // Evitar long-press en móviles que muestre guardar imagen
+            let touchTimer = null;
+            document.addEventListener('touchstart', function(e){
+                if (e.touches.length > 1) return;
+                touchTimer = setTimeout(function(){ e.preventDefault(); }, 500);
+            }, {passive: false});
+            document.addEventListener('touchend', function(e){ if (touchTimer) { clearTimeout(touchTimer); touchTimer = null; } }, {passive: false});
+
+            // Evitar impresión desde window.print
+            window.addEventListener('beforeprint', function(e){ e.preventDefault(); });
+            window.print = function() { return false; };
+
+            // Aplicar clases para evitar selección/interacciones en todo el body
+            document.documentElement.classList.add('no-select');
+        })();
         const overlay = document.getElementById('overlay');
         const sidebar = document.getElementById('sidebarMenu');
 
