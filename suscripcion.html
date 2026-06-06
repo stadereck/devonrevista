@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suscripción | Devon</title>
+    <title>Suscripción | Devon México y Latinoamérica</title>
     <!-- Ícono de la pestaña (Favicon) -->
     <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
     
@@ -92,6 +92,11 @@
         .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
         .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
 
+        /* --- Transición suave del secondary nav --- */
+        #secondary-nav {
+            transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease, border-top-width 0.3s ease;
+        }
+
         /* --- Animación de Línea para los Enlaces --- */
         .link-underline {
             position: relative;
@@ -139,7 +144,8 @@
     </aside>
 
     <!-- Barra de Navegación Principal -->
-    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-100 md:border-none">
+    <header class="w-full bg-white sticky top-0 z-30 border-b border-gray-200">
+        <!-- Fila superior: hamburguesa · logo · suscripción -->
         <div class="max-w-7xl mx-auto flex items-center justify-between px-5 h-16 md:h-20 relative">
             <button onclick="toggleMenu()" class="text-black z-20 hover:scale-110 transition-transform">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
@@ -148,9 +154,9 @@
                 </svg>
             </button>
             
-            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center justify-center z-10">
-                <a href="index.html" class="flex items-center group/logo hover:opacity-80 transition-opacity">
-                    <h1 id="devon-text" class="text-4xl md:text-5xl font-bold tracking-widest text-black mt-1 flex items-center font-serif uppercase">
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex flex-col items-center justify-center z-10">
+                <a href="index.html" class="flex flex-col items-center group/logo hover:opacity-80 transition-opacity">
+                    <h1 id="devon-text" class="text-4xl md:text-5xl font-bold tracking-widest text-black flex items-center font-serif uppercase leading-none">
                         DEV
                         <span class="relative inline-flex items-center justify-center group">
                             O
@@ -158,6 +164,7 @@
                         </span>
                         N
                     </h1>
+                    <span class="text-[7px] md:text-[8px] tracking-[0.18em] uppercase text-black mt-0.5 font-sans font-normal" style="letter-spacing: 0.18em;">MÉXICO Y LATINOAMÉRICA</span>
                 </a>
             </div>
             
@@ -167,19 +174,20 @@
                 </a>
             </div>
         </div>
-    </header>
 
-    <!-- Top Bar (Textos Categorías) -->
-    <div class="hidden md:flex w-full justify-center gap-8 lg:gap-12 text-[11px] lg:text-xs font-medium tracking-[0.2em] text-black uppercase py-4 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap px-6" style="font-family: 'Jost', sans-serif;">
-        <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
-        <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
-        <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
-        <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
-        <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
-        <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
-        <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
-        <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
-    </div>
+        <!-- Fila inferior: menú categorías (solo desktop) -->
+        <div id="secondary-nav" class="hidden md:flex w-full justify-center gap-8 lg:gap-10 text-[11px] lg:text-[11px] font-medium tracking-[0.2em] text-black uppercase py-3 bg-white overflow-x-auto whitespace-nowrap px-6 border-t border-gray-200 transition-all duration-300" style="font-family: 'Jost', sans-serif;">
+            <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+            <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+            <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+            <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+            <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+            <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+            <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+            <a href="videos.html" class="cursor-pointer hover:text-gray-500 transition-colors">VIDEOS</a>
+            <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
+        </div>
+    </header>
 
     <!-- Pestañas Superiores (Solo Móvil) -->
     <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase border-b border-gray-200">
@@ -188,29 +196,7 @@
         </a>
     </div>
 
-    <!-- BANNER: Van Cleef & Arpels (Hasta arriba) -->
-    <section class="w-full relative flex items-center justify-center overflow-hidden border-b border-gray-200 min-h-[220px] md:min-h-[280px]">
-        <img 
-            src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?q=80&w=2000&auto=format&fit=crop" 
-            alt="Fondo Van Cleef" 
-            class="absolute inset-0 w-full h-full object-cover object-center z-0"
-        />
-        <div class="max-w-7xl w-full flex flex-col items-center md:items-start text-center md:text-left z-10 px-6 md:px-12 py-8 md:py-10 relative">
-            <h2 class="text-2xl md:text-4xl text-black mb-2" style="font-family: 'Georgia', 'Times New Roman', serif;">Van Cleef & Arpels</h2>
-            <p class="text-[10px] md:text-xs text-gray-800 mb-4" style="font-family: 'Georgia', 'Times New Roman', serif;">Haute Joaillerie, place Vendôme desde 1906</p>
-            
-            <div class="mb-4 text-black opacity-90 flex items-center justify-center md:justify-start">
-                <svg width="30" height="20" viewBox="0 0 36 24">
-                    <polygon points="18,1 35,12 18,23 1,12" fill="none" stroke="currentColor" stroke-width="1.2"></polygon>
-                    <text x="18" y="15" font-size="7" font-family="serif" text-anchor="middle" fill="currentColor">VCA</text>
-                </svg>
-            </div>
-            
-            <a href="coleccionlucky.html" class="text-[9px] md:text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:text-gray-600 transition-colors">
-                DESCUBRE LA COLECCIÓN LUCKY SPRING
-            </a>
-        </div>
-    </section>
+    <!-- Banner eliminado según solicitud: Van Cleef & Arpels -->
 
     <!-- Contenedor Principal: Opciones de Compra -->
     <main class="w-full flex-1 bg-white pt-12 md:pt-16">
@@ -219,10 +205,10 @@
             <!-- Columna Izquierda: Imagen Portada -->
             <div class="lg:col-span-5 relative group">
                 <img 
-                    src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1775165438/ChatGPT_Image_2_abr_2026_03_30_21_p.m._oacvxt.png" 
-                    alt="Devon México Cover" 
-                    class="w-full h-auto object-cover shadow-sm transition-transform duration-700 hover:scale-[1.02]"
-                />
+                        src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1780770047/Devon_June_2026_N.231_Suscripcio%CC%81n_sddr6u.png" 
+                        alt="Hailei Bieber" 
+                        class="w-full h-auto object-cover shadow-sm transition-transform duration-700 hover:scale-[1.02]"
+                    />
             </div>
 
             <!-- Columna Derecha: Detalles del Producto -->
@@ -334,6 +320,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                     </button>
+
+                    <!-- Toast: No hay ediciones -->
+                    <div id="noEditionsToast" class="pointer-events-none fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-black text-white px-5 py-3 rounded-lg shadow-lg opacity-0 translate-y-4 transition-all duration-300 z-50">
+                        No Tenemos ediciones en este momento
+                    </div>
                 </div>
 
                 <!-- Detalles y Viñetas -->
@@ -536,6 +527,28 @@
         }
 
         function closeMenu() { sidebar.classList.remove('open'); }
+
+        // --- Colapsar menú de categorías al hacer scroll ---
+        const secondaryNav = document.getElementById('secondary-nav');
+        window.addEventListener('scroll', () => {
+            if (secondaryNav) {
+                if (window.scrollY > 20) {
+                    secondaryNav.style.height = '0';
+                    secondaryNav.style.opacity = '0';
+                    secondaryNav.style.overflow = 'hidden';
+                    secondaryNav.style.paddingTop = '0';
+                    secondaryNav.style.paddingBottom = '0';
+                    secondaryNav.style.borderTopWidth = '0';
+                } else {
+                    secondaryNav.style.height = '';
+                    secondaryNav.style.opacity = '';
+                    secondaryNav.style.overflow = '';
+                    secondaryNav.style.paddingTop = '';
+                    secondaryNav.style.paddingBottom = '';
+                    secondaryNav.style.borderTopWidth = '';
+                }
+            }
+        });
         
         function showOverlay() {
             overlay.classList.remove('hidden');
@@ -727,10 +740,35 @@
                 setSubscribedState();
             }
 
+            // --- Control: mostrar mensaje cuando NO hay ediciones ---
+            const hasEditions = false; // Cambiar a true si vuelven a haber ediciones disponibles
+
+            function showNoEditionsMsg() {
+                const toast = document.getElementById('noEditionsToast');
+                if (!toast) return;
+                // Entrar: slide + fade
+                toast.classList.remove('translate-y-4', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+                // Salir luego de 3s
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                    toast.classList.add('translate-y-4', 'opacity-0');
+                }, 3200);
+            }
+
             if (btnSubscribeNow) {
                 btnSubscribeNow.addEventListener("click", () => {
-                    // Si ya está suscrito, no hace nada
-                    if (localStorage.getItem("devonSubscribed") === "true") return;
+                    // Si no hay ediciones disponibles, mostrar mensaje y no continuar
+                    if (!hasEditions) {
+                        showNoEditionsMsg();
+                        return;
+                    }
+
+                    // Si ya está suscrito, mostrar el mismo mensaje animado
+                    if (localStorage.getItem("devonSubscribed") === "true") {
+                        showNoEditionsMsg();
+                        return;
+                    }
 
                     // Cambiar a estado de carga
                     btnText.innerText = "PROCESANDO...";
