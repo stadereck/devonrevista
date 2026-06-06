@@ -111,6 +111,14 @@
         #sidebar-overlay {
             transition: opacity 0.3s ease;
         }
+
+        /* Sidebar Animation */
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar:not(.-translate-x-full) {
+            transform: translateX(0) !important;
+        }
         
         /* Staggered Sidebar Links */
         .stagger-link {
@@ -148,88 +156,98 @@
 </head>
 <body class="font-sans text-gray-900 bg-white antialiased overflow-x-hidden selection:bg-brandPink selection:text-white">
 
-    <!-- SIDEBAR & OVERLAY -->
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/70 z-50 hidden opacity-0"></div>
-    <aside id="sidebar" class="fixed top-0 left-0 w-[85%] sm:w-80 h-full bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
-        <!-- Nueva Cabecera del Sidebar según la captura -->
-        <div class="flex justify-between items-center px-8 py-6 border-b border-gray-200">
-            <h2 class="font-sans font-bold text-2xl tracking-[0.25em] text-black uppercase">Menú</h2>
-            <button id="close-sidebar-btn" class="text-gray-500 hover:text-black transition p-2 -mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+        <!-- Overlay y Sidebar -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/70 z-40 hidden transition-opacity opacity-0"></div>
+    <aside id="sidebar" class="sidebar -translate-x-full fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-50 shadow-2xl flex flex-col">
+        <div class="p-5 flex justify-between items-center border-b border-gray-200">
+            <h2 class="text-xl font-bold tracking-widest text-black">MENÚ</h2>
+            <button id="close-sidebar-btn" class="text-gray-500 hover:text-black p-2 transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
         </div>
-        <nav class="flex-1 overflow-y-auto py-8 px-8 flex flex-col space-y-8 font-sans text-[13px] tracking-widest font-bold uppercase text-gray-600" id="sidebar-nav-container">
-            <a href="suscripcion.html" class="stagger-link delay-100 text-black">Suscripción</a>
-            <a href="index.html" class="stagger-link delay-150 hover:text-black transition-colors">Inicio</a>
-            <a href="moda.html" class="stagger-link delay-200 hover:text-black transition-colors">Moda</a>
-            <a href="belleza.html" class="stagger-link delay-250 hover:text-black transition-colors">Belleza</a>
-            <a href="estilodevida.html" class="stagger-link delay-300 hover:text-black transition-colors">Estilo de Vida</a>
-            <a href="compras.html" class="stagger-link delay-350 hover:text-black transition-colors">Compras</a>
-            <a href="redevon.html" class="stagger-link delay-400 hover:text-black transition-colors">(Re)Devon</a>
-            <a href="hollywood.html" class="stagger-link delay-450 hover:text-black transition-colors">Hollywood</a>
-            <a href="podcast.html" class="stagger-link delay-500 hover:text-black transition-colors">Podcast</a>
-            <a href="espaciodevon.html" class="stagger-link delay-550 hover:text-black transition-colors">Espacio Devon</a>
+        <nav id="sidebar-nav-container" class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-500 uppercase overflow-y-auto no-scrollbar pb-20">
+            <a href="suscripcion.html" class="text-black hover:bg-gray-100 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Espacio Devon</a>
         </nav>
     </aside>
 
-    <!-- HEADER STICKY -->
-    <header class="sticky top-0 z-40 bg-white border-b border-gray-200">
-        <!-- Fila Superior -->
-        <div class="grid grid-cols-3 items-center px-4 md:px-8 py-3 md:py-5 max-w-7xl mx-auto">
-            <!-- Hamburguesa -->
-            <div class="flex justify-start">
-                <button id="menu-btn" class="text-black hover:text-gray-600 transition p-2 -ml-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 10H21" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
-                        <path d="M3 14H21" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
+    <!-- Barra de Navegación Principal (Unificada con animación al hacer scroll) -->
+    <header id="main-header" class="w-full bg-white sticky top-0 z-40 border-b border-gray-200 transition-all duration-300">
+        
+        <!-- Fila Superior (Siempre visible) -->
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between px-5 md:px-8 h-16 md:h-[90px] relative bg-white z-20">
+            
+            <!-- Izquierda: Menú Hamburguesa -->
+            <div class="flex items-center gap-4 z-20 w-1/4">
+                <button id="menu-btn" class="text-black hover:text-gray-500 transition-colors">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="square">
+                        <line x1="2" y1="9" x2="22" y2="9"></line>
+                        <line x1="2" y1="15" x2="22" y2="15"></line>
                     </svg>
                 </button>
             </div>
-
-            <!-- Logo + Isla Dinámica -->
-            <a id="logo-container" href="index.html" class="relative flex flex-col items-center justify-center cursor-pointer select-none text-center">
-                <h1 class="font-serif font-bold text-4xl md:text-5xl lg:text-6xl tracking-widest text-black relative z-0 mb-1">
-                    DEV<span class="slash-o">O</span>N
-                </h1>
-                <p class="font-geometric header-subtext uppercase tracking-[0.2em] text-gray-800 font-bold whitespace-pre-line text-center">MÉXICO Y
-LATINOAMÉRICA</p>
-                <!-- Isla Dinámica -->
-                <div id="dynamic-island">DEVON</div>
-            </a>
-
-            <!-- Suscripción -->
-            <div class="flex justify-end hidden sm:flex">
-                <button class="font-light font-sans text-[10px] md:text-xs tracking-widest uppercase hover:opacity-70 transition">
-                    Suscripción
+            
+            <!-- Centro: Logo animado y Subtítulo -->
+            <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex flex-col items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
+                <button id="logo-container" class="relative flex flex-col items-center justify-center cursor-pointer select-none text-center">
+                    <span class="text-3xl sm:text-4xl md:text-[42px] font-bold tracking-widest text-black font-serif uppercase flex items-center leading-none">
+                        DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+                    </span>
+                    <span class="text-[7px] md:text-[8px] font-semibold tracking-[0.2em] text-black uppercase mt-1.5 leading-tight text-center font-geometric">
+                        MÉXICO Y<br>LATINOAMÉRICA
+                    </span>
                 </button>
+
+                <!-- Isla Dinámica -->
+                <div id="dynamic-island" class="island-container absolute rounded-full flex items-center justify-center overflow-hidden shadow-xl" style="top: 25px;">
+                    <div id="island-content" class="w-full flex items-center justify-center transition-all duration-300">
+                        <span class="text-white text-xs md:text-sm font-bold tracking-widest font-serif uppercase">DEVON</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Derecha: Suscripción -->
+            <div class="flex items-center justify-end gap-5 md:gap-7 z-20 w-1/4">
+                <a href="suscripcion.html" class="hidden md:block text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black hover:text-gray-500 transition-colors mt-0.5 font-geometric">
+                    SUSCRIPCIÓN
+                </a>
             </div>
         </div>
 
-        <!-- Fila Inferior (Secondary Nav - Solo Desktop) -->
-        <nav id="secondary-nav" class="hidden md:flex justify-center flex-wrap gap-x-8 gap-y-2 pb-4 pt-2 font-geometric text-[10px] md:text-[11px] uppercase tracking-widest font-bold max-w-7xl mx-auto px-4 text-black">
-            <a href="moda.html" class="hover:text-gray-500 transition-colors">Moda</a>
-            <a href="belleza.html" class="hover:text-gray-500 transition-colors">Belleza</a>
-            <a href="estilodevida.html" class="hover:text-gray-500 transition-colors">Estilo de Vida</a>
-            <a href="compras.html" class="hover:text-gray-500 transition-colors">Compras</a>
-            <a href="redevon.html" class="hover:text-gray-500 transition-colors">(Re)Devon</a>
-            <a href="hollywood.html" class="hover:text-gray-500 transition-colors">Hollywood</a>
-            <a href="podcast.html" class="hover:text-gray-500 transition-colors">Podcast</a>
-            <a href="videos.html" class="hover:text-gray-500 transition-colors">Videos</a>
-            <a href="espaciodevon.html" class="hover:text-gray-500 transition-colors">Espacio Devon</a>
-        </nav>
+        <!-- Fila Inferior: Menú de Categorías (Se oculta al deslizar hacia abajo) -->
+        <div id="secondary-nav" class="hidden md:flex w-full justify-center text-[9px] lg:text-[10px] font-bold tracking-[0.15em] text-black uppercase bg-white overflow-hidden transition-[height,opacity] duration-300 ease-in-out h-12 opacity-100 font-geometric">
+            <div class="flex items-center h-full px-4 gap-4 md:gap-5 lg:gap-6">
+                <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+                <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+                <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+                <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+                <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+                <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+                <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+                <a href="videos.html" class="cursor-pointer hover:text-gray-500 transition-colors">VIDEOS</a>
+                <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
+            </div>
+        </div>
     </header>
 
-    <!-- PESTAÑAS MÓVIL (Bajo el header en móvil) -->
-    <div class="md:hidden flex overflow-x-auto space-x-6 px-4 py-3 bg-white border-b border-gray-100 font-geometric text-[10px] uppercase tracking-widest font-bold whitespace-nowrap hide-scrollbar">
-        <a href="moda.html" class="text-black">Moda</a>
-        <a href="belleza.html" class="text-gray-500">Belleza</a>
-        <a href="estilodevida.html" class="text-gray-500">Estilo de Vida</a>
-        <a href="compras.html" class="text-gray-500">Compras</a>
+    <!-- Pestañas Superiores (Solo Móvil) -->
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase font-geometric">
+        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
+            LO ÚLTIMO
+        </a>
+        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-gray-100 border-l border-gray-200 hover:bg-gray-200 text-gray-600 transition-colors cursor-pointer">
+            TENDENCIAS
+        </a>
     </div>
-
-    <main>
+<main>
         <!-- BANNER PRINCIPAL (Hero del Artículo) -->
         <section class="w-full border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity">
             <!-- Imagen -->
@@ -376,173 +394,180 @@ LATINOAMÉRICA</p>
         </section>
     </main>
 
-    <!-- FOOTER DEVON -->
-    <footer class="bg-black text-white mt-20 pt-16 pb-8 font-sans border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
+        <!-- FOOTER: Diseño estilo Vogue -->
+    <footer class="bg-black text-white pt-16 pb-8 border-t border-gray-900 mt-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
             
-            <!-- Col Izquierda (4) -->
+            <!-- Columna Izquierda: Logo y Redes -->
             <div class="md:col-span-4 flex flex-col items-start">
-                <h2 class="font-serif font-bold text-5xl md:text-6xl tracking-widest text-white mb-8">
-                    DEV<span class="slash-o text-white">O</span>N
-                </h2>
-                <a href="https://instagram.com/devonmagazine/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-12 h-12 rounded-full border border-gray-700 text-white hover:border-gray-400 hover:text-brandPink transition-colors" aria-label="Instagram">
-                    <!-- Icono Instagram Simple SVG -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram">
-                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                    </svg>
-                </a>
+                
+                <!-- Logo DEVON centrado con la línea animada en la O (Versión Blanca) -->
+                <div class="flex items-center justify-start transition-all duration-500 mb-8">
+                    <span class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white font-serif uppercase flex items-center">
+                        DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+                    </span>
+                </div>
+                
+                <div class="flex gap-3">
+                    <a href="https://www.instagram.com/devonmagazine/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:border-white transition-colors text-white">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                </div>
             </div>
 
-            <!-- Col Centro (4) -->
-            <div class="md:col-span-4">
-                <h3 class="font-bold tracking-widest text-xs uppercase mb-6 font-geometric">Más en Devon</h3>
-                <ul class="space-y-4 text-[11px] md:text-xs font-light tracking-[0.15em] uppercase">
-                    <li><a href="#" class="hover:underline underline-offset-4">Moda</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Belleza</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Estilo de Vida</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Compras</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">(Re)Devon</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Red Carpet</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Pasarelas</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Videos</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Espacio Devon</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">PhotoDevon</a></li>
+            <!-- Columna Central: MÁS EN DEVON -->
+            <div class="md:col-span-4 md:pl-8">
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">MÁS EN DEVON</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
+                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
+                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
+                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
+                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
                 </ul>
             </div>
 
-            <!-- Col Derecha (4) -->
+            <!-- Columna Derecha: Publicaciones -->
             <div class="md:col-span-4">
-                <h3 class="font-bold tracking-widest text-xs uppercase mb-6 font-geometric">Condé Nast México</h3>
-                <ul class="space-y-4 text-[11px] md:text-xs font-light tracking-[0.15em] uppercase">
-                    <li><a href="#" class="hover:underline underline-offset-4">AD</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Glamour</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Devon</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">GQ</a></li>
-                    <li><a href="#" class="hover:underline underline-offset-4">Wired</a></li>
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">Más de Devon</h4>
+                <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
+                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
+                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
+                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
+                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
+                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
                 </ul>
             </div>
         </div>
 
-        <!-- Franja Inferior Legales -->
-        <div class="max-w-7xl mx-auto px-6 border-t border-gray-800 pt-8 flex flex-col lg:flex-row justify-between items-center gap-6">
-            <ul class="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6 text-[9px] md:text-[10px] font-light tracking-widest uppercase text-gray-400 text-center">
-                <li><a href="#" class="hover:text-white transition">Convenio de Usuario</a></li>
-                <li><a href="#" class="hover:text-white transition">Privacidad</a></li>
-                <li><a href="#" class="hover:text-white transition">Quiénes Somos</a></li>
-                <li><a href="#" class="hover:text-white transition">Media Kit</a></li>
-                <li><a href="#" class="hover:text-white transition">Newsletter</a></li>
-                <li><a href="#" class="hover:text-white transition">Suscripción</a></li>
-                <li><a href="#" class="hover:text-white transition">Site Map</a></li>
-            </ul>
+        <!-- Línea separadora inferior y Links Legales -->
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-900 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
+            
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-500 uppercase">
+                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
+                <span class="text-gray-700">|</span>
+                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                <span class="text-gray-700">|</span>
+                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
+                <span class="text-gray-700">|</span>
+                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
+                <span class="text-gray-700">|</span>
+                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
+                <span class="text-gray-700">|</span>
+                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
+                <span class="text-gray-700">|</span>
+                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
+            </div>
 
-            <!-- Selector de País -->
-            <div class="relative group">
-                <button class="flex items-center space-x-2 text-[10px] font-bold tracking-widest uppercase border border-gray-700 px-4 py-2 hover:bg-gray-800 transition">
-                    <span>México</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                    </svg>
+            <!-- Botón Selector de País -->
+            <div class="relative">
+                <button id="country-selector-btn" class="flex items-center gap-2 border border-gray-800 px-4 py-2 text-xs font-normal hover:border-gray-500 transition-colors text-white tracking-wide shrink-0">
+                    México
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </button>
-                <div class="absolute bottom-full right-0 mb-1 hidden group-hover:block w-32 bg-gray-900 border border-gray-800 z-50">
-                    <a href="#" class="block px-4 py-3 text-[10px] uppercase tracking-widest hover:bg-gray-800 transition">México</a>
-                    <a href="#" class="block px-4 py-3 text-[10px] uppercase tracking-widest hover:bg-gray-800 transition">EE.UU</a>
+                <!-- Dropdown Menu de País -->
+                <div id="country-dropdown" class="absolute bottom-full mb-2 right-0 w-40 bg-[#0a0a0a] border border-gray-800 shadow-2xl hidden flex-col transition-all duration-200 opacity-0 transform translate-y-2 z-50">
+                    <a href="https://stadereck.github.io/devonrevista/index.html" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 border-b border-gray-800 transition-colors uppercase">
+                        México
+                    </a>
+                    <a href="https://stadereck.github.io/devonrevist/" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 transition-colors uppercase">
+                        EE.UU
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
 
+
     <!-- INTERACTIVIDAD Y SCRIPTS -->
     <script>
-        // 1. Scroll Handler for Header Secondary Nav
-        const secondaryNav = document.getElementById('secondary-nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                secondaryNav.classList.add('collapsed');
-            } else {
-                secondaryNav.classList.remove('collapsed');
+        document.addEventListener('DOMContentLoaded', () => {
+            const secondaryNav = document.getElementById('secondary-nav');
+            const menuBtn = document.getElementById('menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const closeBtn = document.getElementById('close-sidebar-btn');
+            const sidebarContainer = document.getElementById('sidebar-nav-container');
+            const logoContainer = document.getElementById('logo-container');
+            const dynamicIsland = document.getElementById('dynamic-island');
+            let pressTimer;
+            let isIslandActive = false;
+
+            function toggleMenu() {
+                if (!sidebar || !overlay || !sidebarContainer) return;
+
+                const isClosing = !sidebar.classList.contains('-translate-x-full');
+                sidebar.classList.toggle('-translate-x-full');
+
+                if (!isClosing) {
+                    overlay.classList.remove('hidden');
+                    setTimeout(() => {
+                        overlay.classList.remove('opacity-0');
+                        sidebarContainer.classList.add('sidebar-open');
+                    }, 10);
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    overlay.classList.add('opacity-0');
+                    sidebarContainer.classList.remove('sidebar-open');
+                    document.body.style.overflow = '';
+                    setTimeout(() => {
+                        overlay.classList.add('hidden');
+                    }, 300);
+                }
+            }
+
+            window.toggleMenu = toggleMenu;
+
+            if (secondaryNav) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 20) {
+                        secondaryNav.classList.add('collapsed');
+                    } else {
+                        secondaryNav.classList.remove('collapsed');
+                    }
+                });
+            }
+
+            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+            if (overlay) overlay.addEventListener('click', toggleMenu);
+
+            const startPress = (e) => {
+                if (e.type === 'touchstart') {
+                    // preserve scroll behavior while still registering the touch
+                }
+                if (navigator.vibrate) navigator.vibrate(20);
+                pressTimer = setTimeout(() => {
+                    if (!dynamicIsland) return;
+                    isIslandActive = !isIslandActive;
+                    if (isIslandActive) {
+                        dynamicIsland.classList.add('active');
+                        if (navigator.vibrate) navigator.vibrate(50);
+                    } else {
+                        dynamicIsland.classList.remove('active');
+                        if (navigator.vibrate) navigator.vibrate(50);
+                    }
+                }, 500);
+            };
+
+            const cancelPress = () => {
+                clearTimeout(pressTimer);
+            };
+
+            if (logoContainer) {
+                logoContainer.addEventListener('mousedown', startPress);
+                logoContainer.addEventListener('touchstart', startPress, {passive: true});
+                logoContainer.addEventListener('mouseup', cancelPress);
+                logoContainer.addEventListener('mouseleave', cancelPress);
+                logoContainer.addEventListener('touchend', cancelPress);
+                logoContainer.addEventListener('contextmenu', e => e.preventDefault());
             }
         });
-
-        // 2. Sidebar Toggle Logic
-        const menuBtn = document.getElementById('menu-btn');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        const closeBtn = document.getElementById('close-sidebar-btn');
-        const sidebarContainer = document.getElementById('sidebar-nav-container');
-
-        const toggleMenu = () => {
-            const isClosing = !sidebar.classList.contains('-translate-x-full');
-            
-            sidebar.classList.toggle('-translate-x-full');
-            
-            if (!isClosing) {
-                // Opening menu
-                overlay.classList.remove('hidden');
-                // Timeout to allow display:block to apply before animating opacity
-                setTimeout(() => {
-                    overlay.classList.remove('opacity-0');
-                    sidebarContainer.classList.add('sidebar-open');
-                }, 10);
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
-            } else {
-                // Closing menu
-                overlay.classList.add('opacity-0');
-                sidebarContainer.classList.remove('sidebar-open');
-                document.body.style.overflow = ''; 
-                setTimeout(() => {
-                    overlay.classList.add('hidden');
-                }, 300); // Wait for transition to finish
-            }
-        };
-
-        menuBtn.addEventListener('click', toggleMenu);
-        closeBtn.addEventListener('click', toggleMenu);
-        overlay.addEventListener('click', toggleMenu);
-
-        // 3. Dynamic Island Logic (Long Press)
-        const logoContainer = document.getElementById('logo-container');
-        const dynamicIsland = document.getElementById('dynamic-island');
-        let pressTimer;
-        let isIslandActive = false;
-
-        const startPress = (e) => {
-            // Prevent default behavior to avoid text selection on long press
-            if(e.type === 'touchstart') {
-                // We don't prevent default here entirely to avoid breaking scroll, 
-                // but we handle context menu prevention below.
-            }
-            
-            // Initial mini vibration
-            if(navigator.vibrate) navigator.vibrate(20);
-            
-            pressTimer = setTimeout(() => {
-                isIslandActive = !isIslandActive;
-                if(isIslandActive) {
-                    dynamicIsland.classList.add('active');
-                    if(navigator.vibrate) navigator.vibrate(50); // Stronger vibration on activation
-                } else {
-                    dynamicIsland.classList.remove('active');
-                    if(navigator.vibrate) navigator.vibrate(50);
-                }
-            }, 500); // 500ms for long press
-        };
-
-        const cancelPress = () => {
-            clearTimeout(pressTimer);
-        };
-
-        // Event Listeners for Long Press
-        logoContainer.addEventListener('mousedown', startPress);
-        logoContainer.addEventListener('touchstart', startPress, {passive: true});
-        logoContainer.addEventListener('mouseup', cancelPress);
-        logoContainer.addEventListener('mouseleave', cancelPress);
-        logoContainer.addEventListener('touchend', cancelPress);
-        
-        // Prevent context menu (right click / text selection) on the logo
-        logoContainer.addEventListener('contextmenu', e => e.preventDefault());
-
     </script>
 </body>
 </html>
