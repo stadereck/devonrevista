@@ -779,6 +779,11 @@
                     finalLogo.style.opacity = '0'; // Se oculta el animado
                     realLogo.style.opacity = '1';  // Se revela el original (y aparece México y Latam suavemente abajo)
                     
+                    // Hacer scroll suave hasta arriba si la página se recargó más abajo
+                    if (window.scrollY > 0) {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                    
                     // Limpiar por completo el intro del DOM para no dejar residuos
                     setTimeout(() => {
                         introWrapper.remove();
