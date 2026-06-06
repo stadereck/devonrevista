@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vogue Ficción 2026: Ganadoras y finalistas | Devon México y Latinoamérica</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Bodoni Moda (Serif), Jost (Sans), Questrial (Geometric) -->
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Questrial&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPink: '#E8A5D6',
+                        brandDark: '#0B1320',
+                        brandGray: '#F2F2F2',
+                        vanCleefBg: '#E5F0E6'
+                    },
+                    fontFamily: {
+                        sans: ['Jost', 'sans-serif'],
+                        serif: ['Bodoni Moda', 'serif'],
+                        geometric: ['Questrial', 'sans-serif']
+                    },
+                    letterSpacing: {
+                        widest: '0.2em',
+                        wide: '0.05em',
+                        author: '0.15em'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for Animations and Specific Rules -->
+    <style>
+        /* Slash animation on 'O' of DEVON logo */
+        .slash-o {
+            position: relative;
+            display: inline-block;
+        }
+        .slash-o::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 120%;
+            background-color: currentColor;
+            top: -10%;
+            left: 50%;
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: slashAnim 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+        @keyframes slashAnim {
+            0%, 15% { opacity: 0; transform: rotate(45deg) scaleY(0); }
+            25%, 75% { opacity: 1; transform: rotate(45deg) scaleY(1); }
+            85%, 100% { opacity: 0; transform: rotate(45deg) scaleY(0); }
+        }
+
+        /* Dynamic Island */
+        #dynamic-island {
+            position: absolute;
+            inset: -8px -24px;
+            border-radius: 9999px;
+            background-color: #0B1320;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bodoni Moda', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            transform: scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+        #dynamic-island.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Secondary Nav Transition */
+        #secondary-nav {
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+            max-height: 60px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        #secondary-nav.collapsed {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-color: transparent;
+        }
+
+        /* Sidebar Overlay */
+        #sidebar-overlay {
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Staggered Sidebar Links */
+        .stagger-link {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .sidebar-open .stagger-link {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .delay-100 { transition-delay: 0.10s; }
+        .delay-150 { transition-delay: 0.15s; }
+        .delay-200 { transition-delay: 0.20s; }
+        .delay-250 { transition-delay: 0.25s; }
+        .delay-300 { transition-delay: 0.30s; }
+        .delay-350 { transition-delay: 0.35s; }
+        .delay-400 { transition-delay: 0.40s; }
+        .delay-450 { transition-delay: 0.45s; }
+        .delay-500 { transition-delay: 0.50s; }
+        .delay-550 { transition-delay: 0.55s; }
+        
+        /* Estilo sutil para el texto del header */
+        .header-subtext {
+            font-size: 0.45rem; /* Ajustado para que quepa en dos líneas */
+            line-height: 1.2;
+        }
+        @media (min-width: 768px) {
+            .header-subtext {
+                font-size: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900 bg-white antialiased overflow-x-hidden selection:bg-brandPink selection:text-white">
+
+    <!-- SIDEBAR & OVERLAY -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/70 z-50 hidden opacity-0"></div>
+    <aside id="sidebar" class="fixed top-0 left-0 w-[85%] sm:w-80 h-full bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
+        <!-- Nueva Cabecera del Sidebar según la captura -->
+        <div class="flex justify-between items-center px-8 py-6 border-b border-gray-200">
+            <h2 class="font-sans font-bold text-2xl tracking-[0.25em] text-black uppercase">Menú</h2>
+            <button id="close-sidebar-btn" class="text-gray-500 hover:text-black transition p-2 -mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-8 px-8 flex flex-col space-y-8 font-sans text-[13px] tracking-widest font-bold uppercase text-gray-600" id="sidebar-nav-container">
+            <a href="#" class="stagger-link delay-100 text-black">Suscripción</a>
+            <a href="#" class="stagger-link delay-150 hover:text-black transition-colors">Inicio</a>
+            <a href="#" class="stagger-link delay-200 hover:text-black transition-colors">Moda</a>
+            <a href="#" class="stagger-link delay-250 hover:text-black transition-colors">Belleza</a>
+            <a href="#" class="stagger-link delay-300 hover:text-black transition-colors">Estilo de Vida</a>
+            <a href="#" class="stagger-link delay-350 hover:text-black transition-colors">Compras</a>
+            <a href="#" class="stagger-link delay-400 hover:text-black transition-colors">(Re)Devon</a>
+            <a href="#" class="stagger-link delay-450 hover:text-black transition-colors">Hollywood</a>
+            <a href="#" class="stagger-link delay-500 hover:text-black transition-colors">Podcast</a>
+            <a href="#" class="stagger-link delay-550 hover:text-black transition-colors">Espacio Devon</a>
+        </nav>
+    </aside>
+
+    <!-- HEADER STICKY -->
+    <header class="sticky top-0 z-40 bg-white border-b border-gray-200">
+        <!-- Fila Superior -->
+        <div class="grid grid-cols-3 items-center px-4 md:px-8 py-3 md:py-5 max-w-7xl mx-auto">
+            <!-- Hamburguesa -->
+            <div class="flex justify-start">
+                <button id="menu-btn" class="text-black hover:text-gray-600 transition p-2 -ml-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 10H21" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
+                        <path d="M3 14H21" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Logo + Isla Dinámica -->
+            <div id="logo-container" class="relative flex flex-col items-center justify-center cursor-pointer select-none text-center">
+                <h1 class="font-serif font-bold text-4xl md:text-5xl lg:text-6xl tracking-widest text-black relative z-0 mb-1">
+                    DEV<span class="slash-o">O</span>N
+                </h1>
+                <p class="font-geometric header-subtext uppercase tracking-[0.2em] text-gray-800 font-bold whitespace-pre-line text-center">MÉXICO Y
+LATINOAMÉRICA</p>
+                <!-- Isla Dinámica -->
+                <div id="dynamic-island">DEVON</div>
+            </div>
+
+            <!-- Suscripción -->
+            <div class="flex justify-end hidden sm:flex">
+                <button class="font-light font-sans text-[10px] md:text-xs tracking-widest uppercase hover:opacity-70 transition">
+                    Suscripción
+                </button>
+            </div>
+        </div>
+
+        <!-- Fila Inferior (Secondary Nav - Solo Desktop) -->
+        <nav id="secondary-nav" class="hidden md:flex justify-center flex-wrap gap-x-8 gap-y-2 pb-4 pt-2 font-geometric text-[10px] md:text-[11px] uppercase tracking-widest font-bold max-w-7xl mx-auto px-4 text-black">
+            <a href="#" class="hover:text-gray-500 transition-colors">Moda</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Belleza</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Estilo de Vida</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Compras</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">(Re)Devon</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Hollywood</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Podcast</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Videos</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Espacio Devon</a>
+        </nav>
+    </header>
+
+    <!-- PESTAÑAS MÓVIL (Bajo el header en móvil) -->
+    <div class="md:hidden flex overflow-x-auto space-x-6 px-4 py-3 bg-white border-b border-gray-100 font-geometric text-[10px] uppercase tracking-widest font-bold whitespace-nowrap hide-scrollbar">
+        <a href="#" class="text-black">Moda</a>
+        <a href="#" class="text-gray-500">Belleza</a>
+        <a href="#" class="text-gray-500">Estilo de Vida</a>
+        <a href="#" class="text-gray-500">Compras</a>
+    </div>
+
+    <main>
+        <!-- BANNER PRINCIPAL (Hero del Artículo) -->
+        <section class="w-full border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity">
+            <!-- Imagen -->
+            <div class="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-4 md:pt-6">
+                <img src="https://media.vogue.mx/photos/6a17605f026af0d9c3cb7327/master/w_2240,c_limit/Ganadoras%20Vogue%20Ficcio%CC%81n%202026.jpg" 
+                     alt="Ilustración Sobre de Carta Vogue Ficción"
+                     class="w-full h-auto max-h-[80vh] object-cover object-center"/>
+            </div>
+            
+            <!-- Encabezado del texto -->
+            <div class="max-w-4xl mx-auto flex flex-col items-center text-center mt-8 px-6 font-geometric">
+                <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-black mb-4">
+                    Estilo de Vida
+                </p>
+                <h1 class="text-3xl md:text-4xl lg:text-[44px] font-normal text-black leading-[1.15] mb-6 font-sans" style="letter-spacing: -0.02em;">
+                    Vogue Ficción 2026: Ganadoras y finalistas
+                </h1>
+                <p class="text-base md:text-lg text-gray-700 font-light mb-8 max-w-2xl mx-auto font-sans">
+                    Nos emociona compartir con nuestra comunidad de lectoras a las ganadoras y finalistas de la primera edición de Vogue Ficción. Lee los textos aquí.
+                </p>
+                <div class="flex flex-col items-center font-sans">
+                    <p class="text-[9px] md:text-[10px] font-bold tracking-author uppercase text-black">
+                        POR CAMILA COLINA
+                    </p>
+                    <p class="font-normal mt-1 text-[11px] md:text-[13px] text-gray-500 lowercase">
+                        27 de mayo de 2026
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CUERPO DEL ARTÍCULO -->
+        <article class="w-full max-w-3xl mx-auto px-6 py-12 md:py-16 font-sans text-lg md:text-xl text-gray-800 leading-relaxed space-y-8">
+            <p>
+                Vogue Ficción 2026: Vivirse mujer en Latinoamérica cierra su primera edición entre un mar de historias que nos abren las puertas a los rincones más interesantes de este complejo y entrañable territorio.
+            </p>
+            <p>
+                experiencias tan particulares que, en su profundidad, terminan por hacer eco en lo colectivo.
+            </p>
+
+            <!-- Newsletter In-Article Block -->
+            <div id="newsletter-section" class="my-14 pl-6 border-l-[4px] border-black max-w-4xl scroll-mt-32">
+                <h3 class="font-serif font-normal text-3xl md:text-4xl lg:text-[42px] mb-6 text-black tracking-normal">Devon más cerca de ti: ¡Suscríbete!</h3>
+                <form class="flex flex-col sm:flex-row w-full mb-4" onsubmit="event.preventDefault(); document.getElementById('newsletter-section').scrollIntoView({behavior: 'smooth'});">
+                    <input type="email" class="flex-1 border border-gray-300 p-4 text-sm focus:outline-none focus:border-black font-sans rounded-none" aria-label="Tu correo electrónico" required>
+                    <button type="submit" class="bg-black text-white px-8 py-4 text-xs tracking-widest font-bold font-geometric uppercase hover:bg-gray-800 transition rounded-none">INSCRIBIRSE</button>
+                </form>
+                <p class="text-[13px] md:text-sm text-black font-sans font-light leading-relaxed">
+                    Ingresa tu dirección de correo electrónico para suscribirte a nuestro newsletter y formar parte del universo Devon. Tus datos personales serán tratados de acuerdo con nuestra <a href="#" class="font-bold underline underline-offset-2 hover:text-gray-600 transition">Convenio de Usuario</a> y <a href="#" class="font-bold underline underline-offset-2 hover:text-gray-600 transition">Aviso de Privacidad.</a>
+                </p>
+            </div>
+
+            <p>
+                No obstante, después de un arduo proceso de deliberación, nos emociona compartir a las finalistas y ganadoras del proyecto Vogue Ficción 2026. Agradecemos profundamente a todas las mujeres que hicieron de esta convocatoria un éxito, y que se atrevieron a compartir su trabajo con nosotras.
+            </p>
+
+            <!-- Inline Recommendation -->
+            <div class="border-l-4 border-black pl-6 py-2 my-10 bg-gray-50 p-4">
+                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-2">Ver más</p>
+                <a href="#" class="text-xl font-normal hover:text-gray-600 transition">
+                    El Club del Libro de Vogue anuncia La Casa de los Espíritus por Isabel Allende
+                </a>
+            </div>
+
+            <div class="pt-8 border-t border-gray-200 mt-12 mb-8">
+                <p class="text-[10px] font-bold tracking-author uppercase text-black mb-6">
+                    POR ATENEA MORALES DE LA CRUZ
+                </p>
+                <h3 class="text-2xl md:text-3xl font-normal mb-4">Vogue Ficción 2026: Ganadoras y finalistas*</h3>
+                <p class="text-base text-gray-600 italic mb-8">
+                    *A partir del día miércoles 3 de junio se publicará un texto nuevo de forma quincenal en el sitio web de Vogue Latinoamérica. Podrás encontrar los enlaces a los textos finalistas en esta misma nota que será actualizada a lo largo del año.
+                </p>
+
+                <!-- Listas -->
+                <h4 class="font-bold text-xl mb-4">Ganadoras de Vogue Ficción 2026: Vivirse mujer en Latinoamérica</h4>
+                <ul class="list-disc pl-5 space-y-3 mb-10 text-lg">
+                    <li><span class="font-bold">Primer lugar:</span> La decimonovena costura, por Libna Fabiola Armenta Velazquez</li>
+                    <li><span class="font-bold">Segundo lugar:</span> La costumbre, por Ignacia Sofía Godoy Muñoz</li>
+                    <li><span class="font-bold">Tercer lugar:</span> Colchones, por Irma Sabina Orozco Sandoval</li>
+                </ul>
+
+                <h4 class="font-bold text-xl mb-4">Finalistas de Vogue Ficción 2026: Vivirse mujer en Latinoamérica</h4>
+                <ul class="list-disc pl-5 space-y-3 text-lg mb-12">
+                    <li><span class="font-bold">Mención honorífica:</span> Margen de costura, por Goroztieta</li>
+                    <li>El mapa de los bordes difusos, por Pilar Alonso Pita</li>
+                    <li>Manos de oro, por Eugenia Tiburcio</li>
+                    <li>La pela de cristo, por Rosa María Victoria Elizondo Moreno</li>
+                    <li>Axiomas de lo fronterizo, por Jimena Siqueiros Rivas</li>
+                    <li>Un labial rojo, por Noelia Depaoli</li>
+                    <li>Zumbido de un presagio, por Adriana Alexandra Romero Nieto</li>
+                    <li>Usuario no encontrado, por Andrea Zúñiga Vázquez</li>
+                    <li>Herederas, por Lana Mistral</li>
+                    <li>Ahogada en flores, por Nina Páramo</li>
+                    <li>Cuando veas a mi abuela enséñale a escribir, por Ana Cara</li>
+                    <li>Agua Tratada, por Jimena Cherry</li>
+                    <li>Contra Corriente, por Dariana Polo Iglesias</li>
+                </ul>
+
+                <p class="text-sm text-gray-500 italic mt-6 border-t border-gray-200 pt-6">
+                    *El orden de publicación de las finalistas es aleatorio.
+                </p>
+            </div>
+        </article>
+
+        <!-- SECCIÓN RECOMENDADOS (Sigue estructura HOY/RUMBO de la guía) -->
+        <section class="max-w-7xl mx-auto px-4 md:px-6 mt-16 mb-12">
+            <!-- Encabezado de sección tipo DEVON -->
+            <div class="border-t border-b border-gray-200 py-3 md:py-4 mb-8">
+                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700" style="font-family: 'Jost', sans-serif;">
+                    DEVON RECOMIENDA
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tarjeta Artículo Recomendado -->
+                <article class="cursor-pointer group flex flex-col items-start" onclick="window.location.href='festival-de-cannes-2026-celebridades-alfombra-roja#intcid=_vogue-mx-bottom-recirc_dbf4e0ad-01b9-4be4-ae91-150a5db64dee_modern-bert.html'">
+                    <div class="w-full overflow-hidden mb-4 bg-brandGray aspect-[4/3] md:aspect-[2/3]">
+                        <!-- Imagen de placeholder temática (Alfombra Roja) -->
+                        <img src="https://media.vogue.mx/photos/6a107ade19812809b9766820/1:1/w_640,c_limit/undefined" 
+                             alt="Red Carpet Cannes" 
+                             class="w-full h-full object-cover group-hover:opacity-90 group-hover:scale-105 transition-all duration-500 ease-out"/>
+                    </div>
+                    <p class="text-[9px] md:text-[10px] font-light tracking-widest uppercase text-black mb-2 font-geometric">Red Carpet</p>
+                    <h3 class="text-xl md:text-2xl font-normal text-black leading-snug mb-2 font-sans group-hover:text-gray-600 transition-colors">
+                        Festival de Cannes 2026: Los vestidos más elegantes y TODAS las celebridades en la alfombra roja
+                    </h3>
+                    <p class="text-[9px] md:text-[10px] font-light tracking-author uppercase text-black mt-auto">POR MANON GARRIGUES</p>
+                </article>
+
+                <article class="cursor-pointer group flex flex-col items-start" onclick="window.location.href='portada-vogue-mexico-junio-2026-futbol.html'">
+                    <div class="w-full overflow-hidden mb-4 bg-brandGray aspect-[4/3] md:aspect-[2/3]">
+                        <!-- Imagen de placeholder temática (Mundial / Deporte) -->
+                        <img src="https://media.vogue.mx/photos/6a0ca028cc7cfbc4c82eecdf/1:1/w_640,c_limit/undefined" 
+                             alt="Fútbol Mundial" 
+                             class="w-full h-full object-cover group-hover:opacity-90 group-hover:scale-105 transition-all duration-500 ease-out"/>
+                    </div>
+                    <p class="text-[9px] md:text-[10px] font-light tracking-widest uppercase text-black mb-2 font-geometric">Moda</p>
+                    <h3 class="text-xl md:text-2xl font-normal text-black leading-snug mb-2 font-sans group-hover:text-gray-600 transition-colors">
+                        Fiebre por el fútbol: Celebramos el Mundial 2026 con una portada especial
+                    </h3>
+                    <p class="text-[9px] md:text-[10px] font-light tracking-author uppercase text-black mt-auto">POR EQUIPO EDITORIAL</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER DEVON -->
+    <footer class="bg-black text-white mt-20 pt-16 pb-8 font-sans border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
+            
+            <!-- Col Izquierda (4) -->
+            <div class="md:col-span-4 flex flex-col items-start">
+                <h2 class="font-serif font-bold text-5xl md:text-6xl tracking-widest text-white mb-8">
+                    DEV<span class="slash-o text-white">O</span>N
+                </h2>
+                <a href="#" class="flex items-center justify-center w-12 h-12 rounded-full border border-gray-700 text-white hover:border-gray-400 hover:text-brandPink transition-colors" aria-label="Instagram">
+                    <!-- Icono Instagram Simple SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Col Centro (4) -->
+            <div class="md:col-span-4">
+                <h3 class="font-bold tracking-widest text-xs uppercase mb-6 font-geometric">Más en Devon</h3>
+                <ul class="space-y-4 text-[11px] md:text-xs font-light tracking-[0.15em] uppercase">
+                    <li><a href="#" class="hover:underline underline-offset-4">Moda</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Belleza</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Estilo de Vida</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Compras</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">(Re)Devon</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Red Carpet</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Pasarelas</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Videos</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Espacio Devon</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">PhotoDevon</a></li>
+                </ul>
+            </div>
+
+            <!-- Col Derecha (4) -->
+            <div class="md:col-span-4">
+                <h3 class="font-bold tracking-widest text-xs uppercase mb-6 font-geometric">Condé Nast México</h3>
+                <ul class="space-y-4 text-[11px] md:text-xs font-light tracking-[0.15em] uppercase">
+                    <li><a href="#" class="hover:underline underline-offset-4">AD</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Glamour</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Devon</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">GQ</a></li>
+                    <li><a href="#" class="hover:underline underline-offset-4">Wired</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Franja Inferior Legales -->
+        <div class="max-w-7xl mx-auto px-6 border-t border-gray-800 pt-8 flex flex-col lg:flex-row justify-between items-center gap-6">
+            <ul class="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6 text-[9px] md:text-[10px] font-light tracking-widest uppercase text-gray-400 text-center">
+                <li><a href="#" class="hover:text-white transition">Convenio de Usuario</a></li>
+                <li><a href="#" class="hover:text-white transition">Privacidad</a></li>
+                <li><a href="#" class="hover:text-white transition">Quiénes Somos</a></li>
+                <li><a href="#" class="hover:text-white transition">Media Kit</a></li>
+                <li><a href="#" class="hover:text-white transition">Newsletter</a></li>
+                <li><a href="#" class="hover:text-white transition">Suscripción</a></li>
+                <li><a href="#" class="hover:text-white transition">Site Map</a></li>
+            </ul>
+
+            <!-- Selector de País -->
+            <div class="relative group">
+                <button class="flex items-center space-x-2 text-[10px] font-bold tracking-widest uppercase border border-gray-700 px-4 py-2 hover:bg-gray-800 transition">
+                    <span>México</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                    </svg>
+                </button>
+                <div class="absolute bottom-full right-0 mb-1 hidden group-hover:block w-32 bg-gray-900 border border-gray-800 z-50">
+                    <a href="#" class="block px-4 py-3 text-[10px] uppercase tracking-widest hover:bg-gray-800 transition">México</a>
+                    <a href="#" class="block px-4 py-3 text-[10px] uppercase tracking-widest hover:bg-gray-800 transition">EE.UU</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVIDAD Y SCRIPTS -->
+    <script>
+        // 1. Scroll Handler for Header Secondary Nav
+        const secondaryNav = document.getElementById('secondary-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                secondaryNav.classList.add('collapsed');
+            } else {
+                secondaryNav.classList.remove('collapsed');
+            }
+        });
+
+        // 2. Sidebar Toggle Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const closeBtn = document.getElementById('close-sidebar-btn');
+        const sidebarContainer = document.getElementById('sidebar-nav-container');
+
+        const toggleMenu = () => {
+            const isClosing = !sidebar.classList.contains('-translate-x-full');
+            
+            sidebar.classList.toggle('-translate-x-full');
+            
+            if (!isClosing) {
+                // Opening menu
+                overlay.classList.remove('hidden');
+                // Timeout to allow display:block to apply before animating opacity
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    sidebarContainer.classList.add('sidebar-open');
+                }, 10);
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            } else {
+                // Closing menu
+                overlay.classList.add('opacity-0');
+                sidebarContainer.classList.remove('sidebar-open');
+                document.body.style.overflow = ''; 
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300); // Wait for transition to finish
+            }
+        };
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // 3. Dynamic Island Logic (Long Press)
+        const logoContainer = document.getElementById('logo-container');
+        const dynamicIsland = document.getElementById('dynamic-island');
+        let pressTimer;
+        let isIslandActive = false;
+
+        const startPress = (e) => {
+            // Prevent default behavior to avoid text selection on long press
+            if(e.type === 'touchstart') {
+                // We don't prevent default here entirely to avoid breaking scroll, 
+                // but we handle context menu prevention below.
+            }
+            
+            // Initial mini vibration
+            if(navigator.vibrate) navigator.vibrate(20);
+            
+            pressTimer = setTimeout(() => {
+                isIslandActive = !isIslandActive;
+                if(isIslandActive) {
+                    dynamicIsland.classList.add('active');
+                    if(navigator.vibrate) navigator.vibrate(50); // Stronger vibration on activation
+                } else {
+                    dynamicIsland.classList.remove('active');
+                    if(navigator.vibrate) navigator.vibrate(50);
+                }
+            }, 500); // 500ms for long press
+        };
+
+        const cancelPress = () => {
+            clearTimeout(pressTimer);
+        };
+
+        // Event Listeners for Long Press
+        logoContainer.addEventListener('mousedown', startPress);
+        logoContainer.addEventListener('touchstart', startPress, {passive: true});
+        logoContainer.addEventListener('mouseup', cancelPress);
+        logoContainer.addEventListener('mouseleave', cancelPress);
+        logoContainer.addEventListener('touchend', cancelPress);
+        
+        // Prevent context menu (right click / text selection) on the logo
+        logoContainer.addEventListener('contextmenu', e => e.preventDefault());
+
+    </script>
+</body>
+</html>
