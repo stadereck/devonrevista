@@ -39,6 +39,7 @@
             }
         }
     </script>
+
     <style>
         .no-scrollbar::-webkit-scrollbar {
             display: none;
@@ -261,7 +262,7 @@
     </header>
 
     <!-- Pestañas Superiores (Solo Móvil) -->
-    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase font-geometric">
+    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase font-geometric border-b border-gray-200">
         <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
             LO ÚLTIMO
         </a>
@@ -270,9 +271,26 @@
         </a>
     </div>
 
+    <!-- ANUNCIO SUPER BANNER: Van Cleef & Arpels -->
+    <div class="w-full flex justify-center py-6 md:py-8 px-4 bg-white">
+        <a href="https://www.vancleefarpels.com/mx/es/collections/jewelry/perlee.html?category=all&utm_source=vogue&utm_medium=DIS&utm_campaign=A-VCAMX-MX--JEWX-PERLEE-FY27-PERLEE--VOGUE_SUPER_BANNER&utm_content=A-AW-CPM-PR-DIR-ASP--3RD_PPS-VOGUE-SECTION-MUL-BANNER-970X250-VCA802-ES-NOTRACK---RICUSBN66AQ&dclid=COL5s5GW85QDFcOLcgAdV0kMKQ&gad_source=7&gad_campaignid=23805853111" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="block w-full max-w-[970px] mx-auto transition-opacity hover:opacity-95">
+            <!-- Etiqueta pequeña de publicidad para aspecto editorial -->
+            <div class="text-center mb-1.5 md:mb-2">
+                <span class="text-[8px] tracking-[0.2em] text-gray-400 uppercase font-geometric">Publicidad</span>
+            </div>
+            <!-- Imagen del Banner -->
+            <img src="https://tpc.googlesyndication.com/simgad/10030194878189498349?" 
+                 alt="Van Cleef & Arpels - Colección Perlée" 
+                 class="w-full h-auto object-cover" />
+        </a>
+    </div>
+
     <!-- BANNER PRINCIPAL: Portada Mundial 2026 -->
-    <section class="w-full border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity" onclick="window.location.href='vogue-ficcion-2026-ganadoras-y-finalistas.html'">
-        <div class="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-4 md:pt-6">
+    <section class="w-full border-t border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity" onclick="window.location.href='vogue-ficcion-2026-ganadoras-y-finalistas.html'">
+        <div class="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-6 md:pt-8">
             <img src="https://media.vogue.mx/photos/6a17605f026af0d9c3cb7327/16:9/w_1600,c_limit/Ganadoras%20Vogue%20Ficcio%CC%81n%202026.jpg" alt="Vogue Ficción 2026: Estos son los relatos ganadores y finalistas" class="w-full h-auto max-h-[85vh] object-cover object-center"/>
         </div>
         <div class="max-w-4xl mx-auto flex flex-col items-center text-center mt-6 md:mt-8 px-4 font-geometric">
@@ -616,6 +634,7 @@
 
         });
 
+        // --- STREAMING_CHUNK:Setting up Hamburger Menu Logic... ---
         // --- 6. Funciones Globales (Menú Hamburguesa) ---
         const overlay = document.getElementById('overlay');
         const sidebar = document.getElementById('sidebarMenu');
