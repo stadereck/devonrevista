@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suscripción | Devon México y Latinoamérica</title>
     <!-- Ícono de la pestaña (Favicon) -->
-    <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
+    <link rel="icon" href="https://res.cloudinary.com/dhx58lnzb/image/upload/v1780784266/Logo_Devon_Title_r34xow.png" type="image/png">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,8 +68,6 @@
         footer .animated-slash {
             background-color: white;
         }
-
-
 
         /* --- Dynamic Island --- */
         #dynamic-island {
@@ -158,8 +156,8 @@
             -webkit-touch-callout: none !important;
         }
        img {
-    -webkit-user-drag: none;
-}
+            -webkit-user-drag: none;
+        }
         /* Overlay que evita interacciones directas con la imagen */
         .no-save-overlay { position: absolute; inset: 0; z-index: 20; }
         /* Evitar impresión útil */
@@ -193,13 +191,10 @@
         </nav>
     </aside>
 
-    <!-- Barra de Navegación Principal (Unificada con animación al hacer scroll) -->
+    <!-- Barra de Navegación Principal -->
     <header id="main-header" class="w-full bg-white sticky top-0 z-40 border-b border-gray-200 transition-all duration-300">
-        
-        <!-- Fila Superior (Siempre visible) -->
+        <!-- Fila Superior -->
         <div class="max-w-[1400px] mx-auto flex items-center justify-between px-5 md:px-8 h-16 md:h-[90px] relative bg-white z-20">
-            
-            <!-- Izquierda: Menú Hamburguesa -->
             <div class="flex items-center gap-4 z-20 w-1/4">
                 <button onclick="toggleMenu()" class="text-black hover:text-gray-500 transition-colors">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="square">
@@ -209,9 +204,8 @@
                 </button>
             </div>
             
-            <!-- Centro: Logo animado y Subtítulo -->
+            <!-- Centro: Logo animado -->
             <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex flex-col items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
-                
                 <a id="devon-text" href="index.html" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
                     <span class="text-3xl sm:text-4xl md:text-[42px] font-bold tracking-widest text-black font-serif uppercase flex items-center leading-none">
                         DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
@@ -220,7 +214,6 @@
                         MÉXICO Y<br>LATINOAMÉRICA
                     </span>
                 </a>
-
                 <!-- Isla Dinámica -->
                 <div id="dynamic-island" class="island-container absolute rounded-full flex items-center justify-center overflow-hidden shadow-xl" style="top: 25px;">
                     <div id="island-content" class="w-full flex items-center justify-center transition-all duration-300">
@@ -229,7 +222,6 @@
                 </div>
             </div>
             
-            <!-- Derecha: Suscripción -->
             <div class="flex items-center justify-end gap-5 md:gap-7 z-20 w-1/4">
                 <a href="suscripcion.html" class="hidden md:block text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black hover:text-gray-500 transition-colors mt-0.5 font-geometric">
                     SUSCRIPCIÓN
@@ -237,7 +229,7 @@
             </div>
         </div>
 
-        <!-- Fila Inferior: Menú de Categorías (Se oculta al deslizar hacia abajo) -->
+        <!-- Fila Inferior: Menú de Categorías -->
         <div id="secondary-nav" class="hidden md:flex w-full justify-center text-[9px] lg:text-[10px] font-bold tracking-[0.15em] text-black uppercase bg-white overflow-hidden transition-[height,opacity] duration-300 ease-in-out h-12 opacity-100 font-geometric">
             <div class="flex items-center h-full px-4 gap-4 md:gap-5 lg:gap-6">
                 <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
@@ -253,26 +245,16 @@
         </div>
     </header>
 
-    <!-- Pestañas Superiores (Solo Móvil) -->
-    <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase font-geometric">
-        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
-            LO ÚLTIMO
-        </a>
-        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-gray-100 border-l border-gray-200 hover:bg-gray-200 text-gray-600 transition-colors cursor-pointer">
-            TENDENCIAS
-        </a>
-    </div>
-
-    <main class="w-full flex-1 bg-white pt-12 md:pt-16">
+    <main class="w-full flex-1 bg-white pt-6 md:pt-16">
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             
-            <!-- Columna Izquierda: Imagen Portada (agrandada, sticky) -->
+            <!-- Columna Izquierda: Imagen Portada (Adaptable a Mobile como el PDF) -->
             <div class="lg:col-span-7 relative group">
-                <div class="cover-image-wrap sticky top-0 w-full h-screen overflow-hidden">
-                            <div class="cover-image-scale w-full h-full" style="background-image: url('https://res.cloudinary.com/dhx58lnzb/image/upload/v1780770047/Devon_June_2026_N.231_Suscripcio%CC%81n_sddr6u.png'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
-                                <!-- Overlay para prevenir toques/descargas directas -->
-                                <div class="no-save-overlay no-select" aria-hidden="true"></div>
-                            </div>
+                <div class="cover-image-wrap sticky top-0 w-full h-[60vh] lg:h-screen overflow-hidden">
+                    <div class="cover-image-scale w-full h-full" style="background-image: url('https://res.cloudinary.com/dhx58lnzb/image/upload/v1780770047/Devon_June_2026_N.231_Suscripcio%CC%81n_sddr6u.png'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
+                        <!-- Overlay para prevenir toques/descargas directas -->
+                        <div class="no-save-overlay no-select" aria-hidden="true"></div>
+                    </div>
                 </div>
             </div>
 
@@ -280,7 +262,7 @@
             <div class="lg:col-span-5 flex flex-col justify-start">
                 
                 <!-- Breadcrumb -->
-                <div class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-4 font-sans">
+                <div class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-4 font-sans mt-4 lg:mt-0">
                     <a href="index.html" class="hover:text-black transition-colors">Inicio</a> <span class="mx-1">/</span> <span class="text-black">Devon México</span>
                 </div>
                 
@@ -493,7 +475,6 @@
     </main>
 
     <!-- FOOTER: Diseño estilo Devon -->
-    <!-- FOOTER: Diseño estilo Vogue -->
     <footer class="bg-black text-white pt-16 pb-8 border-t border-gray-900 mt-20">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
             
@@ -586,14 +567,11 @@
     <!-- SCIPT DE INTERACCIONES GLOBALES -->
     <script>
         // Ajuste para mantener la imagen visualmente grande al cambiar el zoom del navegador.
-        // Nota: esto intenta compensar cambios en `window.devicePixelRatio` pero no puede
-        // garantizar un comportamiento idéntico en todos los navegadores/dispositivos.
         (function(){
             function adjustCoverScale(){
                 const wrap = document.querySelector('.cover-image-scale');
                 if(!wrap) return;
                 const dpr = window.devicePixelRatio || 1;
-                // Escalamos inversamente al DPR y ajustamos el ancho/alto para compensar
                 wrap.style.transformOrigin = 'top left';
                 wrap.style.transform = `scale(${1 / dpr})`;
                 wrap.style.width = `${100 * dpr}%`;
@@ -601,21 +579,17 @@
             }
             window.addEventListener('load', adjustCoverScale);
             window.addEventListener('resize', adjustCoverScale);
-            // También en cambio de zoom (algunos navegadores cambian devicePixelRatio)
             setInterval(adjustCoverScale, 800);
         })();
 
-        // --- Protección contra guardado/imprenta/capturas (tan robusta como permite el navegador) ---
+        // --- Protección contra guardado/imprenta/capturas ---
         (function(){
-            // Bloquear menú contextual y arrastre
             document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
             document.addEventListener('mousedown', function(e){ if (e.button === 2) e.preventDefault(); });
             document.addEventListener('selectstart', function(e){ e.preventDefault(); });
             document.addEventListener('dragstart', function(e){ e.preventDefault(); });
 
-            // Bloquear atajos de impresión/guardar
             document.addEventListener('keydown', function(e){
-                // Ctrl/Cmd+P, Ctrl/Cmd+S, Ctrl+Shift+S, PrintScreen
                 if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P' || e.key === 's' || e.key === 'S')) {
                     e.preventDefault();
                     return false;
@@ -625,7 +599,6 @@
                 }
             });
 
-            // Evitar long-press en móviles que muestre guardar imagen
             let touchTimer = null;
             document.addEventListener('touchstart', function(e){
                 if (e.touches.length > 1) return;
@@ -633,13 +606,12 @@
             }, {passive: false});
             document.addEventListener('touchend', function(e){ if (touchTimer) { clearTimeout(touchTimer); touchTimer = null; } }, {passive: false});
 
-            // Evitar impresión desde window.print
             window.addEventListener('beforeprint', function(e){ e.preventDefault(); });
             window.print = function() { return false; };
 
-            // Aplicar clases para evitar selección/interacciones en todo el body
             document.documentElement.classList.add('no-select');
         })();
+
         const overlay = document.getElementById('overlay');
         const sidebar = document.getElementById('sidebarMenu');
 
@@ -704,7 +676,6 @@
             const summaryDesc = document.getElementById("summaryDesc");
             const summaryLongDesc = document.getElementById("summaryLongDesc");
 
-            // Elementos del cupón
             const toggleCouponBtn = document.getElementById("toggleCouponBtn");
             const couponArea = document.getElementById("couponArea");
             const couponIcon = document.getElementById("couponIcon");
@@ -716,9 +687,8 @@
             let currentPlan = "semestral";
             let currentOrigin = "mexico";
             let isInfinite = false;
-            let currentDiscount = 0; // Porcentaje de descuento
+            let currentDiscount = 0;
 
-            // Datos de precios simulados por región
             const pricingData = {
                 "mexico": { currency: "MXN", semestral: "412.00", anual: "799.00" },
                 "puerto-rico": { currency: "USD", semestral: "24.00", anual: "45.00" },
@@ -735,7 +705,6 @@
                 const data = pricingData[currentOrigin];
                 let priceStr = currentPlan === "semestral" ? data.semestral : data.anual;
                 
-                // Calcular descuento y precio
                 let priceNum = parseFloat(priceStr.replace(/,/g, ''));
                 let finalPriceNum = priceNum * (1 - (currentDiscount / 100));
                 
@@ -744,15 +713,12 @@
                     isInfinite = true;
                 }
 
-                // Formato de Moneda
                 let finalPriceStr = finalPriceNum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 const fullPrice = `$${finalPriceStr} ${data.currency}`;
 
-                // Determinar duración
                 let duracionText = currentPlan === "semestral" ? "6 meses" : "12 meses";
                 if (isInfinite) duracionText = "Infinito";
 
-                // Animación suave de cambio de precio
                 mainPrice.classList.add("opacity-0", "scale-95");
                 summaryPrice.classList.add("opacity-0");
                 summaryLongDesc.classList.add("opacity-0");
@@ -787,7 +753,6 @@
                 }, 200);
             }
 
-            // --- Lógica del Cupón ---
             if (toggleCouponBtn) {
                 toggleCouponBtn.addEventListener("click", () => {
                     if (couponArea.classList.contains("max-h-0")) {
@@ -858,24 +823,19 @@
                 });
             }
 
-            // Inicializar la vista
             updateUI();
 
-            // Comprobar si ya compró (para cambiar el estado del botón al cargar)
             if (localStorage.getItem("devonSubscribed") === "true") {
                 setSubscribedState();
             }
 
-            // --- Control: mostrar mensaje cuando NO hay ediciones ---
-            const hasEditions = false; // Cambiar a true si vuelven a haber ediciones disponibles
+            const hasEditions = false; 
 
             function showNoEditionsMsg() {
                 const toast = document.getElementById('noEditionsToast');
                 if (!toast) return;
-                // Entrar: slide + fade
                 toast.classList.remove('translate-y-4', 'opacity-0');
                 toast.classList.add('translate-y-0', 'opacity-100');
-                // Salir luego de 3s
                 setTimeout(() => {
                     toast.classList.remove('translate-y-0', 'opacity-100');
                     toast.classList.add('translate-y-4', 'opacity-0');
@@ -884,23 +844,19 @@
 
             if (btnSubscribeNow) {
                 btnSubscribeNow.addEventListener("click", () => {
-                    // Si no hay ediciones disponibles, mostrar mensaje y no continuar
                     if (!hasEditions) {
                         showNoEditionsMsg();
                         return;
                     }
 
-                    // Si ya está suscrito, mostrar el mismo mensaje animado
                     if (localStorage.getItem("devonSubscribed") === "true") {
                         showNoEditionsMsg();
                         return;
                     }
 
-                    // Cambiar a estado de carga
                     btnText.innerText = "PROCESANDO...";
                     btnSubscribeNow.classList.add("opacity-80", "cursor-wait");
 
-                    // Simular retraso de compra
                     setTimeout(() => {
                         localStorage.setItem("devonSubscribed", "true");
                         setSubscribedState();
