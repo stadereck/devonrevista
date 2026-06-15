@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devon Members</title>
+    <title>Devon México y Latinoamérica</title>
     <!-- Ícono de la pestaña (Favicon) -->
     <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
     
@@ -66,6 +66,12 @@
             z-index: 10;
         }
 
+        footer .animated-slash {
+            background-color: white;
+        }
+
+
+
         /* --- Estils de la Illa Dinàmica --- */
         .island-container {
             width: 0px; height: 0px; opacity: 0;
@@ -113,6 +119,31 @@
             display: inline-block;
             transition: transform 0.1s ease-out;
             will-change: transform;
+        }
+
+        /* --- Dynamic Island --- */
+        #dynamic-island {
+            position: absolute;
+            inset: -8px -24px;
+            border-radius: 9999px;
+            background-color: #0B1320;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bodoni Moda', serif;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            transform: scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+        #dynamic-island.active {
+            transform: scale(1);
+            opacity: 1;
         }
 
         /* --- Utilidades Extras (Sidebar) --- */
@@ -173,18 +204,6 @@
             overflow: hidden;
             transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
         }
-
-        /* --- Animación del cursor escribiendo --- */
-        .typing-cursor::after {
-            content: '|';
-            display: inline-block;
-            margin-left: 2px;
-            animation: blinkCursor 0.8s step-end infinite;
-        }
-        @keyframes blinkCursor {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
     </style>
 </head>
 <body class="bg-white text-black font-sans flex flex-col min-h-screen">
@@ -199,23 +218,23 @@
             </button>
         </div>
         <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-500 uppercase overflow-y-auto no-scrollbar pb-20">
-            <a href="suscripcion.html" class="text-black hover:bg-gray-100 p-3 rounded transition-colors">Suscripción</a>
-            <a href="index.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Inicio</a>
-            <a href="moda.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Moda</a>
-            <a href="belleza.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Belleza</a>
-            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Estilo de Vida</a>
-            <a href="compras.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Compras</a>
-            <a href="redevon.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">(Re)Devon</a>
-            <a href="hollywood.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Hollywood</a>
-            <a href="podcast.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Podcast</a>
-            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Espacio Devon</a>
+            <a href="suscripcion" class="text-black hover:bg-gray-100 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Espacio Devon</a>
         </nav>
     </aside>
 
-    <!-- Barra de Navegación Principal -->
+    <!-- Barra de Navegación Principal (Unificada con animación al hacer scroll) -->
     <header id="main-header" class="w-full bg-white sticky top-0 z-40 border-b border-gray-200 transition-all duration-300">
         
-        <!-- Fila Superior -->
+        <!-- Fila Superior (Siempre visible) -->
         <div class="max-w-[1400px] mx-auto flex items-center justify-between px-5 md:px-8 h-16 md:h-[90px] relative bg-white z-20">
             
             <!-- Izquierda: Menú Hamburguesa -->
@@ -228,17 +247,17 @@
                 </button>
             </div>
             
-            <!-- Centro: Logo animado -->
+            <!-- Centro: Logo animado y Subtítulo -->
             <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex flex-col items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
                 
-                <div id="devon-text" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
+                <a id="devon-text" href="index" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
                     <span class="text-3xl sm:text-4xl md:text-[42px] font-bold tracking-widest text-black font-serif uppercase flex items-center leading-none">
                         DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
                     </span>
                     <span class="text-[7px] md:text-[8px] font-semibold tracking-[0.2em] text-black uppercase mt-1.5 leading-tight text-center font-geometric">
-                        MEMBERS
+                        MÉXICO Y<br>LATINOAMÉRICA
                     </span>
-                </div>
+                </a>
 
                 <!-- Isla Dinámica -->
                 <div id="dynamic-island" class="island-container absolute rounded-full flex items-center justify-center overflow-hidden shadow-xl" style="top: 25px;">
@@ -250,66 +269,144 @@
             
             <!-- Derecha: Suscripción -->
             <div class="flex items-center justify-end gap-5 md:gap-7 z-20 w-1/4">
-                <a href="suscripcion.html" class="hidden md:block text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black hover:text-gray-500 transition-colors mt-0.5 font-geometric">
+                <a href="suscripcion" class="hidden md:block text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black hover:text-gray-500 transition-colors mt-0.5 font-geometric">
                     SUSCRIPCIÓN
                 </a>
             </div>
         </div>
 
-        <!-- Fila Inferior: Menú de Categorías -->
+        <!-- Fila Inferior: Menú de Categorías (Se oculta al deslizar hacia abajo) -->
         <div id="secondary-nav" class="hidden md:flex w-full justify-center text-[9px] lg:text-[10px] font-bold tracking-[0.15em] text-black uppercase bg-white overflow-hidden transition-[height,opacity] duration-300 ease-in-out h-12 opacity-100 font-geometric">
             <div class="flex items-center h-full px-4 gap-4 md:gap-5 lg:gap-6">
-                <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
-                <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
-                <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
-                <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
-                <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
-                <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
-                <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
-                <a href="videos.html" class="cursor-pointer hover:text-gray-500 transition-colors">VIDEOS</a>
-                <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
+                <a href="moda" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+                <a href="belleza" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+                <a href="estilodevida" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+                <a href="compras" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+                <a href="redevon" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+                <a href="hollywood" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+                <a href="podcast" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+                <a href="videos" class="cursor-pointer hover:text-gray-500 transition-colors">VIDEOS</a>
+                <a href="espaciodevon" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
             </div>
         </div>
     </header>
 
     <!-- Pestañas Superiores (Solo Móvil) -->
     <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase font-geometric">
-        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
+        <a href="loultimo" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
             LO ÚLTIMO
         </a>
-        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-gray-100 border-l border-gray-200 hover:bg-gray-200 text-gray-600 transition-colors cursor-pointer">
+        <a href="tendencias" class="w-1/2 py-4 flex items-center justify-center bg-gray-100 border-l border-gray-200 hover:bg-gray-200 text-gray-600 transition-colors cursor-pointer">
             TENDENCIAS
         </a>
     </div>
 
-    <!-- Contenido Principal (Secuencia de Bienvenida Interactiva) -->
-    <main class="w-full flex-1 flex flex-col items-center justify-center min-h-[60vh] pb-20 pt-20">
-        <div id="welcome-sequence-container" class="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-start text-left">
-            
-            <!-- Contenedor ÚNICO para todo el texto. Se vaciará dinámicamente -->
-            <div id="main-text-container" class="text-lg md:text-2xl font-normal tracking-wide text-black leading-relaxed font-geometric w-full">
-                <!-- Fase 1: Texto inicial y input -->
-                <span id="typing-text-1" class="inline"></span>
-                <span id="name-input-container" class="opacity-0 transition-opacity duration-1000 hidden inline">
-                    <span class="ml-1">_</span><input type="text" id="member-name-input" class="text-lg md:text-2xl font-geometric text-black bg-transparent outline-none w-56 md:w-64 placeholder-gray-400 font-normal inline" style="border:none; border-bottom: 1px solid black; border-radius: 0; box-shadow: none;" placeholder="(Escribe tu nombre aqui)" autocomplete="off" spellcheck="false"><span class="mr-1">_</span>
-                </span>
-                <!-- Fase 2: Saludo inicial en la misma línea -->
-                <span id="typing-text-2" class="inline"></span>
-            </div>
-
-            <!-- Hint de presionar enter (abajo) -->
-            <p id="name-hint" class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-gray-400 mt-6 uppercase font-geometric transition-opacity duration-500 opacity-0 hidden">
-                Presiona Enter para continuar
-            </p>
-
-            <!-- Contenedor del Botón Drive (Oculto inicialmente) -->
-            <div id="drive-button-container" class="mt-8 opacity-0 transition-opacity duration-1000 hidden w-full flex justify-center">
-                <a href="https://drive.google.com/drive/folders/1FrLGUH8RY6NnqOrDKr0vJtdNBn_zev8O?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-block px-8 py-3 bg-black text-white text-xs md:text-sm font-bold tracking-[0.2em] uppercase font-geometric hover:bg-gray-800 transition-colors border border-black">
-                    DRIVE
-                </a>
-            </div>
-
+    <!-- BANNER PRINCIPAL: Portada Mundial 2026 -->
+    <section class="w-full border-b border-gray-200 pb-10 cursor-pointer hover:opacity-95 transition-opacity" onclick="window.location.href='vogue-ficcion-2026-ganadoras-y-finalistas'">
+        <div class="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-4 md:pt-6">
+            <img src="https://media.vogue.mx/photos/6a17605f026af0d9c3cb7327/16:9/w_1600,c_limit/Ganadoras%20Vogue%20Ficcio%CC%81n%202026.jpg" alt="Vogue Ficción 2026: Estos son los relatos ganadores y finalistas" class="w-full h-auto max-h-[85vh] object-cover object-center"/>
         </div>
+        <div class="max-w-4xl mx-auto flex flex-col items-center text-center mt-6 md:mt-8 px-4 font-geometric">
+            <p class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-black mb-3">ESTILO DE VIDA</p>
+            <h2 class="text-3xl md:text-4xl lg:text-[44px] font-normal text-black leading-[1.15] mb-6" style="letter-spacing: -0.02em;">
+                Vogue Ficción 2026: Estos son los relatos ganadores y finalistas
+            </h2>
+            <div class="text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-black leading-loose flex flex-col items-center">
+                <p>POR CAMILA COLINA</p>
+                <p class="normal-case font-semibold mt-1 text-[11px] md:text-[13px] tracking-normal">27 de mayo de 2026</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="w-full flex-1 pb-20">
+
+        <!-- Título HOY con líneas divisorias -->
+        <div class="w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12 mb-4">
+            <div class="border-t border-b border-gray-200 py-3 md:py-4">
+                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700" style="font-family: 'Jost', sans-serif;">
+                    HOY
+                </h2>
+            </div>
+        </div>
+
+        <!-- Grid HOY -->
+        <div class="w-full max-w-7xl mx-auto px-6 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8">
+
+                <!-- Artículo principal (grande, col-span-1) -->
+                <div class="md:col-span-1 cursor-pointer group" onclick="window.location.href='vogue-anuncia-su-club-del-libro'">
+                    <div class="relative overflow-hidden aspect-[2/3] w-full">
+                        <img src="https://media.vogue.mx/photos/6a17465b2eb98a8c4553403c/2:3/w_1920,c_limit/Vogue-Club-del-Libro-Isabel-Allende.jpg" alt="El Club del Libro de Vogue anuncia La Casa de los Espíritus por Isabel Allende" class="w-full h-full object-cover group-hover:opacity-95 transition-opacity duration-300"/>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 pt-20 pb-8 text-white text-center">
+                            <p class="text-[9px] font-light tracking-[0.2em] uppercase mb-3" style="font-family: 'Jost', sans-serif;">ESTILO DE VIDA</p>
+                            <h3 class="text-2xl md:text-3xl font-normal leading-tight mb-4" style="font-family: 'Jost', sans-serif;">El Club del Libro de Vogue anuncia La Casa de los Espíritus por Isabel Allende</h3>
+                            <p class="text-[9px] font-light tracking-[0.15em] uppercase" style="font-family: 'Jost', sans-serif;">POR ATENEA MORALES DE LA CRUZ</p>
+                            <p class="text-[11px] font-light mt-1" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna central y derecha: 2 columnas de artículos pequeños -->
+                <div class="md:col-span-2 grid grid-cols-2 gap-6 md:gap-8 mt-8 md:mt-0">
+
+                    <!-- Artículo 2: Pantalones palazzo -->
+                    <div class="cursor-pointer group" onclick="window.location.href='como-llevar-pantalones-palazzo-colombianos-elegantes-con-blusas-y-sandalias-en-primavera-2026'">
+                        <div class="overflow-hidden aspect-square w-full mb-3">
+                            <img src="https://media.vogue.mx/photos/64e8c1bc2896a4c853a1033c/1:1/w_960,c_limit/sofia-vergara-con.camisa-blanca.jpg" alt="Los pantalones palazzo colombianos más elegantes" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                        </div>
+                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">MODA</p>
+                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Los pantalones palazzo colombianos más elegantes para llevar con blusas y sandalias en primavera 2026</h3>
+                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR MELISA VARGAS</p>
+                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
+                    </div>
+
+                    <!-- Artículo 4: Pedicuras -->
+                    <div class="cursor-pointer group" onclick="window.location.href='articulo/pedicuras-para-pies-bonitos-con-sandalias-en-primavera-verano-2026'">
+                        <div class="overflow-hidden aspect-square w-full mb-3">
+                            <img src="https://media.vogue.mx/photos/6a1845c5e370d10b4ca5a19c/2:3/w_960,c_limit/pedicura-colores-primavera-verano-2026.jpg" alt="Las 10 pedicuras para pies bonitos" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                        </div>
+                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">BELLEZA</p>
+                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Las 10 pedicuras para pies bonitos que llevarás con sandalias elegantes en Primavera-Verano 2026</h3>
+                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR LAURA SOLLA Y CAROLINA ARANGO</p>
+                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
+                    </div>
+
+                    <!-- Artículo 3: Zapatos y sandalias -->
+                    <div class="cursor-pointer group" onclick="window.location.href='zapatos-y-sandalias-planas-para-llevar-con-jeans-rectos-como-en-los-90-esta-primavera'">
+                        <div class="overflow-hidden aspect-[2/3] w-full mb-3">
+                            <img src="https://media.vogue.mx/photos/6a1741f92c5f265073cb40e3/2:3/w_960,c_limit/zapatos-y-sandalias-planas-para-llevar-con-jeans-rectos-como-en-los-90-esta-primavera.jpg" alt="Zapatos y sandalias planas para llevar con jeans rectos" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                        </div>
+                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">MODA</p>
+                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">Zapatos y sandalias planas para llevar con jeans rectos como en los 90 esta primavera</h3>
+                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR MARÍA FERNANDA MARÍN</p>
+                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
+                    </div>
+
+                    <!-- Artículo 5: Nutracéuticos -->
+                    <div class="cursor-pointer group" onclick="window.location.href='articulo/que-son-los-nutraceuticos-bene-add-life-para-que-sirven-y-como-integrarlos-a-tu-rutina'">
+                        <div class="overflow-hidden aspect-square w-full mb-3">
+                            <img src="https://media.vogue.mx/photos/6a16073b7feaa3e1f07a9e32/1:1/w_960,c_limit/GettyImages-2238762538.jpg" alt="¿Qué son los nutracéuticos?" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                        </div>
+                        <p class="text-[9px] font-light tracking-[0.2em] uppercase text-black mb-2" style="font-family: 'Jost', sans-serif;">VOGUE PARA BÈNE</p>
+                        <h3 class="text-sm font-normal leading-snug text-black mb-3" style="font-family: 'Jost', sans-serif;">¿Qué son los nutracéuticos y cómo integrarlos a tu rutina?</h3>
+                        <p class="text-[9px] font-light tracking-[0.15em] uppercase text-black" style="font-family: 'Jost', sans-serif;">POR ANDREA VILLEGAS</p>
+                        <p class="text-[11px] font-light text-black mt-0.5" style="font-family: 'Jost', sans-serif;">28 de mayo de 2026</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Título RUMBO AL MUNDIAL 2026 -->
+        <div class="max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-6">
+            <div class="border-t border-b border-gray-200 py-3 md:py-4">
+                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700 uppercase" style="font-family: 'Jost', sans-serif;">
+                    RUMBO AL MUNDIAL 2026
+                </h2>
+            </div>
+        </div>
+
     </main>
 
     <!-- FOOTER: Diseño estilo Vogue -->
@@ -321,9 +418,10 @@
                 
                 <!-- Logo DEVON centrado con la línea animada en la O (Versión Blanca) -->
                 <div class="flex items-center justify-start transition-all duration-500 mb-8">
-                    <span class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white font-serif uppercase flex items-center">
+                    <a href="index" class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white font-serif uppercase flex items-center">
                         DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
                     </span>
+                    </a>
                 </div>
                 
                 <div class="flex gap-3">
@@ -337,28 +435,28 @@
             <div class="md:col-span-4 md:pl-8">
                 <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">MÁS EN DEVON</h4>
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
-                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
-                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
-                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
-                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
-                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
-                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
-                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
-                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
-                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
+                    <li><a href="moda" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="redcarpet" class="hover:text-white transition-colors">Red Carpet</a></li>
+                    <li><a href="pasarelas" class="hover:text-white transition-colors">Pasarelas</a></li>
+                    <li><a href="videos" class="hover:text-white transition-colors">Videos</a></li>
+                    <li><a href="espaciodevon" class="hover:text-white transition-colors">Espacio Devon</a></li>
+                    <li><a href="photodevon" class="hover:text-white transition-colors">PhotoDevon</a></li>
                 </ul>
             </div>
 
-            <!-- Columna Derecha: CONDÉ NAST MÉXICO -->
+            <!-- Columna Derecha: Publicaciones -->
             <div class="md:col-span-4">
-                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">CONDÉ NAST MÉXICO</h4>
+                <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">Más de Devon</h4>
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
-                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
-                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
-                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
-                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
+                    <li><a href="ad" class="hover:text-white transition-colors">AD</a></li>
+                    <li><a href="glamour" class="hover:text-white transition-colors">Glamour</a></li>
+                    <li><a href="index" class="hover:text-white transition-colors">Devon</a></li>
+                    <li><a href="gq" class="hover:text-white transition-colors">GQ</a></li>
+                    <li><a href="wired" class="hover:text-white transition-colors">Wired</a></li>
                 </ul>
             </div>
         </div>
@@ -367,19 +465,19 @@
         <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-900 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
             
             <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-500 uppercase">
-                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
+                <a href="convenio" class="hover:text-white transition-colors">Convenio del Usuario</a>
                 <span class="text-gray-700">|</span>
-                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                <a href="privacidad" class="hover:text-white transition-colors">Aviso de Privacidad</a>
                 <span class="text-gray-700">|</span>
-                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
+                <a href="quienessomos" class="hover:text-white transition-colors">Quiénes Somos</a>
                 <span class="text-gray-700">|</span>
-                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
+                <a href="mediakit" class="hover:text-white transition-colors">Media Kit</a>
                 <span class="text-gray-700">|</span>
-                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
+                <a href="newsletter" class="hover:text-white transition-colors">Newsletter</a>
                 <span class="text-gray-700">|</span>
-                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
+                <a href="suscripcion" class="hover:text-white transition-colors">Suscripción</a>
                 <span class="text-gray-700">|</span>
-                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
+                <a href="sitemap" class="hover:text-white transition-colors">Site Map</a>
             </div>
 
             <!-- Botón Selector de País -->
@@ -390,7 +488,7 @@
                 </button>
                 <!-- Dropdown Menu de País -->
                 <div id="country-dropdown" class="absolute bottom-full mb-2 right-0 w-40 bg-[#0a0a0a] border border-gray-800 shadow-2xl hidden flex-col transition-all duration-200 opacity-0 transform translate-y-2 z-50">
-                    <a href="https://stadereck.github.io/devonrevista/index.html" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 border-b border-gray-800 transition-colors uppercase">
+                    <a href="https://stadereck.github.io/devonrevista/index" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 border-b border-gray-800 transition-colors uppercase">
                         México
                     </a>
                     <a href="https://stadereck.github.io/devonrevist/" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 transition-colors uppercase">
@@ -403,192 +501,6 @@
 
     <!-- SCIPT DE INTERACCIONES GLOBALES -->
     <script>
-        // --- FUNCIÓN DE SECUENCIA DE BIENVENIDA (TYPING EFFECT) ---
-        window.startWelcomeSequence = function() {
-            const mainContainer = document.getElementById('welcome-sequence-container');
-            if (!mainContainer) return;
-
-            const text1 = "Hola, te damos la bienvenida a Devon Members. Si estás aquí es porque quisiste ser miembra o miembro de Devon, te agradecemos por tu interés en Devon.";
-            const text1El = document.getElementById('typing-text-1');
-            const inputContainer = document.getElementById('name-input-container');
-            const nameInput = document.getElementById('member-name-input');
-            const hintText = document.getElementById('name-hint');
-            const text2El = document.getElementById('typing-text-2');
-            const mainTextContainer = document.getElementById('main-text-container');
-            const driveBtnContainer = document.getElementById('drive-button-container');
-
-            // Textos para la Fase Final
-            const getFinalText = (name) => `Aquí puedes volver las veces que necesites para obtener acceso al Google Drive donde tú podrás crear una carpeta propia donde podrás subir tus mejores Fotos, Looks, etcétera. Si tienes cualquier duda no dudes en enviarnos un mensaje a nuestro instagram. Aquí podrás encontrar el drive donde podrás subir tus fotos, no te preocupes si salen algo mal, nuestro equipo se encargará de editarlas y subirlas a nuestro instagram si así lo decides, y elegiremos las mejores fotos para subirlas a nuestra próxima edición en aproximadamente de 1 a 2 semanas desde la fecha de hoy.`;
-
-            // Verificar si ya tenemos el nombre guardado en localStorage
-            const savedName = localStorage.getItem('devonMemberName');
-
-            if (savedName) {
-                // --- ESCENARIO B: USUARIO QUE REGRESA ---
-                // Ocultar inputs y textos iniciales
-                text1El.textContent = ''; 
-                text2El.textContent = '';
-                inputContainer.classList.add('hidden', 'opacity-0');
-                hintText.classList.add('hidden', 'opacity-0');
-
-                // Mensaje directo de bienvenida
-                const welcomeBackMsg = `Hola de nuevo, "${savedName}". `;
-                const fullText = welcomeBackMsg + getFinalText(savedName);
-
-                // Limpiar contenedor principal y crear span para escribir
-                mainTextContainer.innerHTML = ''; 
-                const finalTextSpan = document.createElement('span');
-                finalTextSpan.className = 'inline typing-cursor';
-                mainTextContainer.appendChild(finalTextSpan);
-
-                let l = 0;
-                function typeReturnText() {
-                    if (l < fullText.length) {
-                        finalTextSpan.textContent += fullText.charAt(l);
-                        l++;
-                        setTimeout(typeReturnText, Math.random() * 15 + 10); // Escribe un poco más rápido
-                    } else {
-                        finalTextSpan.classList.remove('typing-cursor');
-                        // Revelar el botón Drive
-                        driveBtnContainer.classList.remove('hidden');
-                        setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 200);
-                    }
-                }
-                
-                // Empezar a escribir después de un breve delay
-                setTimeout(typeReturnText, 800);
-
-            } else {
-                // --- ESCENARIO A: PRIMERA VISITA ---
-                text1El.textContent = ''; 
-                text2El.textContent = '';
-                
-                nameInput.value = '';
-                nameInput.disabled = false;
-                nameInput.classList.remove('text-gray-600');
-                
-                inputContainer.classList.add('hidden', 'opacity-0');
-                inputContainer.classList.remove('opacity-100');
-                hintText.classList.add('hidden', 'opacity-0');
-                hintText.classList.remove('opacity-100');
-                driveBtnContainer.classList.add('hidden', 'opacity-0');
-                driveBtnContainer.classList.remove('opacity-100');
-                
-                let i = 0;
-                text1El.classList.add('typing-cursor');
-                
-                // Función que escribe la primera parte letra por letra
-                function typeChar() {
-                    if (i < text1.length) {
-                        text1El.textContent += text1.charAt(i);
-                        i++;
-                        setTimeout(typeChar, Math.random() * 35 + 25);
-                    } else {
-                        text1El.classList.remove('typing-cursor');
-                        
-                        inputContainer.classList.remove('hidden'); 
-                        setTimeout(() => {
-                            inputContainer.classList.remove('opacity-0');
-                            inputContainer.classList.add('opacity-100');
-                            
-                            setTimeout(() => {
-                                hintText.classList.remove('hidden');
-                                setTimeout(() => {
-                                    hintText.classList.remove('opacity-0');
-                                    hintText.classList.add('opacity-100');
-                                    nameInput.focus();
-                                }, 50);
-                            }, 500);
-                        }, 50);
-                    }
-                }
-                
-                // Iniciar escritura inicial
-                setTimeout(typeChar, 800);
-
-                // Escuchar el 'Enter' en el input
-                nameInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' && this.value.trim() !== '') {
-                        const userName = this.value.trim();
-                        
-                        // ¡AQUÍ GUARDAMOS EL NOMBRE PARA FUTURAS VISITAS!
-                        localStorage.setItem('devonMemberName', userName);
-                        
-                        // Ocultar elementos del input visualmente
-                        this.disabled = true;
-                        this.classList.add('text-gray-600');
-                        this.blur();
-                        hintText.classList.remove('opacity-100');
-                        hintText.classList.add('opacity-0');
-                        setTimeout(() => hintText.classList.add('hidden'), 500);
-                        
-                        const text2 = " Gracias, " + userName + ". A partir de ahora, este es tu espacio exclusivo.";
-                        let j = 0;
-                        text2El.classList.add('typing-cursor');
-                        
-                        // Escribir el saludo
-                        function typeChar2() {
-                            if (j < text2.length) {
-                                text2El.textContent += text2.charAt(j);
-                                j++;
-                                setTimeout(typeChar2, Math.random() * 35 + 25);
-                            } else {
-                                text2El.classList.remove('typing-cursor');
-                                
-                                setTimeout(() => {
-                                    startEraseSequence(userName);
-                                }, 3000); // Pausa dramática de 3 segundos
-                            }
-                        }
-                        setTimeout(typeChar2, 600);
-                    }
-                });
-
-                // Función para borrar el texto actual y escribir el nuevo
-                function startEraseSequence(userName) {
-                    const currentFullText = mainTextContainer.textContent.replace(/_/g, '').trim(); 
-                    mainTextContainer.innerHTML = ''; 
-                    const erasingSpan = document.createElement('span');
-                    erasingSpan.textContent = currentFullText;
-                    erasingSpan.className = 'inline typing-cursor';
-                    mainTextContainer.appendChild(erasingSpan);
-
-                    let k = currentFullText.length;
-                    
-                    function eraseChar() {
-                        if (k > 0) {
-                            erasingSpan.textContent = currentFullText.substring(0, k - 1);
-                            k--;
-                            setTimeout(eraseChar, 10); // Velocidad de borrado súper rápida
-                        } else {
-                            erasingSpan.classList.remove('typing-cursor');
-                            const finalTextSpan = document.createElement('span');
-                            finalTextSpan.className = 'inline typing-cursor';
-                            mainTextContainer.appendChild(finalTextSpan);
-                            
-                            const finalText = `"${userName}", ` + getFinalText(userName);
-                            let l = 0;
-                            
-                            function typeFinalText() {
-                                if (l < finalText.length) {
-                                    finalTextSpan.textContent += finalText.charAt(l);
-                                    l++;
-                                    setTimeout(typeFinalText, Math.random() * 20 + 15);
-                                } else {
-                                    finalTextSpan.classList.remove('typing-cursor');
-                                    // Revelar el botón Drive
-                                    driveBtnContainer.classList.remove('hidden');
-                                    setTimeout(() => driveBtnContainer.classList.add('opacity-100'), 200);
-                                }
-                            }
-                            setTimeout(typeFinalText, 800); 
-                        }
-                    }
-                    eraseChar();
-                }
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
 
             // --- 1. Contador de Vistas Constante ---
@@ -643,6 +555,21 @@
                             closeIsland();
                         });
                     }
+                    else if (mode === 'unavailable') {
+                        dynamicIsland.classList.add('views-mode'); 
+                        islandContent.className = 'w-full flex items-center justify-center transition-all duration-300';
+                        islandContent.innerHTML = `<span class="text-white text-xs md:text-sm font-bold tracking-widest uppercase">No Disponible</span>`;
+                        
+                        setTimeout(() => {
+                            dynamicIsland.classList.add('island-shake'); 
+                            setTimeout(() => dynamicIsland.classList.remove('island-shake'), 400);
+                        }, 350);
+
+                        setTimeout(() => {
+                            if (islandMode === 'unavailable') closeIsland();
+                        }, 2500);
+                    }
+                    
                     islandContent.classList.remove('island-text-fade');
                 }, 150); 
             }
@@ -685,21 +612,40 @@
             
             window.addEventListener('scroll', () => {
                 const scrollY = window.scrollY;
+                
+                // Animación colapso del Header (estilo Vogue)
                 if (secondaryNav) {
                     if (scrollY > 20) {
                         secondaryNav.style.height = '0px';
                         secondaryNav.style.opacity = '0';
                     } else {
-                        secondaryNav.style.height = '48px'; 
+                        secondaryNav.style.height = '48px'; // Equivale a h-12
                         secondaryNav.style.opacity = '1';
                     }
                 }
             });
 
+            // Validar estado inicial del header al cargar (por si se recarga a mitad de página)
             if (secondaryNav && window.scrollY > 20) {
                 secondaryNav.style.height = '0px';
                 secondaryNav.style.opacity = '0';
             }
+
+            // --- 5. Interacción de Elementos "No Disponibles" ---
+            const unavailableElements = document.querySelectorAll('a[href="#"]');
+            unavailableElements.forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    if (sidebar && sidebar.classList.contains('open')) {
+                        hideOverlay(); 
+                    }
+
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    openIsland('unavailable');
+                });
+            });
+
         });
 
         // --- 6. Funciones Globales (Menú Hamburguesa) ---
@@ -774,6 +720,7 @@
             // Bloquear el scroll de la página para no arruinar la animación
             document.body.style.overflow = 'hidden';
 
+            // --- EFECTO REVELACIÓN: Preparar la página web para ocultarla inicialmente ---
             // 1. Ocultar el logo de la barra superior para que no se vea doble
             const realLogo = document.getElementById('devon-text');
             if (realLogo) {
@@ -789,6 +736,7 @@
             
             siteElements.forEach(el => {
                 el.style.opacity = '0';
+                // La cabecera (HEADER) no se traslada en Y para que el logo sepa su coordenada final exacta
                 if (el.tagName !== 'HEADER') {
                     el.style.transform = 'translateY(30px)';
                     el.style.transition = 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
@@ -803,6 +751,7 @@
             const finalLogo = document.createElement('div');
             finalLogo.textContent = 'DEVON';
             
+            // Clases básicas (sin las transiciones de Tailwind para controlarlo mejor con JS)
             finalLogo.className = 'font-serif text-black font-bold tracking-[0.2em] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 scale-95';
             finalLogo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
             finalLogo.style.fontSize = 'clamp(3rem, 12vw, 10rem)'; 
@@ -824,7 +773,7 @@
                 introWrapper.style.transition = 'background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
                 introWrapper.style.backgroundColor = 'transparent';
                 
-                // B) Aparecer todo el contenido de la web con efecto de elevación
+                // B) Aparecer todo el contenido de la web con efecto de elevación "premium"
                 siteElements.forEach(el => {
                     el.style.opacity = '1';
                     if (el.tagName !== 'HEADER') el.style.transform = 'translateY(0)';
@@ -841,11 +790,8 @@
                 // Justo cuando termine el vuelo de 800ms, damos el cambiazo invisible
                 setTimeout(() => {
                     finalLogo.style.opacity = '0'; // Se oculta el animado
-                    realLogo.style.opacity = '1';  // Se revela el original
+                    realLogo.style.opacity = '1';  // Se revela el original (y aparece México y Latam suavemente abajo)
                     
-                    // Iniciar la secuencia de bienvenida sin pasar por el bloqueo
-                    if(typeof window.startWelcomeSequence === 'function') window.startWelcomeSequence();
-
                     // Limpiar por completo el intro del DOM para no dejar residuos
                     setTimeout(() => {
                         introWrapper.remove();
@@ -853,7 +799,7 @@
 
                 }, 800);
 
-            }, 1800); 
+            }, 1800); // El logo DEVON se admira en el centro durante 1.8 segundos antes de despegar
         });
     </script>
 </body>

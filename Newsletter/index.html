@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compras | Devon México y Latinoamérica</title>
+    <title>Suscripción | Devon México y Latinoamérica</title>
     <!-- Ícono de la pestaña (Favicon) -->
     <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
     
@@ -144,6 +144,15 @@
         .link-underline:hover::after {
             width: 100%;
         }
+
+        /* --- Custom Checkbox Estilo Editorial --- */
+        .custom-checkbox-input:checked + .custom-checkbox-box {
+            background-color: currentColor;
+            border-color: black;
+        }
+        .custom-checkbox-input:checked + .custom-checkbox-box svg {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-white text-black font-sans flex flex-col min-h-screen">
@@ -241,108 +250,99 @@
         </a>
     </div>
 
-    <main class="w-full flex-1 pb-20">
+    <main class="w-full flex-1 bg-[#FAFAFA] py-12 md:py-20">
         
-        <!-- Encabezado de Sección: Compras -->
-        <section class="max-w-5xl mx-auto px-6 pt-16 md:pt-20 flex flex-col items-center text-center">
-            <h1 class="text-5xl md:text-6xl text-black mb-6 font-serif">Espacio Devon</h1>
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
             
-            <p class="text-[14px] md:text-[16px] leading-relaxed text-black max-w-[850px] mb-16 font-serif">
-                Descubre la experiencia de compra más exclusiva. Espacio Devon es una pop-up curada por Devon<br class="hidden md:block"> con las mejores marcas de moda, belleza y estilo de vida de México y Latinoamérica.
-            </p>
-            
-            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-2 w-full">
-                <span class="text-[14px] md:text-[15px] font-medium text-black font-sans">
-                    Suscríbete a nuestra newsletter para recibir lo mejor de Devon en tu correo electrónico.
-                </span>
-                <a href="newsletter" class="link-underline text-[11px] md:text-xs font-bold tracking-[0.2em] uppercase text-black font-sans mt-2 md:mt-0">
-                    REGISTRARME
-                </a>
-            </div>
-        </section>
-
-        <!-- Sección: Artículo Overlay Principal -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 mt-16 md:mt-24 mb-12">
-            <a href="#" class="relative w-full block group overflow-hidden cursor-pointer" style="height: 65vh; min-height: 450px; max-height: 600px;">
+            <!-- Columna Izquierda: Imagen Editorial inspirada en el PDF -->
+            <div class="w-full order-2 md:order-1 relative group overflow-hidden bg-gray-200 aspect-[3/4] md:aspect-[4/5]">
                 <img 
-                    src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600&auto=format&fit=crop" 
-                    alt="Espacio Devon Experiencia" 
-                    class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                    src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1400&auto=format&fit=crop" 
+                    alt="Modelo Moda Devon" 
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div class="absolute inset-0 flex flex-col items-center justify-end text-center pb-12 md:pb-16 px-4 md:px-12 z-10">
-                    <span class="text-white text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase mb-4 font-sans">
-                        MODA
-                    </span>
-                    <h2 class="text-white text-3xl md:text-4xl lg:text-5xl font-medium max-w-4xl leading-tight mb-8" style="font-family: 'Jost', sans-serif;">
-                        Espacio Devon: La exclusiva experiencia de compras que debes de conocer
-                    </h2>
-                    <span class="text-white text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase mb-3 font-sans">
-                        ATENEA MORALES DE LA CRUZ
-                    </span>
-                </div>
-            </a>
-        </section>
+            </div>
 
-        <!-- Grid 3 Columnas: Artículos Secundarios -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mb-12">
-            <!-- Artículo 2 -->
-            <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/5] mb-4">
-                    <img src="https://media.vogue.mx/photos/673cb692dd1d72eb31562697/1:1/w_1600,c_limit/espacio-vogue-holiday-edition-2024.jpg" alt="Prendas y accesorios" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3 font-sans">MODA</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Estas son las prendas y accesorios imperdibles de Espacio Devon Holiday Edition 2024</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Luz García</span>
-            </a>
-            
-            <!-- Artículo 3 -->
-            <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/5] mb-4">
-                    <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=800&auto=format&fit=crop" alt="Accesorios marcas latinas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3 font-sans">SHOPPING</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Los accesorios (de marcas latinas) que puedes comprar en Espacio Devon</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por María Villarreal</span>
-            </a>
+            <!-- Columna Derecha: Contenido y Formulario -->
+            <div class="w-full order-1 md:order-2 flex flex-col justify-center">
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl text-black mb-10 font-serif leading-tight">
+                    Devon más cerca de ti: <br/><span class="italic">¡Suscríbete!</span>
+                </h1>
+                
+                <!-- Contenedor del Formulario -->
+                <div id="formContainer" class="w-full transition-opacity duration-500">
+                    <form id="subscriptionForm" action="#" method="POST" class="w-full">
+                    
+                        <!-- Opción de Boletín (Texto del PDF adaptado a Devon) -->
+                        <div class="border-t border-b border-gray-300 py-6 mb-10">
+                            <div class="relative flex items-center justify-center mt-1 mr-5">
+                                <input type="checkbox" class="custom-checkbox-input opacity-0 absolute w-0 h-0" checked>
+                                <div class="custom-checkbox-box w-6 h-6 border-2 border-black flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4 text-white hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="square" stroke-linejoin="miter" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- Contenido del Checkbox -->
+                            <div class="flex-1">
+                                <p class="text-base md:text-lg text-black font-serif leading-relaxed mb-4">
+                                    Todo lo que necesitas saber sobre moda, belleza y estilo de vida, directo en tu email.
+                                </p>
+                                <a href="#" class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-black hover:text-gray-500 transition-colors inline-block pb-0.5 border-b border-black">
+                                    VISTA PREVIA &gt;&gt;&gt;
+                                </a>
+                            </div>
+                        </label>
+                    </div>
 
-            <!-- Artículo 4 -->
-            <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/5] mb-4">
-                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop" alt="Marcas de belleza" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3 font-sans">BELLEZA</span>
-                <h3 class="text-xl md:text-2xl font-medium text-black leading-snug mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Las mejores marcas de belleza que verás en Espacio Devon México 2023</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Lorena Meouchi</span>
-            </a>
-        </section>
+                    <!-- Campos y Botón Final -->
+                    <div class="flex flex-col gap-5">
+                        <div>
+                            <label for="email" class="sr-only">Correo electrónico</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="Tu correo electrónico" 
+                                class="w-full border border-gray-300 bg-transparent px-5 py-4 text-sm font-sans placeholder-gray-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all"
+                                required
+                            >
+                        </div>
+                        
+                        <button 
+                            type="submit" 
+                            class="w-full bg-black text-white px-8 py-5 text-[11px] md:text-xs font-bold tracking-[0.25em] uppercase hover:bg-[#222] transition-colors mt-2"
+                        >
+                            SUSCRIBIRME
+                        </button>
 
-        <!-- Grid 2 Columnas: Artículos Finales -->
-        <section class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-20">
-            <!-- Artículo 5 -->
-            <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] md:aspect-[3/2] mb-4">
-                    <img src="https://media.vogue.mx/photos/646a73eb19a85350ba142d39/1:1/w_1600,c_limit/ropa-en-tendencia-para-verano-2023.jpg" alt="Básicos para verano" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3 font-sans">MODA</span>
-                <h3 class="text-2xl md:text-3xl font-medium text-black leading-snug mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Di con los básicos para verano (de marcas latinoamericanas) que no faltarán en mi clóset esta temporada</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Fernanda Pérez Sánchez</span>
-            </a>
+                        <p class="text-[10px] text-gray-500 font-sans mt-3 text-center md:text-left leading-relaxed">
+                            Al suscribirte, aceptas nuestros <a href="#" class="underline hover:text-black">Términos de Uso</a> y confirmas que has leído nuestro <a href="#" class="underline hover:text-black">Aviso de Privacidad</a>.
+                        </p>
+                    </div>
 
-            <!-- Artículo 6 -->
-            <a href="#" class="flex flex-col group cursor-pointer">
-                <div class="overflow-hidden aspect-[4/3] md:aspect-[3/2] mb-4">
-                    <img src="https://media.vogue.mx/photos/68de9d8ec8833f016cb85336/16:9/w_1600,c_limit/que-hacer-en-la-cdmx-guia-vogue-mexico.jpg" alt="Guía CDMX" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    </form>
                 </div>
-                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-3 font-sans">ESTILO DE VIDA</span>
-                <h3 class="text-2xl md:text-3xl font-medium text-black leading-snug mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">La guía Devon para descubrir la Ciudad de México</h3>
-                <span class="text-[10px] md:text-xs text-gray-400 font-sans uppercase tracking-wider">Por Lorena Meouchi Y Atenea Morales De La Cruz</span>
-            </a>
-        </section>
 
+                <!-- Mensaje de Éxito (Oculto por defecto) -->
+                <div id="successContainer" class="hidden flex-col items-center md:items-start justify-center py-8 opacity-0 transition-opacity duration-500">
+                    <div class="w-16 h-16 rounded-full border-2 border-black flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl text-black font-serif mb-4">¡Gracias por suscribirte!</h2>
+                    <p class="text-base text-gray-600 font-sans text-center md:text-left">
+                        Tu registro ha sido exitoso. Pronto recibirás nuestras últimas novedades directo en tu email.
+                    </p>
+                </div>
+            </div>
+
+        </div>
     </main>
 
-    <!-- FOOTER: Diseño estilo Devon -->
+    <!-- FOOTER: Diseño estilo Devon (Basado en Vogue) -->
     <!-- FOOTER: Diseño estilo Vogue -->
     <footer class="bg-black text-white pt-16 pb-8 border-t border-gray-900 mt-20">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
@@ -433,7 +433,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DE INTERACCIONES GLOBALES -->
+    <!-- SCIPT DE INTERACCIONES GLOBALES -->
     <script>
         const overlay = document.getElementById('overlay');
         const sidebar = document.getElementById('sidebarMenu');
@@ -459,6 +459,48 @@
             closeMenu();
         }
         function closeAll() { hideOverlay(); }
+
+        // --- Lógica de Suscripción (Persistencia con localStorage) ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const formContainer = document.getElementById("formContainer");
+            const successContainer = document.getElementById("successContainer");
+            const subscriptionForm = document.getElementById("subscriptionForm");
+
+            // Función para mostrar el mensaje de éxito
+            const showSuccess = () => {
+                formContainer.classList.add("hidden");
+                successContainer.classList.remove("hidden");
+                successContainer.classList.add("flex");
+                // Pequeño timeout para que la transición de opacidad se note
+                setTimeout(() => {
+                    successContainer.classList.remove("opacity-0");
+                }, 50);
+            };
+
+            // Verificar si el usuario ya se suscribió previamente al cargar la página
+            if (localStorage.getItem("devonSubscribed") === "true") {
+                showSuccess();
+            }
+
+            // Manejar el clic en el botón de suscribirse
+            if (subscriptionForm) {
+                subscriptionForm.addEventListener("submit", (e) => {
+                    e.preventDefault(); // Evitar que la página recargue al mandar el formulario
+                    const emailInput = document.getElementById("email");
+                    
+                    if (emailInput.value.trim() !== "") {
+                        // Guardar el estado de suscripción en el navegador
+                        localStorage.setItem("devonSubscribed", "true");
+                        
+                        // Efecto visual: desvanecer el formulario y mostrar el mensaje
+                        formContainer.classList.add("opacity-0");
+                        setTimeout(() => {
+                            showSuccess();
+                        }, 500); 
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

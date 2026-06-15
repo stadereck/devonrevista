@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belleza | Devon México y Latinoamérica</title>
+    <title>Moda | Devon México y Latinoamérica</title>
     <!-- Ícono de la pestaña (Favicon) -->
     <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
     
@@ -124,6 +124,26 @@
         .sidebar.open nav a:nth-child(8) { transition-delay: 0.45s; }
         .sidebar.open nav a:nth-child(9) { transition-delay: 0.50s; }
         .sidebar.open nav a:nth-child(10) { transition-delay: 0.55s; }
+
+        /* --- Animación de Línea para los Enlaces --- */
+        .link-underline {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1.5px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease-in-out;
+        }
+        .link-underline:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
 <body class="bg-white text-black font-sans flex flex-col min-h-screen">
@@ -138,16 +158,16 @@
             </button>
         </div>
         <nav class="flex flex-col p-4 gap-4 text-sm font-semibold tracking-wider text-gray-500 uppercase overflow-y-auto no-scrollbar pb-20">
-            <a href="suscripcion.html" class="text-black hover:bg-gray-100 p-3 rounded transition-colors">Suscripción</a>
-            <a href="index.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Inicio</a>
-            <a href="moda.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Moda</a>
-            <a href="belleza.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Belleza</a>
-            <a href="estilodevida.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Estilo de Vida</a>
-            <a href="compras.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Compras</a>
-            <a href="redevon.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">(Re)Devon</a>
-            <a href="hollywood.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Hollywood</a>
-            <a href="podcast.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Podcast</a>
-            <a href="espaciodevon.html" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Espacio Devon</a>
+            <a href="suscripcion" class="text-black hover:bg-gray-100 p-3 rounded transition-colors">Suscripción</a>
+            <a href="index" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Inicio</a>
+            <a href="moda" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Moda</a>
+            <a href="belleza" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Belleza</a>
+            <a href="estilodevida" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Estilo de Vida</a>
+            <a href="compras" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Compras</a>
+            <a href="redevon" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">(Re)Devon</a>
+            <a href="hollywood" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Hollywood</a>
+            <a href="podcast" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Podcast</a>
+            <a href="espaciodevon" class="hover:text-black hover:bg-gray-100 p-3 rounded transition-colors">Espacio Devon</a>
         </nav>
     </aside>
 
@@ -170,7 +190,7 @@
             <!-- Centro: Logo animado y Subtítulo -->
             <div id="interactive-header-center" class="absolute left-1/2 transform -translate-x-1/2 h-full flex flex-col items-center justify-center cursor-pointer select-none z-10 w-auto px-2 md:px-4 whitespace-nowrap">
                 
-                <a id="devon-text" href="index.html" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
+                <a id="devon-text" href="index" class="flex flex-col items-center justify-center transition-all duration-500 pt-2">
                     <span class="text-3xl sm:text-4xl md:text-[42px] font-bold tracking-widest text-black font-serif uppercase flex items-center leading-none">
                         DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
                     </span>
@@ -189,7 +209,7 @@
             
             <!-- Derecha: Suscripción -->
             <div class="flex items-center justify-end gap-5 md:gap-7 z-20 w-1/4">
-                <a href="suscripcion.html" class="hidden md:block text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black hover:text-gray-500 transition-colors mt-0.5 font-geometric">
+                <a href="suscripcion" class="hidden md:block text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black hover:text-gray-500 transition-colors mt-0.5 font-geometric">
                     SUSCRIPCIÓN
                 </a>
             </div>
@@ -198,127 +218,112 @@
         <!-- Fila Inferior: Menú de Categorías (Se oculta al deslizar hacia abajo) -->
         <div id="secondary-nav" class="hidden md:flex w-full justify-center text-[9px] lg:text-[10px] font-bold tracking-[0.15em] text-black uppercase bg-white overflow-hidden transition-[height,opacity] duration-300 ease-in-out h-12 opacity-100 font-geometric">
             <div class="flex items-center h-full px-4 gap-4 md:gap-5 lg:gap-6">
-                <a href="moda.html" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
-                <a href="belleza.html" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
-                <a href="estilodevida.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
-                <a href="compras.html" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
-                <a href="redevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
-                <a href="hollywood.html" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
-                <a href="podcast.html" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
-                <a href="videos.html" class="cursor-pointer hover:text-gray-500 transition-colors">VIDEOS</a>
-                <a href="espaciodevon.html" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
+                <a href="moda" class="cursor-pointer hover:text-gray-500 transition-colors">MODA</a>
+                <a href="belleza" class="cursor-pointer hover:text-gray-500 transition-colors">BELLEZA</a>
+                <a href="estilodevida" class="cursor-pointer hover:text-gray-500 transition-colors">ESTILO DE VIDA</a>
+                <a href="compras" class="cursor-pointer hover:text-gray-500 transition-colors">COMPRAS</a>
+                <a href="redevon" class="cursor-pointer hover:text-gray-500 transition-colors">(RE)DEVON</a>
+                <a href="hollywood" class="cursor-pointer hover:text-gray-500 transition-colors">HOLLYWOOD</a>
+                <a href="podcast" class="cursor-pointer hover:text-gray-500 transition-colors">PODCAST</a>
+                <a href="videos" class="cursor-pointer hover:text-gray-500 transition-colors">VIDEOS</a>
+                <a href="espaciodevon" class="cursor-pointer hover:text-gray-500 transition-colors">ESPACIO DEVON</a>
             </div>
         </div>
     </header>
 
     <!-- Pestañas Superiores (Solo Móvil) -->
     <div class="flex md:hidden w-full text-[11px] font-semibold tracking-wider text-gray-500 uppercase font-geometric">
-        <a href="loultimo.html" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
+        <a href="loultimo" class="w-1/2 py-4 flex items-center justify-center bg-white text-black border-b-2 border-black">
             LO ÚLTIMO
         </a>
-        <a href="tendencias.html" class="w-1/2 py-4 flex items-center justify-center bg-gray-100 border-l border-gray-200 hover:bg-gray-200 text-gray-600 transition-colors cursor-pointer">
+        <a href="tendencias" class="w-1/2 py-4 flex items-center justify-center bg-gray-100 border-l border-gray-200 hover:bg-gray-200 text-gray-600 transition-colors cursor-pointer">
             TENDENCIAS
         </a>
     </div>
 
     <main class="w-full flex-1 pb-20">
         
-        <!-- Encabezado de Sección: Belleza -->
+        <!-- Encabezado de Sección: Moda -->
         <section class="max-w-5xl mx-auto px-6 pt-16 md:pt-20 flex flex-col items-center text-center">
-            <h1 class="text-5xl md:text-7xl text-black mb-6 font-serif">Belleza</h1>
+            <h1 class="text-5xl md:text-6xl text-black mb-6 font-serif">Moda</h1>
             
-            <p class="text-[15px] md:text-[17px] leading-relaxed text-black max-w-[850px] mb-16 font-serif">
-                Rutinas de belleza, tendencias de maquillaje, corte de pelo de temporada. Desde consejos de bienestar, peinados hasta cómo cuidar tu piel.
+            <p class="text-[14px] md:text-[16px] leading-relaxed text-black max-w-[850px] mb-16 font-serif">
+                Tendencias de moda, street style, qué llevar esta temporada. Los diseñadores del momento, las colecciones en tendencia.<br class="hidden md:block"> Entrevistas, consejos y lo último en la moda.
             </p>
-        </section>
-
-        <!-- Sección ÚLTIMAS TENDENCIAS -->
-        <section class="max-w-[1200px] mx-auto px-6 mb-24">
-            <h2 class="text-sm font-medium tracking-[0.2em] text-black uppercase mb-6" style="font-family: 'Jost', sans-serif;">
-                ÚLTIMAS TENDENCIAS
-            </h2>
-
-            <!-- Primeros 2 Artículos -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
-                <!-- Artículo 1 -->
-                <a href="ducharse-a-oscuras.html" class="flex flex-col group cursor-pointer h-full">
-                    <div class="w-full aspect-[4/5] md:aspect-square overflow-hidden mb-5 bg-gray-100 relative">
-                        <img src="https://media.vogue.mx/photos/69ef82115c42a5ae5a07fb6b/3:4/w_960,c_limit/ducha-oscuridad-ban%CC%83arse-sin-luz-beneficios.jpg" alt="Ducharse a oscuras" class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out">
-                    </div>
-                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-black mb-3 font-sans">BELLEZA</span>
-                    <h3 class="text-xl md:text-2xl font-serif text-black leading-snug mb-5 group-hover:text-gray-600 transition-colors">
-                        Ducharse a oscuras antes de dormir, todos los beneficios de una regadera sin luz
-                    </h3>
-                    <div class="mt-auto flex flex-col pt-2">
-                        <span class="text-[9px] font-bold tracking-[0.15em] uppercase text-black mb-1.5 font-sans">POR TATIANA DIAS</span>
-                        <span class="text-[11px] text-gray-600 font-sans">27 de abril de 2026</span>
-                    </div>
-                </a>
-
-                <!-- Artículo 2 -->
-                <a href="mejor-yogurt.html" class="flex flex-col group cursor-pointer h-full">
-                    <div class="w-full aspect-[4/5] md:aspect-square overflow-hidden mb-5 bg-gray-100 relative">
-                        <img src="https://media.vogue.mx/photos/69ebe6dfb130b703c93f4011/1:1/w_640,c_limit/yogurt-desayuno-alto-en-proteina.jpg" alt="Mejor yogurt" class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out">
-                    </div>
-                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-black mb-3 font-sans">BELLEZA</span>
-                    <h3 class="text-xl md:text-2xl font-serif text-black leading-snug mb-5 group-hover:text-gray-600 transition-colors">
-                        Este es el mejor yogurt para un desayuno alto en proteína, según una nutrióloga
-                    </h3>
-                    <div class="mt-auto flex flex-col pt-2">
-                        <span class="text-[9px] font-bold tracking-[0.15em] uppercase text-black mb-1.5 font-sans">POR MARÍA DIEZ</span>
-                        <span class="text-[11px] text-gray-600 font-sans">24 de abril de 2026</span>
-                    </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-2 w-full">
+                <span class="text-[14px] md:text-[15px] font-medium text-black font-sans">
+                    Suscríbete a nuestra newsletter para recibir lo mejor de Devon en tu correo electrónico.
+                </span>
+                <a href="newsletter" class="link-underline text-[11px] md:text-xs font-bold tracking-[0.2em] uppercase text-black font-sans mt-2 md:mt-0">
+                    REGISTRARME
                 </a>
             </div>
+        </section>
 
-            <!-- Siguientes 3 Artículos -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                
-                <!-- Artículo 3 -->
-                <a href="unas-amarillas.html" class="flex flex-col group cursor-pointer h-full">
-                    <div class="w-full aspect-square overflow-hidden mb-5 bg-gray-100 relative">
-                        <img src="https://media.vogue.mx/photos/69ef9ede828268656d93513d/1:1/w_640,c_limit/manicura-color-amarillo.jpg" alt="Uñas amarillo" class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out">
+        <!-- Separador / Título de Categoría: Lo Último -->
+        <div class="w-full max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-8">
+            <div class="border-t border-b border-black py-3 md:py-4 flex justify-between items-center">
+                <h2 class="text-lg md:text-xl font-medium tracking-widest text-black uppercase" style="font-family: 'Jost', sans-serif;">
+                    LO ÚLTIMO
+                </h2>
+            </div>
+        </div>
+
+        <!-- Sección: Grid Lo Último -->
+        <section class="max-w-7xl mx-auto px-6 mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Featured (Large) -->
+                <a href="rio-fashion-week" class="lg:col-span-8 group cursor-pointer flex flex-col">
+                    <div class="relative w-full aspect-[4/3] lg:aspect-[16/9] overflow-hidden mb-4">
+                        <img src="https://media.vogue.mx/photos/69ec351d28bd53d8bef0e129/3:4/w_960,c_limit/rio-fashion-week-2026-.jpg" class="object-cover object-center lg:object-top w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Rio Fashion Week">
                     </div>
-                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-black mb-3 font-sans">BELLEZA</span>
-                    <h3 class="text-base md:text-[17px] font-medium text-black leading-snug mb-5 font-sans group-hover:text-gray-600 transition-colors">
-                        Ideas de buen gusto para llevar las uñas color amarillo que serán tendencia en mayo 2026
-                    </h3>
-                    <div class="mt-auto flex flex-col pt-2">
-                        <span class="text-[9px] font-bold tracking-[0.15em] uppercase text-black mb-1.5 font-sans">POR MARÍA DIEZ</span>
-                        <span class="text-[11px] text-gray-600 font-sans">27 de abril de 2026</span>
-                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                    <h3 class="text-3xl lg:text-4xl font-medium leading-tight mb-3 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">El regreso de Rio Fashion Week es un triunfo necesario para la moda latina</h3>
+                    <span class="text-[10px] uppercase text-gray-400">Por Luz García</span>
                 </a>
 
-                <!-- Artículo 4 -->
-                <a href="tratamiento-coreano.html" class="flex flex-col group cursor-pointer h-full">
-                    <div class="w-full aspect-square overflow-hidden mb-5 bg-gray-100 relative">
-                        <img src="https://media.vogue.mx/photos/69ebc1f7492617eddff1be52/1:1/w_640,c_limit/PDRN-de-salmon.jpg" alt="Tratamiento coreano" class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out">
+                <!-- Side Stack (2 items) -->
+                <div class="lg:col-span-4 flex flex-col gap-8 md:grid md:grid-cols-2 lg:flex lg:flex-col">
+                    <a href="constanza-zamora" class="group flex flex-col cursor-pointer">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden mb-3">
+                            <img src="https://media.vogue.mx/photos/69e91d7b9c5cf00f4dbd18b0/1:1/w_640,c_limit/constanza-zamora-modelo-oaxaquen%CC%83a-fotos-enrique-leyva.jpg" class="object-cover object-center w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Constanza Zamora">
+                        </div>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                        <h3 class="text-xl font-medium leading-tight mb-2 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Conoce a Constanza Zamora, la modelo de la costa de Oaxaca que se abre camino en la moda internacional</h3>
+                        <span class="text-[10px] uppercase text-gray-400">Por Luz García</span>
+                    </a>
+                    
+                    <a href="stella-mccartney" class="group flex flex-col cursor-pointer">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden mb-3">
+                            <img src="https://media.vogue.mx/photos/69e12b6f33af0168b6a09cd7/1:1/w_640,c_limit/2023-H&M_SMC-PR-Portrait-A4-RGB-260217_4.jpg" class="object-cover object-top w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Stella McCartney">
+                        </div>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                        <h3 class="text-xl font-medium leading-tight mb-2 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Stella McCartney vuelve a colaborar con esta marca icónica, 20 años después</h3>
+                        <span class="text-[10px] uppercase text-gray-400">Por Liam Hess</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Bottom row (2 items) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <a href="vestidos-flores" class="group flex flex-col cursor-pointer">
+                    <div class="relative w-full aspect-[16/9] overflow-hidden mb-3">
+                        <img src="https://media.vogue.mx/photos/6952d340bb9c9febc67d6ecc/1:1/w_640,c_limit/ToryBurch_NYFW_SS26_backstage_acielle_18.jpg" class="object-cover object-center w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Vestidos de flores">
                     </div>
-                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-black mb-3 font-sans">BELLEZA</span>
-                    <h3 class="text-base md:text-[17px] font-medium text-black leading-snug mb-5 font-sans group-hover:text-gray-600 transition-colors">
-                        El tratamiento coreano que visiblemente me ayudó a reducir las arrugas de mi piel e hidratarla intensamente
-                    </h3>
-                    <div class="mt-auto flex flex-col pt-2">
-                        <span class="text-[9px] font-bold tracking-[0.15em] uppercase text-black mb-1.5 font-sans">POR KARINA GONZÁLEZ ULLOA</span>
-                        <span class="text-[11px] text-gray-600 font-sans">24 de abril de 2026</span>
-                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                    <h3 class="text-2xl font-medium leading-tight mb-2 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Los vestidos de flores más bonitos y elegantes para llevar en Primavera-Verano 2026</h3>
+                    <span class="text-[10px] uppercase text-gray-400">Por Renata Joffre</span>
                 </a>
 
-                <!-- Artículo 5 -->
-                <a href="aceites-esenciales.html" class="flex flex-col group cursor-pointer h-full">
-                    <div class="w-full aspect-square overflow-hidden mb-5 bg-gray-100 relative">
-                        <img src="https://media.vogue.mx/photos/69eacb77ca74c051da139a0f/1:1/w_640,c_limit/aceites-que-funcionan-como-perfumes.jpg" alt="Aceites esenciales" class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out">
+                <a href="sandalias-colombianas" class="group flex flex-col cursor-pointer">
+                    <div class="relative w-full aspect-[16/9] overflow-hidden mb-3">
+                        <img src="https://media.vogue.mx/photos/69deddd1444f8a825e2e8e50/1:1/w_640,c_limit/%20sandalias-colombianas-color-cafe-elegantes.jpg" class="object-cover object-center w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out" alt="Sandalias colombianas">
                     </div>
-                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-black mb-3 font-sans">BELLEZA</span>
-                    <h3 class="text-base md:text-[17px] font-medium text-black leading-snug mb-5 font-sans group-hover:text-gray-600 transition-colors">
-                        7 aceites esenciales que funcionan como perfumes (y que además mejoran tu estado de ánimo)
-                    </h3>
-                    <div class="mt-auto flex flex-col pt-2">
-                        <span class="text-[9px] font-bold tracking-[0.15em] uppercase text-black mb-1.5 font-sans">POR MARÍA DIEZ</span>
-                        <span class="text-[11px] text-gray-600 font-sans">23 de abril de 2026</span>
-                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">MODA</span>
+                    <h3 class="text-2xl font-medium leading-tight mb-2 group-hover:text-gray-600 transition-colors" style="font-family: 'Jost', sans-serif;">Las sandalias colombianas color café más elegantes para llevar con vestidos en primavera 2026</h3>
+                    <span class="text-[10px] uppercase text-gray-400">Por Melisa Vargas</span>
                 </a>
-
             </div>
         </section>
 
@@ -333,7 +338,7 @@
                 
                 <!-- Logo DEVON centrado con la línea animada en la O (Versión Blanca) -->
                 <div class="flex items-center justify-start transition-all duration-500 mb-8">
-                    <a href="index.html" class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white font-serif uppercase flex items-center">
+                    <a href="index" class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white font-serif uppercase flex items-center">
                         DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
                     </span>
                     </a>
@@ -350,16 +355,16 @@
             <div class="md:col-span-4 md:pl-8">
                 <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">MÁS EN DEVON</h4>
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="moda.html" class="hover:text-white transition-colors">Moda</a></li>
-                    <li><a href="belleza.html" class="hover:text-white transition-colors">Belleza</a></li>
-                    <li><a href="estilodevida.html" class="hover:text-white transition-colors">Estilo de Vida</a></li>
-                    <li><a href="compras.html" class="hover:text-white transition-colors">Compras</a></li>
-                    <li><a href="redevon.html" class="hover:text-white transition-colors">(Re)Devon</a></li>
-                    <li><a href="redcarpet.html" class="hover:text-white transition-colors">Red Carpet</a></li>
-                    <li><a href="pasarelas.html" class="hover:text-white transition-colors">Pasarelas</a></li>
-                    <li><a href="videos.html" class="hover:text-white transition-colors">Videos</a></li>
-                    <li><a href="espaciodevon.html" class="hover:text-white transition-colors">Espacio Devon</a></li>
-                    <li><a href="photodevon.html" class="hover:text-white transition-colors">PhotoDevon</a></li>
+                    <li><a href="moda" class="hover:text-white transition-colors">Moda</a></li>
+                    <li><a href="belleza" class="hover:text-white transition-colors">Belleza</a></li>
+                    <li><a href="estilodevida" class="hover:text-white transition-colors">Estilo de Vida</a></li>
+                    <li><a href="compras" class="hover:text-white transition-colors">Compras</a></li>
+                    <li><a href="redevon" class="hover:text-white transition-colors">(Re)Devon</a></li>
+                    <li><a href="redcarpet" class="hover:text-white transition-colors">Red Carpet</a></li>
+                    <li><a href="pasarelas" class="hover:text-white transition-colors">Pasarelas</a></li>
+                    <li><a href="videos" class="hover:text-white transition-colors">Videos</a></li>
+                    <li><a href="espaciodevon" class="hover:text-white transition-colors">Espacio Devon</a></li>
+                    <li><a href="photodevon" class="hover:text-white transition-colors">PhotoDevon</a></li>
                 </ul>
             </div>
 
@@ -367,11 +372,11 @@
             <div class="md:col-span-4">
                 <h4 class="text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-gray-500 font-sans">Más de Devon</h4>
                 <ul class="text-[10px] font-medium tracking-[0.15em] text-gray-300 space-y-5 uppercase font-sans">
-                    <li><a href="ad.html" class="hover:text-white transition-colors">AD</a></li>
-                    <li><a href="glamour.html" class="hover:text-white transition-colors">Glamour</a></li>
-                    <li><a href="index.html" class="hover:text-white transition-colors">Devon</a></li>
-                    <li><a href="gq.html" class="hover:text-white transition-colors">GQ</a></li>
-                    <li><a href="wired.html" class="hover:text-white transition-colors">Wired</a></li>
+                    <li><a href="ad" class="hover:text-white transition-colors">AD</a></li>
+                    <li><a href="glamour" class="hover:text-white transition-colors">Glamour</a></li>
+                    <li><a href="index" class="hover:text-white transition-colors">Devon</a></li>
+                    <li><a href="gq" class="hover:text-white transition-colors">GQ</a></li>
+                    <li><a href="wired" class="hover:text-white transition-colors">Wired</a></li>
                 </ul>
             </div>
         </div>
@@ -380,19 +385,19 @@
         <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-900 flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
             
             <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-[9px] font-medium tracking-[0.15em] text-gray-500 uppercase">
-                <a href="convenio.html" class="hover:text-white transition-colors">Convenio del Usuario</a>
+                <a href="convenio" class="hover:text-white transition-colors">Convenio del Usuario</a>
                 <span class="text-gray-700">|</span>
-                <a href="privacidad.html" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                <a href="privacidad" class="hover:text-white transition-colors">Aviso de Privacidad</a>
                 <span class="text-gray-700">|</span>
-                <a href="quienessomos.html" class="hover:text-white transition-colors">Quiénes Somos</a>
+                <a href="quienessomos" class="hover:text-white transition-colors">Quiénes Somos</a>
                 <span class="text-gray-700">|</span>
-                <a href="mediakit.html" class="hover:text-white transition-colors">Media Kit</a>
+                <a href="mediakit" class="hover:text-white transition-colors">Media Kit</a>
                 <span class="text-gray-700">|</span>
-                <a href="newsletter.html" class="hover:text-white transition-colors">Newsletter</a>
+                <a href="newsletter" class="hover:text-white transition-colors">Newsletter</a>
                 <span class="text-gray-700">|</span>
-                <a href="suscripcion.html" class="hover:text-white transition-colors">Suscripción</a>
+                <a href="suscripcion" class="hover:text-white transition-colors">Suscripción</a>
                 <span class="text-gray-700">|</span>
-                <a href="sitemap.html" class="hover:text-white transition-colors">Site Map</a>
+                <a href="sitemap" class="hover:text-white transition-colors">Site Map</a>
             </div>
 
             <!-- Botón Selector de País -->
@@ -403,7 +408,7 @@
                 </button>
                 <!-- Dropdown Menu de País -->
                 <div id="country-dropdown" class="absolute bottom-full mb-2 right-0 w-40 bg-[#0a0a0a] border border-gray-800 shadow-2xl hidden flex-col transition-all duration-200 opacity-0 transform translate-y-2 z-50">
-                    <a href="https://stadereck.github.io/devonrevista/index.html" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 border-b border-gray-800 transition-colors uppercase">
+                    <a href="https://stadereck.github.io/devonrevista/index" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 border-b border-gray-800 transition-colors uppercase">
                         México
                     </a>
                     <a href="https://stadereck.github.io/devonrevist/" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 transition-colors uppercase">
@@ -414,7 +419,7 @@
         </div>
     </footer>
 
-    <!-- SCIPT DE INTERACCIONES GLOBALES -->
+    <!-- SCIPT DE INTERACCIONES GLOBALES (Limpiado para esta sección) -->
     <script>
         // --- 1. Funciones Globales (Menú Hamburguesa) ---
         const overlay = document.getElementById('overlay');
@@ -441,6 +446,7 @@
             closeMenu();
         }
         function closeAll() { hideOverlay(); }
+
     </script>
 </body>
 </html>
