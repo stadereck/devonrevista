@@ -29,7 +29,7 @@
                     },
                     colors: {
                         editorial: {
-                            black: '#0a0a0a', /* Un negro ligeramente más suave para lectura prolongada */
+                            black: '#0a0a0a', 
                             gray: '#888888',
                             lightGray: '#e5e5e5'
                         }
@@ -58,16 +58,10 @@
             z-index: 10;
         }
 
-        /* Utilidad para ocultar barras de desplazamiento manteniendo funcionalidad */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Optimizaciones de renderizado para transiciones */
+        /* Optimizaciones de renderizado para transiciones de texto */
         .fade-transition {
             transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: opacity;
@@ -76,158 +70,252 @@
         /* --- Efecto Liquid Glass (Estilo iOS 26) --- */
         .liquid-glass {
             background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
-            border-top: 1px solid rgba(255, 255, 255, 0.7);
-            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(40px) saturate(250%);
+            -webkit-backdrop-filter: blur(40px) saturate(250%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
         }
         
-        /* Soporte para áreas seguras en iPhone (Evita que el texto toque el Home Indicator) */
         .safe-pb {
             padding-bottom: max(1rem, env(safe-area-inset-bottom));
         }
+
+        /* Transición de la Cápsula */
+        .capsule-anim {
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: width, height, transform, border-radius;
+        }
+
+        /* Transición del contenido central al abrir la cápsula */
+        .central-content-anim {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform, filter;
+        }
         
-        /* Sombra sutil para darle profundidad al texto sobre el cristal */
+        /* Estado oculto del texto central (Se desenfoca y sube estilo Apple) */
+        .content-hidden {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.98);
+            filter: blur(5px);
+            pointer-events: none;
+        }
+        
+        /* Sombra para el texto interior de los botones */
         .glass-text-shadow {
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
         }
     </style>
 </head>
 
-<!-- Usamos min-h-[100dvh] para mejor adaptabilidad en navegadores móviles (iOS Safari) -->
-<body class="bg-white text-editorial-black font-sans flex flex-col items-center justify-center min-h-[100dvh] m-0 relative no-scrollbar">
+<body class="bg-white text-editorial-black font-sans flex flex-col items-center justify-start min-h-[100dvh] m-0 relative no-scrollbar overflow-hidden">
 
-    <!-- Contenido Central (Logo y Mensaje) -->
-    <!-- Se cambió pb-24 a pb-32 para que el texto no quede debajo del footer fijo -->
-    <main class="flex flex-col items-center justify-center text-center w-full px-6 z-10 flex-grow pb-32 pt-12">
+    <!-- Fondo superpuesto invisible para detectar clicks fuera de la cápsula -->
+    <div id="overlay-click-catcher" class="fixed inset-0 z-40 hidden transition-opacity duration-500 bg-white/20 backdrop-blur-[2px] opacity-0" onclick="closeLanguageCapsule()"></div>
+
+    <main class="flex flex-col items-center text-center w-full px-6 z-10 flex-grow pt-[15vh]">
         
-        <!-- Logo animado escalable fluidamente usando clamp() -->
-        <h1 class="text-[clamp(4.5rem,14vw,11rem)] font-bold tracking-widest font-serif uppercase flex items-center leading-none ml-[0.1em] select-none" aria-label="DEVON">
-            <span aria-hidden="true" class="flex items-center">
-                DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
-            </span>
-        </h1>
-        
-        <!-- Subtítulo con fuente geométrica ajustado al logo -->
-        <div class="text-[clamp(0.65rem,1.5vw,0.95rem)] font-semibold tracking-[0.35em] uppercase mt-2 md:mt-3 leading-[1.8] text-center font-geometric ml-[0.35em] select-none">
-            MÉXICO Y<br>LATINOAMÉRICA
+        <!-- Logo y Subtítulo (SIEMPRE VISIBLES) -->
+        <div class="flex flex-col items-center relative z-10">
+            <h1 class="text-[clamp(4.5rem,14vw,11rem)] font-bold tracking-widest font-serif uppercase flex items-center leading-none ml-[0.1em] select-none" aria-label="DEVON">
+                <span aria-hidden="true" class="flex items-center">
+                    DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+                </span>
+            </h1>
+            <div class="text-[clamp(0.65rem,1.5vw,0.95rem)] font-semibold tracking-[0.35em] uppercase mt-2 md:mt-3 leading-[1.8] text-center font-geometric ml-[0.35em] select-none relative -top-2 md:-top-4">
+                MÉXICO Y<br>LATINOAMÉRICA
+            </div>
         </div>
 
-        <!-- Título de Mantenimiento -->
-        <h2 id="maintenance-title" class="text-xs md:text-sm font-bold tracking-[0.25em] md:tracking-[0.3em] uppercase font-geometric mt-16 md:mt-20 fade-transition opacity-100" aria-live="polite">
-            SITIO EN MANTENIMIENTO
-        </h2>
+        <!-- Contenedor Dinámico: Se oculta al abrir la cápsula -->
+        <div id="central-dynamic-content" class="central-content-anim opacity-100 transform translate-y-0 filter-none flex flex-col items-center">
+            
+            <h2 id="maintenance-title" class="text-xs md:text-[13px] font-bold tracking-[0.25em] md:tracking-[0.3em] uppercase font-geometric mt-12 md:mt-16 fade-transition opacity-100" aria-live="polite">
+                SITIO EN MANTENIMIENTO
+            </h2>
 
-        <!-- Línea separadora sutil, color gris elegante -->
-        <div class="w-8 h-[1px] bg-editorial-lightGray my-6"></div>
+            <div class="w-8 h-[1px] bg-editorial-black my-6"></div>
 
-        <!-- Mensaje Editorial Formal -->
-        <p id="maintenance-message" class="text-[11px] md:text-[13px] text-editorial-gray max-w-md lg:max-w-lg mx-auto leading-relaxed md:leading-[1.9] font-geometric tracking-[0.05em] fade-transition opacity-100 px-4 text-center">
-            Estimado lector, lamentamos no estar disponibles en este momento. Vuelva más tarde, nuestro equipo editorial trabaja para ofrecerle una experiencia renovada y digna de la alta costura.
-        </p>
+            <p id="maintenance-message" class="text-[11px] md:text-[13px] text-editorial-gray max-w-md lg:max-w-lg mx-auto leading-relaxed md:leading-[1.9] font-geometric tracking-[0.05em] fade-transition opacity-100 px-4 text-center">
+                Estimado lector, lamentamos no estar disponibles en este momento. Vuelva más tarde, nuestro equipo editorial trabaja para ofrecerle una experiencia renovada y digna de la alta costura.
+            </p>
+            
+        </div>
 
     </main>
 
-    <!-- Barra de Traducción Inferior (Estilo Liquid Glass iOS 26) -->
-    <footer class="fixed bottom-0 left-0 w-full z-50 liquid-glass safe-pb">
-        <!-- Máscara de desvanecimiento en los bordes para un look premium infinito -->
-        <div class="w-full relative" style="mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);">
-            
-            <!-- Navegación de idiomas con scroll horizontal nativo (Swipe) en lugar de apilarse -->
-            <nav class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory items-center gap-x-8 px-10 py-5 md:py-6 text-[10px] md:text-[11px] font-semibold tracking-[0.2em] text-editorial-gray uppercase font-geometric w-full h-full">
-                
-                <button type="button" onclick="translatePage('es')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Traducir al Español</button>
-                <button type="button" onclick="translatePage('en')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Translate to English</button>
-                <button type="button" onclick="translatePage('fr')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Traduire en Français</button>
-                <button type="button" onclick="translatePage('it')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Traduci in Italiano</button>
-                <button type="button" onclick="translatePage('pt')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Traduzir para Português</button>
-                <button type="button" onclick="translatePage('de')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Übersetzen auf Deutsch</button>
-                <button type="button" onclick="translatePage('ar')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">ترجم إلى العربية</button>
-                <button type="button" onclick="translatePage('hi')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">हिंदी में अनुवाद करें</button>
-                <button type="button" onclick="translatePage('zh')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">翻译成中文</button>
-                <button type="button" onclick="translatePage('ja')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">日本語に翻訳</button>
-                <button type="button" onclick="translatePage('ko')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">한국어로 번역</button>
-                <button type="button" onclick="translatePage('ru')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Перевести на русский</button>
-                
-            </nav>
+    <!-- CÁPSULA LIQUID GLASS -->
+    <!-- Se ubica en el centro inferior de la pantalla -->
+    <div id="language-capsule" class="fixed bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-50 liquid-glass capsule-anim overflow-hidden cursor-pointer w-[140px] h-[40px] md:w-[160px] md:h-[44px] rounded-full flex flex-col shadow-lg safe-pb hover:bg-white/80" onclick="openLanguageCapsule(event)">
+        
+        <!-- Vista Cerrada (Botón de Idiomas) -->
+        <div id="capsule-closed-view" class="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 opacity-100">
+            <span id="current-selected-lang" class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase font-geometric text-editorial-black glass-text-shadow">
+                IDIOMAS
+            </span>
         </div>
-    </footer>
 
-    <!-- Script para traducciones animadas y accesibilidad -->
+        <!-- Vista Abierta (Menú Desplegado) -->
+        <div id="capsule-expanded-view" class="absolute inset-0 flex flex-col transition-opacity duration-300 opacity-0 pointer-events-none p-6 md:p-8">
+            
+            <!-- Encabezado del Menú -->
+            <div class="flex justify-between items-center border-b border-gray-200/50 pb-4 mb-4 shrink-0">
+                <span class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase font-geometric text-editorial-black glass-text-shadow">
+                    SELECCIONAR IDIOMA
+                </span>
+                <button type="button" class="text-editorial-gray hover:text-editorial-black transition-colors rounded-full p-2 bg-white/30 backdrop-blur-md" onclick="closeLanguageCapsule(event)" aria-label="Cerrar menú">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <!-- Contenedor scrolleable de todos los idiomas -->
+            <!-- Se llenará dinámicamente con JavaScript -->
+            <div id="languages-grid" class="flex-grow overflow-y-auto no-scrollbar grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-6 pb-4">
+                <!-- Los botones se insertan aquí -->
+            </div>
+            
+        </div>
+    </div>
+
     <script>
+        // BASE DE DATOS DE TRADUCCIONES (Ampliada a casi 30 idiomas)
         const translations = {
-            es: {
-                title: "SITIO EN MANTENIMIENTO",
-                message: "Estimado lector, lamentamos no estar disponibles en este momento. Vuelva más tarde, nuestro equipo editorial trabaja para ofrecerle una experiencia renovada y digna de la alta costura."
-            },
-            en: {
-                title: "SITE UNDER MAINTENANCE",
-                message: "Dear reader, we apologize for being unavailable at this time. Please check back later; our editorial team is working to bring you a renewed experience worthy of haute couture."
-            },
-            fr: {
-                title: "SITE EN MAINTENANCE",
-                message: "Cher lecteur, nous nous excusons d'être indisponibles pour le moment. Revenez plus tard, notre équipe éditoriale travaille pour vous offrir une expérience renouvelée digne de la haute couture."
-            },
-            it: {
-                title: "SITO IN MANUTENZIONE",
-                message: "Caro lettore, ci scusiamo per non essere disponibili in questo momento. Torna più tardi, il nostro team editoriale sta lavorando per offrirti un'esperienza rinnovata degna dell'alta moda."
-            },
-            pt: {
-                title: "SITE EM MANUTENÇÃO",
-                message: "Caro leitor, pedimos desculpas por estarmos indisponíveis no momento. Volte mais tarde, nossa equipe editorial está trabalhando para lhe oferecer uma experiência renovada e digna da alta-costura."
-            },
-            de: {
-                title: "WEBSITE WIRD GEWARTET",
-                message: "Lieber Leser, wir entschuldigen uns, dass wir derzeit nicht erreichbar sind. Bitte versuchen Sie es später erneut; unser Redaktionsteam arbeitet daran, Ihnen ein erneuertes Haute-Couture-Erlebnis zu bieten."
-            },
-            ar: {
-                title: "الموقع تحت الصيانة",
-                message: "عزيزي القارئ، نعتذر عن عدم توفرنا في هذا الوقت. يرجى العودة لاحقًا، يعمل فريق التحرير لدينا لتقديم تجربة متجددة تليق بالأزياء الراقية."
-            },
-            hi: {
-                title: "साइट रखरखाव के अधीन है",
-                message: "प्रिय पाठक, हम इस समय अनुपलब्ध होने के लिए क्षमा चाहते हैं। कृपया बाद में वापस आएं, हमारी संपादकीय टीम आपको हाउते कॉउचर के योग्य एक नवीनीकृत अनुभव प्रदान करने के लिए काम कर रही है।"
-            },
-            zh: {
-                title: "网站维护中",
-                message: "亲爱的读者，对于目前无法访问我们深表歉意。请稍后再试；我们的编辑团队正在努力为您带来全新的、无与伦比的高级时装体验。"
-            },
-            ja: {
-                title: "サイトメンテナンス中",
-                message: "読者の皆様、現在ご利用いただけないことをお詫び申し上げます。後ほど再アクセスしてください。編集チームは、オートクチュールにふさわしい新しい体験を提供するために取り組んでいます。"
-            },
-            ko: {
-                title: "사이트 유지보수 중",
-                message: "독자 여러분, 현재 이용할 수 없게 되어 죄송합니다. 나중에 다시 확인해 주세요. 편집팀은 오트쿠튀르에 걸맞은 새로운 경험을 제공하기 위해 노력하고 있습니다."
-            },
-            ru: {
-                title: "САЙТ НА ОБСЛУЖИВАНИИ",
-                message: "Уважаемый читатель, приносим извинения за временную недоступность. Зайдите позже, наша редакция работает над тем, чтобы предложить вам обновленный опыт, достойный высокой моды."
-            }
+            es: { title: "SITIO EN MANTENIMIENTO", message: "Estimado lector, lamentamos no estar disponibles en este momento. Vuelva más tarde, nuestro equipo editorial trabaja para ofrecerle una experiencia renovada y digna de la alta costura.", label: "Traducir al Español" },
+            en: { title: "SITE UNDER MAINTENANCE", message: "Dear reader, we apologize for being unavailable at this time. Please check back later; our editorial team is working to bring you a renewed experience worthy of haute couture.", label: "Translate to English" },
+            fr: { title: "SITE EN MAINTENANCE", message: "Cher lecteur, nous nous excusons d'être indisponibles pour le moment. Revenez plus tard, notre équipe éditoriale travaille pour vous offrir une expérience renouvelée digne de la haute couture.", label: "Traduire en Français" },
+            it: { title: "SITO IN MANUTENZIONE", message: "Caro lettore, ci scusiamo per non essere disponibili in questo momento. Torna più tardi, il nostro team editoriale sta lavorando per offrirti un'esperienza rinnovata degna dell'alta moda.", label: "Traduci in Italiano" },
+            pt: { title: "SITE EM MANUTENÇÃO", message: "Caro leitor, pedimos desculpas por estarmos indisponíveis no momento. Volte mais tarde, nossa equipe editorial está trabalhando para lhe oferecer uma experiência renovada e digna da alta-costura.", label: "Traduzir para Português" },
+            de: { title: "WEBSITE WIRD GEWARTET", message: "Lieber Leser, wir entschuldigen uns, dass wir derzeit nicht erreichbar sind. Bitte versuchen Sie es später erneut; unser Redaktionsteam arbeitet daran, Ihnen ein erneuertes Haute-Couture-Erlebnis zu bieten.", label: "Übersetzen auf Deutsch" },
+            nl: { title: "SITE IN ONDERHOUD", message: "Geachte lezer, onze excuses dat we momenteel niet beschikbaar zijn. Kom later terug, onze redactie werkt eraan om u een vernieuwde ervaring te bieden die de haute couture waardig is.", label: "Vertalen naar het Nederlands" },
+            sv: { title: "WEBBPLATS UNDER UNDERHÅLL", message: "Kära läsare, vi ber om ursäkt för att vi inte är tillgängliga just nu. Kom tillbaka senare, vår redaktion arbetar för att erbjuda dig en förnyad upplevelse värdig haute couture.", label: "Översätt till Svenska" },
+            da: { title: "WEBSTED UNDER VEDLIGEHOLDELSE", message: "Kære læser, vi beklager, at vi ikke er tilgængelige på nuværende tidspunkt. Vend tilbage senere, vores redaktion arbejder på at give dig en fornyet oplevelse værdig haute couture.", label: "Oversæt til Dansk" },
+            fi: { title: "SIVUSTO HUOLLOSSA", message: "Hyvä lukija, pahoittelemme, ettemme ole tällä hetkellä tavoitettavissa. Palaa myöhemmin, toimituksemme työskentelee tarjotakseen sinulle haute couturen arvoisen uudistetun kokemuksen.", label: "Käännä Suomeksi" },
+            no: { title: "NETTSTED UNDER VEDLIKEHOLD", message: "Kjære leser, vi beklager at vi ikke er tilgjengelige for øyeblikket. Kom tilbake senere, redaksjonen vår jobber med å gi deg en fornyet opplevelse verdig haute couture.", label: "Oversett til Norsk" },
+            pl: { title: "STRONA W KONSERWACJI", message: "Drodzy czytelnicy, przepraszamy za obecną niedostępność. Prosimy wrócić później, nasz zespół redakcyjny pracuje nad tym, aby zaoferować wam odnowione doświadczenie godne haute couture.", label: "Przetłumacz na Polski" },
+            cs: { title: "STRÁNKA V ÚDRŽBĚ", message: "Vážený čtenáři, omlouváme se, že momentálně nejsme k dispozici. Vraťte se prosím později, náš redakční tým pracuje na tom, aby vám nabídl obnovený zážitek hodný haute couture.", label: "Přeložit do Češtiny" },
+            ro: { title: "SITE ÎN ÎNTREȚINERE", message: "Stimate cititor, ne cerem scuze că nu suntem disponibili în acest moment. Vă rugăm să reveniți mai târziu, echipa noastră editorială lucrează pentru a vă oferi o experiență reînnoită demnă de haute couture.", label: "Traduceți în Română" },
+            el: { title: "ΙΣΤΟΤΟΠΟΣ ΥΠΟ ΣΥΝΤΗΡΗΣΗ", message: "Αγαπητέ αναγνώστη, ζητούμε συγγνώμη που δεν είμαστε διαθέσιμοι αυτή τη στιγμή. Επιστρέψτε αργότερα, η συντακτική μας ομάδα εργάζεται για να σας προσφέρει μια ανανεωμένη εμπειρία αντάξια της υψηλής ραπτικής.", label: "Μετάφραση στα Ελληνικά" },
+            tr: { title: "SİTE BAKIMDA", message: "Değerli okuyucu, şu anda hizmet veremediğimiz için özür dileriz. Lütfen daha sonra tekrar ziyaret edin; editör ekibimiz size haute couture'a yakışır yenilenmiş bir deneyim sunmak için çalışıyor.", label: "Türkçeye Çevir" },
+            ru: { title: "САЙТ НА ОБСЛУЖИВАНИИ", message: "Уважаемый читатель, приносим извинения за временную недоступность. Зайдите позже, наша редакция работает над тем, чтобы предложить вам обновленный опыт, достойный высокой моды.", label: "Перевести на русский" },
+            uk: { title: "САЙТ НА ОБСЛУГОВУВАННІ", message: "Шановний читачу, просимо вибачення за те, що ми зараз недоступні. Будь ласка, зайдіть пізніше; наша редакція працює над тим, щоб запропонувати вам оновлений досвід, гідний високої моди.", label: "Перекласти українською" },
+            ar: { title: "الموقع تحت الصيانة", message: "عزيزي القارئ، نعتذر عن عدم توفرنا في هذا الوقت. يرجى العودة لاحقًا، يعمل فريق التحرير لدينا لتقديم تجربة متجددة تليق بالأزياء الراقية.", label: "ترجم إلى العربية" },
+            he: { title: "האתר בתחזוקה", message: "קורא יקר, אנו מתנצלים על כך שאיננו זמינים כרגע. אנא חזור מאוחר יותר, צוות העורכים שלנו עובד כדי להציע לך חוויה מחודשת הראויה לאופנה עילית.", label: "תרגם לעברית" },
+            hi: { title: "साइट रखरखाव के अधीन है", message: "प्रिय पाठक, हम इस समय अनुपलब्ध होने के लिए क्षमा चाहते हैं। कृपया बाद में वापस आएं, हमारी संपादकीय टीम आपको हाउते कॉउचर के योग्य एक नवीनीकृत अनुभव प्रदान करने के लिए काम कर रही है।", label: "हिंदी में अनुवाद करें" },
+            th: { title: "เว็บไซต์อยู่ระหว่างการปรับปรุง", message: "เรียนผู้อ่าน ขออภัยที่เราไม่สามารถให้บริการได้ในขณะนี้ โปรดกลับมาใหม่ในภายหลัง ทีมบรรณาธิการของเรากำลังทำงานเพื่อมอบประสบการณ์ที่ปรับปรุงใหม่ให้คู่ควรกับแฟชั่นชั้นสูง", label: "แปลเป็นภาษาไทย" },
+            id: { title: "SITUS DALAM PEMELIHARAAN", message: "Pembaca yang terhormat, kami mohon maaf karena tidak tersedia saat ini. Silakan periksa kembali nanti; tim editorial kami sedang bekerja untuk memberi Anda pengalaman baru yang layak untuk haute couture.", label: "Terjemahkan ke Bahasa Indonesia" },
+            vi: { title: "TRANG WEB ĐANG BẢO TRÌ", message: "Kính gửi độc giả, chúng tôi xin lỗi vì không có sẵn tại thời điểm này. Vui lòng quay lại sau, nhóm biên tập của chúng tôi đang làm việc để mang đến cho bạn một trải nghiệm đổi mới xứng đáng với thời trang cao cấp.", label: "Dịch sang Tiếng Việt" },
+            zh: { title: "网站维护中", message: "亲爱的读者，对于目前无法访问我们深表歉意。请稍后再试；我们的编辑团队正在努力为您带来全新的、无与伦比的高级时装体验。", label: "翻译成中文" },
+            ja: { title: "サイトメンテナンス中", message: "読者の皆様、現在ご利用いただけないことをお詫び申し上げます。後ほど再アクセスしてください。編集チームは、オートクチュールにふさわしい新しい体験を提供するために取り組んでいます。", label: "日本語に翻訳" },
+            ko: { title: "사이트 유지보수 중", message: "독자 여러분, 현재 이용할 수 없게 되어 죄송합니다. 나중에 다시 확인해 주세요. 편집팀은 오트쿠튀르에 걸맞은 새로운 경험을 제공하기 위해 노력하고 있습니다.", label: "한국어로 번역" }
         };
 
+        // DOM Elements
+        const capsule = document.getElementById('language-capsule');
+        const closedView = document.getElementById('capsule-closed-view');
+        const expandedView = document.getElementById('capsule-expanded-view');
+        const dynamicContent = document.getElementById('central-dynamic-content');
+        const overlay = document.getElementById('overlay-click-catcher');
+        const languagesGrid = document.getElementById('languages-grid');
+        const currentSelectedLabel = document.getElementById('current-selected-lang');
+
+        let isCapsuleOpen = false;
+
+        // 1. Renderizar botones de idiomas dinámicamente
+        Object.keys(translations).forEach(lang => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'text-left text-[11px] md:text-[12px] font-semibold tracking-[0.1em] text-editorial-gray hover:text-editorial-black transition-colors duration-300 py-1 font-geometric uppercase glass-text-shadow w-full';
+            btn.textContent = translations[lang].label;
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                translatePage(lang);
+            };
+            languagesGrid.appendChild(btn);
+        });
+
+        // 2. Controladores de la Cápsula Liquid Glass
+        function openLanguageCapsule(e) {
+            if (isCapsuleOpen) return;
+            if (e) e.stopPropagation();
+            
+            isCapsuleOpen = true;
+
+            // Expandir Cápsula (Ajuste para móviles y desktop)
+            capsule.classList.remove('w-[140px]', 'h-[40px]', 'md:w-[160px]', 'md:h-[44px]', 'rounded-full', 'hover:bg-white/80', 'cursor-pointer');
+            capsule.classList.add('w-[90vw]', 'md:w-[700px]', 'h-[65vh]', 'md:h-[60vh]', 'rounded-[32px]', 'cursor-default');
+
+            // Mostrar el overlay desenfocado atrás
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+
+            // Ocultar texto central y hacer que "se eleve"
+            dynamicContent.classList.add('content-hidden');
+
+            // Cambiar vista interior de la cápsula
+            closedView.classList.remove('opacity-100');
+            closedView.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                closedView.classList.add('pointer-events-none');
+                expandedView.classList.remove('pointer-events-none');
+                expandedView.classList.remove('opacity-0');
+                expandedView.classList.add('opacity-100');
+            }, 150);
+        }
+
+        function closeLanguageCapsule(e) {
+            if (!isCapsuleOpen) return;
+            if (e) e.stopPropagation();
+
+            isCapsuleOpen = false;
+
+            // Retraer Cápsula
+            capsule.classList.remove('w-[90vw]', 'md:w-[700px]', 'h-[65vh]', 'md:h-[60vh]', 'rounded-[32px]', 'cursor-default');
+            capsule.classList.add('w-[140px]', 'h-[40px]', 'md:w-[160px]', 'md:h-[44px]', 'rounded-full', 'hover:bg-white/80', 'cursor-pointer');
+
+            // Ocultar overlay
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 500);
+
+            // Restaurar texto central
+            dynamicContent.classList.remove('content-hidden');
+
+            // Cambiar vista interior de la cápsula
+            expandedView.classList.remove('opacity-100');
+            expandedView.classList.add('opacity-0');
+            expandedView.classList.add('pointer-events-none');
+
+            setTimeout(() => {
+                closedView.classList.remove('pointer-events-none');
+                closedView.classList.remove('opacity-0');
+                closedView.classList.add('opacity-100');
+            }, 300);
+        }
+
+        // 3. Sistema de Traducción
         function translatePage(lang) {
             const titleEl = document.getElementById('maintenance-title');
             const messageEl = document.getElementById('maintenance-message');
             const htmlEl = document.documentElement;
 
-            // 1. Iniciar Fade Out manipulando clases de Tailwind
+            // Iniciar Fade Out en textos
             titleEl.classList.remove('opacity-100');
             titleEl.classList.add('opacity-0');
             messageEl.classList.remove('opacity-100');
             messageEl.classList.add('opacity-0');
 
-            // 2. Cambiar contenido y Fade In tras 500ms (tiempo de la transición CSS)
+            // Cerrar menú tras elegir
+            closeLanguageCapsule();
+
             setTimeout(() => {
-                // Actualizar Textos
+                // Aplicar traducción
                 titleEl.textContent = translations[lang].title;
                 messageEl.textContent = translations[lang].message;
 
-                // Actualizar atributo global de idioma para SEO y Accesibilidad
-                htmlEl.lang = lang;
+                // Actualizar etiqueta del botón cerrado (Opcional, lo dejé estático pero podrías poner el idioma aquí)
+                // currentSelectedLabel.textContent = lang.toUpperCase(); 
 
-                // Soporte RTL (Derecha a Izquierda) para Arabe y Hebreo
-                const textDirection = (lang === 'ar') ? 'rtl' : 'ltr';
+                htmlEl.lang = lang;
+                const textDirection = (lang === 'ar' || lang === 'he') ? 'rtl' : 'ltr';
                 titleEl.dir = textDirection;
                 messageEl.dir = textDirection;
 
