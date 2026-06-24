@@ -70,11 +70,11 @@
 
         /* --- Efecto Liquid Glass (Estilo iOS 26) --- */
         .liquid-glass {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(35px) saturate(200%);
-            -webkit-backdrop-filter: blur(35px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.08); /* Súper transparente (antes 0.65) */
+            backdrop-filter: blur(45px) saturate(180%); /* Mayor desenfoque */
+            -webkit-backdrop-filter: blur(45px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.25); /* Borde más sutil */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255,255,255,0.3);
         }
 
         
@@ -252,7 +252,7 @@
             "BAHASA", "NGÔN NGỮ", "语言", "言語", "언어"
         ];
 
-        // DOM Elements
+        // DOM Elements - Optimización: Caché global para evitar búsquedas repetitivas
         const capsule = document.getElementById('language-capsule');
         const closedView = document.getElementById('capsule-closed-view');
         const expandedView = document.getElementById('capsule-expanded-view');
@@ -260,6 +260,9 @@
         const overlay = document.getElementById('overlay-click-catcher');
         const languagesGrid = document.getElementById('languages-grid');
         const rotatingText = document.getElementById('current-selected-lang');
+        const titleEl = document.getElementById('maintenance-title');
+        const messageEl = document.getElementById('maintenance-message');
+        const htmlEl = document.documentElement;
 
         let isCapsuleOpen = false;
         let wordIndex = 0;
@@ -355,13 +358,9 @@
             }, 250);
         }
 
-        // 4. Sistema de Traducción Fluido
+        // 4. Sistema de Traducción Fluido (Optimizado)
         function translatePage(lang) {
-            const titleEl = document.getElementById('maintenance-title');
-            const messageEl = document.getElementById('maintenance-message');
-            const htmlEl = document.documentElement;
-
-            // Iniciar Fade Out en textos
+            // Iniciar Fade Out en textos (usando los elementos cacheados)
             titleEl.classList.remove('opacity-100');
             titleEl.classList.add('opacity-0');
             messageEl.classList.remove('opacity-100');
