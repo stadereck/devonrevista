@@ -2,13 +2,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Sitio en mantenimiento - Devon México y Latinoamérica">
     <title>Devon México y Latinoamérica | Mantenimiento</title>
     
     <!-- Ícono de la pestaña (Favicon) -->
     <link rel="icon" href="https://i.ibb.co/h191t3k2/Devon-Title-logo.png" type="image/png">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Preconexión para mayor velocidad de carga -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,11 +25,14 @@
                     fontFamily: {
                         sans: ['Jost', 'sans-serif'],
                         serif: ['"Bodoni Moda"', 'serif'],
-                        geometric: ['"Century Gothic"', '"Avant Garde"', 'Questrial', 'sans-serif'],
+                        geometric: ['Questrial', 'sans-serif'],
                     },
-                    letterSpacing: {
-                        widest: '.2em',
-                        wider: '.1em'
+                    colors: {
+                        editorial: {
+                            black: '#0a0a0a', /* Un negro ligeramente más suave para lectura prolongada */
+                            gray: '#888888',
+                            lightGray: '#e5e5e5'
+                        }
                     }
                 }
             }
@@ -36,6 +40,7 @@
     </script>
     
     <style>
+        /* Animación fluida de la barra en la letra O */
         @keyframes slashAnim {
             0%, 20% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
             30%, 70% { width: 145%; opacity: 1; transform: rotate(-45deg) scaleX(1); }
@@ -53,7 +58,7 @@
             z-index: 10;
         }
 
-        /* Oculta scrollbar para una vista más limpia */
+        /* Utilidad para ocultar barras de desplazamiento manteniendo funcionalidad */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -61,56 +66,68 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* Optimizaciones de renderizado para transiciones */
+        .fade-transition {
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity;
+        }
     </style>
 </head>
-<body class="bg-white text-black font-sans flex flex-col items-center justify-center min-h-screen m-0 overflow-hidden select-none relative">
 
-    <main class="flex flex-col items-center justify-center text-center w-full px-6 z-10 -mt-12">
+<!-- Usamos min-h-[100dvh] para mejor adaptabilidad en navegadores móviles (iOS Safari) -->
+<body class="bg-white text-editorial-black font-sans flex flex-col items-center justify-center min-h-[100dvh] m-0 relative no-scrollbar">
+
+    <!-- Contenido Central (Logo y Mensaje) -->
+    <main class="flex flex-col items-center justify-center text-center w-full px-6 z-10 flex-grow pb-24 pt-12">
         
-        <!-- Logo animado a gran escala -->
-        <h1 class="text-7xl md:text-[8rem] lg:text-[11rem] font-bold tracking-widest text-black font-serif uppercase flex items-center leading-none ml-[0.1em]">
-            DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+        <!-- Logo animado escalable fluidamente usando clamp() -->
+        <h1 class="text-[clamp(4.5rem,14vw,11rem)] font-bold tracking-widest font-serif uppercase flex items-center leading-none ml-[0.1em] select-none" aria-label="DEVON">
+            <span aria-hidden="true" class="flex items-center">
+                DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+            </span>
         </h1>
         
-        <!-- Subtítulo con fuente geométrica (Más pegado arriba) -->
-        <div class="text-xs md:text-sm lg:text-[0.95rem] font-semibold tracking-[0.3em] md:tracking-[0.35em] text-black uppercase mt-3 leading-[1.8] text-center font-geometric ml-[0.3em] md:ml-[0.35em]">
+        <!-- Subtítulo con fuente geométrica ajustado al logo -->
+        <div class="text-[clamp(0.65rem,1.5vw,0.95rem)] font-semibold tracking-[0.35em] uppercase mt-2 md:mt-3 leading-[1.8] text-center font-geometric ml-[0.35em] select-none">
             MÉXICO Y<br>LATINOAMÉRICA
         </div>
 
-        <!-- Título de Mantenimiento en Negrita (Más espaciado del logo) -->
-        <h2 id="maintenance-title" class="text-[11px] md:text-sm font-bold tracking-[0.2em] md:tracking-[0.3em] text-black uppercase font-geometric mt-16 transition-opacity duration-500">
+        <!-- Título de Mantenimiento -->
+        <h2 id="maintenance-title" class="text-xs md:text-sm font-bold tracking-[0.25em] md:tracking-[0.3em] uppercase font-geometric mt-16 md:mt-20 fade-transition opacity-100" aria-live="polite">
             SITIO EN MANTENIMIENTO
         </h2>
 
-        <!-- Línea separadora sutil ABAJO del título de mantenimiento -->
-        <div class="w-6 md:w-8 h-[1px] bg-gray-300 my-6 md:my-8"></div>
+        <!-- Línea separadora sutil, color gris elegante -->
+        <div class="w-8 h-[1px] bg-editorial-lightGray my-6"></div>
 
-        <!-- Mensaje de Disculpa Editorial -->
-        <p id="maintenance-message" class="text-xs md:text-[13px] text-gray-500 max-w-lg mx-auto leading-relaxed font-geometric tracking-wide transition-opacity duration-500 px-4 text-center">
+        <!-- Mensaje Editorial Formal -->
+        <p id="maintenance-message" class="text-[11px] md:text-[13px] text-editorial-gray max-w-md lg:max-w-lg mx-auto leading-relaxed md:leading-[1.9] font-geometric tracking-[0.05em] fade-transition opacity-100 px-4 text-center">
             Estimado lector, lamentamos no estar disponibles en este momento. Vuelva más tarde, nuestro equipo editorial trabaja para ofrecerle una experiencia renovada y digna de la alta costura.
         </p>
 
     </main>
 
     <!-- Barra de Traducción Inferior -->
-    <footer class="absolute bottom-6 w-full px-4 md:px-12 flex justify-center z-20">
-        <div class="flex flex-wrap justify-center gap-x-5 md:gap-x-8 gap-y-3 text-[9px] md:text-[10px] font-semibold tracking-[0.15em] text-gray-400 uppercase font-geometric max-w-6xl">
-            <button onclick="translatePage('es')" class="hover:text-black transition-colors duration-300 tracking-wider">Traducir al Español</button>
-            <button onclick="translatePage('en')" class="hover:text-black transition-colors duration-300 tracking-wider">Translate to English</button>
-            <button onclick="translatePage('fr')" class="hover:text-black transition-colors duration-300 tracking-wider">Traduire en Français</button>
-            <button onclick="translatePage('it')" class="hover:text-black transition-colors duration-300 tracking-wider">Traduci in Italiano</button>
-            <button onclick="translatePage('pt')" class="hover:text-black transition-colors duration-300 tracking-wider">Traduzir para Português</button>
-            <button onclick="translatePage('de')" class="hover:text-black transition-colors duration-300 tracking-wider">Übersetzen auf Deutsch</button>
-            <button onclick="translatePage('ar')" class="hover:text-black transition-colors duration-300 tracking-wider">ترجم إلى العربية</button>
-            <button onclick="translatePage('hi')" class="hover:text-black transition-colors duration-300 tracking-wider">हिंदी में अनुवाद करें</button>
-            <button onclick="translatePage('zh')" class="hover:text-black transition-colors duration-300 tracking-wider">翻译成中文</button>
-            <button onclick="translatePage('ja')" class="hover:text-black transition-colors duration-300 tracking-wider">日本語に翻訳</button>
-            <button onclick="translatePage('ko')" class="hover:text-black transition-colors duration-300 tracking-wider">한국어로 번역</button>
-            <button onclick="translatePage('ru')" class="hover:text-black transition-colors duration-300 tracking-wider">Перевести на русский</button>
-        </div>
+    <footer class="w-full px-6 py-8 flex justify-center z-20 bg-white">
+        <!-- Navegación de idiomas con saltos de línea permitidos (flex-wrap) -->
+        <nav class="flex flex-wrap justify-center gap-x-6 md:gap-x-8 gap-y-4 text-[9px] md:text-[10px] font-semibold tracking-[0.2em] text-editorial-gray uppercase font-geometric max-w-6xl w-full">
+            <button type="button" onclick="translatePage('es')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Traducir al Español</button>
+            <button type="button" onclick="translatePage('en')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Translate to English</button>
+            <button type="button" onclick="translatePage('fr')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Traduire en Français</button>
+            <button type="button" onclick="translatePage('it')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Traduci in Italiano</button>
+            <button type="button" onclick="translatePage('pt')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Traduzir para Português</button>
+            <button type="button" onclick="translatePage('de')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Übersetzen auf Deutsch</button>
+            <button type="button" onclick="translatePage('ar')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">ترجم إلى العربية</button>
+            <button type="button" onclick="translatePage('hi')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">हिंदी में अनुवाद करें</button>
+            <button type="button" onclick="translatePage('zh')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">翻译成中文</button>
+            <button type="button" onclick="translatePage('ja')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">日本語に翻訳</button>
+            <button type="button" onclick="translatePage('ko')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">한국어로 번역</button>
+            <button type="button" onclick="translatePage('ru')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Перевести на русский</button>
+        </nav>
     </footer>
 
-    <!-- Script para traducciones animadas -->
+    <!-- Script para traducciones animadas y accesibilidad -->
     <script>
         const translations = {
             es: {
@@ -166,27 +183,33 @@
         function translatePage(lang) {
             const titleEl = document.getElementById('maintenance-title');
             const messageEl = document.getElementById('maintenance-message');
+            const htmlEl = document.documentElement;
 
-            // 1. Fade out suave
-            titleEl.style.opacity = '0';
-            messageEl.style.opacity = '0';
+            // 1. Iniciar Fade Out manipulando clases de Tailwind
+            titleEl.classList.remove('opacity-100');
+            titleEl.classList.add('opacity-0');
+            messageEl.classList.remove('opacity-100');
+            messageEl.classList.add('opacity-0');
 
-            // 2. Cambiar texto y Fade in después de que termine la transición de opacidad (500ms)
+            // 2. Cambiar contenido y Fade In tras 500ms (tiempo de la transición CSS)
             setTimeout(() => {
+                // Actualizar Textos
                 titleEl.textContent = translations[lang].title;
                 messageEl.textContent = translations[lang].message;
 
-                // Forzar el idioma correcto para que los motores de texto (arabe/chino) se adapten bien
-                if(lang === 'ar') {
-                    titleEl.style.direction = 'rtl';
-                    messageEl.style.direction = 'rtl';
-                } else {
-                    titleEl.style.direction = 'ltr';
-                    messageEl.style.direction = 'ltr';
-                }
+                // Actualizar atributo global de idioma para SEO y Accesibilidad
+                htmlEl.lang = lang;
 
-                titleEl.style.opacity = '1';
-                messageEl.style.opacity = '1';
+                // Soporte RTL (Derecha a Izquierda) para Arabe y Hebreo
+                const textDirection = (lang === 'ar') ? 'rtl' : 'ltr';
+                titleEl.dir = textDirection;
+                messageEl.dir = textDirection;
+
+                // Iniciar Fade In
+                titleEl.classList.remove('opacity-0');
+                titleEl.classList.add('opacity-100');
+                messageEl.classList.remove('opacity-0');
+                messageEl.classList.add('opacity-100');
             }, 500);
         }
     </script>
