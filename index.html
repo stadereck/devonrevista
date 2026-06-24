@@ -72,6 +72,25 @@
             transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: opacity;
         }
+
+        /* --- Efecto Liquid Glass (Estilo iOS 26) --- */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border-top: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Soporte para áreas seguras en iPhone (Evita que el texto toque el Home Indicator) */
+        .safe-pb {
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
+        
+        /* Sombra sutil para darle profundidad al texto sobre el cristal */
+        .glass-text-shadow {
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+        }
     </style>
 </head>
 
@@ -79,7 +98,8 @@
 <body class="bg-white text-editorial-black font-sans flex flex-col items-center justify-center min-h-[100dvh] m-0 relative no-scrollbar">
 
     <!-- Contenido Central (Logo y Mensaje) -->
-    <main class="flex flex-col items-center justify-center text-center w-full px-6 z-10 flex-grow pb-24 pt-12">
+    <!-- Se cambió pb-24 a pb-32 para que el texto no quede debajo del footer fijo -->
+    <main class="flex flex-col items-center justify-center text-center w-full px-6 z-10 flex-grow pb-32 pt-12">
         
         <!-- Logo animado escalable fluidamente usando clamp() -->
         <h1 class="text-[clamp(4.5rem,14vw,11rem)] font-bold tracking-widest font-serif uppercase flex items-center leading-none ml-[0.1em] select-none" aria-label="DEVON">
@@ -108,23 +128,29 @@
 
     </main>
 
-    <!-- Barra de Traducción Inferior -->
-    <footer class="w-full px-6 py-8 flex justify-center z-20 bg-white">
-        <!-- Navegación de idiomas con saltos de línea permitidos (flex-wrap) -->
-        <nav class="flex flex-wrap justify-center gap-x-6 md:gap-x-8 gap-y-4 text-[9px] md:text-[10px] font-semibold tracking-[0.2em] text-editorial-gray uppercase font-geometric max-w-6xl w-full">
-            <button type="button" onclick="translatePage('es')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Traducir al Español</button>
-            <button type="button" onclick="translatePage('en')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Translate to English</button>
-            <button type="button" onclick="translatePage('fr')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Traduire en Français</button>
-            <button type="button" onclick="translatePage('it')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Traduci in Italiano</button>
-            <button type="button" onclick="translatePage('pt')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Traduzir para Português</button>
-            <button type="button" onclick="translatePage('de')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Übersetzen auf Deutsch</button>
-            <button type="button" onclick="translatePage('ar')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">ترجم إلى العربية</button>
-            <button type="button" onclick="translatePage('hi')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">हिंदी में अनुवाद करें</button>
-            <button type="button" onclick="translatePage('zh')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">翻译成中文</button>
-            <button type="button" onclick="translatePage('ja')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">日本語に翻訳</button>
-            <button type="button" onclick="translatePage('ko')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">한국어로 번역</button>
-            <button type="button" onclick="translatePage('ru')" class="hover:text-editorial-black transition-colors duration-300 focus:outline-none">Перевести на русский</button>
-        </nav>
+    <!-- Barra de Traducción Inferior (Estilo Liquid Glass iOS 26) -->
+    <footer class="fixed bottom-0 left-0 w-full z-50 liquid-glass safe-pb">
+        <!-- Máscara de desvanecimiento en los bordes para un look premium infinito -->
+        <div class="w-full relative" style="mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);">
+            
+            <!-- Navegación de idiomas con scroll horizontal nativo (Swipe) en lugar de apilarse -->
+            <nav class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory items-center gap-x-8 px-10 py-5 md:py-6 text-[10px] md:text-[11px] font-semibold tracking-[0.2em] text-editorial-gray uppercase font-geometric w-full h-full">
+                
+                <button type="button" onclick="translatePage('es')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Traducir al Español</button>
+                <button type="button" onclick="translatePage('en')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Translate to English</button>
+                <button type="button" onclick="translatePage('fr')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Traduire en Français</button>
+                <button type="button" onclick="translatePage('it')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Traduci in Italiano</button>
+                <button type="button" onclick="translatePage('pt')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Traduzir para Português</button>
+                <button type="button" onclick="translatePage('de')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Übersetzen auf Deutsch</button>
+                <button type="button" onclick="translatePage('ar')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">ترجم إلى العربية</button>
+                <button type="button" onclick="translatePage('hi')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">हिंदी में अनुवाद करें</button>
+                <button type="button" onclick="translatePage('zh')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">翻译成中文</button>
+                <button type="button" onclick="translatePage('ja')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">日本語に翻訳</button>
+                <button type="button" onclick="translatePage('ko')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">한국어로 번역</button>
+                <button type="button" onclick="translatePage('ru')" class="snap-center shrink-0 hover:text-editorial-black glass-text-shadow transition-colors duration-300 focus:outline-none">Перевести на русский</button>
+                
+            </nav>
+        </div>
     </footer>
 
     <!-- Script para traducciones animadas y accesibilidad -->
