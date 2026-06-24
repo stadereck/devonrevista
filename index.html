@@ -40,6 +40,7 @@
     </script>
     
     <style>
+        
         /* Animación fluida de la barra en la letra O */
         @keyframes slashAnim {
             0%, 20% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
@@ -63,44 +64,80 @@
 
         /* Optimizaciones de renderizado para transiciones de texto */
         .fade-transition {
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: opacity;
         }
 
         /* --- Efecto Liquid Glass (Estilo iOS 26) --- */
         .liquid-glass {
             background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(40px) saturate(250%);
-            -webkit-backdrop-filter: blur(40px) saturate(250%);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
             border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
         }
+
         
-        .safe-pb {
-            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        /* Sistema Avanzado de la Cápsula (Sin Lag) */
+        .capsule-base {
+            position: fixed;
+            bottom: max(2rem, env(safe-area-inset-bottom));
+            left: 50%;
+            /* Aceleración por hardware forzada para evitar lag en iOS/Safari */
+            transform: translateX(-50%) translateZ(0); 
+            backface-visibility: hidden;
+            perspective: 1000px;
+            
+            z-index: 50;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            
+            /* Transiciones explícitas ultra suaves */
+            transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                        height 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                        border-radius 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                        background-color 0.3s ease;
+            will-change: width, height, border-radius;
         }
 
-        /* Transición de la Cápsula */
-        .capsule-anim {
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: width, height, transform, border-radius;
+        /* Estado: Cerrada (Móvil por defecto) */
+        .capsule-closed {
+            width: 140px;
+            height: 40px;
+            border-radius: 9999px;
+            cursor: pointer;
+        }
+        .capsule-closed:hover { background: rgba(255, 255, 255, 0.85); }
+
+        /* Estado: Abierta (Móvil por defecto) */
+        .capsule-open {
+            width: 90vw;
+            height: 65vh;
+            border-radius: 32px;
+            cursor: default;
+        }
+
+        /* Media Queries para Tablets/Escritorio */
+        @media (min-width: 768px) {
+            .capsule-base { bottom: 3rem; }
+            .capsule-closed { width: 160px; height: 44px; }
+            .capsule-open { width: 700px; height: 60vh; }
         }
 
         /* Transición del contenido central al abrir la cápsula */
         .central-content-anim {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: opacity, transform, filter;
         }
         
-        /* Estado oculto del texto central (Se desenfoca y sube estilo Apple) */
         .content-hidden {
             opacity: 0;
-            transform: translateY(-20px) scale(0.98);
-            filter: blur(5px);
+            transform: translateY(-30px) scale(0.97);
+            filter: blur(8px);
             pointer-events: none;
         }
         
-        /* Sombra para el texto interior de los botones */
         .glass-text-shadow {
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
         }
@@ -109,16 +146,16 @@
 
 <body class="bg-white text-editorial-black font-sans flex flex-col items-center justify-start min-h-[100dvh] m-0 relative no-scrollbar overflow-hidden">
 
-    <!-- Fondo superpuesto invisible para detectar clicks fuera de la cápsula -->
+    <!-- Fondo superpuesto desenfocado -->
     <div id="overlay-click-catcher" class="fixed inset-0 z-40 hidden transition-opacity duration-500 bg-white/20 backdrop-blur-[2px] opacity-0" onclick="closeLanguageCapsule()"></div>
 
     <main class="flex flex-col items-center text-center w-full px-6 z-10 flex-grow pt-[15vh]">
         
         <!-- Logo y Subtítulo (SIEMPRE VISIBLES) -->
         <div class="flex flex-col items-center relative z-10">
-            <h1 class="text-[clamp(4.5rem,14vw,11rem)] font-bold tracking-widest font-serif uppercase flex items-center leading-none ml-[0.1em] select-none" aria-label="DEVON">
-                <span aria-hidden="true" class="flex items-center">
-                    DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="animated-slash"></span></span></span>N
+            <h1 class="text-[clamp(4.5rem,14vw,11rem)] font-bold tracking-widest font-serif uppercase flex items-center leading-none ml-[0.1em] select-none">
+                <span class="flex items-center">
+                    DEV<span class="relative inline-flex items-center justify-center">O<span class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true"><span class="animated-slash"></span></span></span>N
                 </span>
             </h1>
             <div class="text-[clamp(0.65rem,1.5vw,0.95rem)] font-semibold tracking-[0.35em] uppercase mt-2 md:mt-3 leading-[1.8] text-center font-geometric ml-[0.35em] select-none relative -top-2 md:-top-4">
@@ -143,13 +180,13 @@
 
     </main>
 
+    
     <!-- CÁPSULA LIQUID GLASS -->
-    <!-- Se ubica en el centro inferior de la pantalla -->
-    <div id="language-capsule" class="fixed bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-50 liquid-glass capsule-anim overflow-hidden cursor-pointer w-[140px] h-[40px] md:w-[160px] md:h-[44px] rounded-full flex flex-col shadow-lg safe-pb hover:bg-white/80" onclick="openLanguageCapsule(event)">
+    <div id="language-capsule" class="capsule-base capsule-closed liquid-glass shadow-lg" onclick="openLanguageCapsule(event)">
         
-        <!-- Vista Cerrada (Botón de Idiomas) -->
+        <!-- Vista Cerrada (Botón de Idiomas Rotativo) -->
         <div id="capsule-closed-view" class="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 opacity-100">
-            <span id="current-selected-lang" class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase font-geometric text-editorial-black glass-text-shadow">
+            <span id="current-selected-lang" class="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase font-geometric text-editorial-black glass-text-shadow transition-opacity duration-500 ease-in-out opacity-100">
                 IDIOMAS
             </span>
         </div>
@@ -168,16 +205,15 @@
             </div>
 
             <!-- Contenedor scrolleable de todos los idiomas -->
-            <!-- Se llenará dinámicamente con JavaScript -->
             <div id="languages-grid" class="flex-grow overflow-y-auto no-scrollbar grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-6 pb-4">
-                <!-- Los botones se insertan aquí -->
+                <!-- Los botones se insertan dinámicamente -->
             </div>
             
         </div>
     </div>
 
     <script>
-        // BASE DE DATOS DE TRADUCCIONES (Ampliada a casi 30 idiomas)
+        // BASE DE DATOS DE TRADUCCIONES
         const translations = {
             es: { title: "SITIO EN MANTENIMIENTO", message: "Estimado lector, lamentamos no estar disponibles en este momento. Vuelva más tarde, nuestro equipo editorial trabaja para ofrecerle una experiencia renovada y digna de la alta costura.", label: "Traducir al Español" },
             en: { title: "SITE UNDER MAINTENANCE", message: "Dear reader, we apologize for being unavailable at this time. Please check back later; our editorial team is working to bring you a renewed experience worthy of haute couture.", label: "Translate to English" },
@@ -208,6 +244,14 @@
             ko: { title: "사이트 유지보수 중", message: "독자 여러분, 현재 이용할 수 없게 되어 죄송합니다. 나중에 다시 확인해 주세요. 편집팀은 오트쿠튀르에 걸맞은 새로운 경험을 제공하기 위해 노력하고 있습니다.", label: "한국어로 번역" }
         };
 
+        // Palabras para la rotación automática en la cápsula cerrada
+        const languageWords = [
+            "IDIOMAS", "LANGUAGES", "LANGUES", "LINGUE", "SPRACHEN", "TALEN", 
+            "SPRÅK", "SPROG", "KIELET", "JĘZYKI", "JAZYKY", "LIMBI", "ΓΛΩΣΣΕΣ", 
+            "DİLLER", "ЯЗЫКИ", "МОВИ", "اللغات", "שפות", "भाषाएं", "ภาษา", 
+            "BAHASA", "NGÔN NGỮ", "语言", "言語", "언어"
+        ];
+
         // DOM Elements
         const capsule = document.getElementById('language-capsule');
         const closedView = document.getElementById('capsule-closed-view');
@@ -215,11 +259,12 @@
         const dynamicContent = document.getElementById('central-dynamic-content');
         const overlay = document.getElementById('overlay-click-catcher');
         const languagesGrid = document.getElementById('languages-grid');
-        const currentSelectedLabel = document.getElementById('current-selected-lang');
+        const rotatingText = document.getElementById('current-selected-lang');
 
         let isCapsuleOpen = false;
+        let wordIndex = 0;
 
-        // 1. Renderizar botones de idiomas dinámicamente
+        // 1. Renderizar botones de idiomas
         Object.keys(translations).forEach(lang => {
             const btn = document.createElement('button');
             btn.type = 'button';
@@ -232,25 +277,44 @@
             languagesGrid.appendChild(btn);
         });
 
-        // 2. Controladores de la Cápsula Liquid Glass
+        // 2. Animación de "IDIOMAS" rotando en la cápsula
+        setInterval(() => {
+            if (isCapsuleOpen) return; // Se pausa la rotación si el menú está abierto
+            
+            // Iniciar Fade Out
+            rotatingText.classList.remove('opacity-100');
+            rotatingText.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                // Cambiar el texto
+                wordIndex = (wordIndex + 1) % languageWords.length;
+                rotatingText.textContent = languageWords[wordIndex];
+                
+                // Iniciar Fade In
+                rotatingText.classList.remove('opacity-0');
+                rotatingText.classList.add('opacity-100');
+            }, 500); // 500ms coincide con duration-500 de Tailwind
+        }, 2800); // Cambia cada 2.8 segundos
+
+        // 3. Controladores de la Cápsula (Sin Lag)
         function openLanguageCapsule(e) {
             if (isCapsuleOpen) return;
             if (e) e.stopPropagation();
             
             isCapsuleOpen = true;
 
-            // Expandir Cápsula (Ajuste para móviles y desktop)
-            capsule.classList.remove('w-[140px]', 'h-[40px]', 'md:w-[160px]', 'md:h-[44px]', 'rounded-full', 'hover:bg-white/80', 'cursor-pointer');
-            capsule.classList.add('w-[90vw]', 'md:w-[700px]', 'h-[65vh]', 'md:h-[60vh]', 'rounded-[32px]', 'cursor-default');
+            // Expandir Cápsula usando clases CSS precisas
+            capsule.classList.remove('capsule-closed');
+            capsule.classList.add('capsule-open');
 
-            // Mostrar el overlay desenfocado atrás
+            // Mostrar el overlay
             overlay.classList.remove('hidden');
             setTimeout(() => overlay.classList.remove('opacity-0'), 10);
 
-            // Ocultar texto central y hacer que "se eleve"
+            // Ocultar texto central elevándolo
             dynamicContent.classList.add('content-hidden');
 
-            // Cambiar vista interior de la cápsula
+            // Cambiar vista interior
             closedView.classList.remove('opacity-100');
             closedView.classList.add('opacity-0');
             
@@ -259,7 +323,7 @@
                 expandedView.classList.remove('pointer-events-none');
                 expandedView.classList.remove('opacity-0');
                 expandedView.classList.add('opacity-100');
-            }, 150);
+            }, 200);
         }
 
         function closeLanguageCapsule(e) {
@@ -269,8 +333,8 @@
             isCapsuleOpen = false;
 
             // Retraer Cápsula
-            capsule.classList.remove('w-[90vw]', 'md:w-[700px]', 'h-[65vh]', 'md:h-[60vh]', 'rounded-[32px]', 'cursor-default');
-            capsule.classList.add('w-[140px]', 'h-[40px]', 'md:w-[160px]', 'md:h-[44px]', 'rounded-full', 'hover:bg-white/80', 'cursor-pointer');
+            capsule.classList.remove('capsule-open');
+            capsule.classList.add('capsule-closed');
 
             // Ocultar overlay
             overlay.classList.add('opacity-0');
@@ -279,7 +343,7 @@
             // Restaurar texto central
             dynamicContent.classList.remove('content-hidden');
 
-            // Cambiar vista interior de la cápsula
+            // Cambiar vista interior
             expandedView.classList.remove('opacity-100');
             expandedView.classList.add('opacity-0');
             expandedView.classList.add('pointer-events-none');
@@ -288,10 +352,10 @@
                 closedView.classList.remove('pointer-events-none');
                 closedView.classList.remove('opacity-0');
                 closedView.classList.add('opacity-100');
-            }, 300);
+            }, 250);
         }
 
-        // 3. Sistema de Traducción
+        // 4. Sistema de Traducción Fluido
         function translatePage(lang) {
             const titleEl = document.getElementById('maintenance-title');
             const messageEl = document.getElementById('maintenance-message');
@@ -311,9 +375,6 @@
                 titleEl.textContent = translations[lang].title;
                 messageEl.textContent = translations[lang].message;
 
-                // Actualizar etiqueta del botón cerrado (Opcional, lo dejé estático pero podrías poner el idioma aquí)
-                // currentSelectedLabel.textContent = lang.toUpperCase(); 
-
                 htmlEl.lang = lang;
                 const textDirection = (lang === 'ar' || lang === 'he') ? 'rtl' : 'ltr';
                 titleEl.dir = textDirection;
@@ -324,7 +385,7 @@
                 titleEl.classList.add('opacity-100');
                 messageEl.classList.remove('opacity-0');
                 messageEl.classList.add('opacity-100');
-            }, 500);
+            }, 600);
         }
     </script>
 </body>
