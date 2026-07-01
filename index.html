@@ -39,7 +39,6 @@
             }
         }
     </script>
-
     <style>
         .no-scrollbar::-webkit-scrollbar {
             display: none;
@@ -49,7 +48,7 @@
             scrollbar-width: none;
         }
 
-        /* --- Sincronización Animaciones (Línea) --- */
+        /* --- Sincronització Animacions (Línia) --- */
         @keyframes slashAnim {
             0%, 20% { width: 0%; opacity: 0; transform: rotate(-45deg) scaleX(0); }
             30%, 70% { width: 145%; opacity: 1; transform: rotate(-45deg) scaleX(1); }
@@ -67,7 +66,7 @@
             z-index: 10;
         }
 
-        /* --- Estilos de la Isla Dinámica --- */
+        /* --- Estils de la Illa Dinàmica --- */
         .island-container {
             width: 0px; height: 0px; opacity: 0;
             transform: scale(0.5) translateY(-20px);
@@ -313,15 +312,15 @@
             </div>
         </div>
 
-        <!-- Grid HOY con efecto Sticky -->
+        <!-- Grid HOY -->
         <div class="w-full max-w-7xl mx-auto px-6 mb-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8">
 
-                <!-- Artículo 1: Los zapatos de tacón (Efecto Sticky activado con md:sticky md:top-[110px] y self-start) -->
-                <div class="md:col-span-1 md:sticky md:top-[110px] self-start cursor-pointer group z-10" onclick="window.location.href='zapatos-tacon-frances-elegantes-vestidos-faldas-verano-2026.html'">
-                    <div class="relative overflow-hidden aspect-[2/3] w-full shadow-lg transition-transform duration-300">
-                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1782769095/tendencias-de-zapatos-de-tacon_v89qmb.webp" alt="Los zapatos de tacón franceses más elegantes para llevar con vestidos y faldas en verano 2026" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent px-6 pt-24 pb-8 text-white text-center font-geometric">
+                <!-- Artículo 1: Los zapatos de tacón (grande, col-span-1) -->
+                <div class="md:col-span-1 cursor-pointer group" onclick="window.location.href='zapatos-tacon-frances-elegantes-vestidos-faldas-verano-2026.html'">
+                    <div class="relative overflow-hidden aspect-[2/3] w-full">
+                        <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1782769095/tendencias-de-zapatos-de-tacon_v89qmb.webp" alt="Los zapatos de tacón franceses más elegantes para llevar con vestidos y faldas en verano 2026" class="w-full h-full object-cover group-hover:opacity-95 transition-opacity duration-300"/>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent px-6 pt-24 pb-8 text-white text-center font-geometric">
                             <p class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase mb-3">MODA</p>
                             <h3 class="text-2xl md:text-3xl font-medium leading-[1.2] mb-4">Los zapatos de tacón franceses más elegantes para llevar con vestidos y faldas en verano 2026</h3>
                             <p class="text-[9px] font-bold tracking-[0.15em] uppercase">POR RENATA JOFFRE</p>
@@ -330,13 +329,13 @@
                     </div>
                 </div>
 
-                <!-- Columna central y derecha: 2 columnas de artículos pequeños que SI hacen scroll -->
+                <!-- Columna central y derecha: 2 columnas de artículos pequeños -->
                 <div class="md:col-span-2 grid grid-cols-2 gap-x-6 gap-y-10 md:gap-x-8 mt-8 md:mt-0 font-geometric">
 
                     <!-- Artículo 2: Así se llevan los zapatos jelly -->
                     <div class="cursor-pointer group flex flex-col" onclick="window.location.href='zapatos-jelly-tendencia-vestidos-faldas-jeans-verano-2026.html'">
                         <div class="overflow-hidden aspect-[4/5] w-full mb-3">
-                            <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1782769226/GettyImages-2276741149_swtzbv.webp" alt="Así se llevan los zapatos jelly en tendencia con vestidos, faldas y jeans en verano 2026" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                            <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1782769226/GettyImages-2276741149_swtzbv.webp" alt="Así se llevan los zapatos jelly en tendencia con vestidos, faldas y jeans en verano 2026" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
                         </div>
                         <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2">MODA</p>
                         <h3 class="text-[13px] md:text-sm font-medium leading-snug text-black mb-3">Así se llevan los zapatos jelly en tendencia con vestidos, faldas y jeans en verano 2026</h3>
@@ -347,7 +346,7 @@
                     <!-- Artículo 3: Los zapatos coreanos -->
                     <div class="cursor-pointer group flex flex-col" onclick="window.location.href='zapatos-coreanos-elegantes-jeans-faldas-vestidos-verano-2026.html'">
                         <div class="overflow-hidden aspect-[4/5] w-full mb-3">
-                            <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1782769227/jennie-kim-blackpink_ovsgol.webp" alt="Los zapatos coreanos que son elegantes para llevar con jeans, faldas y vestidos en verano 2026" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                            <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1782769227/jennie-kim-blackpink_ovsgol.webp" alt="Los zapatos coreanos que son elegantes para llevar con jeans, faldas y vestidos en verano 2026" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
                         </div>
                         <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2">MODA</p>
                         <h3 class="text-[13px] md:text-sm font-medium leading-snug text-black mb-3">Los zapatos coreanos que son elegantes para llevar con jeans, faldas y vestidos en verano 2026</h3>
@@ -357,21 +356,16 @@
 
                     <!-- Artículo 4: Isabel Allende -->
                     <div class="cursor-pointer group flex flex-col" onclick="window.location.href='isabel-allende.html'">
-                        <div class="overflow-hidden aspect-[4/5] w-full mb-3 bg-gray-100 flex items-center justify-center">
-                            <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1782769226/Isabel_Allende_Mayo_2023_Max_Fargo_1_sivrxt.webp" alt="Isabel Allende" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="overflow-hidden aspect-[4/5] w-full mb-3">
+                            <img src="https://res.cloudinary.com/dhx58lnzb/image/upload/v1782769226/Isabel_Allende_Mayo_2023_Max_Fargo_1_sivrxt.webp" alt="Isabel Allende" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
                         </div>
-                        <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2">ENTREVISTA</p>
-                        <h3 class="text-[13px] md:text-sm font-medium leading-snug text-black mb-3">La escritora Isabel Allende nos revela cómo mantenerse inspirada a través de las décadas.</h3>
-                        <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-black">POR EDITORIAL DEVON</p>
                     </div>
 
                     <!-- Artículo 5: Van Cleef & Arpels (imagen por ahora, video después) -->
                     <div class="cursor-pointer group flex flex-col" onclick="window.location.href='https://www.vancleefarpels.com/mx/es/collections/jewelry/perlee.html'" target="_blank">
-                        <div class="overflow-hidden aspect-[4/5] w-full mb-3 flex items-center justify-center bg-vanCleefBg">
-                            <img src="https://tpc.googlesyndication.com/simgad/14960857208790653678" alt="Van Cleef & Arpels – Colección Perlée" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="overflow-hidden aspect-[4/5] w-full mb-3">
+                            <img src="https://tpc.googlesyndication.com/simgad/14960857208790653678" alt="Van Cleef & Arpels – Colección Perlée" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
                         </div>
-                        <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">PATROCINADO</p>
-                        <h3 class="text-[13px] md:text-sm font-medium leading-snug text-black mb-3">La elegancia eterna de la colección Perlée para una temporada de lujo.</h3>
                     </div>
 
                 </div>
