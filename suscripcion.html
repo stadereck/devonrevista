@@ -419,10 +419,10 @@
                 <!-- Breadcrumb -->
                 <div class="text-[13px] md:text-[14px] text-gray-500 mb-6 font-sans tracking-normal font-light">
                     <a href="index.html" class="hover:text-black transition-colors">Inicio</a> <span
-                        class="mx-1 text-gray-300">•</span> <span class="text-gray-700">Devon México</span>
+                        class="mx-1 text-gray-300">•</span> <span class="text-gray-700">Devon México y Latinoamérica</span>
                 </div>
 
-                <h1 class="text-4xl md:text-[42px] font-serif text-[#1f2937] mb-2 leading-tight">Devon México</h1>
+                <h1 class="text-4xl md:text-[42px] font-serif text-[#1f2937] mb-2 leading-tight">Devon México y Latinoamérica</h1>
                 <p id="mainPrice"
                     class="text-[22px] text-gray-800 font-sans mb-10 font-normal transition-all duration-300">$412.00
                     MXN</p>
@@ -1045,6 +1045,11 @@
 
             if (localStorage.getItem("devonSubscribed") === "true") {
                 setSubscribedState();
+                // Si es un suscriptor anterior a la actualización o si tiene la bandera VIP
+                if (localStorage.getItem("devonSubscribedVIP") === "true" || !localStorage.getItem("devonSubscribedVIP")) {
+                    localStorage.setItem("devonSubscribedVIP", "true");
+                    applyCoupon("VIP100");
+                }
             }
 
             const hasEditions = false;
@@ -1079,6 +1084,7 @@
                         setTimeout(() => {
                             if (btnSpinner) btnSpinner.classList.add("hidden");
                             localStorage.setItem("devonSubscribed", "true");
+                            localStorage.setItem("devonSubscribedVIP", "true");
                             window.location.href = editionUrl;
                         }, 1200);
                         return;
