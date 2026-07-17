@@ -556,6 +556,133 @@
             </div>
         </div>
 
+        <!-- Título TÚ GUÍA PARA DESCUBRIR MÉXICO -->
+        <div class="max-w-7xl mx-auto px-6 mt-16 md:mt-24 mb-6">
+            <div class="border-t border-b border-gray-200 py-3 md:py-4 flex justify-between items-center">
+                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700 uppercase" style="font-family: 'Jost', sans-serif;">
+                    TÚ GUÍA PARA DESCUBRIR MÉXICO
+                </h2>
+                <!-- Flechas de navegación del carrusel -->
+                <div class="flex gap-4 text-gray-400">
+                    <button class="hover:text-black transition-colors" onclick="document.getElementById('guia-mexico-scroll').scrollBy({left: -300, behavior: 'smooth'})">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button class="hover:text-black transition-colors" onclick="document.getElementById('guia-mexico-scroll').scrollBy({left: 300, behavior: 'smooth'})">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carrusel Guía México -->
+        <div class="w-full max-w-7xl mx-auto px-6 mb-12 overflow-hidden">
+            <div id="guia-mexico-scroll" class="flex overflow-x-auto snap-x snap-mandatory gap-6 md:gap-8 pb-4 no-scrollbar scroll-smooth">
+                
+                <!-- Card 1: CDMX -->
+                <div class="w-[85%] md:w-[45%] lg:w-[31.5%] flex-shrink-0 snap-start cursor-pointer group flex flex-col" onclick="window.location.href='#'">
+                    <div class="relative overflow-hidden aspect-square w-full mb-3">
+                        <img src="https://media.vogue.mx/photos/68de9d8ec8833f016cb85336/1:1/w_1600,c_limit/que-hacer-en-la-cdmx-guia-vogue-mexico.jpg" alt="Guía CDMX" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                    </div>
+                    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2 font-geometric">ESTILO DE VIDA</p>
+                    <h3 class="text-[13px] md:text-[15px] font-medium leading-snug text-black font-geometric">Qué hacer en CDMX: La guía Vogue para redescubrirla en 2026</h3>
+                </div>
+
+                <!-- Card 2: Monterrey -->
+                <div class="w-[85%] md:w-[45%] lg:w-[31.5%] flex-shrink-0 snap-start cursor-pointer group flex flex-col" onclick="window.location.href='#'">
+                    <div class="relative overflow-hidden aspect-square w-full mb-3">
+                        <img src="https://media.vogue.mx/photos/6a207601b391027998369ccb/1:1/w_1600,c_limit/MONTERREY-COVER.jpg" alt="Guía Monterrey" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                    </div>
+                    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2 font-geometric">ESTILO DE VIDA</p>
+                    <h3 class="text-[13px] md:text-[15px] font-medium leading-snug text-black font-geometric">Qué hacer en Monterrey: Vogue te comparte la guía (imperdible) para descubrirla</h3>
+                </div>
+
+                <!-- Card 3: Guadalajara -->
+                <div class="w-[85%] md:w-[45%] lg:w-[31.5%] flex-shrink-0 snap-start cursor-pointer group flex flex-col" onclick="window.location.href='#'">
+                    <div class="relative overflow-hidden aspect-square w-full mb-3">
+                        <img src="https://media.vogue.mx/photos/697909579f1a2c50783dc54c/1:1/w_1600,c_limit/que-hacer-en-guadalajara.jpg" alt="Guía Guadalajara" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                    </div>
+                    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2 font-geometric">ESTILO DE VIDA</p>
+                    <h3 class="text-[13px] md:text-[15px] font-medium leading-snug text-black font-geometric">Qué hacer en Guadalajara: La guía Vogue para descubrirla</h3>
+                </div>
+
+                <!-- Card 4: Restaurantes -->
+                <div class="w-[85%] md:w-[45%] lg:w-[31.5%] flex-shrink-0 snap-start cursor-pointer group flex flex-col" onclick="window.location.href='#'">
+                    <div class="relative overflow-hidden aspect-square w-full mb-3">
+                        <img src="https://media.vogue.mx/photos/67db7989b7f61a024861a785/1:1/w_1600,c_limit/fabiola-escobosa-chef-de-cana-en-cdmx-con-estrella-michelin.jpg" alt="Restaurantes CDMX" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                    </div>
+                    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2 font-geometric">ESTILO DE VIDA</p>
+                    <h3 class="text-[13px] md:text-[15px] font-medium leading-snug text-black font-geometric">Los mejores restaurantes en la Ciudad de México</h3>
+                </div>
+
+            </div>
+
+            <!-- Indicadores de Paginación (Puntos) -->
+            <div class="flex justify-center items-center gap-2 mt-4 md:mt-6 mb-2">
+                <button id="dot-0" class="w-1.5 h-1.5 rounded-full bg-black transition-colors" onclick="scrollToSlide(0)" aria-label="Ir a la primera página"></button>
+                <button id="dot-1" class="w-1.5 h-1.5 rounded-full bg-gray-200 transition-colors" onclick="scrollToSlide(1)" aria-label="Ir a la segunda página"></button>
+            </div>
+        </div>
+
+        <!-- Título ESTILO DE VIDA (Nueva Sección) -->
+        <div class="max-w-7xl mx-auto px-6 mt-10 md:mt-16 mb-6">
+            <div class="border-t border-b border-gray-200 py-3 md:py-4">
+                <h2 class="text-lg md:text-xl font-light tracking-wide text-gray-700 uppercase" style="font-family: 'Jost', sans-serif;">
+                    ESTILO DE VIDA
+                </h2>
+            </div>
+        </div>
+
+        <!-- Grid Estilo de Vida -->
+        <div class="w-full max-w-7xl mx-auto px-6 mb-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 font-geometric">
+                
+                <!-- Artículo 1 -->
+                <div class="cursor-pointer group flex flex-col" onclick="window.location.href='#'">
+                    <div class="overflow-hidden aspect-square w-full mb-3">
+                        <img src="https://media.vogue.mx/photos/6a591559d68073e833cdfdb6/1:1/w_1600,c_limit/porsche-perro-collar-.jpg" alt="Collar Porsche para perro" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                    </div>
+                    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2">VOGUE PARA PORSCHE</p>
+                    <h3 class="text-[13px] md:text-sm font-medium leading-snug text-black mb-3">El accesorio más sofisticado de la temporada no es para ti... es para tu perrito</h3>
+                    <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-black">POR ALEJANDRA OLMEDO</p>
+                    <p class="text-[11px] font-medium text-black mt-0.5">16 de julio de 2026</p>
+                </div>
+
+                <!-- Artículo 2 -->
+                <div class="cursor-pointer group flex flex-col" onclick="window.location.href='#'">
+                    <div class="overflow-hidden aspect-square w-full mb-3">
+                        <img src="https://media.vogue.mx/photos/6a513dba0c407c76e5fca2e9/1:1/w_1600,c_limit/Republica-Dominicana-Muelle-de-Miches.jpg" alt="Muelle de Miches, República Dominicana" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                    </div>
+                    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2">VOGUE PARA REPÚBLICA DOMINICANA</p>
+                    <h3 class="text-[13px] md:text-sm font-medium leading-snug text-black mb-3">Una invitación a descubrir Miches</h3>
+                    <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-black">POR JOSÉ FORTEZA</p>
+                    <p class="text-[11px] font-medium text-black mt-0.5">16 de julio de 2026</p>
+                </div>
+
+                <!-- Artículo 3 -->
+                <div class="cursor-pointer group flex flex-col" onclick="window.location.href='#'">
+                    <div class="overflow-hidden aspect-square w-full mb-3">
+                        <img src="https://media.vogue.mx/photos/6a581a251d13b46b1ca72073/1:1/w_1600,c_limit/Karla-Souza.jpg" alt="Karla Souza" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                    </div>
+                    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2">ESTILO DE VIDA</p>
+                    <h3 class="text-[13px] md:text-sm font-medium leading-snug text-black mb-3">"La vista le permite a una persona seguir haciendo aquello que le da identidad": Así fue mi experiencia con Orbis International</h3>
+                    <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-black">POR VOGUE</p>
+                    <p class="text-[11px] font-medium text-black mt-0.5">16 de julio de 2026</p>
+                </div>
+
+                <!-- Artículo 4 -->
+                <div class="cursor-pointer group flex flex-col" onclick="window.location.href='#'">
+                    <div class="overflow-hidden aspect-square w-full mb-3">
+                        <img src="https://media.vogue.mx/photos/6a441d1125357b94bd7ac4a9/1:1/w_1600,c_limit/horo%CC%81scopo-de-hoy-jueves-16-de-julio-de-2026.jpg" alt="Horóscopo de hoy" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
+                    </div>
+                    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-black mb-2">ESTILO DE VIDA</p>
+                    <h3 class="text-[13px] md:text-sm font-medium leading-snug text-black mb-3">Horóscopo de hoy: 16 de julio de 2026</h3>
+                    <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-black">POR MEREATH ASTROLOGY</p>
+                    <p class="text-[11px] font-medium text-black mt-0.5">16 de julio de 2026</p>
+                </div>
+
+            </div>
+        </div>
+
     </main>
 
     <!-- FOOTER: Diseño estilo Vogue -->
@@ -822,6 +949,20 @@
         }
         function closeAll() { hideOverlay(); }
 
+        // --- Lógica del Carrusel (Puntos de Paginación) ---
+        window.scrollToSlide = function(pageIndex) {
+            const scrollContainer = document.getElementById('guia-mexico-scroll');
+            if (!scrollContainer) return;
+            
+            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            
+            if (pageIndex === 0) {
+                scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                scrollContainer.scrollTo({ left: maxScroll, behavior: 'smooth' });
+            }
+        };
+
         // --- 7. Selector de País (Footer) ---
         const countryBtn = document.getElementById('country-selector-btn');
         const countryDropdown = document.getElementById('country-dropdown');
@@ -869,14 +1010,13 @@
             document.body.style.overflow = 'hidden';
 
             // --- EFECTO REVELACIÓN: Preparar la página web para ocultarla inicialmente ---
-            // 1. Ocultar el logo de la barra superior para que no se vea doble
             const realLogo = document.getElementById('devon-text');
             if (realLogo) {
                 realLogo.style.opacity = '0';
                 realLogo.style.transition = 'opacity 0.4s ease-in-out';
             }
 
-            // 2. Seleccionar los bloques principales de la página para la animación de entrada
+            // Seleccionar los bloques principales de la página para la animación de entrada
             const siteElements = Array.from(document.body.children).filter(el => 
                 ['HEADER', 'MAIN', 'FOOTER', 'SECTION', 'DIV'].includes(el.tagName) && 
                 !['intro-wrapper', 'overlay', 'sidebarMenu'].includes(el.id)
@@ -884,7 +1024,6 @@
             
             siteElements.forEach(el => {
                 el.style.opacity = '0';
-                // La cabecera (HEADER) no se traslada en Y para que el logo sepa su coordenada final exacta
                 if (el.tagName !== 'HEADER') {
                     el.style.transform = 'translateY(30px)';
                     el.style.transition = 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
@@ -894,12 +1033,8 @@
             });
 
             // --- ANIMACIÓN ÚNICA: Transición fluida con el logo DEVON ---
-            
-            // 1. Crear el texto inicial centrado
             const finalLogo = document.createElement('div');
             finalLogo.textContent = 'DEVON';
-            
-            // Clases básicas (sin las transiciones de Tailwind para controlarlo mejor con JS)
             finalLogo.className = 'font-serif text-black font-bold tracking-[0.2em] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 scale-95';
             finalLogo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
             finalLogo.style.fontSize = 'clamp(3rem, 12vw, 10rem)'; 
@@ -908,26 +1043,27 @@
             // Forzar un reflow para que el navegador registre el estado inicial
             void finalLogo.offsetWidth;
             
-            // 2. Aparecer el logo DEVON inmediatamente en el centro
+            // Aparecer el logo DEVON inmediatamente en el centro
             finalLogo.style.opacity = '1';
             finalLogo.style.transform = 'translate(-50%, -50%) scale(1)';
 
-            // 3. COREOGRAFÍA FINAL: El logo vuela hacia arriba, el fondo se desvanece y la web se revela
+            // COREOGRAFÍA FINAL: El logo vuela hacia arriba, el fondo se desvanece y la web se revela
             setTimeout(() => {
+                if(!realLogo) return;
                 const realLogoTextSpan = realLogo.querySelector('span'); // Seleccionamos solo el texto "DEVON"
-                const targetRect = realLogoTextSpan.getBoundingClientRect(); // Calculamos la posición exacta solo de la palabra
+                const targetRect = realLogoTextSpan.getBoundingClientRect(); // Calculamos la posición exacta
                 
-                // A) El fondo blanco del intro se vuelve transparente suavemente
+                // El fondo blanco del intro se vuelve transparente suavemente
                 introWrapper.style.transition = 'background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
                 introWrapper.style.backgroundColor = 'transparent';
                 
-                // B) Aparecer todo el contenido de la web con efecto de elevación "premium"
+                // Aparecer todo el contenido de la web
                 siteElements.forEach(el => {
                     el.style.opacity = '1';
                     if (el.tagName !== 'HEADER') el.style.transform = 'translateY(0)';
                 });
                 
-                // C) El logo central viaja y se encoge hacia la posición exacta de la palabra en el header
+                // El logo central viaja y se encoge hacia la posición exacta
                 finalLogo.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
                 finalLogo.style.top = (targetRect.top + (targetRect.height / 2)) + 'px';
                 finalLogo.style.fontSize = window.getComputedStyle(realLogoTextSpan).fontSize;
@@ -938,16 +1074,37 @@
                 // Justo cuando termine el vuelo de 800ms, damos el cambiazo invisible
                 setTimeout(() => {
                     finalLogo.style.opacity = '0'; // Se oculta el animado
-                    realLogo.style.opacity = '1';  // Se revela el original (y aparece México y Latam suavemente abajo)
+                    realLogo.style.opacity = '1';  // Se revela el original
                     
-                    // Limpiar por completo el intro del DOM para no dejar residuos
+                    // Limpiar por completo el intro del DOM
                     setTimeout(() => {
                         introWrapper.remove();
                     }, 500);
 
                 }, 800);
 
-            }, 1800); // El logo DEVON se admira en el centro durante 1.8 segundos antes de despegar
+            }, 1800); 
+
+            // --- Actualizar Puntos de Paginación al hacer scroll manual en el carrusel ---
+            const guiaScroll = document.getElementById('guia-mexico-scroll');
+            const dot0 = document.getElementById('dot-0');
+            const dot1 = document.getElementById('dot-1');
+
+            if (guiaScroll && dot0 && dot1) {
+                guiaScroll.addEventListener('scroll', () => {
+                    const maxScroll = guiaScroll.scrollWidth - guiaScroll.clientWidth;
+                    const currentScroll = guiaScroll.scrollLeft;
+                    
+                    if (currentScroll < maxScroll / 2) {
+                        dot0.classList.replace('bg-gray-200', 'bg-black');
+                        dot1.classList.replace('bg-black', 'bg-gray-200');
+                    } else {
+                        dot0.classList.replace('bg-black', 'bg-gray-200');
+                        dot1.classList.replace('bg-gray-200', 'bg-black');
+                    }
+                });
+            }
+
         });
     </script>
 </body>
