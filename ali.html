@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2PXX7XFEZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y2PXX7XFEZ');
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Devon Members</title>
@@ -702,6 +712,102 @@
             }, 1800); 
         });
     </script>
+
+<!-- BANNER UNIVERSAL DEVON -->
+<div id="devon-analytics-lock" class="fixed inset-0 z-[9998] hidden flex items-center justify-center pointer-events-auto">
+    <div class="absolute inset-0 bg-transparent"></div>
+    <div id="devon-lock-box" class="relative bg-white border border-black shadow-2xl p-8 text-center text-black font-sans max-w-sm mx-4 pointer-events-none opacity-0 translate-y-12 scale-95 transition-all duration-700 ease-out">
+        <h2 class="font-bold text-xl mb-3">Aviso Importante</h2>
+        <p class="text-base text-gray-800">No puedes usar la página hasta aceptar los términos y condiciones de privacidad y análisis.</p>
+    </div>
+</div>
+<div id="devon-analytics-banner" class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-6 flex flex-col md:flex-row items-center justify-between z-[9999] transform transition-all duration-1000 translate-y-full opacity-0 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] font-sans">
+    <div class="mb-4 md:mb-0 md:mr-6 text-gray-800 text-sm md:text-base flex-1">
+        Usamos herramientas de análisis para saber cómo usas la página y mejorar tu experiencia.
+        <br>
+        <a href="analisismasinformacion.html" class="text-brandPink hover:text-black font-semibold mt-2 inline-block transition-colors underline">Más Información</a>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        <button id="devon-btn-accept" class="px-8 py-3 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors whitespace-nowrap w-full sm:w-auto">
+            Aceptar
+        </button>
+        <button id="devon-btn-reject" class="px-8 py-3 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors whitespace-nowrap w-full sm:w-auto">
+            No aceptar y salir
+        </button>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const banner = document.getElementById('devon-analytics-banner');
+        const lock = document.getElementById('devon-analytics-lock');
+        
+        // Si ya aceptó antes, destruimos el banner del DOM para siempre y salimos
+        if (localStorage.getItem('devon_analytics_consent') === 'true') {
+            if (banner) banner.remove();
+            if (lock) lock.remove();
+            return;
+        }
+        
+        const lockBox = document.getElementById('devon-lock-box');
+        const btnAccept = document.getElementById('devon-btn-accept');
+        const btnReject = document.getElementById('devon-btn-reject');
+        
+        // Es la primera vez: mostrar el banner con animación sutil hacia arriba
+        setTimeout(() => {
+            if (banner) {
+                banner.classList.remove('translate-y-full', 'opacity-0');
+            }
+        }, 800);
+        
+        let lockTimer;
+        // Don't apply the lock on the privacy page
+        if (!window.location.pathname.includes('analisismasinformacion.html')) {
+            lockTimer = setTimeout(() => {
+                if (lock) {
+                    lock.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    setTimeout(() => {
+                        if (lockBox) {
+                            lockBox.classList.remove('opacity-0', 'translate-y-12', 'scale-95');
+                            lockBox.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+                        }
+                    }, 50);
+                }
+            }, 5000);
+        }
+        
+        if (btnAccept) {
+            btnAccept.addEventListener('click', () => {
+                // Guardar para siempre
+                localStorage.setItem('devon_analytics_consent', 'true');
+                if (lockTimer) clearTimeout(lockTimer);
+                
+                // Animación sutil de desaparición (baja y se desvanece)
+                if (banner) {
+                    banner.classList.add('translate-y-full', 'opacity-0');
+                }
+                if (lockBox) {
+                    lockBox.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+                    lockBox.classList.add('opacity-0', 'translate-y-12', 'scale-95');
+                }
+                
+                // Remover completamente después de la animación
+                setTimeout(() => {
+                    if (lock) lock.remove();
+                    if (banner) banner.remove();
+                    document.body.style.overflow = '';
+                }, 1000); // 1 segundo para asegurar que termine la transición
+            });
+        }
+        
+        if (btnReject) {
+            btnReject.addEventListener('click', () => {
+                window.location.href = 'https://www.google.com';
+            });
+        }
+    });
+</script>
+<!-- FIN BANNER UNIVERSAL DEVON -->
 </body>
 </html>
 
