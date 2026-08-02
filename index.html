@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2PXX7XFEZ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -36,10 +35,10 @@
                         geometric: ['"Century Gothic"', '"Avant Garde"', 'Questrial', 'sans-serif'],
                     },
                     colors: {
-                        brandPink: '#E8A5D6',
-                        brandDark: '#0B1320',
-                        brandGray: '#F2F2F2',
-                        vanCleefBg: '#E5F0E6'
+                        brandPink: 'hsl(316, 59%, 78%)',
+                        brandDark: 'hsl(217, 49%, 8%)',
+                        brandGray: 'hsl(0, 0%, 95%)',
+                        vanCleefBg: 'hsl(125, 27%, 92%)'
                     },
                     letterSpacing: {
                         widest: '.2em',
@@ -82,8 +81,8 @@
             transform: scale(0.5) translateY(-20px);
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             pointer-events: none;
-            background-color: #1a1a1a; 
-            border: 1px solid #333;
+            background-color: hsl(0, 0%, 10%); 
+            border: 1px solid hsl(0, 0%, 20%);
         }
         
         .island-container.active {
@@ -178,7 +177,7 @@
         #intro-wrapper {
             position: fixed;
             inset: 0;
-            background-color: #ffffff; /* Fondo blanco suave */
+            background-color: hsl(0, 0%, 100%); /* Fondo blanco suave en HSL */
             z-index: 999999;
             overflow: hidden;
             transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
@@ -331,9 +330,9 @@
 
                 <!-- Columna Central -->
                 <div class="lg:col-span-3 flex flex-col gap-10 font-geometric">
-                    <!-- Devon Ficción -->
+                    <!-- Devon Ficción (Usando hsl(0,0%,96%) en vez de #f4f4f4) -->
                     <div class="cursor-pointer group flex flex-col" onclick="window.location.href='#'">
-                        <div class="overflow-hidden aspect-[4/5] w-full mb-4 bg-[#f4f4f4]">
+                        <div class="overflow-hidden aspect-[4/5] w-full mb-4 bg-[hsl(0,0%,96%)]">
                             <img src="https://media.vogue.mx/photos/6a57cd174369570d3907e270/2:3/w_960,c_limit/VOGUE%20FICCIO%CC%81N-ILUSTRACION-MARGEN%20DE%20COSTURA.jpg" alt="Margen de costura" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"/>
                         </div>
                         <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-2">VOGUE FICCIÓN 2026</p>
@@ -367,9 +366,9 @@
                         <p class="text-[11px] font-normal text-gray-500">15 de julio de 2026</p>
                     </div>
 
-                    <!-- Van Cleef Ad -->
+                    <!-- Van Cleef Ad (Usando hsl(125,27%,92%) en vez de #E5F0E6) -->
                     <div class="cursor-pointer group flex flex-col" onclick="window.open('https://www.vancleefarpels.com/mx/es/collections/jewelry/perlee.html', '_blank')">
-                        <div class="overflow-hidden w-full bg-[#E5F0E6] flex items-center justify-center mb-4">
+                        <div class="overflow-hidden w-full bg-[hsl(125,27%,92%)] flex items-center justify-center mb-4">
                             <img src="https://tpc.googlesyndication.com/simgad/14960857208790653678" alt="Van Cleef & Arpels – Colección Perlée" class="w-full h-auto object-contain group-hover:opacity-90 transition-opacity duration-300"/>
                         </div>
                     </div>
@@ -771,8 +770,8 @@
                     México
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </button>
-                <!-- Dropdown Menu de País -->
-                <div id="country-dropdown" class="absolute bottom-full mb-2 right-0 w-40 bg-[#0a0a0a] border border-gray-800 shadow-2xl hidden flex-col transition-all duration-200 opacity-0 transform translate-y-2 z-50">
+                <!-- Dropdown Menu de País usando hsl(0,0%,4%) en vez de #0a0a0a -->
+                <div id="country-dropdown" class="absolute bottom-full mb-2 right-0 w-40 bg-[hsl(0,0%,4%)] border border-gray-800 shadow-2xl hidden flex-col transition-all duration-200 opacity-0 transform translate-y-2 z-50">
                     <a href="https://stadereck.github.io/devonrevista/index" class="px-5 py-4 text-[11px] font-bold tracking-widest text-gray-400 hover:text-white hover:bg-gray-900 border-b border-gray-800 transition-colors uppercase">
                         México
                     </a>
@@ -1012,8 +1011,8 @@
             // Contenedor principal de la animación
             const introWrapper = document.createElement('div');
             introWrapper.id = 'intro-wrapper';
-            // Configurar el fondo de inmediato para que empiece de blanco
-            introWrapper.style.backgroundColor = '#ffffff'; 
+            // Configurar el fondo de inmediato para que empiece de blanco en HSL
+            introWrapper.style.backgroundColor = 'hsl(0, 0%, 100%)'; 
             document.body.appendChild(introWrapper);
             
             // Bloquear el scroll de la página para no arruinar la animación
@@ -1118,7 +1117,6 @@
         });
     </script>
     
-
 <!-- BANNER UNIVERSAL DEVON -->
 <div id="devon-analytics-lock" class="fixed inset-0 z-[9998] hidden flex items-center justify-center pointer-events-auto">
     <div class="absolute inset-0 bg-transparent"></div>
